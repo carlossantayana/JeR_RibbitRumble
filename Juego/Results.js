@@ -5,7 +5,7 @@ export default class Results extends Phaser.Scene
         super('Results');
     }
 
-    init (data) //Esto se ejecuta al iniciar la escena, puede recivir cosas
+    init (player1ID,player2ID,winerPlayer) //Esto se ejecuta al iniciar la escena, recivirá el personaje ganador y perdedor, además del número del jugador que halla ganado
     {
 
     }

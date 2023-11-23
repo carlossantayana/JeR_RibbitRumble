@@ -7,6 +7,6 @@ export default class PlayerSelectionMenu extends Phaser.Scene
 
     create ()
     {
-        //Se tienen que cargar las escenas
+        //Se tiene que cargar la escena de selección de mapa, pasándole los personajes elegidos
     }
 }

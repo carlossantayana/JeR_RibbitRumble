@@ -5,13 +5,14 @@ export default class MapSelectionMenu extends Phaser.Scene
         super('MapSelectionMenu');
     }
 
-    init (data) //Esto se ejecuta al iniciar la escena, puede recivir cosas
+    init (player1ID,player2ID) //Esto se ejecuta al iniciar la escena, para recivir los personajes elegidos
     {
 
     }
 
     create ()
     {
-        //Se tienen que cargar las escenas
+        //Se tiene que cargar la escena de juego, pasándole los personajes elegidos y el mapa seleccionado
+        
     }
 }

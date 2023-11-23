@@ -7,6 +7,6 @@ export default class MainMenu extends Phaser.Scene
 
     create ()
     {
-        //Se tienen que cargar las escenas
+        //Se tienen que cargar las escenas correspondientes
     }
 }
