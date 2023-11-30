@@ -1,3 +1,5 @@
+"use strict";
+
 export default class MainMenu extends Phaser.Scene
 {
     constructor ()
@@ -7,6 +9,6 @@ export default class MainMenu extends Phaser.Scene
 
     create ()
     {
-        //Se tienen que cargar las escenas correspondientes
+        this.add.image(940, 534.5, 'fondo');
     }
 }

@@ -1,3 +1,5 @@
+"use strict";
+
 export default class PlayerSelectionMenu extends Phaser.Scene
 {
     constructor ()

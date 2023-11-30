@@ -1,3 +1,5 @@
+"use strict";
+
 export default class MapSelectionMenu extends Phaser.Scene
 {
     constructor ()

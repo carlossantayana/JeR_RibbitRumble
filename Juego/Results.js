@@ -1,3 +1,5 @@
+"use strict";
+
 export default class Results extends Phaser.Scene
 {
     constructor ()

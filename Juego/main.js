@@ -1,4 +1,5 @@
-import Boot from './Boot.js';
+"use strict";
+
 import Preloader from './Preloader.js';
 import MainMenu from './MainMenu.js';
 import PlayerSelectionMenu from './PlayerSelectionMenu.js';
@@ -8,15 +9,20 @@ import Results from './Results.js';
 
 const config = { //Configuración general
     type: Phaser.AUTO,
-    width: 800,
-    height: 600,
+    width: 1920,
+    height: 1080,
     backgroundColor: '#000000',
-    parent: 'phaser-example',
-    scene: [ Boot, Preloader, MainMenu, PlayerSelectionMenu, MapSelectionMenu, Game, Results], //Escenas, Boot está primero, se cargara Boot primero
+    scene: [ Preloader, MainMenu, PlayerSelectionMenu, MapSelectionMenu, Game, Results], //Escenas, Preloader está primero, se cargara Preloader primero
+    scale:{
+        mode: Phaser.Scale.FIT,
+        autoCenter: Phaser.Scale.CENTER_BOTH
+    },
     physics: {
         default: 'arcade',
-        arcade: { debug: false }
+        arcade: { 
+            gravity: 300,
+            debug: false }
     }
 };
 
-let game = new Phaser.Game(config); //Crear juego
+var game = new Phaser.Game(config); //Crear juego
