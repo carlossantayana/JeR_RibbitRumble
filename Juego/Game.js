@@ -1,5 +1,7 @@
 "use strict";
 
+import Fighter from './Fighter.js';
+
 export default class Game extends Phaser.Scene
 {
     constructor ()
