@@ -87,6 +87,6 @@ export default class PlayerSelectionMenu extends Phaser.Scene {
 
     //Encargada de llevar a la escena de seleccion de mapa
     onMapSelection() {
-        this.scene.start('MapSelectionMenu'); //Cargar Escena de selección de personaje
+        this.scene.start('MapSelectionMenu'); //Cargar Escena de selección de mapa, hay que pasarle la id de personajes
     }
 }

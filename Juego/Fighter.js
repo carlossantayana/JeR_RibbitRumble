@@ -1,11 +1,14 @@
+"use strict";
+
 export default class Fighter extends Phaser.Physics.Arcade.Image
 {
     constructor (scene, x, y, characterIdx, alt, playerId)
     {
-        super(scene, x, y, 'Imagen', 'Fighter');
+        this.scene=scene;
+        super(this.scene, x, y, 'Imagen');
 
-        scene.add.existing(this);
-        scene.physics.add.existing(this);
+        this.scene.add.existing(this);
+        this.scene.physics.add.existing(this);
 
         this.setCollideWorldBounds(true);
 
@@ -13,6 +16,9 @@ export default class Fighter extends Phaser.Physics.Arcade.Image
         this.character=characterIdx;
         this.altSkin=alt;
         this.player=playerId;
+        //Estos parámetros se utilizan para la comprobación de overlap de jugadores
+        this.attacking=false;
+        this.blocking=false;
 
         this.asignAnimations();
     }
@@ -23,6 +29,13 @@ export default class Fighter extends Phaser.Physics.Arcade.Image
         }
         else{
 
+        }
+    }
+
+    takeDamage(quantity){
+        this.hp-=quantity;
+        if(hp<=0){
+            this.scene.roundEnd(this.player);
         }
     }
 
