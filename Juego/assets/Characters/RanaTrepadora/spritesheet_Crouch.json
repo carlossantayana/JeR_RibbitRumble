@@ -1,0 +1,115 @@
+{
+	"frames": {
+		"RanaTrepadora_Crouch0000.png": {
+			"frame": {
+				"x": 1,
+				"y": 1,
+				"w": 2289,
+				"h": 1653
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 2289,
+				"h": 1653
+			},
+			"sourceSize": {
+				"w": 2289,
+				"h": 1653
+			}
+		},
+		"RanaTrepadora_Crouch0001.png": {
+			"frame": {
+				"x": 2292,
+				"y": 1,
+				"w": 2289,
+				"h": 1653
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 2289,
+				"h": 1653
+			},
+			"sourceSize": {
+				"w": 2289,
+				"h": 1653
+			}
+		},
+		"RanaTrepadora_Crouch0002.png": {
+			"frame": {
+				"x": 4583,
+				"y": 1,
+				"w": 2289,
+				"h": 1653
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 2289,
+				"h": 1653
+			},
+			"sourceSize": {
+				"w": 2289,
+				"h": 1653
+			}
+		},
+		"RanaTrepadora_Crouch0003.png": {
+			"frame": {
+				"x": 6874,
+				"y": 1,
+				"w": 2289,
+				"h": 1653
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 2289,
+				"h": 1653
+			},
+			"sourceSize": {
+				"w": 2289,
+				"h": 1653
+			}
+		},
+		"RanaTrepadora_Crouch0004.png": {
+			"frame": {
+				"x": 9165,
+				"y": 1,
+				"w": 2289,
+				"h": 1653
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 2289,
+				"h": 1653
+			},
+			"sourceSize": {
+				"w": 2289,
+				"h": 1653
+			}
+		}
+	},
+	"meta": {
+		"app": "http://www.codeandweb.com/texturepacker",
+		"version": "1.0",
+		"image": "spritesheet.png",
+		"format": "RGBA8888",
+		"size": {
+			"w": 11455,
+			"h": 1655
+		},
+		"scale": "1"
+	}
+}

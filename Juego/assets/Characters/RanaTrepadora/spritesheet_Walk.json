@@ -1,0 +1,195 @@
+{
+	"frames": {
+		"RanaTrepadora_Walk0000.png": {
+			"frame": {
+				"x": 1,
+				"y": 1,
+				"w": 2289,
+				"h": 1653
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 2289,
+				"h": 1653
+			},
+			"sourceSize": {
+				"w": 2289,
+				"h": 1653
+			}
+		},
+		"RanaTrepadora_Walk0001.png": {
+			"frame": {
+				"x": 2292,
+				"y": 1,
+				"w": 2289,
+				"h": 1653
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 2289,
+				"h": 1653
+			},
+			"sourceSize": {
+				"w": 2289,
+				"h": 1653
+			}
+		},
+		"RanaTrepadora_Walk0002.png": {
+			"frame": {
+				"x": 4583,
+				"y": 1,
+				"w": 2289,
+				"h": 1653
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 2289,
+				"h": 1653
+			},
+			"sourceSize": {
+				"w": 2289,
+				"h": 1653
+			}
+		},
+		"RanaTrepadora_Walk0003.png": {
+			"frame": {
+				"x": 6874,
+				"y": 1,
+				"w": 2289,
+				"h": 1653
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 2289,
+				"h": 1653
+			},
+			"sourceSize": {
+				"w": 2289,
+				"h": 1653
+			}
+		},
+		"RanaTrepadora_Walk0004.png": {
+			"frame": {
+				"x": 9165,
+				"y": 1,
+				"w": 2289,
+				"h": 1653
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 2289,
+				"h": 1653
+			},
+			"sourceSize": {
+				"w": 2289,
+				"h": 1653
+			}
+		},
+		"RanaTrepadora_Walk0005.png": {
+			"frame": {
+				"x": 11456,
+				"y": 1,
+				"w": 2289,
+				"h": 1653
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 2289,
+				"h": 1653
+			},
+			"sourceSize": {
+				"w": 2289,
+				"h": 1653
+			}
+		},
+		"RanaTrepadora_Walk0006.png": {
+			"frame": {
+				"x": 13747,
+				"y": 1,
+				"w": 2289,
+				"h": 1653
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 2289,
+				"h": 1653
+			},
+			"sourceSize": {
+				"w": 2289,
+				"h": 1653
+			}
+		},
+		"RanaTrepadora_Walk0007.png": {
+			"frame": {
+				"x": 16038,
+				"y": 1,
+				"w": 2289,
+				"h": 1653
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 2289,
+				"h": 1653
+			},
+			"sourceSize": {
+				"w": 2289,
+				"h": 1653
+			}
+		},
+		"RanaTrepadora_Walk0008.png": {
+			"frame": {
+				"x": 18329,
+				"y": 1,
+				"w": 2289,
+				"h": 1653
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 2289,
+				"h": 1653
+			},
+			"sourceSize": {
+				"w": 2289,
+				"h": 1653
+			}
+		}
+	},
+	"meta": {
+		"app": "http://www.codeandweb.com/texturepacker",
+		"version": "1.0",
+		"image": "spritesheet.png",
+		"format": "RGBA8888",
+		"size": {
+			"w": 20619,
+			"h": 1655
+		},
+		"scale": "1"
+	}
+}
