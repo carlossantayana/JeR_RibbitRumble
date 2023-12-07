@@ -16,6 +16,10 @@ export default class Preloader extends Phaser.Scene
         this.load.setPath('assets/Menu/Menu principal');
         this.load.image('menuPrincipal', 'MenuRanasDEFINITIVO.png')
 
+        this.load.setPath('assets/Menu/Menus general');
+        this.load.image('menuFondo', 'FondoMenus.png')
+
+
         this.load.setPath('assets/CharacterPortraits');
         this.load.image('retratoPrueba', 'RetratoPrueba.jpg')
         this.load.image('ranaFlechaSelect', 'ranaFlechaSelect.png')

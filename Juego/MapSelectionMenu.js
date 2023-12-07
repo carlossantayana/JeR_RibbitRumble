@@ -14,6 +14,7 @@ export default class MapSelectionMenu extends Phaser.Scene
 
     create ()
     {
+        this.add.image(940, 534.5, 'menuFondo').setScale(0.5);
         //Se tiene que cargar la escena de juego, pasándole los personajes elegidos y el mapa seleccionado
         
     }

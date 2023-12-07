@@ -16,6 +16,7 @@ export default class PlayerSelectionMenu extends Phaser.Scene {
     create() {
         //Creacion del fondo
 
+        this.add.image(940, 534.5, 'menuFondo').setScale(0.5);
 
         //Creacion de los iconos de los personajes (400x400)
         var BullFrog = this.add.image(750, 330, 'ranaToroSelect').setScale(0.2);
