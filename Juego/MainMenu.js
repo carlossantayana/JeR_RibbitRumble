@@ -10,7 +10,7 @@ export default class MainMenu extends Phaser.Scene
 
     create ()
     {
-        this.add.image(940, 534.5, 'fondo');
+        this.add.image(940, 534.5, 'menuPrincipal').setScale(0.5);
 
         const Button= this.add.image(400,400,'pruebaBoton'); //Objeto que queremos que sea el boton
         Button.setInteractive(); //"setInteractive()" le da la posibilidad de ser interactivo

@@ -18,14 +18,14 @@ export default class PlayerSelectionMenu extends Phaser.Scene {
 
 
         //Creacion de los iconos de los personajes (400x400)
-        var BullFrog = this.add.image(750, 330, 'retratoPrueba');
-        var RainFrog = this.add.image(1170, 330, 'retratoPrueba');
-        var PoisonFrog = this.add.image(750, 750, 'retratoPrueba');
-        var TrepadoraFrog = this.add.image(1170, 750, 'retratoPrueba');
+        var BullFrog = this.add.image(750, 330, 'ranaToroSelect').setScale(0.2);
+        var RainFrog = this.add.image(1170, 330, 'ranaLLuviaSelect').setScale(0.2);
+        var PoisonFrog = this.add.image(750, 750, 'ranaFlechaSelect').setScale(0.2);
+        var TrepadoraFrog = this.add.image(1170, 750, 'ranaTrepadoraSelect').setScale(0.2);
 
         //Creacion de los rectangulos donde saldra la seleccion de los personajes
-        var playerOneImage = this.add.image(200, 540, 'retratoPrueba')
-        var playerTwoImage = this.add.image(1720, 540, 'retratoPrueba')
+
+
 
         //Creacion de la interaccion de los botones
         BullFrog.setInteractive();
@@ -58,30 +58,58 @@ export default class PlayerSelectionMenu extends Phaser.Scene {
 
     //Encargada de indicar el personaje elegido y de mostrar la imagen del rectangulo
     onFrogSelected(frogName) {
-        switch (frogName) {
-            case 'BullFrog':
-                console.log('Rana toro seleccionada');
-                break;
-            case 'RainFrog':
-                console.log('Rana de lluvia seleccionada');
-                break;
-            case 'PoisonFrog':
-                console.log('Rana punta de flecha seleccionada');
-                break;
-            case 'TrepadoraFrog':
-                console.log('Rana trepadora seleccionada');
-                break;
-            default:
-                console.log('El boton si funciona pero no entra en lso cases');
-        }
+        if (!this.playersReady) {
+            var scale = 0.5;
+            switch (frogName) {
+                case 'BullFrog':
+                    if (this.playerSelect == 1) {
+                        var playerOneImage = this.add.image(200, 700, 'ranaToroSelect').setScale(scale);
+                    }
+                    else if (this.playerSelect == 2) {
+                        var playerTwoImage = this.add.image(1720, 700, 'ranaToroSelect').setScale(scale).setFlipX(true);
+                    }
+                    console.log('Rana toro seleccionada');
+                    break;
+                case 'RainFrog':
+                    if (this.playerSelect == 1) {
+                        var playerOneImage = this.add.image(200, 700, 'ranaLLuviaSelect').setScale(scale);
+                    }
+                    else if (this.playerSelect == 2) {
+                        var playerTwoImage = this.add.image(1720, 700, 'ranaLLuviaSelect').setScale(scale).setFlipX(true);
+                    }
+                    console.log('Rana de lluvia seleccionada');
+                    break;
+                case 'PoisonFrog':
+                    if (this.playerSelect == 1) {
+                        var playerOneImage = this.add.image(200, 700, 'ranaFlechaSelect').setScale(scale);
+                    }
+                    else if (this.playerSelect == 2) {
+                        var playerTwoImage = this.add.image(1720, 700, 'ranaFlechaSelect').setScale(scale).setFlipX(true);
+                    }
+                    console.log('Rana punta de flecha seleccionada');
+                    break;
+                case 'TrepadoraFrog':
+                    if (this.playerSelect == 1) {
+                        var playerOneImage = this.add.image(200, 700, 'ranaTrepadoraSelect').setScale(scale);
+                    }
+                    else if (this.playerSelect == 2) {
+                        var playerTwoImage = this.add.image(1720, 700, 'ranaTrepadoraSelect').setScale(scale).setFlipX(true);
+                    }
+                    console.log('Rana trepadora seleccionada');
+                    break;
+                default:
+                    console.log('El boton si funciona pero no entra en lso cases');
+            }
 
-        //Forma hortera de ver turno del personaje a elegir, todavia no esta la opcion de volver atras
-        if (this.playerSelect == 1) {
-            this.playerSelect = 2
-        }
-        else  
-        {
-            this.playersReady = true;
+
+            //Forma hortera de ver turno del personaje a elegir, todavia no esta la opcion de volver atras
+            if (this.playerSelect == 1) {
+                this.playerSelect = 2;
+            }
+            else if (this.playerSelect == 2) {
+                this.playerSelect == 0;
+                this.playersReady = true;
+            }
         }
     }
 

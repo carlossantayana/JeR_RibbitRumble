@@ -13,8 +13,16 @@ export default class Preloader extends Phaser.Scene
         this.load.image('fondo', 'prueba.png');
         this.load.image('pruebaBoton', 'sky.png');
 
+        this.load.setPath('assets/Menu/Menu principal');
+        this.load.image('menuPrincipal', 'MenuRanasDEFINITIVO.png')
+
         this.load.setPath('assets/CharacterPortraits');
         this.load.image('retratoPrueba', 'RetratoPrueba.jpg')
+        this.load.image('ranaFlechaSelect', 'ranaFlechaSelect.png')
+        this.load.image('ranaToroSelect', 'ranaToroSelect.png')
+        this.load.image('ranaTrepadoraSelect', 'ranaTrepadoraSelect.png')
+        this.load.image('ranaLLuviaSelect', 'ranaLLuviaSelect.png')
+
     }
 
     create () //crear animaciones y cargar escena inicial
