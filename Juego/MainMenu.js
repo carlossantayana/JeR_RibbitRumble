@@ -7,12 +7,12 @@ export default class MainMenu extends Phaser.Scene {
     }
 
     create() {
-        
+
         this.add.image(940, 534.5, 'menuPrincipal').setScale(0.5);
 
-        const playButton = this.add.image(940, 560, 'pruebaBoton').setScale(0.25, 0.1).setInteractive(); //Objeto que queremos que sea el boton
-        const settingsButton = this.add.image(940, 640, 'pruebaBoton').setScale(0.25, 0.1).setInteractive(); //Objeto que queremos que sea el boton
-        const exitButton = this.add.image(940, 720, 'pruebaBoton').setScale(0.25, 0.1).setInteractive(); //Objeto que queremos que sea el boton
+        const playButton = this.add.image(940, 600, 'botonComenzar').setScale(0.5).setInteractive(); //Objeto que queremos que sea el boton
+        const settingsButton = this.add.image(940, 700, 'botonAjustes').setScale(0.5).setInteractive(); //Objeto que queremos que sea el boton
+        const exitButton = this.add.image(940, 800, 'botonSalir').setScale(0.5).setInteractive(); //Objeto que queremos que sea el boton
 
         //creamos EventListeners "pointerdown" (cuando se hace click con el ratón) que ejecuten la función que queremos
         playButton.on('pointerdown', () => this.playOnClick());
@@ -34,8 +34,8 @@ export default class MainMenu extends Phaser.Scene {
         this.scene.start('PlayerSelectionMenu');
     }
     settingsOnClick() { //Esta es la función que hace el boton de ajustes al pulsarse
-
-        //this.scene.start('PlayerSelectionMenu'); 
+        this.scene.launch('SettingsMenu');
+        this.scene.pause();
     }
     exitOnClick() { //Esta es la función que hace el boton de salir al pulsarse
         window.close();
@@ -43,15 +43,13 @@ export default class MainMenu extends Phaser.Scene {
 
     buttonOver(button) {
         button.on('pointerover', function(){
-            this.setTint(0x89716C);
-            this.setScale(0.26, 0.11);
+            this.setScale(0.55);
         })
     }
 
     buttonOut(button) {
         button.on('pointerout', function(){
-            this.clearTint();
-            this.setScale(0.25, 0.1);
+            this.setScale(0.5);
         })
     }
 }

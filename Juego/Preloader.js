@@ -13,6 +13,16 @@ export default class Preloader extends Phaser.Scene
         this.load.image('fondo', 'prueba.png');
         this.load.image('pruebaBoton', 'sky.png');
 
+        this.load.setPath('assets/Buttons');
+        this.load.image('botonComenzar', 'Comenzar.png')
+        this.load.image('botonContinuar', 'Continuar.png')
+        this.load.image('botonEnRed', 'EnRed.png')
+        this.load.image('botonLocal', 'Local.png')
+        this.load.image('botonSalir', 'Salir.png')
+        this.load.image('botonVolver', 'Volver.png')
+        this.load.image('botonAjustes', 'Ajustes.png')
+        this.load.image('botonCombate', 'Combate.png')
+
         this.load.setPath('assets/Menu/Menu principal');
         this.load.image('menuPrincipal', 'MenuRanasDEFINITIVO.png')
 
