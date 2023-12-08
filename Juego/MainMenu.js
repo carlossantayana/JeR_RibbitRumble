@@ -10,6 +10,8 @@ export default class MainMenu extends Phaser.Scene {
 
         this.add.image(940, 534.5, 'menuPrincipal').setScale(0.5);
 
+        this.audioLauncher();
+        
         const playButton = this.add.image(940, 600, 'botonComenzar').setScale(0.5).setInteractive(); //Objeto que queremos que sea el boton
         const settingsButton = this.add.image(940, 700, 'botonAjustes').setScale(0.5).setInteractive(); //Objeto que queremos que sea el boton
         const exitButton = this.add.image(940, 800, 'botonSalir').setScale(0.5).setInteractive(); //Objeto que queremos que sea el boton
@@ -27,6 +29,10 @@ export default class MainMenu extends Phaser.Scene {
         this.buttonOut(settingsButton);
         this.buttonOut(exitButton);
 
+    }
+
+    audioLauncher(){
+        this.scene.launch('AudioManager');
     }
 
     playOnClick() { //Esta es la función que hace el boton de jugar al pulsarse

@@ -39,6 +39,9 @@ export default class Preloader extends Phaser.Scene
         this.load.image('ranaTrepadoraSelect', 'ranaTrepadoraSelect.png')
         this.load.image('ranaLLuviaSelect', 'ranaLLuviaSelect.png')
         
+        //AUDIO
+        this.load.setPath('assets/Music');
+        this.load.audio('desiertoMusica', 'Desierto1.mp3');
 
     }
 

@@ -1,5 +1,8 @@
 "use strict";
 
+var volumenGeneral = 1;
+var volumenMusica = 1;
+var volumenSFX = 1;
 
 export default class SettingsMenu extends Phaser.Scene {
     constructor() {
@@ -15,9 +18,7 @@ export default class SettingsMenu extends Phaser.Scene {
         volverButton.on('pointerout', function () { volverButton.setScale(0.5) });
 
         //Se ajusta el volumen mediante tres sliders
-        var volumenGeneral;
-        var volumenMusica;
-        var volumenSFX;
+
 
         this.add.rectangle(1150, 385, 564, 15, 0x808080);//Barra del slider
         //El propio slider, que utiliza .on('drag') para poder arrastrarse con el raton, calcula el volumen segun su posicion 
@@ -54,10 +55,19 @@ export default class SettingsMenu extends Phaser.Scene {
         });
 
 
+
+
+    }
+    update() {
+        this.changeVolume(volumenGeneral);
     }
     returnToMenu() {
         this.scene.resume('MainMenu');
         this.scene.stop();
+    }
+
+    changeVolume(newVolume) {
+        this.scene.get('AudioManager').events.emit('changeVolume', newVolume);
     }
 }
 
