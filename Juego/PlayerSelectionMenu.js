@@ -8,9 +8,7 @@ export default class PlayerSelectionMenu extends Phaser.Scene {
         //Indica cuando los dos jugadores han escogido personaje
         this.playersReady = false;
         //Indica el turno del jugador para escoger personaje
-        this.playerSelect = 1;
-        //Boton para ir a seleccion de mapa
-        this.mapSelection
+        this.playerSelect = 1;       
     }
 
     create() {
@@ -41,9 +39,13 @@ export default class PlayerSelectionMenu extends Phaser.Scene {
         TrepadoraFrog.on('pointerdown', () => this.onFrogSelected('TrepadoraFrog'));
 
         //Creacion del boton de ir a seleccion de mapa
-        this.mapSelection = this.add.image(1710, 900, 'pruebaBoton').setScale(0.5, 0.25)
+        var mapSelection;
+        this.mapSelection = this.add.image(960, 960, 'botonContinuar').setScale(0.5);
+        
         this.mapSelection.setInteractive()
         this.mapSelection.on('pointerdown', () => this.onMapSelection());
+        this.mapSelection.on('pointerover', function(){this.setScale(0.55)});
+        this.mapSelection.on('pointerout', function(){this.setScale(0.5)});
         this.mapSelection.setVisible(false)
     }
 

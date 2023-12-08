@@ -27,7 +27,9 @@ export default class Preloader extends Phaser.Scene
         this.load.image('menuPrincipal', 'MenuRanasDEFINITIVO.png')
 
         this.load.setPath('assets/Menu/Menus general');
-        this.load.image('menuFondo', 'FondoMenus.png')
+        this.load.image('menuFondo', 'FondoMenus.png');
+        this.load.image('menuAjustes', 'MenuAjustes.png');
+        this.load.image('sliderBoton', 'slider.png');
 
 
         this.load.setPath('assets/CharacterPortraits');
@@ -36,6 +38,7 @@ export default class Preloader extends Phaser.Scene
         this.load.image('ranaToroSelect', 'ranaToroSelect.png')
         this.load.image('ranaTrepadoraSelect', 'ranaTrepadoraSelect.png')
         this.load.image('ranaLLuviaSelect', 'ranaLLuviaSelect.png')
+        
 
     }
 
