@@ -27,6 +27,9 @@ export default class MapSelectionMenu extends Phaser.Scene {
         //Fondo del menu de seleccion de mapas
         this.add.image(960, 534.5, 'menuFondo').setScale(0.5);
 
+        //Texto superior "Selecciona un escenario:"
+        this.add.text(510, 40, "Selecciona un escenario").setScale(4)
+
         //Fondo para los mapas a seleccionar
         this.add.rectangle(960, 280, 1670, 300, 0x606060);
         this.add.rectangle(960, 280, 1650, 280, 0x808080);
@@ -47,9 +50,16 @@ export default class MapSelectionMenu extends Phaser.Scene {
         selva.on('pointerdown', () => this.onMapSelected('selva'));
         random.on('pointerdown', () => this.onMapSelected('random'));
 
+        //Texto de los jugadores
+        this.add.rectangle(212, 1020, 340, 110, 0x606060);
+        this.add.rectangle(212, 1020, 325, 95, 0x808080);
+        this.add.rectangle(1698, 1020, 350, 110, 0x606060);
+        this.add.rectangle(1698, 1020, 335, 95, 0x808080);
+        this.add.image(220, 1020, 'Player1Text').setScale(0.7);
+        this.add.image(1700, 1020, 'Player2Text').setScale(0.7);
+
         //Creacion del boton de ir al juego
         this.mapSelected = this.add.image(960, 1000, 'botonCombate').setScale(0.5);
-
         this.mapSelected.setInteractive()
         this.mapSelected.on('pointerdown', () => this.onGameStart());
         this.mapSelected.on('pointerover', function () { this.setScale(0.55) });
