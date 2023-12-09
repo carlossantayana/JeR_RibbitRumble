@@ -63,7 +63,7 @@ export default class SettingsMenu extends Phaser.Scene {
     }
     returnToMenu() {
         this.scene.resume('MainMenu');
-        this.scene.stop();
+        this.scene.sleep();
     }
 
     changeVolume(newVolume) {
