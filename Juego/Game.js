@@ -2,76 +2,120 @@
 
 import Fighter from './Fighter.js';
 
-export default class Game extends Phaser.Scene
-{
-    constructor ()
-    {
+export default class Game extends Phaser.Scene {
+    constructor() {
         super('Game');
         this.player1;
         this.player2;
-        this.p1ID=0;
-        this.p2ID=0;
-        this.p1Alt=false;
-        this.p2Alt=false;
-        this.mapID=0;
-        this.p1Wins=0;
-        this.p2Wins=0;
+
+        this.parameters = {
+            p1CharacterID: 0,
+            p2CharacterID: 0,
+            p1AltSkin: false,
+            p2AltSkin: false,
+            mapID: 0,
+            p1WonRounds: 0,
+            p2WonRounds: 0
+        }
     }
 
-    init (player1ID,player2ID,player1Alt,player2Alt,mapID,winsPlayer1,winsPlayer2) //Esto se ejecuta al iniciar la escena, devería recivir los personajes elegidos y el mapa seleccionado (y el número de rondas ganadas por cada uno)
+    init(data) //Esto se ejecuta al iniciar la escena, debería recibir los personajes elegidos y el mapa seleccionado (y el número de rondas ganadas por cada uno)
     {
-        this.p1ID=player1ID;
-        this.p2ID=player2ID;
-        this.p1Alt=player1Alt;
-        this.p2Alt=player2Alt;
-        this.mapID=mapID;
-        this.p1Wins=winsPlayer1;
-        this.p2Wins=winsPlayer2;
+        this.parameters.p1CharacterID = data.player1CharacterID;
+        this.parameters.p2CharacterID = data.player2CharacterID;
+        this.parameters.p1AltSkin = false;
+        this.parameters.p2AltSkin = false;
+        this.parameters.mapID = data.mapID;
+        this.parameters.p1WonRounds = data.wonRoundsPlayer1;
+        this.parameters.p2WonRounds = data.wonRoundsPlayer2;
     }
 
-    create ()
-    {
-        this.player1=new Fighter(this,30,60,this.p1ID,this.p1Alt,1);
-        this.player2=new Fighter(this,30,60,this.p2ID,this.p2Alt,2);
-        this.physics.add.overlap(this.player1,this.player2,() => this.playerOverlap());
+    create() {
+        this.physics.world.gravity.y = 300;
+
+        switch(this.parameters.mapID){
+            case 0:
+                this.add.image(960, 540, 'desiertoFondo');
+                break;
+            case 1:
+                this.add.image(960, 540, 'nenufarFondo');
+                break;
+            case 2:
+                this.add.image(960, 540, 'junglaFondo');
+        }
+
+        var p1Texture;
+        var p2Texture;
+
+        switch(this.parameters.p1CharacterID){
+            case 0:
+                p1Texture = 'ToroIdle';
+                break;
+            case 1:
+                p1Texture = '';
+                break;
+            case 2:
+                p1Texture = '';
+                break;
+            case 3:
+                p1Texture = '';
+                break;
+        }
+
+        switch(this.parameters.p2CharacterID){
+            case 0:
+                p2Texture = 'ToroIdle';
+                break;
+            case 1:
+                p2Texture = '';
+                break;
+            case 2:
+                p2Texture = '';
+                break;
+            case 3:
+                p2Texture = '';
+                break;
+        }
+
+        this.player1 = new Fighter(this, 600, 600, this.parameters.p1CharacterID, this.parameters.p1AltSkin, 1, p1Texture);
+        this.player2 = new Fighter(this, 900, 600, this.parameters.p2CharacterID, this.parameters.p2AltSkin, 2, p2Texture);
+        this.physics.add.overlap(this.player1, this.player2, () => this.playerOverlap());
         //La carga de la pantalla de resultados o la siguiente ronda puede llamarla la escena o el jugador derrotado.
         //La siguiente ronda se puede hacer recargando la escena con el número de victorias actualizado
     }
-    
-    update()
-    {
-        this.player1.playerUpdate();
-        this.player2.playerUpdate();
+
+    update() {
+        this.player1.playerUpdate(this.player1);
+        this.player2.playerUpdate(this.player2);
     }
 
-    roundEnd(winerId)
-    {
-        switch(winerId){
+    roundEnd(winnerId) {
+        switch (winnerId) {
             case 1://Victoria P1
-            p1Wins++;
+                this.p1WonRounds++;
                 break;
             case 2://Victoria P2
-            p2Wins++;
+                this.p2WonRounds++;
                 break;
         }
 
-        if(this.p1Wins>=2){
+        if (this.p1WonRounds >= 2) {
             //Cargar escena de resultados con P1 como ganador
         }
-        else if(this.p1Wins>=2){
+        else if (this.p2WonRounds >= 2) {
             //Cargar escena de resultados con P2 como ganador
         }
-        else{
+        else {
             //Recargar la escena de juego con los parametros necesarios
         }
     }
 
     playerOverlap() //Comprobación de los estados de cada jugador comprobando los parametros "attacking" y "blocking"
     {
-        if(this.player1.attacking && !this.player2.blocking){
+        if (this.player1.attacking && !this.player2.blocking) {
             this.player2.takeDamage(10);
         }
-        if(this.player2.attacking && !this.player1.blocking){
+        if (this.player2.attacking && !this.player1.blocking) {
             this.player1.takeDamage(10);
         }
     }

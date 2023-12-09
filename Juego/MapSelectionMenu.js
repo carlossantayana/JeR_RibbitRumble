@@ -21,6 +21,18 @@ export default class MapSelectionMenu extends Phaser.Scene {
         //Timers para hacer efectos
         this.timer = 0;
         this.timerFinal = 0;
+        this.timerChangeScene = 0;
+
+        this.parameters = {
+            player1CharacterID: null,
+            player2CharacterID: null,
+            mapID: null
+        }
+    }
+
+    init(data){
+        this.parameters.player1CharacterID = data.player1CharacterID;
+        this.parameters.player2CharacterID = data.player2CharacterID;
     }
 
     create() {
@@ -28,7 +40,7 @@ export default class MapSelectionMenu extends Phaser.Scene {
         this.add.image(960, 534.5, 'menuFondo').setScale(0.5);
 
         //Texto superior "Selecciona un escenario:"
-        this.add.text(510, 40, "Selecciona un escenario").setScale(4)
+        this.add.text(510, 40, "Selecciona un escenario", {fontSize: '80px'});
 
         //Fondo para los mapas a seleccionar
         this.add.rectangle(960, 280, 1670, 300, 0x606060);
@@ -41,7 +53,7 @@ export default class MapSelectionMenu extends Phaser.Scene {
         //Botones de los mapas a seleccionar
         var desierto = this.add.image(360, 280, 'desiertoFondo').setScale(0.2).setInteractive();
         var nenufar = this.add.image(760, 280, 'nenufarFondo').setScale(0.2).setInteractive();
-        var selva = this.add.image(1160, 280, 'fondo').setScale(0.2).setInteractive();
+        var selva = this.add.image(1160, 280, 'junglaFondo').setScale(0.2).setInteractive();
         var random = this.add.image(1560, 280, 'randomFondo').setScale(0.1).setInteractive();
 
         //Despues de definirlos como interactuables, se crea el evento del click y la funcion a la que llama
@@ -126,6 +138,7 @@ export default class MapSelectionMenu extends Phaser.Scene {
             }
         }
         if (this.gameStarting == 3) {
+            this.gameStarting++;
             if (this.player1Selection == 3) {
                 if (this.p1 == true) {
                     var scale = 0.4;
@@ -139,7 +152,7 @@ export default class MapSelectionMenu extends Phaser.Scene {
                             this.mapOneImage = this.add.image(posX1, posY, 'nenufarFondo').setScale(scale);
                             break;
                         case 2:
-                            this.mapOneImage = this.add.image(posX1, posY, 'fondo').setScale(scale);
+                            this.mapOneImage = this.add.image(posX1, posY, 'junglaFondo').setScale(scale);
                             break;
                         default:
                             console.log('Error')
@@ -161,7 +174,7 @@ export default class MapSelectionMenu extends Phaser.Scene {
                             this.mapTwoImage = this.add.image(posX2, posY, 'nenufarFondo').setScale(scale);
                             break;
                         case 2:
-                            this.mapTwoImage = this.add.image(posX2, posY, 'fondo').setScale(scale);
+                            this.mapTwoImage = this.add.image(posX2, posY, 'junglaFondo').setScale(scale);
                             break;
                         default:
                             console.log('Error');
@@ -172,6 +185,15 @@ export default class MapSelectionMenu extends Phaser.Scene {
             }
         }
 
+        this.parameters.mapID = this.finalSelection;
+
+        if(this.gameStarting == 4){
+            this.timerChangeScene++;
+
+            if(this.timerChangeScene >= 20){
+                this.scene.start('Game', this.parameters);
+            }
+        }
     }
 
     //Funcion encargada de indicar el mapa elegido por cada jugador 
@@ -221,13 +243,13 @@ export default class MapSelectionMenu extends Phaser.Scene {
                     if (this.playerSelect == 1) {
                         this.add.rectangle(posX1, posY, rectWidth, rectHeight, 0x606060);
                         this.add.rectangle(posX1, posY, rectWidth - 10, rectHeight - 10, 0x808080);
-                        this.mapOneImage = this.add.image(posX1, posY, 'fondo').setScale(scale);
+                        this.mapOneImage = this.add.image(posX1, posY, 'junglaFondo').setScale(scale);
                         this.player1Selection = 2;
                     }
                     else if (this.playerSelect == 2) {
                         this.add.rectangle(posX2, posY, rectWidth, rectHeight, 0x606060);
                         this.add.rectangle(posX2, posY, rectWidth - 10, rectHeight - 10, 0x808080);
-                        this.mapTwoImage = this.add.image(posX2, posY, 'fondo').setScale(scale);
+                        this.mapTwoImage = this.add.image(posX2, posY, 'junglaFondo').setScale(scale);
                         this.player2Selection = 2;
                     }
                     console.log('Selva seleccionada');

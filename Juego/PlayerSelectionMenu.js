@@ -8,7 +8,12 @@ export default class PlayerSelectionMenu extends Phaser.Scene {
         //Indica cuando los dos jugadores han escogido personaje
         this.playersReady = false;
         //Indica el turno del jugador para escoger personaje
-        this.playerSelect = 1;       
+        this.playerSelect = 1;     
+        
+        this.parameters= {
+            player1CharacterID: null,
+            player2CharacterID: null
+        }
     }
 
     create() {
@@ -76,37 +81,45 @@ export default class PlayerSelectionMenu extends Phaser.Scene {
             switch (frogName) {
                 case 'BullFrog':
                     if (this.playerSelect == 1) {
-                        var playerOneImage = this.add.image(200, 700, 'ranaToroSelect').setScale(scale);
+                        this.add.image(200, 700, 'ranaToroSelect').setScale(scale);
+                        this.parameters.player1CharacterID = 0;
                     }
                     else if (this.playerSelect == 2) {
-                        var playerTwoImage = this.add.image(1720, 700, 'ranaToroSelect').setScale(scale).setFlipX(true);
+                        this.add.image(1720, 700, 'ranaToroSelect').setScale(scale).setFlipX(true);
+                        this.parameters.player2CharacterID = 0;
                     }
                     console.log('Rana toro seleccionada');
                     break;
                 case 'RainFrog':
                     if (this.playerSelect == 1) {
-                        var playerOneImage = this.add.image(200, 700, 'ranaLLuviaSelect').setScale(scale);
+                        this.add.image(200, 700, 'ranaLLuviaSelect').setScale(scale);
+                        this.parameters.player1CharacterID = 1;
                     }
                     else if (this.playerSelect == 2) {
-                        var playerTwoImage = this.add.image(1720, 700, 'ranaLLuviaSelect').setScale(scale).setFlipX(true);
+                        this.add.image(1720, 700, 'ranaLLuviaSelect').setScale(scale).setFlipX(true);
+                        this.parameters.player2CharacterID = 1;
                     }
                     console.log('Rana de lluvia seleccionada');
                     break;
                 case 'PoisonFrog':
                     if (this.playerSelect == 1) {
-                        var playerOneImage = this.add.image(200, 700, 'ranaFlechaSelect').setScale(scale);
+                        this.add.image(200, 700, 'ranaFlechaSelect').setScale(scale);
+                        this.parameters.player1CharacterID = 2;
                     }
                     else if (this.playerSelect == 2) {
-                        var playerTwoImage = this.add.image(1720, 700, 'ranaFlechaSelect').setScale(scale).setFlipX(true);
+                        this.add.image(1720, 700, 'ranaFlechaSelect').setScale(scale).setFlipX(true);
+                        this.parameters.player2CharacterID = 2;
                     }
                     console.log('Rana punta de flecha seleccionada');
                     break;
                 case 'TrepadoraFrog':
                     if (this.playerSelect == 1) {
-                        var playerOneImage = this.add.image(200, 700, 'ranaTrepadoraSelect').setScale(scale);
+                        this.add.image(200, 700, 'ranaTrepadoraSelect').setScale(scale);
+                        this.parameters.player1CharacterID = 3;
                     }
                     else if (this.playerSelect == 2) {
-                        var playerTwoImage = this.add.image(1720, 700, 'ranaTrepadoraSelect').setScale(scale).setFlipX(true);
+                        this.add.image(1720, 700, 'ranaTrepadoraSelect').setScale(scale).setFlipX(true);
+                        this.parameters.player2CharacterID = 3;
                     }
                     console.log('Rana trepadora seleccionada');
                     break;
@@ -128,6 +141,6 @@ export default class PlayerSelectionMenu extends Phaser.Scene {
 
     //Encargada de llevar a la escena de seleccion de mapa
     onMapSelection() {
-        this.scene.start('MapSelectionMenu'); //Cargar Escena de selección de mapa, hay que pasarle la id de personajes
+        this.scene.start('MapSelectionMenu', this.parameters); //Cargar Escena de selección de mapa, hay que pasarle la id de personajes
     }
 }
