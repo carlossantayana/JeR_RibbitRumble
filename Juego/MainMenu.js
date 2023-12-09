@@ -37,7 +37,8 @@ export default class MainMenu extends Phaser.Scene {
 
     playOnClick() { //Esta es la función que hace el boton de jugar al pulsarse
 
-        this.scene.start('PlayerSelectionMenu');
+        this.scene.run('ModeSelectionMenu');
+        this.scene.pause();
     }
     settingsOnClick() { //Esta es la función que hace el boton de ajustes al pulsarse
         this.scene.run('SettingsMenu');
