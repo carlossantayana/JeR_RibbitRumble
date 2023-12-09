@@ -30,7 +30,7 @@ export default class MapSelectionMenu extends Phaser.Scene {
         }
     }
 
-    init(data){
+    init(data) {
         this.parameters.player1CharacterID = data.player1CharacterID;
         this.parameters.player2CharacterID = data.player2CharacterID;
     }
@@ -39,8 +39,11 @@ export default class MapSelectionMenu extends Phaser.Scene {
         //Fondo del menu de seleccion de mapas
         this.add.image(960, 534.5, 'menuFondo').setScale(0.5);
 
+
+
+
         //Texto superior "Selecciona un escenario:"
-        this.add.text(510, 40, "Selecciona un escenario", {fontSize: '80px'});
+        this.add.text(510, 40, "Selecciona un escenario", { fontSize: '80px' });
 
         //Fondo para los mapas a seleccionar
         this.add.rectangle(960, 280, 1670, 300, 0x606060);
@@ -77,8 +80,9 @@ export default class MapSelectionMenu extends Phaser.Scene {
         this.mapSelected.on('pointerover', function () { this.setScale(0.55) });
         this.mapSelected.on('pointerout', function () { this.setScale(0.5) });
         this.mapSelected.setVisible(false);
+
     }
-    update() {
+    update(time, delta) {
         //Si los dos jugadores han escogido personaje, se pone visible el boton para ir a seleccion de mapa
         if (this.playersReady == true && this.gameStarting == 0) {
             this.mapSelected.setVisible(true);
@@ -92,7 +96,7 @@ export default class MapSelectionMenu extends Phaser.Scene {
             this.mapSelected.setVisible(false);
             this.gameStarting++;
             var a = Math.floor(Math.random() * 2)
-            
+
             if (a == 0) {
                 this.finalSelection = this.player1Selection;
                 this.p1 = true;
@@ -110,14 +114,16 @@ export default class MapSelectionMenu extends Phaser.Scene {
         }
         //Una vez elegido el mapa internamente, se le muestra a los jugadores un efecto de ruleta aleatoria entre los mapas elegidos
         if (this.gameStarting == 2) {
-            this.timer += 0.1;
-            this.timerFinal += 0.1;
+            this.timer += delta/1000;
+            this.timerFinal += delta/1000;
+            console.log("Timer 1 = " + this.timer)
+            console.log("Timer 2 = " + this.timerFinal)
 
-            if (this.timer < 1.5) {
+            if (this.timer < 0.25) {
                 this.mapOneImage.setTint(0x808080);
                 this.mapTwoImage.clearTint();
             }
-            else if (this.timer >= 1.5 && this.timer < 3) {
+            else if (this.timer >= 0.25 && this.timer < 0.5) {
                 this.mapTwoImage.setTint(0x808080);
                 this.mapOneImage.clearTint();
             }
@@ -125,7 +131,7 @@ export default class MapSelectionMenu extends Phaser.Scene {
                 this.timer = 0;
             }
             //Entonces se resalta el mapa elegido anteriormente
-            if (this.timerFinal > 20) {
+            if (this.timerFinal > 3) {
                 if (this.p1 == true) {
                     this.mapTwoImage.setTint(0x808080);
                     this.mapOneImage.clearTint();
@@ -185,12 +191,15 @@ export default class MapSelectionMenu extends Phaser.Scene {
             }
         }
 
-        this.parameters.mapID = this.finalSelection;
+        
 
-        if(this.gameStarting == 4){
-            this.timerChangeScene++;
+        if (this.gameStarting == 4) {
+            this.parameters.mapID = this.finalSelection;
+            this.timerChangeScene+=delta/1000;
+            console.log("Timer 3 = " + this.timerChangeScene)
 
-            if(this.timerChangeScene >= 20){
+
+            if (this.timerChangeScene >= 3) {
                 this.scene.start('Game', this.parameters);
             }
         }
@@ -287,6 +296,6 @@ export default class MapSelectionMenu extends Phaser.Scene {
 
     onGameStart() {
         this.gameStarting = 1;
-        
+
     }
 }
