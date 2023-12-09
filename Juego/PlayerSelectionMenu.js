@@ -17,10 +17,21 @@ export default class PlayerSelectionMenu extends Phaser.Scene {
         this.add.image(940, 534.5, 'menuFondo').setScale(0.5);
 
         //Creacion de los iconos de los personajes (400x400)
-        var BullFrog = this.add.image(750, 330, 'ranaToroSelect').setScale(0.2);
-        var RainFrog = this.add.image(1170, 330, 'ranaLLuviaSelect').setScale(0.2);
-        var PoisonFrog = this.add.image(750, 750, 'ranaFlechaSelect').setScale(0.2);
-        var TrepadoraFrog = this.add.image(1170, 750, 'ranaTrepadoraSelect').setScale(0.2);
+        this.add.rectangle(800, 380, 250, 250, 0x606060);
+        var BullFrog = this.add.rectangle(800, 380, 230, 230, 0x808080);
+        this.add.image(800, 380, 'logoRanaToro').setScale(0.2);
+
+        this.add.rectangle(1120, 380, 250, 250, 0x606060);
+        var RainFrog = this.add.rectangle(1120, 380, 230, 230, 0x808080);
+        this.add.image(1120, 380, 'logoRanaDeLluvia').setScale(0.2);
+
+        this.add.rectangle(800, 700, 250, 250, 0x606060);
+        var PoisonFrog = this.add.rectangle(800, 700, 230, 230, 0x808080);
+        this.add.image(800, 700, 'logoRanaPuntaDeFlecha').setScale(0.2);
+
+        this.add.rectangle(1120, 700, 250, 250, 0x606060);
+        var TrepadoraFrog = this.add.rectangle(1120, 700, 230, 230, 0x808080);
+        this.add.image(1120, 700, 'logoRanaTrepadora').setScale(0.2);
 
         //Creacion de los rectangulos donde saldra la seleccion de los personajes
 

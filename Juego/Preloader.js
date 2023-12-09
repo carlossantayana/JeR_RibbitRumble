@@ -9,6 +9,7 @@ export default class Preloader extends Phaser.Scene
 
     preload ()//Cargar imagenes y sonido
     {
+        //ASSETS FONDOS//
         this.load.setPath('assets/Backgrounds'); //ruta de los assets, para que no sea necesario poner dicha ruta
         this.load.image('fondo', 'prueba.png');
         this.load.image('pruebaBoton', 'sky.png');
@@ -34,18 +35,26 @@ export default class Preloader extends Phaser.Scene
         this.load.image('menuAjustes', 'MenuAjustes.png');
         this.load.image('sliderBoton', 'slider.png');
 
-
+        //ASSETS RETRATOS PERSONAJES//
         this.load.setPath('assets/CharacterPortraits');
         this.load.image('retratoPrueba', 'RetratoPrueba.jpg')
         this.load.image('ranaFlechaSelect', 'ranaFlechaSelect.png')
         this.load.image('ranaToroSelect', 'ranaToroSelect.png')
         this.load.image('ranaTrepadoraSelect', 'ranaTrepadoraSelect.png')
         this.load.image('ranaLLuviaSelect', 'ranaLLuviaSelect.png')
+        this.load.image('logoRanaDeLluvia','LogoRanaDeLluvia.png');
+        this.load.image('logoRanaPuntaDeFlecha','LogoRanaPuntaDeFlecha.png');
+        this.load.image('logoRanaToro','LogoRanaToro.png');
+        this.load.image('logoRanaTrepadora','LogoRanaTrepadora.png');
         
         //AUDIO
         this.load.setPath('assets/Music');
         this.load.audio('desiertoMusica', 'Desierto1.mp3');
 
+        //TEXTOS
+        this.load.setPath('assets/TextInterface');
+        this.load.image('Player1Text', 'Player1.png');
+        this.load.image('Player2Text', 'Player2.png');
     }
 
     create () //crear animaciones y cargar escena inicial
