@@ -18,6 +18,11 @@ export default class Fighter extends Phaser.Physics.Arcade.Sprite {
         //Estos parámetros se utilizan para la comprobación de overlap de jugadores
         this.attacking = false;
         this.blocking = false;
+        
+        this.crouching = false;
+        this.jumping = false;
+
+        this.touchingGround = false;
 
         this.assignAnimations();
     }
@@ -29,49 +34,127 @@ export default class Fighter extends Phaser.Physics.Arcade.Sprite {
         }
     }
 
+    playIdleAnim(){
+        this.anims.play(this.idleAnim, true);
+    }
+
+    playWalkAnim(){
+        this.anims.play(this.walkAnim, true);
+    }
+
+    playBasicAttackAnim(){
+        this.anims.play(this.attackAnim, true);
+    }
+
+    playDownAttackAnim(){
+        this.anims.play(this.downAttackAnim, true);
+    }
+
+    playBeginJumpAnim(){
+        this.anims.play(this.beginJumpAnim, true);
+    }
+
+    playJumpAnim(){
+        if(this.anims.getProgress(this.beginJumpAnim) == 1){
+            this.anims.play(this.jumpAnim, true);
+        }
+    }
+
+    playEndJumpAnim(){
+        this.anims.play(this.endJumpAnim, true);
+    }
+
+    playBeginCrouchAnim(){
+        this.anims.play(this.beginDuckAnim, true);
+    }
+
+    playCrouchAnim(){
+        if(this.anims.getProgress(this.beginCrouchAnim) == 1){
+            this.anims.play(this.duckAnim, true);
+        }
+    }
+
+    playEndCrouchAnim(){
+        this.anims.play(this.endDuckAnim, true);
+    }
+
+    playBeginBlockAnim(){
+        this.anims.play(this.beginBlockAnim, true);
+    }
+
+    playBlockAnim(){
+        if(this.anims.getProgress(this.beginBlockAnim) == 1){
+            this.anims.play(this.blockAnim, true);
+        }
+    }
+
+    playEndBlockAnim(){
+        this.anims.play(this.endBlockAnim, true);
+    }
+
     assignAnimations() {
         //Animaciones asignadas:
-        if (!this.alt) {
+        if (!this.altSkin) {
             switch (this.characterID) {
                 case 0: //Se asigna el nombre de las animaciones dependiendo del personaje
                     this.idleAnim = "ToroIdleAnim";
-                    this.walkAnim = "";
-                    this.blockAnim = "";
-                    this.jumpAnim = "";
-                    this.duckAnim = "";
-                    this.attackAnim = "";
-                    this.downAttackAnim = "";
-                    this.airAttackAnim = "";
+                    this.walkAnim = "ToroWalkAnim";
+                    this.beginBlockAnim = "ToroBeginBlockAnim";
+                    this.blockAnim = "ToroBlockAnim";
+                    this.endBlockAnim = "ToroEndBlockAnim";
+                    this.beginJumpAnim = "ToroBeginJumpAnim";
+                    this.jumpAnim = "ToroJumpAnim";
+                    this.endJumpAnim = "ToroEndJumpAnim";
+                    this.beginDuckAnim = "ToroBeginCrouchAnim";
+                    this.duckAnim = "ToroCrouchAnim";
+                    this.endDuckAnim = "ToroEndCrouchAnim";
+                    this.attackAnim = "ToroBasicAttackAnim";
+                    this.downAttackAnim = "ToroDownAttackAnim";
                     break;
                 case 1:
                     this.idleAnim = "";
                     this.walkAnim = "";
+                    this.beginBlockAnim = "";
                     this.blockAnim = "";
+                    this.endBlockAnim = "";
+                    this.beginJumpAnim = "";
                     this.jumpAnim = "";
+                    this.endJumpAnim = "";
+                    this.beginDuckAnim = "";
                     this.duckAnim = "";
+                    this.endDuckAnim = "";
                     this.attackAnim = "";
                     this.downAttackAnim = "";
-                    this.airAttackAnim = "";
                     break;
                 case 2:
                     this.idleAnim = "";
                     this.walkAnim = "";
+                    this.beginBlockAnim = "";
                     this.blockAnim = "";
+                    this.endBlockAnim = "";
+                    this.beginJumpAnim = "";
                     this.jumpAnim = "";
+                    this.endJumpAnim = "";
+                    this.beginDuckAnim = "";
                     this.duckAnim = "";
+                    this.endDuckAnim = "";
                     this.attackAnim = "";
                     this.downAttackAnim = "";
-                    this.airAttackAnim = "";
                     break;
                 case 3:
                     this.idleAnim = "";
                     this.walkAnim = "";
+                    this.beginBlockAnim = "";
                     this.blockAnim = "";
+                    this.endBlockAnim = "";
+                    this.beginJumpAnim = "";
                     this.jumpAnim = "";
+                    this.endJumpAnim = "";
+                    this.beginDuckAnim = "";
                     this.duckAnim = "";
+                    this.endDuckAnim = "";
                     this.attackAnim = "";
                     this.downAttackAnim = "";
-                    this.airAttackAnim = "";
                     break;
             }
 
@@ -119,15 +202,6 @@ export default class Fighter extends Phaser.Physics.Arcade.Sprite {
                     this.airAttackAnim = "";
                     break;
             }
-        }
-    }
-
-    playerUpdate() { //Este será el update de cada jugador, donde se comprobarán los inputs correspodientes y se ejecutarán las animaciones. Se deberá llamar en el update de la escena
-        if (this.playerID === 1) {//player1 comprobará inputs WASD y player2 los de las flechas
-            this.anims.play(this.idleAnim, true);
-        }
-        else {
-            this.anims.play(this.idleAnim, true);
         }
     }
 }

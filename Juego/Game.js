@@ -8,6 +8,18 @@ export default class Game extends Phaser.Scene {
         this.player1;
         this.player2;
 
+        this.ground;
+
+        this.cursors;
+        this.keyW;
+        this.keyA;
+        this.keyS;
+        this.keyD;
+        this.keyF;
+        this.keyG;
+        this.keyNumpad1;
+        this.keyNumpad2;
+
         this.parameters = {
             p1CharacterID: 0,
             p2CharacterID: 0,
@@ -33,8 +45,11 @@ export default class Game extends Phaser.Scene {
     create() {
         this.physics.world.gravity.y = 300;
 
-        switch(this.parameters.mapID){
+        this.ground = this.physics.add.staticGroup();
+
+        switch (this.parameters.mapID) {
             case 0:
+                this.ground.create(960, 1070, '').setScale(1920, 4).refreshBody();
                 this.add.image(960, 540, 'desiertoFondo');
                 break;
             case 1:
@@ -47,46 +62,89 @@ export default class Game extends Phaser.Scene {
         var p1Texture;
         var p2Texture;
 
-        switch(this.parameters.p1CharacterID){
+        switch (this.parameters.p1CharacterID) {
             case 0:
                 p1Texture = 'ToroIdle';
                 break;
             case 1:
-                p1Texture = '';
+                p1Texture = 'LluviaIdle';
                 break;
             case 2:
-                p1Texture = '';
+                p1Texture = 'FlechaIdle';
                 break;
             case 3:
-                p1Texture = '';
+                p1Texture = 'TrepadoraIdle';
                 break;
         }
 
-        switch(this.parameters.p2CharacterID){
+        switch (this.parameters.p2CharacterID) {
             case 0:
                 p2Texture = 'ToroIdle';
                 break;
             case 1:
-                p2Texture = '';
+                p2Texture = 'LluviaIdle';
                 break;
             case 2:
-                p2Texture = '';
+                p2Texture = 'FlechaIdle';
                 break;
             case 3:
-                p2Texture = '';
+                p2Texture = 'TrepadoraIdle';
                 break;
         }
 
         this.player1 = new Fighter(this, 600, 600, this.parameters.p1CharacterID, this.parameters.p1AltSkin, 1, p1Texture);
         this.player2 = new Fighter(this, 900, 600, this.parameters.p2CharacterID, this.parameters.p2AltSkin, 2, p2Texture);
+
+        this.physics.add.collider(this.player1, this.ground, () => this.player1.touchingGround = true);
         this.physics.add.overlap(this.player1, this.player2, () => this.playerOverlap());
+
+        //Inputs
+        this.cursors = this.input.keyboard.createCursorKeys();
+        this.keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
+        this.keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
+        this.keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
+        this.keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+        this.keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
+        this.keyG = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.G);
+        this.keyNumpad1 = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.NUMPAD_ONE);
+        this.keyNumpad2 = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.NUMPAD_TWO);
+
         //La carga de la pantalla de resultados o la siguiente ronda puede llamarla la escena o el jugador derrotado.
         //La siguiente ronda se puede hacer recargando la escena con el número de victorias actualizado
     }
 
     update() {
-        this.player1.playerUpdate(this.player1);
-        this.player2.playerUpdate(this.player2);
+        //Player 1 Inputs//
+        if (this.keyD.isDown && !this.player1.blocking && !this.player1.attacking) {
+            this.player1.setVelocityX(300);
+            this.player1.setFlipX(false);
+
+            if (!this.player1.jumping) {
+                this.player1.playWalkAnim();
+            }
+        } else if (this.keyA.isDown) {
+            this.player1.setVelocityX(-300);
+            this.player1.setFlipX(true);
+
+            if (!this.player1.jumping) {
+                this.player1.playWalkAnim();
+            }
+        } else if (!this.player1.blocking && !this.player1.jumping && !this.player1.crouching && !this.player1.attacking) {
+            this.player1.setVelocityX(0);
+            this.player1.playIdleAnim();
+        }
+
+        if (this.keyW.isDown && !this.player1.jumping && this.player1.touchingGround) {
+            this.player1.jumping = true;
+            this.player1.touchingGround = false;
+            this.player1.setVelocityY(-300);
+            this.player1.playBeginJumpAnim();
+        } else if (this.player1.jumping && !this.player1.touchingGround) {
+            this.player1.playJumpAnim();
+        } else if (this.player1.jumping && this.player1.touchingGround) {
+            this.player1.playEndJumpAnim();
+            this.player1.jumping = false;
+        }
     }
 
     roundEnd(winnerId) {
