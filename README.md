@@ -141,22 +141,7 @@ Los jugadores podrán atacar al pulsar la tecla “F”, siendo este un ataque d
 
 En la siguiente tabla se muestran los controles para ambos jugadores en función del modo de juego seleccionado:
 
-<table><tr><th rowspan="2">Acción</th><th colspan="3" valign="bottom">Modo de Juego</th></tr>
-<tr><td valign="bottom">Red</td><td colspan="2" valign="bottom">Local</td></tr>
-<tr><td valign="bottom">Moverse a la derecha</td><td valign="bottom">D</td><td valign="bottom">D</td><td valign="bottom">→</td></tr>
-<tr><td valign="bottom">Moverse a la izquierda</td><td valign="bottom">A</td><td valign="bottom">A</td><td valign="bottom">←</td></tr>
-<tr><td valign="bottom">Saltar</td><td valign="bottom">W</td><td valign="bottom">W</td><td valign="bottom">↑</td></tr>
-<tr><td valign="bottom">Agacharse</td><td valign="bottom">S</td><td valign="bottom">S</td><td valign="bottom">↓</td></tr>
-<tr><td valign="bottom">Ataque básico</td><td valign="bottom">F</td><td valign="bottom">F</td><td valign="bottom">Numpad 1</td></tr>
-<tr><td valign="bottom">Ataque bajo</td><td valign="bottom">S+F</td><td valign="bottom">S+F</td><td valign="bottom">↓+ Numpad 1</td></tr>
-<tr><td valign="bottom">Ataque ascendente</td><td valign="bottom">W+F</td><td valign="bottom">W+F</td><td valign="bottom">↑+ Numpad 1</td></tr>
-<tr><td valign="bottom">Ataque aéreo (en el aire)</td><td valign="bottom">F </td><td valign="bottom">F</td><td valign="bottom">Numpad 1</td></tr>
-<tr><td valign="bottom">Bloquear</td><td valign="bottom">G</td><td valign="bottom">G</td><td valign="bottom">Numpad 2</td></tr>
-<tr><td valign="bottom">Ataque especial</td><td valign="bottom">F+G</td><td valign="bottom">F+G</td><td valign="bottom">Numpad 1+ Numpad2</td></tr>
-</table>
-
-
-
+![](ImagenesMD/ControlesTabla.png)
 
 A continuación, se detallan los ataques de cada personaje, así como sus estadísticas:
 
