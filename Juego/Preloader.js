@@ -12,6 +12,9 @@ export default class Preloader extends Phaser.Scene
         this.load.setPath('assets/Backgrounds'); //ruta de los assets, para que no sea necesario poner dicha ruta
         this.load.image('fondo', 'prueba.png');
         this.load.image('pruebaBoton', 'sky.png');
+        this.load.image('desiertoFondo', 'Desierto.png');
+        this.load.image('nenufarFondo', 'Nenufar.png');
+        this.load.image('randomFondo', 'Random.png');
 
         this.load.setPath('assets/Buttons');
         this.load.image('botonComenzar', 'Comenzar.png')

@@ -39,7 +39,6 @@ export default class PlayerSelectionMenu extends Phaser.Scene {
         TrepadoraFrog.on('pointerdown', () => this.onFrogSelected('TrepadoraFrog'));
 
         //Creacion del boton de ir a seleccion de mapa
-        var mapSelection;
         this.mapSelection = this.add.image(960, 960, 'botonContinuar').setScale(0.5);
         
         this.mapSelection.setInteractive()
@@ -101,7 +100,7 @@ export default class PlayerSelectionMenu extends Phaser.Scene {
                     console.log('Rana trepadora seleccionada');
                     break;
                 default:
-                    console.log('El boton si funciona pero no entra en lso cases');
+                    console.log('El boton si funciona pero no entra en los casos');
             }
 
 
