@@ -34,6 +34,13 @@ export default class Game extends Phaser.Scene {
 
         this.barraVidap1
         this.barraVidap2
+
+        this.timer = 0;
+        this.numeroUno;
+        this.numeroDos;
+        this.cifra1 = 6;
+        this.cifra2 = 0;
+
     }
 
     init(data) //Esto se ejecuta al iniciar la escena, debería recibir los personajes elegidos y el mapa seleccionado (y el número de rondas ganadas por cada uno)
@@ -129,7 +136,7 @@ export default class Game extends Phaser.Scene {
 
         //UI P2
         this.add.image(1470, 150, 'UIGamePieza1').setScale(0.65, 0.65).setFlipX(true);
-        this.barraVidaP2 = this.generarBarra(1145, 37, 0xb82d3b);
+        this.barraVidaP2 = this.generarBarra(1800, 37, 0xb82d3b);
         this.setValueBar2(this.barraVidaP2, 100);
         this.add.image(1470, 150, 'UIGamePieza2').setScale(0.65, 0.65).setFlipX(true);
 
@@ -137,11 +144,14 @@ export default class Game extends Phaser.Scene {
             this.add.image(1270, 210, 'Rondas').setScale(0.5, 0.5)
         }
 
+        this.numeroUno = this.add.image(900, 80, '6').setScale(0.65, 0.65);
+        this.numeroDos = this.add.image(1020, 80, '0').setScale(0.65, 0.65);
+
         //La carga de la pantalla de resultados o la siguiente ronda puede llamarla la escena o el jugador derrotado.
         //La siguiente ronda se puede hacer recargando la escena con el número de victorias actualizado
     }
 
-    update() {
+    update(timer, delta) {
         /////////////////////////////////////////////////Player 1 Inputs//////////////////////////////////////////////////////////
 
         //Movimiento básico//
@@ -290,6 +300,27 @@ export default class Game extends Phaser.Scene {
             this.player2.playEndJumpAnim();
             this.player2.jumping = false;
         }
+
+        
+        //Gestion del tiempo
+
+        //Si ha pasado un segundo
+        if(this.timer >= 1){
+            //Disminuimos la segunda cifra del temporizador
+            this.cifra2--;
+                if(this.cifra2 == -1){  //Si la segunda cifra es negativa, le asignamos el valor 9 y reducimos la otra cifra
+                    this.cifra2 = 9;
+                    this.cifra1--
+                } 
+            if(this.cifra1 != -1){  //Mientras la primera cifra no valga -1, actualizamos las imágenes
+                this.numeroUno.destroy();
+                this.numeroDos.destroy();
+                this.numeroUno = this.add.image(900, 80, this.cifra1.toString()).setScale(0.65, 0.65);
+                this.numeroDos = this.add.image(1020, 80, this.cifra2.toString()).setScale(0.65, 0.65);
+            }
+            this.timer = 0;
+        }
+        this.timer += delta/1000;
     }
 
     roundEnd(winnerId) {
@@ -355,6 +386,6 @@ export default class Game extends Phaser.Scene {
 
     setValueBar2(bar, percentage) {
         // Escala la barra
-        bar.scaleX = (100 - percentage) / 100;
+        bar.scaleX = (percentage / 100)*-1;
     }
 }
