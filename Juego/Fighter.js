@@ -19,6 +19,8 @@ export default class Fighter extends Phaser.Physics.Arcade.Sprite {
         this.attacking = false;
         this.blocking = false;
         
+        this.justAttack = false;
+
         this.crouching = false;
         this.jumping = false;
 
