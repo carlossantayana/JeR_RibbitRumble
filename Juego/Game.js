@@ -27,7 +27,8 @@ export default class Game extends Phaser.Scene {
             p2AltSkin: false,
             mapID: 0,
             p1WonRounds: 0,
-            p2WonRounds: 0
+            p2WonRounds: 0,
+            winnerId: 0
         }
     }
 
@@ -273,21 +274,26 @@ export default class Game extends Phaser.Scene {
     roundEnd(winnerId) {
         switch (winnerId) {
             case 1://Victoria P1
-                this.p1WonRounds++;
+                this.parameters.p1WonRounds++;
                 break;
             case 2://Victoria P2
-                this.p2WonRounds++;
+                this.parameters.p2WonRounds++;
                 break;
         }
 
         if (this.p1WonRounds >= 2) {
+            this.parameters.winnerId=1;
             //Cargar escena de resultados con P1 como ganador
+            this.scene.start("Results",this.parameters);
         }
         else if (this.p2WonRounds >= 2) {
+            this.parameters.winnerId=2;
             //Cargar escena de resultados con P2 como ganador
+            this.scene.start("Results",this.parameters);
         }
         else {
             //Recargar la escena de juego con los parametros necesarios
+            this.scene.start("Game",this.parameters);
         }
     }
 
