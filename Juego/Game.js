@@ -53,9 +53,11 @@ export default class Game extends Phaser.Scene {
                 this.add.image(960, 540, 'desiertoFondo');
                 break;
             case 1:
+                this.ground.create(960, 1070, '').setScale(1920, 4).refreshBody();
                 this.add.image(960, 540, 'nenufarFondo');
                 break;
             case 2:
+                this.ground.create(960, 1070, '').setScale(1920, 6).refreshBody();
                 this.add.image(960, 540, 'junglaFondo');
         }
 

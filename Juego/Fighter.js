@@ -131,19 +131,19 @@ export default class Fighter extends Phaser.Physics.Arcade.Sprite {
                     this.downAttackAnim = "";
                     break;
                 case 2:
-                    this.idleAnim = "";
-                    this.walkAnim = "";
-                    this.beginBlockAnim = "";
-                    this.blockAnim = "";
-                    this.endBlockAnim = "";
-                    this.beginJumpAnim = "";
-                    this.jumpAnim = "";
-                    this.endJumpAnim = "";
-                    this.beginDuckAnim = "";
-                    this.duckAnim = "";
-                    this.endDuckAnim = "";
-                    this.attackAnim = "";
-                    this.downAttackAnim = "";
+                    this.idleAnim = "FlechaIdleAnim";
+                    this.walkAnim = "FlechaWalkAnim";
+                    this.beginBlockAnim = "FlechaBeginBlockAnim";
+                    this.blockAnim = "FlechaBlockAnim";
+                    this.endBlockAnim = "FlechaEndBlockAnim";
+                    this.beginJumpAnim = "FlechaBeginJumpAnim";
+                    this.jumpAnim = "FlechaJumpAnim";
+                    this.endJumpAnim = "FlechaEndJumpAnim";
+                    this.beginDuckAnim = "FlechaBeginCrouchAnim";
+                    this.duckAnim = "FlechaCrouchAnim";
+                    this.endDuckAnim = "FlechaEndCrouchAnim";
+                    this.attackAnim = "FlechaBasicAttackAnim";
+                    this.downAttackAnim = "FlechaDownAttackAnim";
                     break;
                 case 3:
                     this.idleAnim = "";

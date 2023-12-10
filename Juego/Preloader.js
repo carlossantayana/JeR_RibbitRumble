@@ -17,6 +17,22 @@ export default class Preloader extends Phaser.Scene {
         this.load.spritesheet('ToroBajo', 'RanaToro/ToroAtaqueBajoV1.1.png', { frameWidth: 600, frameHeight: 293 });
         this.load.spritesheet('ToroSalto', 'RanaToro/ToroSaltoV1.1.png', { frameWidth: 600, frameHeight: 293 });
 
+        this.load.spritesheet('LluviaIdle', 'RanaDeLluvia/Idle_Spritesheet.png', { frameWidth: 3508, frameHeight: 2480 });
+        this.load.spritesheet('LluviaCaminar', 'RanaDeLluvia/Walk_Spritesheet.png', { frameWidth: 3508, frameHeight: 2480 });
+        this.load.spritesheet('LluviaBasico', 'RanaDeLluvia/BasicAttack_Spritesheet.png', { frameWidth: 3508, frameHeight: 2480 });
+        this.load.spritesheet('LluviaBloqueo', 'RanaDeLluvia/BlockAttack_Spritesheet.png', { frameWidth: 3508, frameHeight: 2480 });
+        this.load.spritesheet('LluviaAgachado', 'RanaDeLluvia/Crouch_Spritesheet.png', { frameWidth: 3508, frameHeight: 2480 });
+        this.load.spritesheet('LluviaBajo', 'RanaDeLluvia/DownAttack_Spritesheet.png', { frameWidth: 3508, frameHeight: 2480 });
+        this.load.spritesheet('LluviaSalto', 'RanaDeLluvia/Jump_Spritesheet.png', { frameWidth: 3508, frameHeight: 2480 });
+
+        this.load.spritesheet('FlechaIdle', 'RanaFlecha/FlechaIdle.png', { frameWidth: 301, frameHeight: 252 });
+        this.load.spritesheet('FlechaCaminar', 'RanaFlecha/FlechaAndar.png', { frameWidth: 301, frameHeight: 252 });
+        this.load.spritesheet('FlechaBasico', 'RanaFlecha/FlechaAtaqueBasico.png', { frameWidth: 301, frameHeight: 252 });
+        this.load.spritesheet('FlechaBloqueo', 'RanaFlecha/FlechaBloqueo.png', { frameWidth: 301, frameHeight: 252 });
+        this.load.spritesheet('FlechaAgachado', 'RanaFlecha/FlechaAgachar.png', { frameWidth: 301, frameHeight: 252 });
+        this.load.spritesheet('FlechaBajo', 'RanaFlecha/FlechaAtaqueBajo.png', { frameWidth: 301, frameHeight: 252 });
+        this.load.spritesheet('FlechaSalto', 'RanaFlecha/FlechaSalto.png', { frameWidth: 301, frameHeight: 252 });
+
         //ASSETS FONDOS//
         this.load.setPath('assets/Backgrounds'); //ruta de los assets, para que no sea necesario poner dicha ruta
         this.load.image('junglaFondo', 'Jungla.png');
@@ -168,6 +184,111 @@ export default class Preloader extends Phaser.Scene {
             frameRate: 12,
             repeat: 0
         });
+
+        //////////////////////////////////////////////RANA DE LLUVIA ANIMACIONES////////////////////////////////////////////////////
+
+        //////////////////////////////////////////////RANA FLECHA ANIMACIONES////////////////////////////////////////////////////
+
+        //Animacion Idle
+        this.anims.create({
+            key: 'FlechaIdleAnim',
+            frames: this.anims.generateFrameNumbers('FlechaIdle', {start: 0, end: 3}),
+            frameRate: 12,
+            repeat: -1
+        });
+
+        //Animacion de caminar
+        this.anims.create({
+            key: 'FlechaWalkAnim',
+            frames: this.anims.generateFrameNumbers('FlechaCaminar', { start: 0, end: 3 }),
+            frameRate: 12,
+            repeat: 1
+        });
+
+        //Animacion de ataque basico
+        this.anims.create({
+            key: 'FlechaBasicAttackAnim',
+            frames: this.anims.generateFrameNumbers('FlechaBasico', { start: 0, end: 5 }),
+            frameRate: 12,
+            repeat: 0
+        });
+
+        //Animación de ataque bajo
+        this.anims.create({
+            key: 'FlechaDownAttackAnim',
+            frames: this.anims.generateFrameNumbers('FlechaBajo', { start: 0, end: 6 }),
+            frameRate: 12,
+            repeat: 0
+        });
+
+        //Animacion de empezar bloqueo
+        this.anims.create({
+            key: 'FlechaBeginBlockAnim',
+            frames: this.anims.generateFrameNumbers('FlechaBloqueo', { start: 0, end: 4 }),
+            frameRate: 12,
+            repeat: 0
+        });
+
+        //Aniamcion bloqueo fijo
+        this.anims.create({
+            key: 'FlechaBlockAnim',
+            frames: this.anims.generateFrameNumbers('FlechaBloqueo', { start: 4, end: 4 }),
+        });
+
+        //Aniamcion de terminar bloqueo
+        this.anims.create({
+            key: 'FlechaEndBlockAnim',
+            frames: this.anims.generateFrameNumbers('FlechaBloqueo', { start: 4, end: 0 }),
+            frameRate: 12,
+            repeat: 0
+        });
+
+        //Animación comenzar agachado
+        this.anims.create({
+            key: 'FlechaBeginCrouchAnim',
+            frames: this.anims.generateFrameNumbers('FlechaAgachado', { start: 0, end: 2 }),
+            frameRate: 12,
+            repeat: 0
+        });
+
+        //Aniamcion agachado fijo
+        this.anims.create({
+            key: 'FlechaCrouchAnim',
+            frames: this.anims.generateFrameNumbers('FlechaAgachado', { start: 2, end: 2 }),
+        });
+
+        //Aniamcion de terminar agachado
+        this.anims.create({
+            key: 'FlechaEndCrouchAnim',
+            frames: this.anims.generateFrameNumbers('FlechaAgachado', { start: 2, end: 0 }),
+            frameRate: 12,
+            repeat: 0
+        });
+
+        //Animacion comenzar salto
+        this.anims.create({
+            key: 'FlechaBeginJumpAnim',
+            frames: this.anims.generateFrameNumbers('FlechaSalto', { start: 0, end: 5 }),
+            frameRate: 18,
+            repeat: 0
+        });
+
+        this.anims.create({
+            key: 'FlechaJumpAnim',
+            frames: this.anims.generateFrameNumbers('FlechaSalto', { start: 5, end: 5 }),
+            frameRate: 18,
+            repeat: 0
+        });
+
+        this.anims.create({
+            key: 'FlechaEndJumpAnim',
+            frames: this.anims.generateFrameNumbers('FlechaSalto', { start: 5, end: 1 }),
+            frameRate: 18,
+            repeat: 0
+        });
+        //////////////////////////////////////////////RANA TREPADORA ANIMACIONES////////////////////////////////////////////////////
+
+
 
         this.scene.start('MainMenu'); //Cargar Escena inicial
     }
