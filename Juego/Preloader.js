@@ -50,6 +50,7 @@ export default class Preloader extends Phaser.Scene {
         this.load.image('botonVolver', 'Volver.png')
         this.load.image('botonAjustes', 'Ajustes.png')
         this.load.image('botonCombate', 'Combate.png')
+        this.load.image('botonRevancha', 'Revancha.png')
 
         //ASSETS MENUS//
         this.load.setPath('assets/Menu/Menu principal');
@@ -60,6 +61,11 @@ export default class Preloader extends Phaser.Scene {
         this.load.image('menuFondo', 'FondoMenus.png');
         this.load.image('menuAjustes', 'MenuAjustes.png');
         this.load.image('sliderBoton', 'slider.png');
+
+        this.load.setPath('assets/Menu/Menu resultados');
+        this.load.image('corona', 'Corona.png');
+        this.load.image('foco', 'Foco.png');
+
 
         //ASSETS RETRATOS Y LOGOS PERSONAJES//
         this.load.setPath('assets/CharacterPortraits');
