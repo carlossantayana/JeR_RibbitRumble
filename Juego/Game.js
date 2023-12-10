@@ -28,7 +28,8 @@ export default class Game extends Phaser.Scene {
             mapID: 0,
             p1WonRounds: 0,
             p2WonRounds: 0,
-            winnerId: 0
+            winnerId: 0,
+            loses:0
         }
 
         this.barraVidap1
@@ -310,11 +311,13 @@ export default class Game extends Phaser.Scene {
 
         if (this.p1WonRounds >= 2) {
             this.parameters.winnerId=1;
+            this.parameters.loses=this.p2WonRounds;
             //Cargar escena de resultados con P1 como ganador
             this.scene.start("Results",this.parameters);
         }
         else if (this.p2WonRounds >= 2) {
             this.parameters.winnerId=2;
+            this.parameters.loses=this.p1WonRounds;
             //Cargar escena de resultados con P2 como ganador
             this.scene.start("Results",this.parameters);
         }
