@@ -194,7 +194,7 @@ export default class MapSelectionMenu extends Phaser.Scene {
         
 
         if (this.gameStarting == 4) {
-            //this.parameters.mapID = this.finalSelection;
+            this.parameters.mapID = this.finalSelection;
             this.timerChangeScene+=delta/1000;
             console.log("Timer 3 = " + this.timerChangeScene)
 
