@@ -32,12 +32,18 @@ export default class Fighter extends Phaser.Physics.Arcade.Sprite {
     takeDamage(quantity) {
         this.hp -= quantity;
         if (this.hp <= 0) {
-            this.scene.roundEnd(this.player);
+            this.scene.roundEnd(this.playerID);
         }
     }
 
     playIdleAnim(){
-        if(!this.anims.isPlaying){
+        var currentAnimationKey = this.anims.currentAnim? this.anims.currentAnim.key : '';
+
+        if(currentAnimationKey === this.endDuckAnim || currentAnimationKey === this.endJumpAnim){
+            if(!this.anims.isPlaying){
+                this.anims.play(this.idleAnim, true);
+            }
+        }else{
             this.anims.play(this.idleAnim, true);
         }
     }

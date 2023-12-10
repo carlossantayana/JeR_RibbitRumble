@@ -179,12 +179,8 @@ export default class Game extends Phaser.Scene {
             this.player1.attacking = false;
         }
         
-        if(this.player1.justAttack){
-            this.player1.justAttack = false;
-        }
-        
         //Bloquear//
-        if (this.keyG.isDown && !this.player1.crouching && !this.player1.jumping && !this.player1.blocking){
+        if (this.keyG.isDown && !this.player1.crouching && !this.player1.jumping && !this.player1.blocking && !this.player1.attacking){
             this.player1.setVelocityX(0);
             this.player1.blocking = true;
             this.player1.playBeginBlockAnim();
@@ -192,23 +188,24 @@ export default class Game extends Phaser.Scene {
             this.player1.playBlockAnim();
         }else if (Phaser.Input.Keyboard.JustUp(this.keyG) && this.player1.blocking){
             this.player1.playEndBlockAnim();
+        }else if(this.player1.blocking && !this.player1.anims.isPlaying){
             this.player1.blocking = false;
         }
 
         //Agacharse//
-        if (this.keyS.isDown && !this.player1.crouching && !this.player1.jumping && !this.player1.blocking){
+        if (this.keyS.isDown && !this.player1.crouching && !this.player1.jumping && !this.player1.blocking && !this.player1.attacking){
             this.player1.setVelocityX(0);
             this.player1.crouching = true;
             this.player1.playBeginCrouchAnim();
-        }else if (this.keyS.isDown && this.player1.crouching){
+        }else if (this.keyS.isDown && this.player1.crouching && !this.player1.attacking){
             this.player1.playCrouchAnim();
-        }else if (Phaser.Input.Keyboard.JustUp(this.keyS) && this.player1.crouching){
+        }else if (this.player1.crouching && !this.player1.attacking && (Phaser.Input.Keyboard.JustUp(this.keyS) || this.keyS.isUp)){
             this.player1.playEndCrouchAnim();
             this.player1.crouching = false;
         }
 
         //Saltar//
-        if (this.keyW.isDown && !this.player1.jumping && this.player1.touchingGround && !this.player1.crouching && !this.player1.blocking) {
+        if (this.keyW.isDown && !this.player1.jumping && this.player1.touchingGround && !this.player1.crouching && !this.player1.blocking && !this.player1.attacking) {
             this.player1.jumping = true;
             this.player1.touchingGround = false;
             this.player1.setVelocityY(-300);
@@ -255,10 +252,6 @@ export default class Game extends Phaser.Scene {
             this.player2.playDownAttackAnim();
         }else if(this.player2.attacking && !this.player2.anims.isPlaying){
             this.player2.attacking = false;
-        }
-        
-        if(this.player2.justAttack){
-            this.player2.justAttack = false;
         }
 
         //Bloquear//
@@ -323,18 +316,20 @@ export default class Game extends Phaser.Scene {
         }
         else {
             //Recargar la escena de juego con los parametros necesarios
-            this.scene.start("Game",this.parameters);
+            //this.scene.start("Game",this.parameters);
         }
     }
 
     playerOverlap() //Comprobación de los estados de cada jugador comprobando los parametros "attacking" y "blocking"
     {
-        if (this.player1.justAttack && !this.player2.blocking) {
+        if (this.player1.attacking && !this.player2.blocking && this.player1.justAttack) {
             this.player2.takeDamage(10);
+            this.player1.justAttack = false;
             console.log('player 2 received damage!');
         }
-        if (this.player2.justAttack && !this.player1.blocking) {
+        if (this.player2.attacking && !this.player1.blocking && this.player2.justAttack) {
             this.player1.takeDamage(10);
+            this.player2.justAttack = false;
             console.log('player 1 received damage!');
         }
     }
