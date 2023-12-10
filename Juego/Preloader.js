@@ -81,6 +81,24 @@ export default class Preloader extends Phaser.Scene {
         this.load.setPath('assets/TextInterface');
         this.load.image('Player1Text', 'Player1.png');
         this.load.image('Player2Text', 'Player2.png');
+
+        //ASSETS GAME UI//
+        this.load.setPath('assets/InGame');
+        this.load.image('UIGamePieza1', 'InterfazJugadorPieza1.png');
+        this.load.image('UIGamePieza2', 'InterfazJugadorPieza2.png');
+        this.load.image('Rondas', 'FichaRonda.png');
+        this.load.image('PunteroP1', 'Puntero1.png');
+        this.load.image('PunteroP2', 'Puntero2.png');
+        this.load.image('0', '0.png');
+        this.load.image('1', '1.png');
+        this.load.image('2', '2.png');
+        this.load.image('3', '3.png');
+        this.load.image('4', '4.png');
+        this.load.image('5', '5.png');
+        this.load.image('6', '6.png');
+        this.load.image('7', '7.png');
+        this.load.image('8', '8.png');
+        this.load.image('9', '9.png');
     }
 
     create() //crear animaciones y cargar escena inicial

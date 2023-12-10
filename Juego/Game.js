@@ -113,6 +113,22 @@ export default class Game extends Phaser.Scene {
         this.keyNumpad1 = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.NUMPAD_ONE);
         this.keyNumpad2 = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.NUMPAD_TWO);
 
+        //UI P1
+        this.add.image(450, 150, 'UIGamePieza1').setScale(0.65, 0.65);
+        this.add.image(450, 150, 'UIGamePieza2').setScale(0.65, 0.65);
+
+        if(this.parameters.p1WonRounds == 1){
+            this.add.image(650, 210, 'Rondas').setScale(0.5, 0.5)
+        }
+
+        //UI P2
+        this.add.image(1470, 150, 'UIGamePieza1').setScale(0.65, 0.65).setFlipX(true);
+        this.add.image(1470, 150, 'UIGamePieza2').setScale(0.65, 0.65).setFlipX(true);
+
+        if(this.parameters.p2WonRounds == 1){
+            this.add.image(1270, 210, 'Rondas').setScale(0.5, 0.5)
+        }
+
         //La carga de la pantalla de resultados o la siguiente ronda puede llamarla la escena o el jugador derrotado.
         //La siguiente ronda se puede hacer recargando la escena con el número de victorias actualizado
     }
