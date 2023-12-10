@@ -35,7 +35,9 @@ export default class Fighter extends Phaser.Physics.Arcade.Sprite {
     }
 
     playIdleAnim(){
-        this.anims.play(this.idleAnim, true);
+        if(!this.anims.isPlaying){
+            this.anims.play(this.idleAnim, true);
+        }
     }
 
     playWalkAnim(){

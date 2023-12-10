@@ -96,6 +96,7 @@ export default class Game extends Phaser.Scene {
         this.player2 = new Fighter(this, 900, 600, this.parameters.p2CharacterID, this.parameters.p2AltSkin, 2, p2Texture);
 
         this.physics.add.collider(this.player1, this.ground, () => this.player1.touchingGround = true);
+        this.physics.add.collider(this.player2, this.ground, () => this.player2.touchingGround = true);
         this.physics.add.overlap(this.player1, this.player2, () => this.playerOverlap());
 
         //Inputs
@@ -114,15 +115,17 @@ export default class Game extends Phaser.Scene {
     }
 
     update() {
-        //Player 1 Inputs//
-        if (this.keyD.isDown && !this.player1.blocking && !this.player1.attacking) {
+        /////////////////////////////////////////////////Player 1 Inputs//////////////////////////////////////////////////////////
+
+        //Movimiento básico//
+        if (this.keyD.isDown && !this.player1.crouching && !this.player1.blocking) {
             this.player1.setVelocityX(300);
             this.player1.setFlipX(false);
 
             if (!this.player1.jumping) {
                 this.player1.playWalkAnim();
             }
-        } else if (this.keyA.isDown) {
+        } else if (this.keyA.isDown && !this.player1.crouching && !this.player1.blocking) {
             this.player1.setVelocityX(-300);
             this.player1.setFlipX(true);
 
@@ -134,7 +137,32 @@ export default class Game extends Phaser.Scene {
             this.player1.playIdleAnim();
         }
 
-        if (this.keyW.isDown && !this.player1.jumping && this.player1.touchingGround) {
+        //Bloquear//
+        if (this.keyG.isDown && !this.player1.crouching && !this.player1.jumping && !this.player1.blocking){
+            this.player1.setVelocityX(0);
+            this.player1.blocking = true;
+            this.player1.playBeginBlockAnim();
+        }else if (this.keyG.isDown && this.player1.blocking){
+            this.player1.playBlockAnim();
+        }else if (Phaser.Input.Keyboard.JustUp(this.keyG) && this.player1.blocking){
+            this.player1.playEndBlockAnim();
+            this.player1.blocking = false;
+        }
+
+        //Agacharse//
+        if (this.keyS.isDown && !this.player1.crouching && !this.player1.jumping && !this.player1.blocking){
+            this.player1.setVelocityX(0);
+            this.player1.crouching = true;
+            this.player1.playBeginCrouchAnim();
+        }else if (this.keyS.isDown && this.player1.crouching){
+            this.player1.playCrouchAnim();
+        }else if (Phaser.Input.Keyboard.JustUp(this.keyS) && this.player1.crouching){
+            this.player1.playEndCrouchAnim();
+            this.player1.crouching = false;
+        }
+
+        //Saltar//
+        if (this.keyW.isDown && !this.player1.jumping && this.player1.touchingGround && !this.player1.crouching && !this.player1.blocking) {
             this.player1.jumping = true;
             this.player1.touchingGround = false;
             this.player1.setVelocityY(-300);
@@ -144,6 +172,65 @@ export default class Game extends Phaser.Scene {
         } else if (this.player1.jumping && this.player1.touchingGround) {
             this.player1.playEndJumpAnim();
             this.player1.jumping = false;
+        }
+
+        /////////////////////////////////////////////////Player 2 Inputs//////////////////////////////////////////////////////////
+
+        //Movimiento básico//
+        if (this.cursors.right.isDown && !this.player2.crouching) {
+            this.player2.setVelocityX(300);
+            this.player2.setFlipX(false);
+
+            if (!this.player2.jumping) {
+                this.player2.playWalkAnim();
+            }
+        } else if (this.cursors.left.isDown && !this.player2.crouching) {
+            this.player2.setVelocityX(-300);
+            this.player2.setFlipX(true);
+
+            if (!this.player2.jumping) {
+                this.player2.playWalkAnim();
+            }
+        } else if (!this.player2.blocking && !this.player2.jumping && !this.player2.crouching && !this.player2.attacking) {
+            this.player2.setVelocityX(0);
+            this.player2.playIdleAnim();
+        }
+
+        //Bloquear//
+        if (this.keyNumpad2.isDown && !this.player2.crouching && !this.player2.jumping && !this.player2.blocking){
+            this.player2.setVelocityX(0);
+            this.player2.blocking = true;
+            this.player2.playBeginBlockAnim();
+        }else if (this.keyNumpad2.isDown && this.player2.blocking){
+            this.player2.playBlockAnim();
+        }else if (Phaser.Input.Keyboard.JustUp(this.keyNumpad2) && this.player2.blocking){
+            this.player2.playEndBlockAnim();
+            this.player2.blocking = false;
+        }
+
+        //Agacharse//
+        if (this.cursors.down.isDown && !this.player2.crouching && !this.player2.jumping){
+            this.player2.setVelocityX(0);
+            this.player2.crouching = true;
+            this.player2.playBeginCrouchAnim();
+        }else if (this.cursors.down.isDown && this.player2.crouching){
+            this.player2.playCrouchAnim();
+        }else if (Phaser.Input.Keyboard.JustUp(this.cursors.down) && this.player2.crouching){
+            this.player2.playEndCrouchAnim();
+            this.player2.crouching = false;
+        }
+
+        //Saltar//
+        if (this.cursors.up.isDown && !this.player2.jumping && this.player2.touchingGround && !this.player2.crouching) {
+            this.player2.jumping = true;
+            this.player2.touchingGround = false;
+            this.player2.setVelocityY(-300);
+            this.player2.playBeginJumpAnim();
+        } else if (this.player2.jumping && !this.player2.touchingGround) {
+            this.player2.playJumpAnim();
+        } else if (this.player2.jumping && this.player2.touchingGround) {
+            this.player2.playEndJumpAnim();
+            this.player2.jumping = false;
         }
     }
 
