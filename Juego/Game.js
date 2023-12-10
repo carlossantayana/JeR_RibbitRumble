@@ -126,9 +126,24 @@ export default class Game extends Phaser.Scene {
 
         //UI P1
         this.add.image(450, 150, 'UIGamePieza1').setScale(0.65, 0.65);
-        this.barraVidaP1 = this.generarBarra(228, 37, 0xb82d3b)
-        this.setValueBar1(this.barraVidaP1, 100);
+        this.barraVidaP1 = this.generarBarra(228, 37, 0xb82d3b) //Se crea un rectangulo para la barra
+        this.setValueBar1(this.barraVidaP1, 100);               //Se pasa dicho rectangulo y el valor que tendrá la barra
         this.add.image(450, 150, 'UIGamePieza2').setScale(0.65, 0.65);
+
+        switch(this.parameters.p1CharacterID){
+            case 0:
+                this.add.image(130, 145, 'ranaToroUI').setScale(0.65, 0.65);
+                break;
+            case 1:
+                this.add.image(130, 145, 'ranaLluviaUI').setScale(0.65, 0.65);
+                break;
+            case 2:
+                this.add.image(130, 145, 'ranaFlechaUI').setScale(0.65, 0.65);
+                break;
+            case 3:
+                this.add.image(130, 145, 'ranaTrepadoraUI').setScale(0.65, 0.65);
+                break;
+        }
 
         if(this.parameters.p1WonRounds == 1){
             this.add.image(650, 210, 'Rondas').setScale(0.5, 0.5)
@@ -136,9 +151,24 @@ export default class Game extends Phaser.Scene {
 
         //UI P2
         this.add.image(1470, 150, 'UIGamePieza1').setScale(0.65, 0.65).setFlipX(true);
-        this.barraVidaP2 = this.generarBarra(1800, 37, 0xb82d3b);
-        this.setValueBar2(this.barraVidaP2, 100);
+        this.barraVidaP2 = this.generarBarra(1690, 37, 0xb82d3b); //Se crea un rectangulo para la barra
+        this.setValueBar2(this.barraVidaP2, 100);                 //Se pasa dicho rectangulo y el valor que tendrá la barra
         this.add.image(1470, 150, 'UIGamePieza2').setScale(0.65, 0.65).setFlipX(true);
+
+        switch(this.parameters.p2CharacterID){
+            case 0:
+                this.add.image(1790, 145, 'ranaToroUI').setScale(0.65, 0.65).setFlipX(true);
+                break;
+            case 1:
+                this.add.image(1790, 145, 'ranaLluviaUI').setScale(0.65, 0.65).setFlipX(true);
+                break;
+            case 2:
+                this.add.image(1790, 145, 'ranaFlechaUI').setScale(0.65, 0.65).setFlipX(true);
+                break;
+            case 3:
+                this.add.image(1790, 145, 'ranaTrepadoraUI').setScale(0.65, 0.65).setFlipX(true);
+                break;
+        }
 
         if(this.parameters.p2WonRounds == 1){
             this.add.image(1270, 210, 'Rondas').setScale(0.5, 0.5)
