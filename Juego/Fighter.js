@@ -8,6 +8,10 @@ export default class Fighter extends Phaser.Physics.Arcade.Sprite {
         this.scene.add.existing(this);
         this.scene.physics.add.existing(this);
 
+        if(characterID == 1){
+            this.setScale(0.2);
+        }
+
         this.setCollideWorldBounds(true);
 
         this.hp = 100;
@@ -122,19 +126,19 @@ export default class Fighter extends Phaser.Physics.Arcade.Sprite {
                     this.downAttackAnim = "ToroDownAttackAnim";
                     break;
                 case 1:
-                    this.idleAnim = "";
-                    this.walkAnim = "";
-                    this.beginBlockAnim = "";
-                    this.blockAnim = "";
-                    this.endBlockAnim = "";
-                    this.beginJumpAnim = "";
-                    this.jumpAnim = "";
-                    this.endJumpAnim = "";
-                    this.beginDuckAnim = "";
-                    this.duckAnim = "";
-                    this.endDuckAnim = "";
-                    this.attackAnim = "";
-                    this.downAttackAnim = "";
+                    this.idleAnim = "LluviaIdleAnim";
+                    this.walkAnim = "LluviaWalkAnim";
+                    this.beginBlockAnim = "LluviaBeginBlockAnim";
+                    this.blockAnim = "LluviaBlockAnim";
+                    this.endBlockAnim = "LluviaEndBlockAnim";
+                    this.beginJumpAnim = "LluviaBeginJumpAnim";
+                    this.jumpAnim = "LluviaJumpAnim";
+                    this.endJumpAnim = "LluviaEndJumpAnim";
+                    this.beginDuckAnim = "LluviaBeginCrouchAnim";
+                    this.duckAnim = "LluviaCrouchAnim";
+                    this.endDuckAnim = "LluviaEndCrouchAnim";
+                    this.attackAnim = "LluviaBasicAttackAnim";
+                    this.downAttackAnim = "LluviaDownAttackAnim";
                     break;
                 case 2:
                     this.idleAnim = "FlechaIdleAnim";

@@ -20,7 +20,7 @@ export default class Preloader extends Phaser.Scene {
         this.load.spritesheet('LluviaIdle', 'RanaDeLluvia/Idle_Spritesheet.png', { frameWidth: 3508, frameHeight: 2480 });
         this.load.spritesheet('LluviaCaminar', 'RanaDeLluvia/Walk_Spritesheet.png', { frameWidth: 3508, frameHeight: 2480 });
         this.load.spritesheet('LluviaBasico', 'RanaDeLluvia/BasicAttack_Spritesheet.png', { frameWidth: 3508, frameHeight: 2480 });
-        this.load.spritesheet('LluviaBloqueo', 'RanaDeLluvia/BlockAttack_Spritesheet.png', { frameWidth: 3508, frameHeight: 2480 });
+        this.load.spritesheet('LluviaBloqueo', 'RanaDeLluvia/Block_Spritesheet.png', { frameWidth: 3508, frameHeight: 2480 });
         this.load.spritesheet('LluviaAgachado', 'RanaDeLluvia/Crouch_Spritesheet.png', { frameWidth: 3508, frameHeight: 2480 });
         this.load.spritesheet('LluviaBajo', 'RanaDeLluvia/DownAttack_Spritesheet.png', { frameWidth: 3508, frameHeight: 2480 });
         this.load.spritesheet('LluviaSalto', 'RanaDeLluvia/Jump_Spritesheet.png', { frameWidth: 3508, frameHeight: 2480 });
@@ -130,13 +130,13 @@ export default class Preloader extends Phaser.Scene {
             key: 'ToroWalkAnim',
             frames: this.anims.generateFrameNumbers('ToroCaminar', { start: 0, end: 6 }),
             frameRate: 12,
-            repeat: 1
+            repeat: 0
         });
 
         //Animacion de ataque basico
         this.anims.create({
             key: 'ToroBasicAttackAnim',
-            frames: this.anims.generateFrameNumbers('ToroBasico', { start: 0, end: 9 }),
+            frames: this.anims.generateFrameNumbers('ToroBasico', { start: 0, end: 6 }),
             frameRate: 12,
             repeat: 0
         });
@@ -216,6 +216,103 @@ export default class Preloader extends Phaser.Scene {
         });
 
         //////////////////////////////////////////////RANA DE LLUVIA ANIMACIONES////////////////////////////////////////////////////
+        //Animacion Idle
+        this.anims.create({
+            key: 'LluviaIdleAnim',
+            frames: this.anims.generateFrameNumbers('LluviaIdle', {start: 0, end: 5}),
+            frameRate: 12,
+            repeat: -1
+        });
+
+        //Animacion de caminar
+        this.anims.create({
+            key: 'LluviaWalkAnim',
+            frames: this.anims.generateFrameNumbers('LluviaCaminar', { start: 0, end: 6 }),
+            frameRate: 12,
+            repeat: 0
+        });
+
+        //Animacion de ataque basico
+        this.anims.create({
+            key: 'LluviaBasicAttackAnim',
+            frames: this.anims.generateFrameNumbers('LluviaBasico', { start: 0, end: 6 }),
+            frameRate: 12,
+            repeat: 0
+        });
+
+        //Animación de ataque bajo
+        this.anims.create({
+            key: 'LluviaDownAttackAnim',
+            frames: this.anims.generateFrameNumbers('LluviaBajo', { start: 0, end: 12 }),
+            frameRate: 12,
+            repeat: 0
+        });
+
+        //Animacion de empezar bloqueo
+        this.anims.create({
+            key: 'LluviaBeginBlockAnim',
+            frames: this.anims.generateFrameNumbers('LluviaBloqueo', { start: 0, end: 2 }),
+            frameRate: 12,
+            repeat: 0
+        });
+
+        //Aniamcion bloqueo fijo
+        this.anims.create({
+            key: 'LluviaBlockAnim',
+            frames: this.anims.generateFrameNumbers('LluviaBloqueo', { start: 2, end: 2 }),
+        });
+
+        //Aniamcion de terminar bloqueo
+        this.anims.create({
+            key: 'LluviaEndBlockAnim',
+            frames: this.anims.generateFrameNumbers('LluviaBloqueo', { start: 2, end: 4 }),
+            frameRate: 12,
+            repeat: 0
+        });
+
+        //Animación comenzar agachado
+        this.anims.create({
+            key: 'LluviaBeginCrouchAnim',
+            frames: this.anims.generateFrameNumbers('LluviaAgachado', { start: 0, end: 2 }),
+            frameRate: 12,
+            repeat: 0
+        });
+
+        //Aniamcion agachado fijo
+        this.anims.create({
+            key: 'LluviaCrouchAnim',
+            frames: this.anims.generateFrameNumbers('LluviaAgachado', { start: 2, end: 2 }),
+        });
+
+        //Aniamcion de terminar agachado
+        this.anims.create({
+            key: 'LluviaEndCrouchAnim',
+            frames: this.anims.generateFrameNumbers('LluviaAgachado', { start: 2, end: 4 }),
+            frameRate: 12,
+            repeat: 0
+        });
+
+        //Animacion comenzar salto
+        this.anims.create({
+            key: 'LluviaBeginJumpAnim',
+            frames: this.anims.generateFrameNumbers('LluviaSalto', { start: 0, end: 3 }),
+            frameRate: 12,
+            repeat: 0
+        });
+
+        this.anims.create({
+            key: 'LluviaJumpAnim',
+            frames: this.anims.generateFrameNumbers('LluviaSalto', { start: 3, end: 3 }),
+            frameRate: 12,
+            repeat: 0
+        });
+
+        this.anims.create({
+            key: 'LluviaEndJumpAnim',
+            frames: this.anims.generateFrameNumbers('LluviaSalto', { start: 3, end: 6 }),
+            frameRate: 12,
+            repeat: 0
+        });
 
         //////////////////////////////////////////////RANA FLECHA ANIMACIONES////////////////////////////////////////////////////
 
@@ -232,7 +329,7 @@ export default class Preloader extends Phaser.Scene {
             key: 'FlechaWalkAnim',
             frames: this.anims.generateFrameNumbers('FlechaCaminar', { start: 0, end: 3 }),
             frameRate: 12,
-            repeat: 1
+            repeat: 0
         });
 
         //Animacion de ataque basico
