@@ -8,7 +8,8 @@ export default class Results extends Phaser.Scene
         this.parameters = {
             p1CharacterID: 0,
             p2CharacterID: 0,
-            winnerId: 0
+            winnerID: 0,
+            winerLoses: 0
         }
     }
 
@@ -16,7 +17,8 @@ export default class Results extends Phaser.Scene
     {
         this.parameters.p1CharacterID=data.player1CharacterID;
         this.parameters.p2CharacterID=data.player2CharacterID;
-        this.parameters.winnerId=data.winnerId;
+        this.parameters.winnerID=data.winnerID;
+        this.winerLoses=data.loses;
     }
 
     create ()
@@ -24,7 +26,7 @@ export default class Results extends Phaser.Scene
         this.add.image(940, 534.5, 'menuFondo').setScale(0.5).setTint(0x808080);
         switch(this.parameters.p1CharacterID){
             case 0:
-                if(this.winnerId===1){
+                if(this.winnerID===1){
                     this.p1Sprite= this.add.sprite(940,500,"ToroIdle");
                 }
                 else{
@@ -32,7 +34,7 @@ export default class Results extends Phaser.Scene
                 }
                 break;
             case 1:
-                if(this.winnerId===1){
+                if(this.winnerID===1){
                     this.p1Sprite= this.add.sprite(940,500,"LluviaIdle");
                 }
                 else{
@@ -40,7 +42,7 @@ export default class Results extends Phaser.Scene
                 }
                 break;
             case 2:
-                if(this.winnerId===1){
+                if(this.winnerID===1){
                     this.p1Sprite= this.add.sprite(940,500,"FlechaIdle");
                 }
                 else{
@@ -48,7 +50,7 @@ export default class Results extends Phaser.Scene
                 }
                 break;
             case 3:
-                if(this.winnerId===1){
+                if(this.winnerID===1){
                     this.p1Sprite= this.add.sprite(940,500,"TrepadoraIdle");
                 }
                 else{
@@ -58,7 +60,7 @@ export default class Results extends Phaser.Scene
         }
         switch(this.parameters.p2CharacterID){
             case 0:
-                if(this.winnerId===2){
+                if(this.winnerID===2){
                     this.p2Sprite= this.add.sprite(940,500,"ToroIdle");
                 }
                 else{
@@ -66,7 +68,7 @@ export default class Results extends Phaser.Scene
                 }
                 break;
             case 1:
-                if(this.winnerId===2){
+                if(this.winnerID===2){
                     this.p2Sprite= this.add.sprite(940,500,"LluviaIdle");
                 }
                 else{
@@ -74,7 +76,7 @@ export default class Results extends Phaser.Scene
                 }
                 break;
             case 2:
-                if(this.winnerId===2){
+                if(this.winnerID===2){
                     this.p2Sprite= this.add.sprite(940,500,"FlechaIdle");
                 }
                 else{
@@ -82,7 +84,7 @@ export default class Results extends Phaser.Scene
                 }
                 break;
             case 3:
-                if(this.winnerId===2){
+                if(this.winnerID===2){
                     this.p2Sprite= this.add.sprite(940,500,"TrepadoraIdle");
                 }
                 else{
@@ -93,7 +95,7 @@ export default class Results extends Phaser.Scene
         
         this.corona=this.add.image(400,700,"corona").setScale(0.2);
         this.foco=this.add.image(1410,450,"foco").setScale(0.65,1.1);
-        if(this.parameters.winnerId===1){
+        if(this.parameters.winnerID===1){
             this.p1Sprite.setPosition(400,800);
             switch(this.parameters.p1CharacterID){
                 case 0:
@@ -131,7 +133,7 @@ export default class Results extends Phaser.Scene
             }
             this.p2Sprite.flipX=true;
         }
-        else if(this.parameters.winnerId===2){
+        else if(this.parameters.winnerID===2){
             this.p2Sprite.setPosition(400,800);
             switch(this.parameters.p2CharacterID){
                 case 0:
@@ -170,11 +172,39 @@ export default class Results extends Phaser.Scene
             this.p1Sprite.flipX=true;
         }
 
+        if(this.winnerId===1){
+            this.add.text(100, 40, "Gana el Jugador 1", { fontSize: '90px' });
+            this.add.text(100, 140, "2 victorias", { fontSize: '60px' });
+            if(this.winerLoses===1){
+                this.add.text(100, 220, this.winerLoses+" derrota", { fontSize: '60px' });
+            }
+            else{
+                this.add.text(100, 220, this.winerLoses+" derrotas", { fontSize: '60px' });
+            }
+        }
+        else{
+            this.add.text(100, 40, "Gana el Jugador 1", { fontSize: '90px' });  
+            this.add.text(100, 140, "2 victorias", { fontSize: '60px' });
+            if(this.winerLoses===1){
+                this.add.text(100, 220, this.winerLoses+" derrota", { fontSize: '60px' });
+            }
+            else{
+                this.add.text(100, 220, this.winerLoses+" derrotas", { fontSize: '60px' });
+            } 
+        }
+
+
         const rematchButton = this.add.image(1000, 950, 'botonRevancha').setScale(0.75).setInteractive(); //Objeto que queremos que sea el boton
         const backButton = this.add.image(1500, 1000, 'botonVolver').setScale(0.5).setInteractive(); //Objeto que queremos que sea el boton
 
         rematchButton.on('pointerdown', () => this.rematchOnClick());
         backButton.on('pointerdown', () => this.backOnClick());
+
+        this.rematchButtonOver(rematchButton);
+        this.backButtonOver(backButton);
+
+        this.rematchButtonOut(rematchButton);
+        this.backButtonOut(backButton);
     }
 
     rematchOnClick()
@@ -185,5 +215,29 @@ export default class Results extends Phaser.Scene
     backOnClick()
     {
         this.scene.start("MainMenu");
+    }
+
+    rematchButtonOver(button) {
+        button.on('pointerover', function(){
+            button.setScale(1);
+        })
+    }
+
+    rematchButtonOut(button) {
+        button.on('pointerout', function(){
+            button.setScale(0.75);
+        })
+    }
+
+    backButtonOver(button) {
+        button.on('pointerover', function(){
+            button.setScale(0.75);
+        })
+    }
+
+    backButtonOut(button) {
+        button.on('pointerout', function(){
+            button.setScale(0.5);
+        })
     }
 }

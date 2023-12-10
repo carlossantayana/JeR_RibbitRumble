@@ -13,7 +13,6 @@ export default class PlayerSelectionMenu extends Phaser.Scene {
         this.parameters= {
             player1CharacterID: null,
             player2CharacterID: null,
-            winnerId: 1
         }
     }
 
@@ -144,6 +143,6 @@ export default class PlayerSelectionMenu extends Phaser.Scene {
     onMapSelection() {
         this.playersReady=false;
         this.playerSelect = 1
-        this.scene.start('mapSelectionMenu', this.parameters); //Cargar Escena de selección de mapa, hay que pasarle la id de personajes
+        this.scene.start('Game', this.parameters); //Cargar Escena de selección de mapa, hay que pasarle la id de personajes
     }
 }

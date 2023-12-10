@@ -194,12 +194,24 @@ export default class MapSelectionMenu extends Phaser.Scene {
         
 
         if (this.gameStarting == 4) {
-            this.parameters.mapID = this.finalSelection;
+            //this.parameters.mapID = this.finalSelection;
             this.timerChangeScene+=delta/1000;
             console.log("Timer 3 = " + this.timerChangeScene)
 
 
             if (this.timerChangeScene >= 3) {
+                this.playersReady = false;
+                this.playerSelect = 1;
+                this.gameStarting = 0;
+                this.mapOneImage=undefined;
+                this.mapTwoImage=undefined;
+                this.player1Selection=undefined;
+                this.player2Selection=undefined;
+                this.finalSelection=undefined;
+                this.p1=undefined;
+                this.timer = 0;
+                this.timerFinal = 0;
+                this.timerChangeScene = 0;
                 this.scene.start('Game', this.parameters);
             }
         }
@@ -296,6 +308,5 @@ export default class MapSelectionMenu extends Phaser.Scene {
 
     onGameStart() {
         this.gameStarting = 1;
-
     }
 }
