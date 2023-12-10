@@ -164,19 +164,21 @@ export default class Game extends Phaser.Scene {
         }
 
         //Atacar//
-        if(Phaser.Input.Keyboard.JustDown(this.keyF) && !this.player1.crouching && !this.player1.blocking && !this.player1.jumping && !this.player1.attacking){
+        if(!this.player1.crouching && Phaser.Input.Keyboard.JustDown(this.keyF) && !this.player1.blocking && !this.player1.jumping && !this.player1.attacking){
             this.player1.setVelocityX(0);
             this.player1.attacking = true;
             this.player1.justAttack = true;
             this.player1.playBasicAttackAnim();
-        }else if(Phaser.Input.Keyboard.JustDown(this.keyF) && this.player1.crouching && !this.player1.blocking && !this.player1.jumping && !this.player1.attacking){
+        }else if(this.player1.crouching && Phaser.Input.Keyboard.JustDown(this.keyF) && !this.player1.blocking && !this.player1.jumping && !this.player1.attacking){
             this.player1.setVelocityX(0);
             this.player1.attacking = true;
             this.player1.justAttack = true;
             this.player1.playDownAttackAnim();
-        }else if(Phaser.Input.Keyboard.JustUp(this.keyF) && this.player1.attacking){
+        }else if(this.player1.attacking && !this.player1.anims.isPlaying){
             this.player1.attacking = false;
-        }else{
+        }
+        
+        if(this.player1.justAttack){
             this.player1.justAttack = false;
         }
         
@@ -240,19 +242,21 @@ export default class Game extends Phaser.Scene {
         }
 
         //Atacar//
-        if(Phaser.Input.Keyboard.JustDown(this.keyNumpad1) && !this.player2.crouching && !this.player2.blocking && !this.player2.jumping && !this.player2.attacking){
+        if(!this.player2.crouching && Phaser.Input.Keyboard.JustDown(this.keyNumpad1) && !this.player2.blocking && !this.player2.jumping && !this.player2.attacking){
             this.player2.setVelocityX(0);
             this.player2.attacking = true;
             this.player2.justAttack = true;
             this.player2.playBasicAttackAnim();
-        }else if(Phaser.Input.Keyboard.JustDown(this.keyNumpad1) && this.player2.crouching && !this.player2.blocking && !this.player2.jumping && !this.player2.attacking){
+        }else if(this.player2.crouching && Phaser.Input.Keyboard.JustDown(this.keyNumpad1) && !this.player2.blocking && !this.player2.jumping && !this.player2.attacking){
             this.player2.setVelocityX(0);
             this.player2.attacking = true;
             this.player2.justAttack = true;
             this.player2.playDownAttackAnim();
-        }else if(Phaser.Input.Keyboard.JustUp(this.keyNumpad1) && this.player2.attacking){
+        }else if(this.player2.attacking && !this.player2.anims.isPlaying){
             this.player2.attacking = false;
-        }else{
+        }
+        
+        if(this.player2.justAttack){
             this.player2.justAttack = false;
         }
 
