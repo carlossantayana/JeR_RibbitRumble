@@ -30,6 +30,9 @@ export default class Game extends Phaser.Scene {
             p2WonRounds: 0,
             winnerId: 0
         }
+
+        this.barraVidap1
+        this.barraVidap2
     }
 
     init(data) //Esto se ejecuta al iniciar la escena, debería recibir los personajes elegidos y el mapa seleccionado (y el número de rondas ganadas por cada uno)
@@ -115,6 +118,8 @@ export default class Game extends Phaser.Scene {
 
         //UI P1
         this.add.image(450, 150, 'UIGamePieza1').setScale(0.65, 0.65);
+        this.barraVidaP1 = this.generarBarra(228, 37, 0xb82d3b)
+        this.setValueBar1(this.barraVidaP1, 100);
         this.add.image(450, 150, 'UIGamePieza2').setScale(0.65, 0.65);
 
         if(this.parameters.p1WonRounds == 1){
@@ -123,6 +128,8 @@ export default class Game extends Phaser.Scene {
 
         //UI P2
         this.add.image(1470, 150, 'UIGamePieza1').setScale(0.65, 0.65).setFlipX(true);
+        this.barraVidaP2 = this.generarBarra(1145, 37, 0xb82d3b);
+        this.setValueBar2(this.barraVidaP2, 100);
         this.add.image(1470, 150, 'UIGamePieza2').setScale(0.65, 0.65).setFlipX(true);
 
         if(this.parameters.p2WonRounds == 1){
@@ -323,5 +330,29 @@ export default class Game extends Phaser.Scene {
             this.player1.takeDamage(10);
             console.log('player 1 received damage!');
         }
+    }
+
+    generarBarra(x, y, color) {
+        //Dibuja la barra 
+        let barra = this.add.graphics();
+        //Le da color a la barra
+        barra.fillStyle(color, 1);
+        //Rellena la barra en forma de rectangulo
+        barra.fillRect(0, 0, 545, 86);
+        //Posiciona la barra
+        barra.x = x;
+        barra.y = y;
+        //Devuelve el objeto creado
+        return barra;
+    }
+
+    setValueBar1(bar,percentage) {
+        // Escala la barra
+        bar.scaleX = percentage / 100;
+    }
+
+    setValueBar2(bar, percentage) {
+        // Escala la barra
+        bar.scaleX = (100 - percentage) / 100;
     }
 }
