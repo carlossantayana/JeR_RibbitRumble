@@ -230,14 +230,14 @@ export default class Game extends Phaser.Scene {
         /////////////////////////////////////////////////Player 2 Inputs//////////////////////////////////////////////////////////
 
         //Movimiento básico//
-        if (this.cursors.right.isDown && !this.player2.crouching && !this.player2.attacking) {
+        if (this.cursors.right.isDown && !this.player2.crouching && !this.player2.blocking && !this.player2.attacking) {
             this.player2.setVelocityX(300);
             this.player2.setFlipX(false);
 
             if (!this.player2.jumping) {
                 this.player2.playWalkAnim();
             }
-        } else if (this.cursors.left.isDown && !this.player2.crouching && !this.player2.attacking) {
+        } else if (this.cursors.left.isDown && !this.player2.crouching && !this.player2.blocking && !this.player2.attacking) {
             this.player2.setVelocityX(-300);
             this.player2.setFlipX(true);
 
@@ -263,9 +263,9 @@ export default class Game extends Phaser.Scene {
         }else if(this.player2.attacking && !this.player2.anims.isPlaying){
             this.player2.attacking = false;
         }
-
+        
         //Bloquear//
-        if (this.keyNumpad2.isDown && !this.player2.crouching && !this.player2.jumping && !this.player2.blocking){
+        if (this.keyNumpad2.isDown && !this.player2.crouching && !this.player2.jumping && !this.player2.blocking && !this.player2.attacking){
             this.player2.setVelocityX(0);
             this.player2.blocking = true;
             this.player2.playBeginBlockAnim();
@@ -273,23 +273,24 @@ export default class Game extends Phaser.Scene {
             this.player2.playBlockAnim();
         }else if (Phaser.Input.Keyboard.JustUp(this.keyNumpad2) && this.player2.blocking){
             this.player2.playEndBlockAnim();
+        }else if(this.player2.blocking && !this.player2.anims.isPlaying){
             this.player2.blocking = false;
         }
 
         //Agacharse//
-        if (this.cursors.down.isDown && !this.player2.crouching && !this.player2.jumping){
+        if (this.cursors.down.isDown && !this.player2.crouching && !this.player2.jumping && !this.player2.blocking && !this.player2.attacking){
             this.player2.setVelocityX(0);
             this.player2.crouching = true;
             this.player2.playBeginCrouchAnim();
-        }else if (this.cursors.down.isDown && this.player2.crouching){
+        }else if (this.cursors.down.isDown && this.player2.crouching && !this.player2.attacking){
             this.player2.playCrouchAnim();
-        }else if (Phaser.Input.Keyboard.JustUp(this.cursors.down) && this.player2.crouching){
+        }else if (this.player2.crouching && !this.player2.attacking && (Phaser.Input.Keyboard.JustUp(this.cursors.down) || this.cursors.down.isUp)){
             this.player2.playEndCrouchAnim();
             this.player2.crouching = false;
         }
 
         //Saltar//
-        if (this.cursors.up.isDown && !this.player2.jumping && this.player2.touchingGround && !this.player2.crouching) {
+        if (this.cursors.up.isDown && !this.player2.jumping && this.player2.touchingGround && !this.player2.crouching && !this.player2.blocking && !this.player2.attacking) {
             this.player2.jumping = true;
             this.player2.touchingGround = false;
             this.player2.setVelocityY(-300);
@@ -300,7 +301,6 @@ export default class Game extends Phaser.Scene {
             this.player2.playEndJumpAnim();
             this.player2.jumping = false;
         }
-
         
         //Gestion del tiempo
 
