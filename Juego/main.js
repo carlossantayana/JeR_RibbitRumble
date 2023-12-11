@@ -1,5 +1,6 @@
 "use strict";
 
+import Charging from './Charging.js';
 import Preloader from './Preloader.js';
 import MainMenu from './MainMenu.js';
 import SettingsMenu from './SettingsMenu.js';
@@ -15,7 +16,7 @@ const config = { //Configuración general
     width: 1920,
     height: 1080,
     backgroundColor: '#000000',
-    scene: [ Preloader, MainMenu, SettingsMenu, AudioManager, ModeSelectionMenu, PlayerSelectionMenu, MapSelectionMenu, Game, Results], //Escenas, Preloader está primero, se cargara Preloader primero
+    scene: [ Charging, Preloader, MainMenu, SettingsMenu, AudioManager, ModeSelectionMenu, PlayerSelectionMenu, MapSelectionMenu, Game, Results], //Escenas, Preloader está primero, se cargara Preloader primero
     scale:{
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH
