@@ -92,8 +92,10 @@ export default class Preloader extends Phaser.Scene {
 
         //ASSETS AUDIO//
         this.load.setPath('assets/Music');
-        this.load.audio('desiertoMusica', 'Desierto1.mp3');
+        this.load.audio('desiertoMusic', 'Desierto.mp3');
         this.load.audio('menuMusic', 'rockMainMenu.mp3');
+        this.load.audio('nenufarMusic', 'Nenufar.mp3');
+        this.load.audio('selvaMusic', 'Selva.mp3');
 
         //ASSETS TEXTOS//
         this.load.setPath('assets/TextInterface');
