@@ -18,14 +18,14 @@ export default class Preloader extends Phaser.Scene {
         this.load.spritesheet('ToroSalto', 'RanaToro/ToroSaltoV1.1.png', { frameWidth: 600, frameHeight: 293 });
         this.load.spritesheet('ToroDaño', 'RanaToro/ToroDaño.png', { frameWidth: 600, frameHeight: 293 });
 
-        this.load.spritesheet('LluviaIdle', 'RanaDeLluvia/Idle_Spritesheet.png', { frameWidth: 3508, frameHeight: 2480 });
-        this.load.spritesheet('LluviaCaminar', 'RanaDeLluvia/Walk_Spritesheet.png', { frameWidth: 3508, frameHeight: 2480 });
-        this.load.spritesheet('LluviaBasico', 'RanaDeLluvia/BasicAttack_Spritesheet.png', { frameWidth: 3508, frameHeight: 2480 });
-        this.load.spritesheet('LluviaBloqueo', 'RanaDeLluvia/Block_Spritesheet.png', { frameWidth: 3508, frameHeight: 2480 });
-        this.load.spritesheet('LluviaAgachado', 'RanaDeLluvia/Crouch_Spritesheet.png', { frameWidth: 3508, frameHeight: 2480 });
-        this.load.spritesheet('LluviaBajo', 'RanaDeLluvia/DownAttack_Spritesheet.png', { frameWidth: 3508, frameHeight: 2480 });
-        this.load.spritesheet('LluviaSalto', 'RanaDeLluvia/Jump_Spritesheet.png', { frameWidth: 3508, frameHeight: 2480 });
-        this.load.spritesheet('LluviaDaño', 'RanaDeLluvia/Hurt_Sprite.png', { frameWidth: 3508, frameHeight: 2480 });
+        this.load.spritesheet('LluviaIdle', 'RanaDeLluvia/Idle_Spritesheet.png', { frameWidth: 702, frameHeight: 496 });
+        this.load.spritesheet('LluviaCaminar', 'RanaDeLluvia/Walk_Spritesheet.png', { frameWidth: 702, frameHeight: 496 });
+        this.load.spritesheet('LluviaBasico', 'RanaDeLluvia/BasicAttack_Spritesheet.png', { frameWidth: 702, frameHeight: 496 });
+        this.load.spritesheet('LluviaBloqueo', 'RanaDeLluvia/Block_Spritesheet.png', { frameWidth: 702, frameHeight: 496 });
+        this.load.spritesheet('LluviaAgachado', 'RanaDeLluvia/Crouch_Spritesheet.png', { frameWidth: 702, frameHeight: 496 });
+        this.load.spritesheet('LluviaBajo', 'RanaDeLluvia/DownAttack_Spritesheet.png', { frameWidth: 702, frameHeight: 496 });
+        this.load.spritesheet('LluviaSalto', 'RanaDeLluvia/Jump_Spritesheet.png', { frameWidth: 702, frameHeight: 496 });
+        this.load.spritesheet('LluviaDaño', 'RanaDeLluvia/Hurt_Sprite.png', { frameWidth: 702, frameHeight: 496 });
 
         this.load.spritesheet('FlechaIdle', 'RanaFlecha/FlechaIdle.png', { frameWidth: 301, frameHeight: 252 });
         this.load.spritesheet('FlechaCaminar', 'RanaFlecha/FlechaAndar.png', { frameWidth: 301, frameHeight: 252 });
