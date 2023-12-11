@@ -66,12 +66,12 @@ export default class MapSelectionMenu extends Phaser.Scene {
         random.on('pointerdown', () => this.onMapSelected('random'));
 
         //Texto de los jugadores
-        this.add.rectangle(212, 1020, 340, 110, 0x606060);
-        this.add.rectangle(212, 1020, 325, 95, 0x808080);
-        this.add.rectangle(1698, 1020, 350, 110, 0x606060);
-        this.add.rectangle(1698, 1020, 335, 95, 0x808080);
+        this.add.rectangle(212, 1020, 380, 110, 0x606060);
+        this.add.rectangle(212, 1020, 365, 95, 0x808080);
+        this.add.rectangle(1698, 1020, 390, 110, 0x606060);
+        this.add.rectangle(1698, 1020, 375, 95, 0x808080);
         this.add.image(220, 1020, 'Player1Text').setScale(0.7);
-        this.add.image(1700, 1020, 'Player2Text').setScale(0.7);
+        this.add.image(1698, 1020, 'Player2Text').setScale(0.7);
 
         //Creacion del boton de ir al juego
         this.mapSelected = this.add.image(960, 1000, 'botonCombate').setScale(0.5);

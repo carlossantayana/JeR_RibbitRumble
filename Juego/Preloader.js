@@ -99,8 +99,8 @@ export default class Preloader extends Phaser.Scene {
 
         //ASSETS TEXTOS//
         this.load.setPath('assets/TextInterface');
-        this.load.image('Player1Text', 'Player1.png');
-        this.load.image('Player2Text', 'Player2.png');
+        this.load.image('Player1Text', 'Jugador1.png');
+        this.load.image('Player2Text', 'Jugador2.png');
 
         //ASSETS GAME UI//
         this.load.setPath('assets/InGame');

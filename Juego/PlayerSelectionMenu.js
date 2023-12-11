@@ -19,7 +19,7 @@ export default class PlayerSelectionMenu extends Phaser.Scene {
     create() {
         //Creacion del fondo
 
-        this.add.image(940, 534.5, 'menuFondo').setScale(0.5);
+        this.add.image(960, 534.5, 'menuFondo').setScale(0.5);
 
         //Creacion de los iconos de los personajes (400x400)
         this.add.rectangle(800, 380, 250, 250, 0x606060);
@@ -42,12 +42,12 @@ export default class PlayerSelectionMenu extends Phaser.Scene {
         this.add.text(400, 40, "Selecciona un personaje", { fontSize: '80px' });
 
         //Texto de los jugadores
-        this.add.rectangle(212, 250, 340, 110, 0x606060);
-        this.add.rectangle(212, 250, 325, 95, 0x808080);
-        this.add.rectangle(1698, 250, 350, 110, 0x606060);
-        this.add.rectangle(1698, 250, 335, 95, 0x808080);
+        this.add.rectangle(212, 250, 380, 110, 0x606060);
+        this.add.rectangle(212, 250, 365, 95, 0x808080);
+        this.add.rectangle(1698, 250, 390, 110, 0x606060);
+        this.add.rectangle(1698, 250, 375, 95, 0x808080);
         this.add.image(220, 250, 'Player1Text').setScale(0.7);
-        this.add.image(1700, 250, 'Player2Text').setScale(0.7);
+        this.add.image(1698, 250, 'Player2Text').setScale(0.7);
 
         //Creacion de la interaccion de los botones
         BullFrog.setInteractive();
