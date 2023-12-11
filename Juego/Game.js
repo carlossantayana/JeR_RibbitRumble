@@ -61,15 +61,15 @@ export default class Game extends Phaser.Scene {
 
         switch (this.parameters.mapID) {
             case 0:
-                this.ground.create(960, 1070, '').setScale(1920, 4).refreshBody();
+                this.ground.create(960, 1075, '').setScale(1920, 4).refreshBody();
                 this.add.image(960, 540, 'desiertoFondo');
                 break;
             case 1:
-                this.ground.create(960, 1070, '').setScale(1920, 4).refreshBody();
+                this.ground.create(960, 1080, '').setScale(1920, 4).refreshBody();
                 this.add.image(960, 540, 'nenufarFondo');
                 break;
             case 2:
-                this.ground.create(960, 1070, '').setScale(1920, 6).refreshBody();
+                this.ground.create(960, 1030, '').setScale(1920, 6).refreshBody();
                 this.add.image(960, 540, 'junglaFondo');
         }
 
@@ -106,8 +106,8 @@ export default class Game extends Phaser.Scene {
                 break;
         }
 
-        this.player1 = new Fighter(this, 600, 600, this.parameters.p1CharacterID, this.parameters.p1AltSkin, 1, p1Texture);
-        this.player2 = new Fighter(this, 900, 600, this.parameters.p2CharacterID, this.parameters.p2AltSkin, 2, p2Texture);
+        this.player1 = new Fighter(this, 300, 900, this.parameters.p1CharacterID, this.parameters.p1AltSkin, 1, p1Texture);
+        this.player2 = new Fighter(this, 2000, 900, this.parameters.p2CharacterID, this.parameters.p2AltSkin, 2, p2Texture);
 
         this.physics.add.collider(this.player1, this.ground, () => this.player1.touchingGround = true);
         this.physics.add.collider(this.player2, this.ground, () => this.player2.touchingGround = true);
@@ -182,35 +182,38 @@ export default class Game extends Phaser.Scene {
     }
 
     update(timer, delta) {
+        this.player1.checkInmuneStatus();
+        this.player2.checkInmuneStatus();
+
         /////////////////////////////////////////////////Player 1 Inputs//////////////////////////////////////////////////////////
 
         //Movimiento básico//
-        if (this.keyD.isDown && !this.player1.crouching && !this.player1.blocking && !this.player1.attacking) {
+        if (this.keyD.isDown && !this.player1.crouching && !this.player1.blocking && !this.player1.attacking && !this.player1.receivingDamage) {
             this.player1.setVelocityX(300);
             this.player1.setFlipX(false);
 
             if (!this.player1.jumping) {
                 this.player1.playWalkAnim();
             }
-        } else if (this.keyA.isDown && !this.player1.crouching && !this.player1.blocking && !this.player1.attacking) {
+        } else if (this.keyA.isDown && !this.player1.crouching && !this.player1.blocking && !this.player1.attacking && !this.player1.receivingDamage) {
             this.player1.setVelocityX(-300);
             this.player1.setFlipX(true);
 
             if (!this.player1.jumping) {
                 this.player1.playWalkAnim();
             }
-        } else if (!this.player1.blocking && !this.player1.jumping && !this.player1.crouching && !this.player1.attacking) {
+        } else if (!this.player1.blocking && !this.player1.jumping && !this.player1.crouching && !this.player1.attacking && !this.player1.receivingDamage) {
             this.player1.setVelocityX(0);
             this.player1.playIdleAnim();
         }
 
         //Atacar//
-        if(!this.player1.crouching && Phaser.Input.Keyboard.JustDown(this.keyF) && !this.player1.blocking && !this.player1.jumping && !this.player1.attacking){
+        if(!this.player1.crouching && Phaser.Input.Keyboard.JustDown(this.keyF) && !this.player1.blocking && !this.player1.jumping && !this.player1.attacking && !this.player1.receivingDamage){
             this.player1.setVelocityX(0);
             this.player1.attacking = true;
             this.player1.justAttack = true;
             this.player1.playBasicAttackAnim();
-        }else if(this.player1.crouching && Phaser.Input.Keyboard.JustDown(this.keyF) && !this.player1.blocking && !this.player1.jumping && !this.player1.attacking){
+        }else if(this.player1.crouching && Phaser.Input.Keyboard.JustDown(this.keyF) && !this.player1.blocking && !this.player1.jumping && !this.player1.attacking && !this.player1.receivingDamage){
             this.player1.setVelocityX(0);
             this.player1.attacking = true;
             this.player1.justAttack = true;
@@ -220,7 +223,7 @@ export default class Game extends Phaser.Scene {
         }
         
         //Bloquear//
-        if (this.keyG.isDown && !this.player1.crouching && !this.player1.jumping && !this.player1.blocking && !this.player1.attacking){
+        if (this.keyG.isDown && !this.player1.crouching && !this.player1.jumping && !this.player1.blocking && !this.player1.attacking && !this.player1.receivingDamage){
             this.player1.setVelocityX(0);
             this.player1.blocking = true;
             this.player1.playBeginBlockAnim();
@@ -233,19 +236,19 @@ export default class Game extends Phaser.Scene {
         }
 
         //Agacharse//
-        if (this.keyS.isDown && !this.player1.crouching && !this.player1.jumping && !this.player1.blocking && !this.player1.attacking){
+        if (this.keyS.isDown && !this.player1.crouching && !this.player1.jumping && !this.player1.blocking && !this.player1.attacking && !this.player1.receivingDamage){
             this.player1.setVelocityX(0);
             this.player1.crouching = true;
             this.player1.playBeginCrouchAnim();
-        }else if (this.keyS.isDown && this.player1.crouching && !this.player1.attacking){
+        }else if (this.keyS.isDown && this.player1.crouching && !this.player1.attacking && !this.player1.receivingDamage){
             this.player1.playCrouchAnim();
-        }else if (this.player1.crouching && !this.player1.attacking && (Phaser.Input.Keyboard.JustUp(this.keyS) || this.keyS.isUp)){
+        }else if (this.player1.crouching && !this.player1.attacking && (Phaser.Input.Keyboard.JustUp(this.keyS) || this.keyS.isUp) && !this.player1.receivingDamage){
             this.player1.playEndCrouchAnim();
             this.player1.crouching = false;
         }
 
         //Saltar//
-        if (this.keyW.isDown && !this.player1.jumping && this.player1.touchingGround && !this.player1.crouching && !this.player1.blocking && !this.player1.attacking) {
+        if (this.keyW.isDown && !this.player1.jumping && this.player1.touchingGround && !this.player1.crouching && !this.player1.blocking && !this.player1.attacking && !this.player1.receivingDamage) {
             this.player1.jumping = true;
             this.player1.touchingGround = false;
             this.player1.setVelocityY(-300);
@@ -260,32 +263,32 @@ export default class Game extends Phaser.Scene {
         /////////////////////////////////////////////////Player 2 Inputs//////////////////////////////////////////////////////////
 
         //Movimiento básico//
-        if (this.cursors.right.isDown && !this.player2.crouching && !this.player2.blocking && !this.player2.attacking) {
+        if (this.cursors.right.isDown && !this.player2.crouching && !this.player2.blocking && !this.player2.attacking && !this.player2.receivingDamage) {
             this.player2.setVelocityX(300);
             this.player2.setFlipX(false);
 
             if (!this.player2.jumping) {
                 this.player2.playWalkAnim();
             }
-        } else if (this.cursors.left.isDown && !this.player2.crouching && !this.player2.blocking && !this.player2.attacking) {
+        } else if (this.cursors.left.isDown && !this.player2.crouching && !this.player2.blocking && !this.player2.attacking && !this.player2.receivingDamage) {
             this.player2.setVelocityX(-300);
             this.player2.setFlipX(true);
 
             if (!this.player2.jumping) {
                 this.player2.playWalkAnim();
             }
-        } else if (!this.player2.blocking && !this.player2.jumping && !this.player2.crouching && !this.player2.attacking) {
+        } else if (!this.player2.blocking && !this.player2.jumping && !this.player2.crouching && !this.player2.attacking && !this.player2.receivingDamage) {
             this.player2.setVelocityX(0);
             this.player2.playIdleAnim();
         }
 
         //Atacar//
-        if(!this.player2.crouching && Phaser.Input.Keyboard.JustDown(this.keyNumpad1) && !this.player2.blocking && !this.player2.jumping && !this.player2.attacking){
+        if(!this.player2.crouching && Phaser.Input.Keyboard.JustDown(this.keyNumpad1) && !this.player2.blocking && !this.player2.jumping && !this.player2.attacking && !this.player2.receivingDamage){
             this.player2.setVelocityX(0);
             this.player2.attacking = true;
             this.player2.justAttack = true;
             this.player2.playBasicAttackAnim();
-        }else if(this.player2.crouching && Phaser.Input.Keyboard.JustDown(this.keyNumpad1) && !this.player2.blocking && !this.player2.jumping && !this.player2.attacking){
+        }else if(this.player2.crouching && Phaser.Input.Keyboard.JustDown(this.keyNumpad1) && !this.player2.blocking && !this.player2.jumping && !this.player2.attacking && !this.player2.receivingDamage){
             this.player2.setVelocityX(0);
             this.player2.attacking = true;
             this.player2.justAttack = true;
@@ -295,7 +298,7 @@ export default class Game extends Phaser.Scene {
         }
         
         //Bloquear//
-        if (this.keyNumpad2.isDown && !this.player2.crouching && !this.player2.jumping && !this.player2.blocking && !this.player2.attacking){
+        if (this.keyNumpad2.isDown && !this.player2.crouching && !this.player2.jumping && !this.player2.blocking && !this.player2.attacking && !this.player2.receivingDamage){
             this.player2.setVelocityX(0);
             this.player2.blocking = true;
             this.player2.playBeginBlockAnim();
@@ -308,19 +311,19 @@ export default class Game extends Phaser.Scene {
         }
 
         //Agacharse//
-        if (this.cursors.down.isDown && !this.player2.crouching && !this.player2.jumping && !this.player2.blocking && !this.player2.attacking){
+        if (this.cursors.down.isDown && !this.player2.crouching && !this.player2.jumping && !this.player2.blocking && !this.player2.attacking && !this.player2.receivingDamage){
             this.player2.setVelocityX(0);
             this.player2.crouching = true;
             this.player2.playBeginCrouchAnim();
-        }else if (this.cursors.down.isDown && this.player2.crouching && !this.player2.attacking){
+        }else if (this.cursors.down.isDown && this.player2.crouching && !this.player2.attacking && !this.player2.receivingDamage){
             this.player2.playCrouchAnim();
-        }else if (this.player2.crouching && !this.player2.attacking && (Phaser.Input.Keyboard.JustUp(this.cursors.down) || this.cursors.down.isUp)){
+        }else if (this.player2.crouching && !this.player2.attacking && (Phaser.Input.Keyboard.JustUp(this.cursors.down) || this.cursors.down.isUp) && !this.player2.receivingDamage){
             this.player2.playEndCrouchAnim();
             this.player2.crouching = false;
         }
 
         //Saltar//
-        if (this.cursors.up.isDown && !this.player2.jumping && this.player2.touchingGround && !this.player2.crouching && !this.player2.blocking && !this.player2.attacking) {
+        if (this.cursors.up.isDown && !this.player2.jumping && this.player2.touchingGround && !this.player2.crouching && !this.player2.blocking && !this.player2.attacking && !this.player2.receivingDamage) {
             this.player2.jumping = true;
             this.player2.touchingGround = false;
             this.player2.setVelocityY(-300);
@@ -383,13 +386,17 @@ export default class Game extends Phaser.Scene {
 
     playerOverlap() //Comprobación de los estados de cada jugador comprobando los parametros "attacking" y "blocking"
     {
-        if (this.player1.attacking && !this.player2.blocking && this.player1.justAttack) {
+        if (this.player1.attacking && !this.player2.blocking && this.player1.justAttack && !this.player2.receivingDamage) {
             this.player2.takeDamage(10);
+            this.player2.setVelocityX(0);
+            this.player2.playHurtAnim();
             this.player1.justAttack = false;
             console.log('player 2 received damage!');
         }
-        if (this.player2.attacking && !this.player1.blocking && this.player2.justAttack) {
+        if (this.player2.attacking && !this.player1.blocking && this.player2.justAttack && !this.player1.receivingDamage) {
             this.player1.takeDamage(10);
+            this.player1.setVelocityX(0);
+            this.player1.playHurtAnim();
             this.player2.justAttack = false;
             console.log('player 1 received damage!');
         }

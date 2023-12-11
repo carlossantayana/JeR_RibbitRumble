@@ -43,7 +43,7 @@ export default class MapSelectionMenu extends Phaser.Scene {
 
 
         //Texto superior "Selecciona un escenario:"
-        this.add.text(510, 40, "Selecciona un escenario", { fontSize: '80px' });
+        this.add.text(450, 40, "Selecciona un escenario", { fontSize: '80px' });
 
         //Fondo para los mapas a seleccionar
         this.add.rectangle(960, 280, 1670, 300, 0x606060);

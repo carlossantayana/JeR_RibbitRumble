@@ -12,6 +12,14 @@ export default class Fighter extends Phaser.Physics.Arcade.Sprite {
             this.setScale(0.2);
         }
 
+        if(characterID == 3){
+            this.setScale(0.2);
+        }
+
+        if(playerID == 2){
+            this.setFlipX(true);
+        }
+
         this.setCollideWorldBounds(true);
 
         this.hp = 100;
@@ -27,6 +35,8 @@ export default class Fighter extends Phaser.Physics.Arcade.Sprite {
 
         this.crouching = false;
         this.jumping = false;
+
+        this.receivingDamage = false;
 
         this.touchingGround = false;
 
@@ -106,6 +116,21 @@ export default class Fighter extends Phaser.Physics.Arcade.Sprite {
         this.anims.play(this.endBlockAnim, true);
     }
 
+    playHurtAnim(){
+        this.receivingDamage = true;
+        this.anims.play(this.hurtAnim, true);
+    }
+
+    checkInmuneStatus(){
+        var currentAnimationKey = this.anims.currentAnim? this.anims.currentAnim.key : '';
+        
+        if(currentAnimationKey === this.hurtAnim){
+            if(!this.anims.isPlaying){
+                this.receivingDamage = false;
+            }
+        }
+    }
+
     assignAnimations() {
         //Animaciones asignadas:
         if (!this.altSkin) {
@@ -124,6 +149,7 @@ export default class Fighter extends Phaser.Physics.Arcade.Sprite {
                     this.endDuckAnim = "ToroEndCrouchAnim";
                     this.attackAnim = "ToroBasicAttackAnim";
                     this.downAttackAnim = "ToroDownAttackAnim";
+                    this.hurtAnim = "ToroHurtAnim";
                     break;
                 case 1:
                     this.idleAnim = "LluviaIdleAnim";
@@ -139,6 +165,7 @@ export default class Fighter extends Phaser.Physics.Arcade.Sprite {
                     this.endDuckAnim = "LluviaEndCrouchAnim";
                     this.attackAnim = "LluviaBasicAttackAnim";
                     this.downAttackAnim = "LluviaDownAttackAnim";
+                    this.hurtAnim = "LluviaHurtAnim";
                     break;
                 case 2:
                     this.idleAnim = "FlechaIdleAnim";
@@ -154,21 +181,23 @@ export default class Fighter extends Phaser.Physics.Arcade.Sprite {
                     this.endDuckAnim = "FlechaEndCrouchAnim";
                     this.attackAnim = "FlechaBasicAttackAnim";
                     this.downAttackAnim = "FlechaDownAttackAnim";
+                    this.hurtAnim = "FlechaHurtAnim";
                     break;
                 case 3:
-                    this.idleAnim = "";
-                    this.walkAnim = "";
-                    this.beginBlockAnim = "";
-                    this.blockAnim = "";
-                    this.endBlockAnim = "";
-                    this.beginJumpAnim = "";
-                    this.jumpAnim = "";
-                    this.endJumpAnim = "";
-                    this.beginDuckAnim = "";
-                    this.duckAnim = "";
-                    this.endDuckAnim = "";
-                    this.attackAnim = "";
-                    this.downAttackAnim = "";
+                    this.idleAnim = "TrepadoraIdleAnim";
+                    this.walkAnim = "TrepadoraWalkAnim";
+                    this.beginBlockAnim = "TrepadoraBeginBlockAnim";
+                    this.blockAnim = "TrepadoraBlockAnim";
+                    this.endBlockAnim = "TrepadoraEndBlockAnim";
+                    this.beginJumpAnim = "TrepadoraBeginJumpAnim";
+                    this.jumpAnim = "TrepadoraJumpAnim";
+                    this.endJumpAnim = "TrepadoraEndJumpAnim";
+                    this.beginDuckAnim = "TrepadoraBeginCrouchAnim";
+                    this.duckAnim = "TrepadoraCrouchAnim";
+                    this.endDuckAnim = "TrepadoraEndCrouchAnim";
+                    this.attackAnim = "TrepadoraBasicAttackAnim";
+                    this.downAttackAnim = "TrepadoraDownAttackAnim";
+                    this.hurtAnim = "TrepadoraHurtAnim";
                     break;
             }
 
