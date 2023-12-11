@@ -127,7 +127,7 @@ export default class Game extends Phaser.Scene {
         //UI P1
         this.add.image(450, 150, 'UIGamePieza1').setScale(0.65, 0.65);
         this.barraVidaP1 = this.generarBarra(228, 37, 0xb82d3b) //Se crea un rectangulo para la barra
-        this.setValueBar1(this.barraVidaP1, 100);               //Se pasa dicho rectangulo y el valor que tendrá la barra
+        this.setValueBar1(100);               //Se pasa dicho rectangulo y el valor que tendrá la barra
         this.add.image(450, 150, 'UIGamePieza2').setScale(0.65, 0.65);
 
         switch (this.parameters.p1CharacterID) {
@@ -152,7 +152,7 @@ export default class Game extends Phaser.Scene {
         //UI P2
         this.add.image(1470, 150, 'UIGamePieza1').setScale(0.65, 0.65).setFlipX(true);
         this.barraVidaP2 = this.generarBarra(1690, 37, 0xb82d3b); //Se crea un rectangulo para la barra
-        this.setValueBar2(this.barraVidaP2, 100);                 //Se pasa dicho rectangulo y el valor que tendrá la barra
+        this.setValueBar2(100);                 //Se pasa dicho rectangulo y el valor que tendrá la barra
         this.add.image(1470, 150, 'UIGamePieza2').setScale(0.65, 0.65).setFlipX(true);
 
         switch (this.parameters.p2CharacterID) {
@@ -388,11 +388,13 @@ export default class Game extends Phaser.Scene {
     {
         if (this.player1.attacking && !this.player2.blocking && this.player1.justAttack && !this.player2.receivingDamage) {
             this.player2.takeDamage(10);
+            this.setValueBar2(this.player2.hp);
             this.player1.justAttack = false;
             console.log('player 2 received damage!');
         }
         if (this.player2.attacking && !this.player1.blocking && this.player2.justAttack && !this.player1.receivingDamage) {
             this.player1.takeDamage(10);
+            this.setValueBar1(this.player1.hp);
             this.player2.justAttack = false;
             console.log('player 1 received damage!');
         }
@@ -412,13 +414,13 @@ export default class Game extends Phaser.Scene {
         return barra;
     }
 
-    setValueBar1(bar, percentage) {
+    setValueBar1(percentage) {
         // Escala la barra
-        bar.scaleX = percentage / 100;
+        this.barraVidaP1.scaleX = percentage / 100;
     }
 
-    setValueBar2(bar, percentage) {
+    setValueBar2(percentage) {
         // Escala la barra
-        bar.scaleX = (percentage / 100) * -1;
+        this.barraVidaP2.scaleX = (percentage / 100) * -1;
     }
 }
