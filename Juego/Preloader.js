@@ -464,7 +464,7 @@ export default class Preloader extends Phaser.Scene {
         //Animacion Idle
         this.anims.create({
             key: 'TrepadoraIdleAnim',
-            frames: this.anims.generateFrameNumbers('TrepadoraIdle', { start: 0, end: 8 }),
+            frames: this.anims.generateFrameNumbers('TrepadoraIdle', { start: 0, end: 7 }),
             frameRate: 12,
             repeat: -1
         });

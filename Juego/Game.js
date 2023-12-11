@@ -106,8 +106,8 @@ export default class Game extends Phaser.Scene {
                 break;
         }
 
-        this.player1 = new Fighter(this, 300, 0, this.parameters.p1CharacterID, this.parameters.p1AltSkin, 1, p1Texture);
-        this.player2 = new Fighter(this, 2000, 0, this.parameters.p2CharacterID, this.parameters.p2AltSkin, 2, p2Texture);
+        this.player1 = new Fighter(this, 190, 800, this.parameters.p1CharacterID, this.parameters.p1AltSkin, 1, p1Texture);
+        this.player2 = new Fighter(this, 1730, 800, this.parameters.p2CharacterID, this.parameters.p2AltSkin, 2, p2Texture);
 
         this.physics.add.collider(this.player1, this.ground, () => this.player1.touchingGround = true);
         this.physics.add.collider(this.player2, this.ground, () => this.player2.touchingGround = true);
@@ -208,7 +208,7 @@ export default class Game extends Phaser.Scene {
         }
 
         //Atacar//
-        if (!this.player1.crouching && Phaser.Input.Keyboard.JustDown(this.keyF) && !this.player1.blocking && !this.player1.jumping && !this.player1.attacking && !this.player1.receivingDamage) {
+        if (!this.player1.crouching && Phaser.Input.Keyboard.JustDown(this.keyF) && !this.player1.blocking && !this.player1.attacking && !this.player1.receivingDamage) {
             this.player1.setVelocityX(0);
             this.player1.attacking = true;
             this.player1.justAttack = true;
@@ -283,7 +283,7 @@ export default class Game extends Phaser.Scene {
         }
 
         //Atacar//
-        if (!this.player2.crouching && Phaser.Input.Keyboard.JustDown(this.keyNumpad1) && !this.player2.blocking && !this.player2.jumping && !this.player2.attacking && !this.player2.receivingDamage) {
+        if (!this.player2.crouching && Phaser.Input.Keyboard.JustDown(this.keyNumpad1) && !this.player2.blocking && !this.player2.attacking && !this.player2.receivingDamage) {
             this.player2.setVelocityX(0);
             this.player2.attacking = true;
             this.player2.justAttack = true;

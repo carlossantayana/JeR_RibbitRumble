@@ -15,12 +15,22 @@ export default class Fighter extends Phaser.Physics.Arcade.Sprite {
         this.altSkin = altSkin;
         this.playerID = playerID;
 
+        if (this.characterID == 0) {
+            this.setSize(380, 180);
+        }
+
         if (this.characterID == 1) {
-            this.setScale(0.8);
+            this.setScale(0.8).refreshBody();
+            this.setSize(350, 200);
+        }
+
+        if (this.characterID == 2) {
+            this.setSize(230, 240);
         }
 
         if (this.characterID == 3) {
-            this.setScale(0.5);
+            this.setScale(0.5).refreshBody();
+            this.setSize(480, 280);
         }
 
         if (this.playerID == 2) {
@@ -35,7 +45,7 @@ export default class Fighter extends Phaser.Physics.Arcade.Sprite {
         this.touchingGround = false;
         this.justAttack = false;
         this.receivingDamage = false;
-        
+
         this.assignAnimations();
     }
 
