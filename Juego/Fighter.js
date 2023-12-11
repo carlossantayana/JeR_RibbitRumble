@@ -16,7 +16,7 @@ export default class Fighter extends Phaser.Physics.Arcade.Sprite {
         this.playerID = playerID;
 
         if (this.characterID == 1) {
-            //this.setScale(0.2);
+            this.setScale(0.8);
         }
 
         if (this.characterID == 3) {
