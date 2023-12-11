@@ -29,7 +29,7 @@ export default class Game extends Phaser.Scene {
             p1WonRounds: 0,
             p2WonRounds: 0,
             winnerId: 0,
-            loses:0
+            loses: 0
         }
 
         this.barraVidap1
@@ -106,8 +106,8 @@ export default class Game extends Phaser.Scene {
                 break;
         }
 
-        this.player1 = new Fighter(this, 300, 900, this.parameters.p1CharacterID, this.parameters.p1AltSkin, 1, p1Texture);
-        this.player2 = new Fighter(this, 2000, 900, this.parameters.p2CharacterID, this.parameters.p2AltSkin, 2, p2Texture);
+        this.player1 = new Fighter(this, 300, 0, this.parameters.p1CharacterID, this.parameters.p1AltSkin, 1, p1Texture);
+        this.player2 = new Fighter(this, 2000, 0, this.parameters.p2CharacterID, this.parameters.p2AltSkin, 2, p2Texture);
 
         this.physics.add.collider(this.player1, this.ground, () => this.player1.touchingGround = true);
         this.physics.add.collider(this.player2, this.ground, () => this.player2.touchingGround = true);
@@ -130,7 +130,7 @@ export default class Game extends Phaser.Scene {
         this.setValueBar1(this.barraVidaP1, 100);               //Se pasa dicho rectangulo y el valor que tendrá la barra
         this.add.image(450, 150, 'UIGamePieza2').setScale(0.65, 0.65);
 
-        switch(this.parameters.p1CharacterID){
+        switch (this.parameters.p1CharacterID) {
             case 0:
                 this.add.image(130, 145, 'ranaToroUI').setScale(0.65, 0.65);
                 break;
@@ -145,7 +145,7 @@ export default class Game extends Phaser.Scene {
                 break;
         }
 
-        if(this.parameters.p1WonRounds == 1){
+        if (this.parameters.p1WonRounds == 1) {
             this.add.image(650, 210, 'Rondas').setScale(0.5, 0.5)
         }
 
@@ -155,7 +155,7 @@ export default class Game extends Phaser.Scene {
         this.setValueBar2(this.barraVidaP2, 100);                 //Se pasa dicho rectangulo y el valor que tendrá la barra
         this.add.image(1470, 150, 'UIGamePieza2').setScale(0.65, 0.65).setFlipX(true);
 
-        switch(this.parameters.p2CharacterID){
+        switch (this.parameters.p2CharacterID) {
             case 0:
                 this.add.image(1790, 145, 'ranaToroUI').setScale(0.65, 0.65).setFlipX(true);
                 break;
@@ -170,7 +170,7 @@ export default class Game extends Phaser.Scene {
                 break;
         }
 
-        if(this.parameters.p2WonRounds == 1){
+        if (this.parameters.p2WonRounds == 1) {
             this.add.image(1270, 210, 'Rondas').setScale(0.5, 0.5)
         }
 
@@ -208,41 +208,41 @@ export default class Game extends Phaser.Scene {
         }
 
         //Atacar//
-        if(!this.player1.crouching && Phaser.Input.Keyboard.JustDown(this.keyF) && !this.player1.blocking && !this.player1.jumping && !this.player1.attacking && !this.player1.receivingDamage){
+        if (!this.player1.crouching && Phaser.Input.Keyboard.JustDown(this.keyF) && !this.player1.blocking && !this.player1.jumping && !this.player1.attacking && !this.player1.receivingDamage) {
             this.player1.setVelocityX(0);
             this.player1.attacking = true;
             this.player1.justAttack = true;
             this.player1.playBasicAttackAnim();
-        }else if(this.player1.crouching && Phaser.Input.Keyboard.JustDown(this.keyF) && !this.player1.blocking && !this.player1.jumping && !this.player1.attacking && !this.player1.receivingDamage){
+        } else if (this.player1.crouching && Phaser.Input.Keyboard.JustDown(this.keyF) && !this.player1.blocking && !this.player1.jumping && !this.player1.attacking && !this.player1.receivingDamage) {
             this.player1.setVelocityX(0);
             this.player1.attacking = true;
             this.player1.justAttack = true;
             this.player1.playDownAttackAnim();
-        }else if(this.player1.attacking && !this.player1.anims.isPlaying){
+        } else if (this.player1.attacking && !this.player1.anims.isPlaying) {
             this.player1.attacking = false;
         }
-        
+
         //Bloquear//
-        if (this.keyG.isDown && !this.player1.crouching && !this.player1.jumping && !this.player1.blocking && !this.player1.attacking && !this.player1.receivingDamage){
+        if (this.keyG.isDown && !this.player1.crouching && !this.player1.jumping && !this.player1.blocking && !this.player1.attacking && !this.player1.receivingDamage) {
             this.player1.setVelocityX(0);
             this.player1.blocking = true;
             this.player1.playBeginBlockAnim();
-        }else if (this.keyG.isDown && this.player1.blocking){
+        } else if (this.keyG.isDown && this.player1.blocking) {
             this.player1.playBlockAnim();
-        }else if (Phaser.Input.Keyboard.JustUp(this.keyG) && this.player1.blocking){
+        } else if (Phaser.Input.Keyboard.JustUp(this.keyG) && this.player1.blocking) {
             this.player1.playEndBlockAnim();
-        }else if(this.player1.blocking && !this.player1.anims.isPlaying){
+        } else if (this.player1.blocking && !this.player1.anims.isPlaying) {
             this.player1.blocking = false;
         }
 
         //Agacharse//
-        if (this.keyS.isDown && !this.player1.crouching && !this.player1.jumping && !this.player1.blocking && !this.player1.attacking && !this.player1.receivingDamage){
+        if (this.keyS.isDown && !this.player1.crouching && !this.player1.jumping && !this.player1.blocking && !this.player1.attacking && !this.player1.receivingDamage) {
             this.player1.setVelocityX(0);
             this.player1.crouching = true;
             this.player1.playBeginCrouchAnim();
-        }else if (this.keyS.isDown && this.player1.crouching && !this.player1.attacking && !this.player1.receivingDamage){
+        } else if (this.keyS.isDown && this.player1.crouching && !this.player1.attacking && !this.player1.receivingDamage) {
             this.player1.playCrouchAnim();
-        }else if (this.player1.crouching && !this.player1.attacking && (Phaser.Input.Keyboard.JustUp(this.keyS) || this.keyS.isUp) && !this.player1.receivingDamage){
+        } else if (this.player1.crouching && !this.player1.attacking && (Phaser.Input.Keyboard.JustUp(this.keyS) || this.keyS.isUp) && !this.player1.receivingDamage) {
             this.player1.playEndCrouchAnim();
             this.player1.crouching = false;
         }
@@ -283,41 +283,41 @@ export default class Game extends Phaser.Scene {
         }
 
         //Atacar//
-        if(!this.player2.crouching && Phaser.Input.Keyboard.JustDown(this.keyNumpad1) && !this.player2.blocking && !this.player2.jumping && !this.player2.attacking && !this.player2.receivingDamage){
+        if (!this.player2.crouching && Phaser.Input.Keyboard.JustDown(this.keyNumpad1) && !this.player2.blocking && !this.player2.jumping && !this.player2.attacking && !this.player2.receivingDamage) {
             this.player2.setVelocityX(0);
             this.player2.attacking = true;
             this.player2.justAttack = true;
             this.player2.playBasicAttackAnim();
-        }else if(this.player2.crouching && Phaser.Input.Keyboard.JustDown(this.keyNumpad1) && !this.player2.blocking && !this.player2.jumping && !this.player2.attacking && !this.player2.receivingDamage){
+        } else if (this.player2.crouching && Phaser.Input.Keyboard.JustDown(this.keyNumpad1) && !this.player2.blocking && !this.player2.jumping && !this.player2.attacking && !this.player2.receivingDamage) {
             this.player2.setVelocityX(0);
             this.player2.attacking = true;
             this.player2.justAttack = true;
             this.player2.playDownAttackAnim();
-        }else if(this.player2.attacking && !this.player2.anims.isPlaying){
+        } else if (this.player2.attacking && !this.player2.anims.isPlaying) {
             this.player2.attacking = false;
         }
-        
+
         //Bloquear//
-        if (this.keyNumpad2.isDown && !this.player2.crouching && !this.player2.jumping && !this.player2.blocking && !this.player2.attacking && !this.player2.receivingDamage){
+        if (this.keyNumpad2.isDown && !this.player2.crouching && !this.player2.jumping && !this.player2.blocking && !this.player2.attacking && !this.player2.receivingDamage) {
             this.player2.setVelocityX(0);
             this.player2.blocking = true;
             this.player2.playBeginBlockAnim();
-        }else if (this.keyNumpad2.isDown && this.player2.blocking){
+        } else if (this.keyNumpad2.isDown && this.player2.blocking) {
             this.player2.playBlockAnim();
-        }else if (Phaser.Input.Keyboard.JustUp(this.keyNumpad2) && this.player2.blocking){
+        } else if (Phaser.Input.Keyboard.JustUp(this.keyNumpad2) && this.player2.blocking) {
             this.player2.playEndBlockAnim();
-        }else if(this.player2.blocking && !this.player2.anims.isPlaying){
+        } else if (this.player2.blocking && !this.player2.anims.isPlaying) {
             this.player2.blocking = false;
         }
 
         //Agacharse//
-        if (this.cursors.down.isDown && !this.player2.crouching && !this.player2.jumping && !this.player2.blocking && !this.player2.attacking && !this.player2.receivingDamage){
+        if (this.cursors.down.isDown && !this.player2.crouching && !this.player2.jumping && !this.player2.blocking && !this.player2.attacking && !this.player2.receivingDamage) {
             this.player2.setVelocityX(0);
             this.player2.crouching = true;
             this.player2.playBeginCrouchAnim();
-        }else if (this.cursors.down.isDown && this.player2.crouching && !this.player2.attacking && !this.player2.receivingDamage){
+        } else if (this.cursors.down.isDown && this.player2.crouching && !this.player2.attacking && !this.player2.receivingDamage) {
             this.player2.playCrouchAnim();
-        }else if (this.player2.crouching && !this.player2.attacking && (Phaser.Input.Keyboard.JustUp(this.cursors.down) || this.cursors.down.isUp) && !this.player2.receivingDamage){
+        } else if (this.player2.crouching && !this.player2.attacking && (Phaser.Input.Keyboard.JustUp(this.cursors.down) || this.cursors.down.isUp) && !this.player2.receivingDamage) {
             this.player2.playEndCrouchAnim();
             this.player2.crouching = false;
         }
@@ -334,18 +334,18 @@ export default class Game extends Phaser.Scene {
             this.player2.playEndJumpAnim();
             this.player2.jumping = false;
         }
-        
+
         //Gestion del tiempo
 
         //Si ha pasado un segundo
-        if(this.timer >= 1){
+        if (this.timer >= 1) {
             //Disminuimos la segunda cifra del temporizador
             this.cifra2--;
-                if(this.cifra2 == -1){  //Si la segunda cifra es negativa, le asignamos el valor 9 y reducimos la otra cifra
-                    this.cifra2 = 9;
-                    this.cifra1--
-                } 
-            if(this.cifra1 != -1){  //Mientras la primera cifra no valga -1, actualizamos las imágenes
+            if (this.cifra2 == -1) {  //Si la segunda cifra es negativa, le asignamos el valor 9 y reducimos la otra cifra
+                this.cifra2 = 9;
+                this.cifra1--
+            }
+            if (this.cifra1 != -1) {  //Mientras la primera cifra no valga -1, actualizamos las imágenes
                 this.numeroUno.destroy();
                 this.numeroDos.destroy();
                 this.numeroUno = this.add.image(900, 80, this.cifra1.toString()).setScale(0.65, 0.65);
@@ -353,7 +353,7 @@ export default class Game extends Phaser.Scene {
             }
             this.timer = 0;
         }
-        this.timer += delta/1000;
+        this.timer += delta / 1000;
     }
 
     roundEnd(winnerId) {
@@ -367,16 +367,16 @@ export default class Game extends Phaser.Scene {
         }
 
         if (this.p1WonRounds >= 2) {
-            this.parameters.winnerId=1;
-            this.parameters.loses=this.p2WonRounds;
+            this.parameters.winnerId = 1;
+            this.parameters.loses = this.p2WonRounds;
             //Cargar escena de resultados con P1 como ganador
-            this.scene.start("Results",this.parameters);
+            this.scene.start("Results", this.parameters);
         }
         else if (this.p2WonRounds >= 2) {
-            this.parameters.winnerId=2;
-            this.parameters.loses=this.p1WonRounds;
+            this.parameters.winnerId = 2;
+            this.parameters.loses = this.p1WonRounds;
             //Cargar escena de resultados con P2 como ganador
-            this.scene.start("Results",this.parameters);
+            this.scene.start("Results", this.parameters);
         }
         else {
             //Recargar la escena de juego con los parametros necesarios
@@ -416,13 +416,13 @@ export default class Game extends Phaser.Scene {
         return barra;
     }
 
-    setValueBar1(bar,percentage) {
+    setValueBar1(bar, percentage) {
         // Escala la barra
         bar.scaleX = percentage / 100;
     }
 
     setValueBar2(bar, percentage) {
         // Escala la barra
-        bar.scaleX = (percentage / 100)*-1;
+        bar.scaleX = (percentage / 100) * -1;
     }
 }

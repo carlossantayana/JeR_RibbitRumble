@@ -9,7 +9,7 @@ export default class AudioManager extends Phaser.Scene {
     }
 
     create() {
-            this.musicaMenus = this.sound.add('menuMusic', {
+        this.musicaMenus = this.sound.add('menuMusic', {
             volume: this.volume,
             loop: true
         });
@@ -21,7 +21,7 @@ export default class AudioManager extends Phaser.Scene {
     update() {
         this.musicaMenus.setVolume(this.volume);
     }
-    
+
 
 }
 

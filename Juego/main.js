@@ -16,16 +16,17 @@ const config = { //Configuración general
     width: 1920,
     height: 1080,
     backgroundColor: '#000000',
-    scene: [ Charging, Preloader, MainMenu, SettingsMenu, AudioManager, ModeSelectionMenu, PlayerSelectionMenu, MapSelectionMenu, Game, Results], //Escenas, Preloader está primero, se cargara Preloader primero
-    scale:{
+    scene: [Charging, Preloader, MainMenu, SettingsMenu, AudioManager, ModeSelectionMenu, PlayerSelectionMenu, MapSelectionMenu, Game, Results], //Escenas, Preloader está primero, se cargara Preloader primero
+    scale: {
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH
     },
     physics: {
         default: 'arcade',
-        arcade: { 
+        arcade: {
             gravity: 300,
-            debug: true }
+            debug: true
+        }
     }
 };
 

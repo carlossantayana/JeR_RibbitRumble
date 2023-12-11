@@ -11,7 +11,7 @@ export default class MainMenu extends Phaser.Scene {
         this.add.image(940, 534.5, 'menuPrincipal').setScale(0.5);
 
         this.audioLauncher();
-        
+
         const playButton = this.add.image(940, 600, 'botonComenzar').setScale(0.5).setInteractive(); //Objeto que queremos que sea el boton
         const settingsButton = this.add.image(940, 700, 'botonAjustes').setScale(0.5).setInteractive(); //Objeto que queremos que sea el boton
         const exitButton = this.add.image(940, 800, 'botonSalir').setScale(0.5).setInteractive(); //Objeto que queremos que sea el boton
@@ -31,7 +31,7 @@ export default class MainMenu extends Phaser.Scene {
 
     }
 
-    audioLauncher(){
+    audioLauncher() {
         this.scene.launch('AudioManager');
     }
 
@@ -49,13 +49,13 @@ export default class MainMenu extends Phaser.Scene {
     }
 
     buttonOver(button) {
-        button.on('pointerover', function(){
+        button.on('pointerover', function () {
             this.setScale(0.55);
         })
     }
 
     buttonOut(button) {
-        button.on('pointerout', function(){
+        button.on('pointerout', function () {
             this.setScale(0.5);
         })
     }

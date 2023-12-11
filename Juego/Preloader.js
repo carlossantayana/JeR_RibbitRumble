@@ -132,7 +132,7 @@ export default class Preloader extends Phaser.Scene {
         //Animacion Idle
         this.anims.create({
             key: 'ToroIdleAnim',
-            frames: this.anims.generateFrameNumbers('ToroIdle', {start: 0, end: 9}),
+            frames: this.anims.generateFrameNumbers('ToroIdle', { start: 0, end: 9 }),
             frameRate: 12,
             repeat: -1
         });
@@ -232,17 +232,17 @@ export default class Preloader extends Phaser.Scene {
         //Animacion daño
         this.anims.create({
             key: 'ToroHurtAnim',
-            frames: this.anims.generateFrameNumbers('ToroDaño', {start: 0, end: 0}),
+            frames: this.anims.generateFrameNumbers('ToroDaño', { start: 0, end: 0 }),
             frameRate: 12,
             repeat: 12
         });
 
         //////////////////////////////////////////////RANA DE LLUVIA ANIMACIONES////////////////////////////////////////////////////
-        
+
         //Animacion Idle
         this.anims.create({
             key: 'LluviaIdleAnim',
-            frames: this.anims.generateFrameNumbers('LluviaIdle', {start: 0, end: 5}),
+            frames: this.anims.generateFrameNumbers('LluviaIdle', { start: 0, end: 5 }),
             frameRate: 12,
             repeat: -1
         });
@@ -342,7 +342,7 @@ export default class Preloader extends Phaser.Scene {
         //Animacion daño
         this.anims.create({
             key: 'LluviaHurtAnim',
-            frames: this.anims.generateFrameNumbers('LluviaDaño', {start: 0, end: 0}),
+            frames: this.anims.generateFrameNumbers('LluviaDaño', { start: 0, end: 0 }),
             frameRate: 12,
             repeat: 2
         });
@@ -352,7 +352,7 @@ export default class Preloader extends Phaser.Scene {
         //Animacion Idle
         this.anims.create({
             key: 'FlechaIdleAnim',
-            frames: this.anims.generateFrameNumbers('FlechaIdle', {start: 0, end: 3}),
+            frames: this.anims.generateFrameNumbers('FlechaIdle', { start: 0, end: 3 }),
             frameRate: 12,
             repeat: -1
         });
@@ -452,7 +452,7 @@ export default class Preloader extends Phaser.Scene {
         //Animacion daño
         this.anims.create({
             key: 'FlechaHurtAnim',
-            frames: this.anims.generateFrameNumbers('FlechaDaño', {start: 0, end: 0}),
+            frames: this.anims.generateFrameNumbers('FlechaDaño', { start: 0, end: 0 }),
             frameRate: 12,
             repeat: 2
         });
@@ -462,7 +462,7 @@ export default class Preloader extends Phaser.Scene {
         //Animacion Idle
         this.anims.create({
             key: 'TrepadoraIdleAnim',
-            frames: this.anims.generateFrameNumbers('TrepadoraIdle', {start: 0, end: 8}),
+            frames: this.anims.generateFrameNumbers('TrepadoraIdle', { start: 0, end: 8 }),
             frameRate: 12,
             repeat: -1
         });
@@ -562,7 +562,7 @@ export default class Preloader extends Phaser.Scene {
         //Animacion daño
         this.anims.create({
             key: 'TrepadoraHurtAnim',
-            frames: this.anims.generateFrameNumbers('TrepadoraDaño', {start: 0, end: 0}),
+            frames: this.anims.generateFrameNumbers('TrepadoraDaño', { start: 0, end: 0 }),
             frameRate: 12,
             repeat: 2
         });

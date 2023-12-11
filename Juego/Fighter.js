@@ -8,15 +8,15 @@ export default class Fighter extends Phaser.Physics.Arcade.Sprite {
         this.scene.add.existing(this);
         this.scene.physics.add.existing(this);
 
-        if(characterID == 1){
+        if (characterID == 1) {
             this.setScale(0.2);
         }
 
-        if(characterID == 3){
+        if (characterID == 3) {
             this.setScale(0.2);
         }
 
-        if(playerID == 2){
+        if (playerID == 2) {
             this.setFlipX(true);
         }
 
@@ -30,7 +30,7 @@ export default class Fighter extends Phaser.Physics.Arcade.Sprite {
         //Estos parámetros se utilizan para la comprobación de overlap de jugadores
         this.attacking = false;
         this.blocking = false;
-        
+
         this.justAttack = false;
 
         this.crouching = false;
@@ -50,82 +50,88 @@ export default class Fighter extends Phaser.Physics.Arcade.Sprite {
         }
     }
 
-    playIdleAnim(){
-        var currentAnimationKey = this.anims.currentAnim? this.anims.currentAnim.key : '';
+    playIdleAnim() {
+        var currentAnimationKey = this.anims.currentAnim ? this.anims.currentAnim.key : '';
 
-        if(currentAnimationKey === this.endDuckAnim || currentAnimationKey === this.endJumpAnim){
-            if(!this.anims.isPlaying){
+        if (currentAnimationKey === this.endDuckAnim || currentAnimationKey === this.endJumpAnim) {
+            if (!this.anims.isPlaying) {
                 this.anims.play(this.idleAnim, true);
             }
-        }else{
+        } else {
             this.anims.play(this.idleAnim, true);
         }
     }
 
-    playWalkAnim(){
+    playWalkAnim() {
         this.anims.play(this.walkAnim, true);
     }
 
-    playBasicAttackAnim(){
+    playBasicAttackAnim() {
         this.anims.play(this.attackAnim, true);
     }
 
-    playDownAttackAnim(){
+    playDownAttackAnim() {
         this.anims.play(this.downAttackAnim, true);
     }
 
-    playBeginJumpAnim(){
+    playBeginJumpAnim() {
         this.anims.play(this.beginJumpAnim, true);
     }
 
-    playJumpAnim(){
-        if(this.anims.getProgress(this.beginJumpAnim) == 1){
+    playJumpAnim() {
+        if (this.anims.getProgress(this.beginJumpAnim) == 1) {
             this.anims.play(this.jumpAnim, true);
         }
     }
 
-    playEndJumpAnim(){
+    playEndJumpAnim() {
         this.anims.play(this.endJumpAnim, true);
     }
 
-    playBeginCrouchAnim(){
+    playBeginCrouchAnim() {
         this.anims.play(this.beginDuckAnim, true);
     }
 
-    playCrouchAnim(){
-        if(this.anims.getProgress(this.beginCrouchAnim) == 1){
+    playCrouchAnim() {
+        var currentAnimationKey = this.anims.currentAnim ? this.anims.currentAnim.key : '';
+
+        if (currentAnimationKey === this.beginDuckAnim) {
+            if (this.anims.getProgress(this.beginDuckAnim) == 1) {
+                this.anims.play(this.duckAnim, true);
+            }
+        } else {
             this.anims.play(this.duckAnim, true);
         }
     }
 
-    playEndCrouchAnim(){
+    playEndCrouchAnim() {
         this.anims.play(this.endDuckAnim, true);
     }
 
-    playBeginBlockAnim(){
+    playBeginBlockAnim() {
         this.anims.play(this.beginBlockAnim, true);
     }
 
-    playBlockAnim(){
-        if(this.anims.getProgress(this.beginBlockAnim) == 1){
+    playBlockAnim() {
+        if (this.anims.getProgress(this.beginBlockAnim) == 1) {
             this.anims.play(this.blockAnim, true);
         }
     }
 
-    playEndBlockAnim(){
+    playEndBlockAnim() {
         this.anims.play(this.endBlockAnim, true);
     }
 
-    playHurtAnim(){
+    playHurtAnim() {
         this.receivingDamage = true;
         this.anims.play(this.hurtAnim, true);
     }
 
-    checkInmuneStatus(){
-        var currentAnimationKey = this.anims.currentAnim? this.anims.currentAnim.key : '';
-        
-        if(currentAnimationKey === this.hurtAnim){
-            if(!this.anims.isPlaying){
+    checkInmuneStatus() {
+        var currentAnimationKey = this.anims.currentAnim ? this.anims.currentAnim.key : '';
+
+        if (currentAnimationKey === this.hurtAnim) {
+            if (!this.anims.isPlaying) {
                 this.receivingDamage = false;
             }
         }

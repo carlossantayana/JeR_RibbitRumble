@@ -114,8 +114,8 @@ export default class MapSelectionMenu extends Phaser.Scene {
         }
         //Una vez elegido el mapa internamente, se le muestra a los jugadores un efecto de ruleta aleatoria entre los mapas elegidos
         if (this.gameStarting == 2) {
-            this.timer += delta/1000;
-            this.timerFinal += delta/1000;
+            this.timer += delta / 1000;
+            this.timerFinal += delta / 1000;
             console.log("Timer 1 = " + this.timer)
             console.log("Timer 2 = " + this.timerFinal)
 
@@ -191,11 +191,11 @@ export default class MapSelectionMenu extends Phaser.Scene {
             }
         }
 
-        
+
 
         if (this.gameStarting == 4) {
             this.parameters.mapID = this.finalSelection;
-            this.timerChangeScene+=delta/1000;
+            this.timerChangeScene += delta / 1000;
             console.log("Timer 3 = " + this.timerChangeScene)
 
 
@@ -203,12 +203,12 @@ export default class MapSelectionMenu extends Phaser.Scene {
                 this.playersReady = false;
                 this.playerSelect = 1;
                 this.gameStarting = 0;
-                this.mapOneImage=undefined;
-                this.mapTwoImage=undefined;
-                this.player1Selection=undefined;
-                this.player2Selection=undefined;
-                this.finalSelection=undefined;
-                this.p1=undefined;
+                this.mapOneImage = undefined;
+                this.mapTwoImage = undefined;
+                this.player1Selection = undefined;
+                this.player2Selection = undefined;
+                this.finalSelection = undefined;
+                this.p1 = undefined;
                 this.timer = 0;
                 this.timerFinal = 0;
                 this.timerChangeScene = 0;

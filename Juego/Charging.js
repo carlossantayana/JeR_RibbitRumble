@@ -8,8 +8,8 @@ export default class Charging extends Phaser.Scene {
     {
         //Pantalla de Carga
         this.load.setPath('assets');
-        this.load.spritesheet('Cargando', 'Cargando.png', {frameWidth: 1920, frameHeight: 1080});
-    
+        this.load.spritesheet('Cargando', 'Cargando.png', { frameWidth: 1920, frameHeight: 1080 });
+
     }
 
     create() //crear animaciones y cargar escena inicial
@@ -21,7 +21,7 @@ export default class Charging extends Phaser.Scene {
         //Creacion de la animacion
         this.pantalla.anims.create({
             key: 'PantallaCarga',
-            frames: this.anims.generateFrameNumbers('Cargando', {start: 0, end: 4}),
+            frames: this.anims.generateFrameNumbers('Cargando', { start: 0, end: 4 }),
             frameRate: 12,
             repeat: -1
         });

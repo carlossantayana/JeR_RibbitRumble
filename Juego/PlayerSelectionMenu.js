@@ -8,9 +8,9 @@ export default class PlayerSelectionMenu extends Phaser.Scene {
         //Indica cuando los dos jugadores han escogido personaje
         this.playersReady = false;
         //Indica el turno del jugador para escoger personaje
-        this.playerSelect = 1;     
-        
-        this.parameters= {
+        this.playerSelect = 1;
+
+        this.parameters = {
             player1CharacterID: null,
             player2CharacterID: null,
         }
@@ -56,11 +56,11 @@ export default class PlayerSelectionMenu extends Phaser.Scene {
 
         //Creacion del boton de ir a seleccion de mapa
         this.mapSelection = this.add.image(960, 960, 'botonContinuar').setScale(0.5);
-        
+
         this.mapSelection.setInteractive()
         this.mapSelection.on('pointerdown', () => this.onMapSelection());
-        this.mapSelection.on('pointerover', function(){this.setScale(0.55)});
-        this.mapSelection.on('pointerout', function(){this.setScale(0.5)});
+        this.mapSelection.on('pointerover', function () { this.setScale(0.55) });
+        this.mapSelection.on('pointerout', function () { this.setScale(0.5) });
         this.mapSelection.setVisible(false)
     }
 
@@ -141,7 +141,7 @@ export default class PlayerSelectionMenu extends Phaser.Scene {
 
     //Encargada de llevar a la escena de seleccion de mapa
     onMapSelection() {
-        this.playersReady=false;
+        this.playersReady = false;
         this.playerSelect = 1
         this.scene.start('MapSelectionMenu', this.parameters); //Cargar Escena de selección de mapa, hay que pasarle la id de personajes
     }
