@@ -36,14 +36,14 @@ export default class Preloader extends Phaser.Scene {
         this.load.spritesheet('FlechaSalto', 'RanaFlecha/FlechaSalto.png', { frameWidth: 301, frameHeight: 252 });
         this.load.spritesheet('FlechaDaño', 'RanaFlecha/FlechaDaño.png', { frameWidth: 300, frameHeight: 250 });
 
-        this.load.spritesheet('TrepadoraIdle', 'RanaTrepadora/spritesheet_Idle.png', { frameWidth: 1145, frameHeight: 827 });
-        this.load.spritesheet('TrepadoraCaminar', 'RanaTrepadora/spritesheet_Walk.png', { frameWidth: 1145, frameHeight: 827 });
-        this.load.spritesheet('TrepadoraBasico', 'RanaTrepadora/spritesheet_Attack.png', { frameWidth: 1145, frameHeight: 827 });
-        this.load.spritesheet('TrepadoraBloqueo', 'RanaTrepadora/spritesheet_Block.png', { frameWidth: 1145, frameHeight: 827 });
-        this.load.spritesheet('TrepadoraAgachado', 'RanaTrepadora/spritesheet_Crouch.png', { frameWidth: 1145, frameHeight: 827 });
-        this.load.spritesheet('TrepadoraBajo', 'RanaTrepadora/spritesheet_CrouchAttack.png', { frameWidth: 1145, frameHeight: 827 });
-        this.load.spritesheet('TrepadoraSalto', 'RanaTrepadora/spritesheet_Jump.png', { frameWidth: 1145, frameHeight: 827 });
-        this.load.spritesheet('TrepadoraDaño', 'RanaTrepadora/RanaTrepadoraDamaged.png', { frameWidth: 1145, frameHeight: 827 });
+        this.load.spritesheet('TrepadoraIdle', 'RanaTrepadora/spritesheet_Idle.png', { frameWidth: 1146, frameHeight: 664 });
+        this.load.spritesheet('TrepadoraCaminar', 'RanaTrepadora/spritesheet_Walk.png', { frameWidth: 1146, frameHeight: 664 });
+        this.load.spritesheet('TrepadoraBasico', 'RanaTrepadora/spritesheet_Attack.png', { frameWidth: 1146, frameHeight: 664 });
+        this.load.spritesheet('TrepadoraBloqueo', 'RanaTrepadora/spritesheet_Block.png', { frameWidth: 1146, frameHeight: 664 });
+        this.load.spritesheet('TrepadoraAgachado', 'RanaTrepadora/spritesheet_Crouch.png', { frameWidth: 1146, frameHeight: 664 });
+        this.load.spritesheet('TrepadoraBajo', 'RanaTrepadora/spritesheet_CrouchAttack.png', { frameWidth: 1146, frameHeight: 664 });
+        this.load.spritesheet('TrepadoraSalto', 'RanaTrepadora/spritesheet_Jump.png', { frameWidth: 1146, frameHeight: 664 });
+        this.load.spritesheet('TrepadoraDaño', 'RanaTrepadora/RanaTrepadoraDamaged.png', { frameWidth: 1146, frameHeight: 664 });
 
         //ASSETS FONDOS//
         this.load.setPath('assets/Backgrounds'); //ruta de los assets, para que no sea necesario poner dicha ruta
@@ -518,7 +518,7 @@ export default class Preloader extends Phaser.Scene {
         //Animacion comenzar agachado
         this.anims.create({
             key: 'TrepadoraBeginCrouchAnim',
-            frames: this.anims.generateFrameNumbers('TrepadoraAgachado', { start: 0, end: 4 }),
+            frames: this.anims.generateFrameNumbers('TrepadoraAgachado', { start: 0, end: 3 }),
             frameRate: 12,
             repeat: 0
         });
@@ -526,13 +526,13 @@ export default class Preloader extends Phaser.Scene {
         //Animacion agachado fijo
         this.anims.create({
             key: 'TrepadoraCrouchAnim',
-            frames: this.anims.generateFrameNumbers('TrepadoraAgachado', { start: 4, end: 4 }),
+            frames: this.anims.generateFrameNumbers('TrepadoraAgachado', { start: 3, end: 3 }),
         });
 
         //Animacion de terminar agachado
         this.anims.create({
             key: 'TrepadoraEndCrouchAnim',
-            frames: this.anims.generateFrameNumbers('TrepadoraAgachado', { start: 4, end: 0 }),
+            frames: this.anims.generateFrameNumbers('TrepadoraAgachado', { start: 3, end: 0 }),
             frameRate: 12,
             repeat: 0
         });
