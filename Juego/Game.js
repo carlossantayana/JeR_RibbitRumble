@@ -41,6 +41,9 @@ export default class Game extends Phaser.Scene {
         this.cifra1 = 6;
         this.cifra2 = 0;
 
+        this.punteroP1;
+        this.punteroP2;
+
     }
 
     init(data) //Esto se ejecuta al iniciar la escena, debería recibir los personajes elegidos y el mapa seleccionado (y el número de rondas ganadas por cada uno)
@@ -133,17 +136,29 @@ export default class Game extends Phaser.Scene {
         switch (this.parameters.p1CharacterID) {
             case 0:
                 this.add.image(130, 145, 'ranaToroUI').setScale(0.65, 0.65);
+
+                this.punteroP1 = this.physics.add.image(this.player1.x, this.player1.y - 200, 'PunteroP1');
                 break;
             case 1:
                 this.add.image(130, 145, 'ranaLluviaUI').setScale(0.65, 0.65);
+
+                this.punteroP1 = this.physics.add.image(this.player1.x, this.player1.y - 150, 'PunteroP1');
                 break;
             case 2:
                 this.add.image(130, 145, 'ranaFlechaUI').setScale(0.65, 0.65);
+
+                this.punteroP1 = this.physics.add.image(this.player1.x, this.player1.y - 150, 'PunteroP1');
                 break;
             case 3:
                 this.add.image(130, 145, 'ranaTrepadoraUI').setScale(0.65, 0.65);
+
+                this.punteroP1 = this.physics.add.image(this.player1.x, this.player1.y - 200, 'PunteroP1');
                 break;
         }
+
+        this.punteroP1.body.setAllowGravity(false);
+        this.punteroP1.setScale(0.75, 0.75);
+        this.punteroP1.setAlpha(1);
 
         if (this.parameters.p1WonRounds == 1) {
             this.add.image(650, 210, 'Rondas').setScale(0.5, 0.5)
@@ -158,17 +173,29 @@ export default class Game extends Phaser.Scene {
         switch (this.parameters.p2CharacterID) {
             case 0:
                 this.add.image(1790, 145, 'ranaToroUI').setScale(0.65, 0.65).setFlipX(true);
+
+                this.punteroP2 = this.physics.add.image(this.player2.x, this.player2.y - 200, 'PunteroP2');
                 break;
             case 1:
                 this.add.image(1790, 145, 'ranaLluviaUI').setScale(0.65, 0.65).setFlipX(true);
+
+                this.punteroP2 = this.physics.add.image(this.player2.x, this.player2.y - 150, 'PunteroP2');
                 break;
             case 2:
                 this.add.image(1790, 145, 'ranaFlechaUI').setScale(0.65, 0.65).setFlipX(true);
+
+                this.punteroP2 = this.physics.add.image(this.player2.x, this.player2.y - 150, 'PunteroP2');
                 break;
             case 3:
                 this.add.image(1790, 145, 'ranaTrepadoraUI').setScale(0.65, 0.65).setFlipX(true);
+
+                this.punteroP2 = this.physics.add.image(this.player2.x, this.player2.y - 200, 'PunteroP2');
                 break;
         }
+
+        this.punteroP2.body.setAllowGravity(false);
+        this.punteroP2.setScale(0.75, 0.75);
+        this.punteroP2.setAlpha(1);
 
         if (this.parameters.p2WonRounds == 1) {
             this.add.image(1270, 210, 'Rondas').setScale(0.5, 0.5)
@@ -333,6 +360,26 @@ export default class Game extends Phaser.Scene {
         } else if (this.player2.jumping && this.player2.touchingGround) {
             this.player2.playEndJumpAnim();
             this.player2.jumping = false;
+        }
+
+        //Si la rana escogida es la toro o trepadora, el puntero debe estar más arriba
+        if (this.parameters.p1CharacterID == 0 || this.parameters.p1CharacterID == 3) {
+            this.punteroP1.x = this.player1.x;
+            this.punteroP1.y = this.player1.y - 200;
+        } else {
+
+            this.punteroP1.x = this.player1.x;
+            this.punteroP1.y = this.player1.y - 100;
+        }
+
+        //Si la rana escogida es la toro o trepadora, el puntero debe estar más arriba
+        if (this.parameters.p2CharacterID == 0 || this.parameters.p2CharacterID == 3) {
+            this.punteroP2.x = this.player2.x;
+            this.punteroP2.y = this.player2.y - 200;
+        } else {
+
+            this.punteroP2.x = this.player2.x;
+            this.punteroP2.y = this.player2.y - 100;
         }
 
         ///////////////////////////////////////////Gestion del tiempo////////////////////////////////////////////////////////////
