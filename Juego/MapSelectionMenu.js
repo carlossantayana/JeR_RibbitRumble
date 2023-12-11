@@ -43,7 +43,7 @@ export default class MapSelectionMenu extends Phaser.Scene {
 
 
         //Texto superior "Selecciona un escenario:"
-        this.add.text(450, 40, "Selecciona un escenario", { fontSize: '80px' });
+        this.add.text(400, 40, "Selecciona un escenario", { fontSize: '80px' });
 
         //Fondo para los mapas a seleccionar
         this.add.rectangle(960, 280, 1670, 300, 0x606060);
@@ -212,6 +212,7 @@ export default class MapSelectionMenu extends Phaser.Scene {
                 this.timer = 0;
                 this.timerFinal = 0;
                 this.timerChangeScene = 0;
+                this.changeTrackMaps(this.parameters.mapID + 1);
                 this.scene.start('Game', this.parameters);
             }
         }
@@ -308,5 +309,10 @@ export default class MapSelectionMenu extends Phaser.Scene {
 
     onGameStart() {
         this.gameStarting = 1;
+    }
+
+    changeTrackMaps(newTrack)
+    {
+        this.scene.get('AudioManager').events.emit('changeTrackMaps', newTrack)
     }
 }

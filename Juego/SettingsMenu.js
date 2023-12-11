@@ -58,16 +58,23 @@ export default class SettingsMenu extends Phaser.Scene {
 
 
     }
+    //Se actualiza el volumen constantemente
     update() {
-        this.changeVolume(volumenGeneral);
+        this.changeVolumeMusic(volumenMusica * volumenGeneral);
+        this.changeVolumeSFX(volumenSFX * volumenGeneral);
     }
+    //Cambio de escena
     returnToMenu() {
         this.scene.resume('MainMenu');
         this.scene.sleep();
     }
-
-    changeVolume(newVolume) {
-        this.scene.get('AudioManager').events.emit('changeVolume', newVolume);
+    //Cambio de volumen de la musica
+    changeVolumeMusic(newVolumeMusic) {
+        this.scene.get('AudioManager').events.emit('changeVolumeMusic', newVolumeMusic);
+    }
+    //Camvio de volumen de los efectos de sonido
+    changeVolumeSFX(newVolumeSFX) {
+        this.scene.get('AudioManager').events.emit('changeVolumeSFX', newVolumeSFX);
     }
 }
 

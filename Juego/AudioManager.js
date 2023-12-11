@@ -9,34 +9,71 @@ export default class AudioManager extends Phaser.Scene {
         this.musicaNenufar = null;
         this.musicaSelva = null;
         this.musicaResultados = null;
-        this.volume = 1;
+        this.volumeMusic = 1;
+        this.volumeSFX = 1;
+        this.track = -1;
     }
 
     create() {
         this.musicaMenus = this.sound.add('menuMusic', {
-            volume: this.volume,
+            volume: this.volumeMusic,
             loop: true
         });
         this.musicaDesierto = this.sound.add('desiertoMusic', {
-            volume: this.volume,
-            loop: true
-        });
-        this.musicaSelva = this.sound.add('selvaMusic', {
-            volume: this.volume,
+            volume: this.volumeMusic,
             loop: true
         });
         this.musicaNenufar = this.sound.add('nenufarMusic', {
-            volume: this.volume,
+            volume: this.volumeMusic,
             loop: true
         });
-
-        this.musicaMenus.play();
-        this.events.on('changeVolume', (newVolume) => {
-            this.volume = newVolume;
+        this.musicaSelva = this.sound.add('selvaMusic', {
+            volume: this.volumeMusic,
+            loop: true
         });
+        
+        this.events.on('changeVolumeMusic', (newVolumeMusic) => {
+            this.volumeMusic = newVolumeMusic;
+        });
+        this.events.on('changeVolumeSFX', (newVolumeSFX) => {
+            this.volumeSFX = newVolumeSFX;
+        });
+        this.events.on('changeTrackMaps', (newTrack) => {
+            this.track = newTrack;
+        });
+        /*this.events.on('changeTrackResults', (newTrack) => {
+            this.track = newTrack;
+        });
+        this.events.on('changeTrackMenu', (newTrack) => {
+            this.track = newTrack;
+        });*/
+
     }
     update() {
-        this.musicaMenus.setVolume(this.volume);
+        
+        if(this.track == -1){
+            this.musicaMenus.play();
+            this.track = 0;
+        }
+        if(this.track>0){
+            this.musicaMenus.stop();
+        }
+        if(this.track == 1){
+            this.musicaDesierto.play();
+            this.track = 0;
+        }
+        if(this.track == 2){
+            this.musicaNenufar.play();
+            this.track = 0;
+        }
+        if(this.track == 3){
+            this.musicaSelva.play();
+            this.track = 0;
+        }
+        this.musicaMenus.setVolume(this.volumeMusic);
+        this.musicaDesierto.setVolume(this.volumeMusic);
+        this.musicaNenufar.setVolume(this.volumeMusic);
+        this.musicaSelva.setVolume(this.volumeMusic);
     }
 
 

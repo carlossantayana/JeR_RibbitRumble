@@ -38,9 +38,16 @@ export default class PlayerSelectionMenu extends Phaser.Scene {
         var TrepadoraFrog = this.add.rectangle(1120, 700, 230, 230, 0x808080);
         this.add.image(1120, 700, 'logoRanaTrepadora').setScale(0.2);
 
-        //Creacion de los rectangulos donde saldra la seleccion de los personajes
+        //Texto superior "Selecciona un personaje:"
+        this.add.text(400, 40, "Selecciona un personaje", { fontSize: '80px' });
 
-
+        //Texto de los jugadores
+        this.add.rectangle(212, 250, 340, 110, 0x606060);
+        this.add.rectangle(212, 250, 325, 95, 0x808080);
+        this.add.rectangle(1698, 250, 350, 110, 0x606060);
+        this.add.rectangle(1698, 250, 335, 95, 0x808080);
+        this.add.image(220, 250, 'Player1Text').setScale(0.7);
+        this.add.image(1700, 250, 'Player2Text').setScale(0.7);
 
         //Creacion de la interaccion de los botones
         BullFrog.setInteractive();
