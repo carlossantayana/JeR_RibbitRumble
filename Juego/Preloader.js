@@ -36,14 +36,14 @@ export default class Preloader extends Phaser.Scene {
         this.load.spritesheet('FlechaSalto', 'RanaFlecha/FlechaSalto.png', { frameWidth: 301, frameHeight: 252 });
         this.load.spritesheet('FlechaDaño', 'RanaFlecha/FlechaDaño.png', { frameWidth: 300, frameHeight: 250 });
 
-        this.load.spritesheet('TrepadoraIdle', 'RanaTrepadora/spritesheet_Idle.png', { frameWidth: 2289, frameHeight: 1653 });
-        this.load.spritesheet('TrepadoraCaminar', 'RanaTrepadora/spritesheet_Walk.png', { frameWidth: 2289, frameHeight: 1653 });
-        this.load.spritesheet('TrepadoraBasico', 'RanaTrepadora/spritesheet_Attack.png', { frameWidth: 2289, frameHeight: 1653 });
-        this.load.spritesheet('TrepadoraBloqueo', 'RanaTrepadora/spritesheet_Block.png', { frameWidth: 2289, frameHeight: 1653 });
-        this.load.spritesheet('TrepadoraAgachado', 'RanaTrepadora/spritesheet_Crouch.png', { frameWidth: 2289, frameHeight: 1653 });
-        this.load.spritesheet('TrepadoraBajo', 'RanaTrepadora/spritesheet_CrouchAttack.png', { frameWidth: 2289, frameHeight: 1653 });
-        this.load.spritesheet('TrepadoraSalto', 'RanaTrepadora/spritesheet_Jump.png', { frameWidth: 2289, frameHeight: 1653 });
-        this.load.spritesheet('TrepadoraDaño', 'RanaTrepadora/RanaTrepadoraDamaged.png', { frameWidth: 2289, frameHeight: 1653 });
+        this.load.spritesheet('TrepadoraIdle', 'RanaTrepadora/spritesheet_Idle.png', { frameWidth: 1145, frameHeight: 827 });
+        this.load.spritesheet('TrepadoraCaminar', 'RanaTrepadora/spritesheet_Walk.png', { frameWidth: 1145, frameHeight: 827 });
+        this.load.spritesheet('TrepadoraBasico', 'RanaTrepadora/spritesheet_Attack.png', { frameWidth: 1145, frameHeight: 827 });
+        this.load.spritesheet('TrepadoraBloqueo', 'RanaTrepadora/spritesheet_Block.png', { frameWidth: 1145, frameHeight: 827 });
+        this.load.spritesheet('TrepadoraAgachado', 'RanaTrepadora/spritesheet_Crouch.png', { frameWidth: 1145, frameHeight: 827 });
+        this.load.spritesheet('TrepadoraBajo', 'RanaTrepadora/spritesheet_CrouchAttack.png', { frameWidth: 1145, frameHeight: 827 });
+        this.load.spritesheet('TrepadoraSalto', 'RanaTrepadora/spritesheet_Jump.png', { frameWidth: 1145, frameHeight: 827 });
+        this.load.spritesheet('TrepadoraDaño', 'RanaTrepadora/RanaTrepadoraDamaged.png', { frameWidth: 1145, frameHeight: 827 });
 
         //ASSETS FONDOS//
         this.load.setPath('assets/Backgrounds'); //ruta de los assets, para que no sea necesario poner dicha ruta
