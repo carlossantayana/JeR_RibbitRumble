@@ -335,7 +335,7 @@ export default class Game extends Phaser.Scene {
             this.player2.jumping = false;
         }
 
-        //Gestion del tiempo
+        ///////////////////////////////////////////Gestion del tiempo////////////////////////////////////////////////////////////
 
         //Si ha pasado un segundo
         if (this.timer >= 1) {
@@ -388,15 +388,11 @@ export default class Game extends Phaser.Scene {
     {
         if (this.player1.attacking && !this.player2.blocking && this.player1.justAttack && !this.player2.receivingDamage) {
             this.player2.takeDamage(10);
-            this.player2.setVelocityX(0);
-            this.player2.playHurtAnim();
             this.player1.justAttack = false;
             console.log('player 2 received damage!');
         }
         if (this.player2.attacking && !this.player1.blocking && this.player2.justAttack && !this.player1.receivingDamage) {
             this.player1.takeDamage(10);
-            this.player1.setVelocityX(0);
-            this.player1.playHurtAnim();
             this.player2.justAttack = false;
             console.log('player 1 received damage!');
         }

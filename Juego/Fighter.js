@@ -8,18 +8,6 @@ export default class Fighter extends Phaser.Physics.Arcade.Sprite {
         this.scene.add.existing(this);
         this.scene.physics.add.existing(this);
 
-        if (characterID == 1) {
-            this.setScale(0.2);
-        }
-
-        if (characterID == 3) {
-            this.setScale(0.2);
-        }
-
-        if (playerID == 2) {
-            this.setFlipX(true);
-        }
-
         this.setCollideWorldBounds(true);
 
         this.hp = 100;
@@ -27,19 +15,27 @@ export default class Fighter extends Phaser.Physics.Arcade.Sprite {
         this.altSkin = altSkin;
         this.playerID = playerID;
 
-        //Estos parámetros se utilizan para la comprobación de overlap de jugadores
+        if (this.characterID == 1) {
+            this.setScale(0.2);
+        }
+
+        if (this.characterID == 3) {
+            this.setScale(0.2);
+        }
+
+        if (this.playerID == 2) {
+            this.setFlipX(true);
+        }
+
+        //Parámetros de estado del jugador utilizados para el control del sistema de animaciones y sistema de daño
         this.attacking = false;
         this.blocking = false;
-
-        this.justAttack = false;
-
         this.crouching = false;
         this.jumping = false;
-
-        this.receivingDamage = false;
-
         this.touchingGround = false;
-
+        this.justAttack = false;
+        this.receivingDamage = false;
+        
         this.assignAnimations();
     }
 
@@ -47,6 +43,19 @@ export default class Fighter extends Phaser.Physics.Arcade.Sprite {
         this.hp -= quantity;
         if (this.hp <= 0) {
             this.scene.roundEnd(this.playerID);
+        }
+
+        this.setVelocityX(0);
+        this.playHurtAnim();
+    }
+
+    checkInmuneStatus() {
+        var currentAnimationKey = this.anims.currentAnim ? this.anims.currentAnim.key : '';
+
+        if (currentAnimationKey === this.hurtAnim) {
+            if (!this.anims.isPlaying) {
+                this.receivingDamage = false;
+            }
         }
     }
 
@@ -125,16 +134,6 @@ export default class Fighter extends Phaser.Physics.Arcade.Sprite {
     playHurtAnim() {
         this.receivingDamage = true;
         this.anims.play(this.hurtAnim, true);
-    }
-
-    checkInmuneStatus() {
-        var currentAnimationKey = this.anims.currentAnim ? this.anims.currentAnim.key : '';
-
-        if (currentAnimationKey === this.hurtAnim) {
-            if (!this.anims.isPlaying) {
-                this.receivingDamage = false;
-            }
-        }
     }
 
     assignAnimations() {

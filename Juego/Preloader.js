@@ -344,7 +344,7 @@ export default class Preloader extends Phaser.Scene {
             key: 'LluviaHurtAnim',
             frames: this.anims.generateFrameNumbers('LluviaDaño', { start: 0, end: 0 }),
             frameRate: 12,
-            repeat: 2
+            repeat: 12
         });
 
         //////////////////////////////////////////////RANA FLECHA ANIMACIONES////////////////////////////////////////////////////
@@ -454,7 +454,7 @@ export default class Preloader extends Phaser.Scene {
             key: 'FlechaHurtAnim',
             frames: this.anims.generateFrameNumbers('FlechaDaño', { start: 0, end: 0 }),
             frameRate: 12,
-            repeat: 2
+            repeat: 12
         });
 
         //////////////////////////////////////////////RANA TREPADORA ANIMACIONES////////////////////////////////////////////////////
@@ -564,7 +564,7 @@ export default class Preloader extends Phaser.Scene {
             key: 'TrepadoraHurtAnim',
             frames: this.anims.generateFrameNumbers('TrepadoraDaño', { start: 0, end: 0 }),
             frameRate: 12,
-            repeat: 2
+            repeat: 12
         });
 
         this.scene.start('MainMenu'); //Cargar Escena inicial
