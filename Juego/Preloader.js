@@ -102,7 +102,7 @@ export default class Preloader extends Phaser.Scene {
         this.load.setPath('assets/SoundEffects');
         this.load.audio('aguilaSound', 'Aguila.mp3');
         this.load.audio('chapoteoSound', 'Chapoteo.mp3');
-        thid.load.audio('jumpSound', 'Jump.mp3');
+        this.load.audio('jumpSound', 'Jump.mp3');
             //Rana Flecha
         this.load.audio('flechaAttackSound', 'FlechaAttack.mp3');
         this.load.audio('flechaCrouchAttackSound', 'FlechaCrouchAttack.mp3');
