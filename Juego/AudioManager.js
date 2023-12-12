@@ -40,7 +40,7 @@ export default class AudioManager extends Phaser.Scene {
         this.volumeMusic = 1;
         this.volumeSFX = 1;
         this.track = -1;
-        this.sound = 0;
+        //this.sound = 0;
         this.mapTrack = 0;
         this.soundTimer;
         this.ranNum= Math.random() * (26 - 10) + 10;
