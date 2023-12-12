@@ -456,9 +456,9 @@ export default class Game extends Phaser.Scene {
             this.player2.touchingGround = false;
             this.player2.setVelocityY(this.player2.jump);
             this.player2.playBeginJumpAnim();
-        } else if (this.player2.jumping && !this.player2.touchingGround) {
+        } else if (this.player2.jumping && !this.player2.touchingGround && !this.player2.receivingDamage) {
             this.player2.playJumpAnim();
-        } else if (this.player2.jumping && this.player2.touchingGround) {
+        } else if (this.player2.jumping && this.player2.touchingGround && !this.player2.receivingDamage) {
             this.player2.playEndJumpAnim();
             this.player2.jumping = false;
         }
