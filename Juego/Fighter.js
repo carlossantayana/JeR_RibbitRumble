@@ -77,6 +77,7 @@ export default class Fighter extends Phaser.Physics.Arcade.Sprite {
 
         this.setVelocityX(0);
         this.playHurtAnim();
+        this.setTint(0xa0a0a0);
     }
 
     checkInmuneStatus() {
@@ -85,6 +86,7 @@ export default class Fighter extends Phaser.Physics.Arcade.Sprite {
         if (currentAnimationKey === this.hurtAnim) {
             if (!this.anims.isPlaying) {
                 this.receivingDamage = false;
+                this.clearTint();
             }
         }
     }

@@ -146,13 +146,13 @@ export default class Game extends Phaser.Scene {
                 this.AttackHitboxDownP1.setSize(170, 25);
                 break;
             case 1:
-                this.AttackHitboxUpP1 = this.physics.add.image(this.player1.x + 210, this.player1.y, '');
+                this.AttackHitboxUpP1 = this.physics.add.image(this.player1.x + 130, this.player1.y - 20, '');
                 this.AttackHitboxUpP1.setAlpha(0);
-                this.AttackHitboxUpP1.setSize(50, 50);
+                this.AttackHitboxUpP1.setSize(45, 115);
 
-                this.AttackHitboxDownP1 = this.physics.add.image(this.player1.x + 200, this.player1.y - 50, '');
+                this.AttackHitboxDownP1 = this.physics.add.image(this.player1.x + 130, this.player1.y + 45, '');
                 this.AttackHitboxDownP1.setAlpha(0);
-                this.AttackHitboxDownP1.setSize(45, 100);
+                this.AttackHitboxDownP1.setSize(45, 70);
                 break;
             case 2:
                 this.AttackHitboxUpP1 = this.physics.add.image(this.player1.x + 100, this.player1.y + 78, '');
@@ -164,13 +164,13 @@ export default class Game extends Phaser.Scene {
                 this.AttackHitboxDownP1.setSize(55, 30);
                 break;
             case 3:
-                this.AttackHitboxUpP1 = this.physics.add.image(this.player1.x + 195, this.player1.y - 35, '');
+                this.AttackHitboxUpP1 = this.physics.add.image(this.player1.x + 170, this.player1.y - 35, '');
                 this.AttackHitboxUpP1.setAlpha(0);
-                this.AttackHitboxUpP1.setSize(150, 30);
+                this.AttackHitboxUpP1.setSize(210, 50);
 
-                this.AttackHitboxDownP1 = this.physics.add.image(this.player1.x + 195, this.player1.y - 10, '');
+                this.AttackHitboxDownP1 = this.physics.add.image(this.player1.x + 170, this.player1.y - 14, '');
                 this.AttackHitboxDownP1.setAlpha(0);
-                this.AttackHitboxDownP1.setSize(150, 30);
+                this.AttackHitboxDownP1.setSize(210, 50);
                 break;
         }
 
@@ -185,13 +185,13 @@ export default class Game extends Phaser.Scene {
                 this.AttackHitboxDownP2.setSize(170, 25);
                 break;
             case 1:
-                this.AttackHitboxUpP2 = this.physics.add.image(this.player2.x - 210, this.player2.y, '');
+                this.AttackHitboxUpP2 = this.physics.add.image(this.player2.x - 130, this.player2.y - 20, '');
                 this.AttackHitboxUpP2.setAlpha(0);
-                this.AttackHitboxUpP2.setSize(50, 50);
+                this.AttackHitboxUpP2.setSize(45, 115);
 
-                this.AttackHitboxDownP2 = this.physics.add.image(this.player2.x - 210, this.player2.y, '');
+                this.AttackHitboxDownP2 = this.physics.add.image(this.player2.x - 130, this.player2.y + 45, '');
                 this.AttackHitboxDownP2.setAlpha(0);
-                this.AttackHitboxDownP2.setSize(50, 50);
+                this.AttackHitboxDownP2.setSize(45, 70);
                 break;
             case 2:
                 this.AttackHitboxUpP2 = this.physics.add.image(this.player2.x - 100, this.player2.y + 78, '');
@@ -203,13 +203,13 @@ export default class Game extends Phaser.Scene {
                 this.AttackHitboxDownP2.setSize(55, 30);
                 break;
             case 3:
-                this.AttackHitboxUpP2 = this.physics.add.image(this.player2.x - 195, this.player2.y - 35, '');
+                this.AttackHitboxUpP2 = this.physics.add.image(this.player2.x - 170, this.player2.y - 35, '');
                 this.AttackHitboxUpP2.setAlpha(0);
-                this.AttackHitboxUpP2.setSize(150, 30);
+                this.AttackHitboxUpP2.setSize(210, 50);
 
-                this.AttackHitboxDownP2 = this.physics.add.image(this.player2.x - 195, this.player2.y - 10, '');
+                this.AttackHitboxDownP2 = this.physics.add.image(this.player2.x - 170, this.player2.y - 14, '');
                 this.AttackHitboxDownP2.setAlpha(0);
-                this.AttackHitboxDownP2.setSize(150, 30);
+                this.AttackHitboxDownP2.setSize(210, 50);
                 break;
         }
 
@@ -489,11 +489,11 @@ export default class Game extends Phaser.Scene {
                 this.AttackHitboxDownP1.y = this.player1.y;
                 break;
             case 1:
-                this.AttackHitboxUpP1.x = this.player1.x + 80 * directionP1;
-                this.AttackHitboxUpP1.y = this.player1.y + 60;
+                this.AttackHitboxUpP1.x = this.player1.x + 130 * directionP1;
+                this.AttackHitboxUpP1.y = this.player1.y - 20;
 
-                this.AttackHitboxDownP1.x = this.player1.x + 80 * directionP1;
-                this.AttackHitboxDownP1.y = this.player1.y + 75;
+                this.AttackHitboxDownP1.x = this.player1.x + 130 * directionP1;
+                this.AttackHitboxDownP1.y = this.player1.y + 45;
                 break;
             case 2:
                 this.AttackHitboxUpP1.x = this.player1.x + 100 * directionP1;
@@ -503,11 +503,11 @@ export default class Game extends Phaser.Scene {
                 this.AttackHitboxDownP1.y = this.player1.y + 95;
                 break;
             case 3:
-                this.AttackHitboxUpP1.x = this.player1.x + 195 * directionP1;
+                this.AttackHitboxUpP1.x = this.player1.x + 170 * directionP1;
                 this.AttackHitboxUpP1.y = this.player1.y - 35;
 
-                this.AttackHitboxDownP1.x = this.player1.x + 195 * directionP1;
-                this.AttackHitboxDownP1.y = this.player1.y - 10;
+                this.AttackHitboxDownP1.x = this.player1.x + 170 * directionP1;
+                this.AttackHitboxDownP1.y = this.player1.y - 14;
                 break;
         }
 
@@ -520,11 +520,11 @@ export default class Game extends Phaser.Scene {
                 this.AttackHitboxDownP2.y = this.player2.y;
                 break;
             case 1:
-                this.AttackHitboxUpP2.x = this.player2.x + 210 * directionP2;
-                this.AttackHitboxUpP2.y = this.player2.y;
+                this.AttackHitboxUpP2.x = this.player2.x + 130 * directionP2;
+                this.AttackHitboxUpP2.y = this.player2.y - 20;
 
-                this.AttackHitboxDownP2.x = this.player2.x + 210 * directionP2;
-                this.AttackHitboxDownP2.y = this.player2.y;
+                this.AttackHitboxDownP2.x = this.player2.x + 130 * directionP2;
+                this.AttackHitboxDownP2.y = this.player2.y + 45;
                 break;
             case 2:
                 this.AttackHitboxUpP2.x = this.player2.x + 100 * directionP2;
@@ -534,11 +534,11 @@ export default class Game extends Phaser.Scene {
                 this.AttackHitboxDownP2.y = this.player2.y + 95;
                 break;
             case 3:
-                this.AttackHitboxUpP2.x = this.player2.x + 195 * directionP2;
+                this.AttackHitboxUpP2.x = this.player2.x + 170 * directionP2;
                 this.AttackHitboxUpP2.y = this.player2.y - 35;
 
-                this.AttackHitboxDownP2.x = this.player2.x + 195 * directionP2;
-                this.AttackHitboxDownP2.y = this.player2.y - 10;
+                this.AttackHitboxDownP2.x = this.player2.x + 170 * directionP2;
+                this.AttackHitboxDownP2.y = this.player2.y - 14;
                 break;
         }
 
