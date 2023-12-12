@@ -59,12 +59,12 @@ export default class Game extends Phaser.Scene {
         this.parameters.p1AltSkin = false;
         this.parameters.p2AltSkin = false;
         this.parameters.mapID = data.mapID;
-        this.parameters.p1WonRounds = data.wonRoundsPlayer1;
-        this.parameters.p2WonRounds = data.wonRoundsPlayer2;
+        this.parameters.p1WonRounds = 0;
+        this.parameters.p2WonRounds = 0;
     }
 
     create() {
-        this.physics.world.gravity.y = 300;
+        this.physics.world.gravity.y = 900;
 
         this.ground = this.physics.add.staticGroup();
 
@@ -228,7 +228,7 @@ export default class Game extends Phaser.Scene {
         //UI P1
         this.add.image(450, 150, 'UIGamePieza1').setScale(0.65, 0.65);
         this.barraVidaP1 = this.generarBarra(228, 37, 0xb82d3b) //Se crea un rectangulo para la barra
-        this.setValueBar1(100);               //Se pasa dicho rectangulo y el valor que tendrá la barra
+        this.setValueBar1(this.player1.maxhp);               //Se pasa dicho rectangulo y el valor que tendrá la barra
         this.add.image(450, 150, 'UIGamePieza2').setScale(0.65, 0.65);
 
         switch (this.parameters.p1CharacterID) {
@@ -258,14 +258,12 @@ export default class Game extends Phaser.Scene {
         this.punteroP1.setScale(0.75, 0.75);
         this.punteroP1.setAlpha(1);
 
-        if (this.parameters.p1WonRounds == 1) {
-            this.add.image(650, 210, 'Rondas').setScale(0.5, 0.5)
-        }
+
 
         //UI P2
         this.add.image(1470, 150, 'UIGamePieza1').setScale(0.65, 0.65).setFlipX(true);
         this.barraVidaP2 = this.generarBarra(1690, 37, 0xb82d3b); //Se crea un rectangulo para la barra
-        this.setValueBar2(100);                 //Se pasa dicho rectangulo y el valor que tendrá la barra
+        this.setValueBar2(this.player2.maxhp);                 //Se pasa dicho rectangulo y el valor que tendrá la barra
         this.add.image(1470, 150, 'UIGamePieza2').setScale(0.65, 0.65).setFlipX(true);
 
         switch (this.parameters.p2CharacterID) {
@@ -295,9 +293,6 @@ export default class Game extends Phaser.Scene {
         this.punteroP2.setScale(0.75, 0.75);
         this.punteroP2.setAlpha(1);
 
-        if (this.parameters.p2WonRounds == 1) {
-            this.add.image(1270, 210, 'Rondas').setScale(0.5, 0.5)
-        }
 
         this.numeroUno = this.add.image(900, 80, '6').setScale(0.65, 0.65);
         this.numeroDos = this.add.image(1020, 80, '0').setScale(0.65, 0.65);
@@ -314,7 +309,7 @@ export default class Game extends Phaser.Scene {
 
         //Movimiento básico//
         if (this.keyD.isDown && !this.player1.crouching && !this.player1.blocking && !this.player1.attacking && !this.player1.receivingDamage) {
-            this.player1.setVelocityX(300);
+            this.player1.setVelocityX(this.player1.speed);
             this.player1.setFlipX(false);
 
             this.player1.lookingRight = true;
@@ -323,7 +318,7 @@ export default class Game extends Phaser.Scene {
                 this.player1.playWalkAnim();
             }
         } else if (this.keyA.isDown && !this.player1.crouching && !this.player1.blocking && !this.player1.attacking && !this.player1.receivingDamage) {
-            this.player1.setVelocityX(-300);
+            this.player1.setVelocityX(-this.player1.speed);
             this.player1.setFlipX(true);
 
             this.player1.lookingRight = false;
@@ -380,7 +375,7 @@ export default class Game extends Phaser.Scene {
         if (this.keyW.isDown && !this.player1.jumping && this.player1.touchingGround && !this.player1.crouching && !this.player1.blocking && !this.player1.attacking && !this.player1.receivingDamage) {
             this.player1.jumping = true;
             this.player1.touchingGround = false;
-            this.player1.setVelocityY(-300);
+            this.player1.setVelocityY(this.player1.jump);
             this.player1.playBeginJumpAnim();
         } else if (this.player1.jumping && !this.player1.touchingGround) {
             this.player1.playJumpAnim();
@@ -393,7 +388,7 @@ export default class Game extends Phaser.Scene {
 
         //Movimiento básico//
         if (this.cursors.right.isDown && !this.player2.crouching && !this.player2.blocking && !this.player2.attacking && !this.player2.receivingDamage) {
-            this.player2.setVelocityX(300);
+            this.player2.setVelocityX(this.player2.speed);
             this.player2.setFlipX(false);
 
             this.player2.lookingRight = true;
@@ -402,7 +397,7 @@ export default class Game extends Phaser.Scene {
                 this.player2.playWalkAnim();
             }
         } else if (this.cursors.left.isDown && !this.player2.crouching && !this.player2.blocking && !this.player2.attacking && !this.player2.receivingDamage) {
-            this.player2.setVelocityX(-300);
+            this.player2.setVelocityX(-this.player2.speed);
             this.player2.setFlipX(true);
 
             this.player2.lookingRight = false;
@@ -459,7 +454,7 @@ export default class Game extends Phaser.Scene {
         if (this.cursors.up.isDown && !this.player2.jumping && this.player2.touchingGround && !this.player2.crouching && !this.player2.blocking && !this.player2.attacking && !this.player2.receivingDamage) {
             this.player2.jumping = true;
             this.player2.touchingGround = false;
-            this.player2.setVelocityY(-300);
+            this.player2.setVelocityY(this.player2.jump);
             this.player2.playBeginJumpAnim();
         } else if (this.player2.jumping && !this.player2.touchingGround) {
             this.player2.playJumpAnim();
@@ -585,36 +580,65 @@ export default class Game extends Phaser.Scene {
                 this.numeroUno = this.add.image(900, 80, this.cifra1.toString()).setScale(0.65, 0.65);
                 this.numeroDos = this.add.image(1020, 80, this.cifra2.toString()).setScale(0.65, 0.65);
             }
+            if(this.cifra1===0 && this.cifra2===0)
+            {
+                if(this.player1.hp>=this.player2.hp)
+                {
+                    this.roundEnd(2);
+                }
+                else
+                {
+                    this.roundEnd(1);
+                }
+            }
+
             this.timer = 0;
         }
         this.timer += delta / 1000;
     }
 
-    roundEnd(winnerId) {
-        switch (winnerId) {
-            case 1://Victoria P1
-                this.parameters.p1WonRounds++;
+    roundEnd(looserId) {
+        switch (looserId) {
+            case 2://Victoria P1
+                this.parameters.p1WonRounds+=1;
+                this.updateWins(1);
                 break;
-            case 2://Victoria P2
-                this.parameters.p2WonRounds++;
+            case 1://Victoria P2
+                this.parameters.p2WonRounds+=1;
+                this.updateWins(2);
                 break;
         }
-
-        if (this.p1WonRounds >= 2) {
+        console.log(this.parameters.p1WonRounds);
+        console.log(this.parameters.p2WonRounds);
+        if (this.parameters.p1WonRounds === 2) {
             this.parameters.winnerId = 1;
-            this.parameters.loses = this.p2WonRounds;
+            this.parameters.loses = this.parameters.p2WonRounds;
             //Cargar escena de resultados con P1 como ganador
             this.scene.start("Results", this.parameters);
         }
-        else if (this.p2WonRounds >= 2) {
+        else if (this.parameters.p2WonRounds === 2) {
             this.parameters.winnerId = 2;
-            this.parameters.loses = this.p1WonRounds;
+            this.parameters.loses = this.parameters.p1WonRounds;
             //Cargar escena de resultados con P2 como ganador
             this.scene.start("Results", this.parameters);
         }
         else {
             //Recargar la escena de juego con los parametros necesarios
             //this.scene.restart("Game",this.parameters);
+            this.timer = 0;
+            this.cifra1 = 6;
+            this.cifra2 = 0;
+            this.player1.hp=this.player1.maxhp;
+            this.player2.hp=this.player2.maxhp;
+            this.setValueBar1(this.player1.maxhp);
+            this.setValueBar2(this.player2.maxhp);
+            this.player1.x=190;
+            this.player1.y=800;
+            this.player2.x=1730;
+            this.player2.y=800;
+            this.player1.setFlipX(false);
+            this.player2.setFlipX(true);
+
         }
     }
 
@@ -674,11 +698,22 @@ export default class Game extends Phaser.Scene {
 
     setValueBar1(percentage) {
         // Escala la barra
-        this.barraVidaP1.scaleX = percentage / 100;
+        this.barraVidaP1.scaleX = percentage / this.player1.maxhp;
     }
 
     setValueBar2(percentage) {
         // Escala la barra
-        this.barraVidaP2.scaleX = (percentage / 100) * -1;
+        this.barraVidaP2.scaleX = (percentage / this.player2.maxhp) * -1;
+    }
+
+    updateWins(winner){
+        switch(winner){
+            case 1: 
+                this.add.image(650, 210, 'Rondas').setScale(0.5, 0.5);
+              break;
+            case 2: 
+                this.add.image(1270, 210, 'Rondas').setScale(0.5, 0.5);
+              break;
+        }
     }
 }

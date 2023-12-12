@@ -11,26 +11,45 @@ export default class Fighter extends Phaser.Physics.Arcade.Sprite {
         this.setCollideWorldBounds(true);
 
         this.hp = 100;
+        this.maxhp = 100;
+        this.speed = 300;
+        this.jump = -300;
         this.characterID = characterID;
         this.altSkin = altSkin;
         this.playerID = playerID;
 
         if (this.characterID == 0) {
             this.setSize(380, 180);
+            this.hp = 150;
+            this.maxhp = 150;
+            this.speed = 200;
+            this.jump = -850;
         }
 
         if (this.characterID == 1) {
             this.setScale(0.8).refreshBody();
             this.setSize(350, 200);
+            this.hp = 125;
+            this.maxhp = 125;
+            this.speed = 275;
+            this.jump = -875;
         }
 
         if (this.characterID == 2) {
             this.setSize(230, 240);
+            this.hp = 75;
+            this.maxhp = 75;
+            this.speed = 325;
+            this.jump = -950;
         }
 
         if (this.characterID == 3) {
             this.setScale(0.5).refreshBody();
             this.setSize(480, 280);
+            this.hp = 100;
+            this.maxhp = 100;
+            this.speed = 300;
+            this.jump = -900;
         }
 
         if (this.playerID == 2) {

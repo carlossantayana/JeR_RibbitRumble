@@ -188,7 +188,7 @@ export default class Preloader extends Phaser.Scene {
         this.anims.create({
             key: 'ToroDownAttackAnim',
             frames: this.anims.generateFrameNumbers('ToroBajo', { start: 0, end: 6 }),
-            frameRate: 12,
+            frameRate: 24,
             repeat: 0
         });
 
@@ -196,7 +196,7 @@ export default class Preloader extends Phaser.Scene {
         this.anims.create({
             key: 'ToroBeginBlockAnim',
             frames: this.anims.generateFrameNumbers('ToroBloqueo', { start: 0, end: 3 }),
-            frameRate: 12,
+            frameRate: 24,
             repeat: 0
         });
 
@@ -210,7 +210,7 @@ export default class Preloader extends Phaser.Scene {
         this.anims.create({
             key: 'ToroEndBlockAnim',
             frames: this.anims.generateFrameNumbers('ToroBloqueo', { start: 4, end: 8 }),
-            frameRate: 12,
+            frameRate: 24,
             repeat: 0
         });
 
@@ -306,7 +306,7 @@ export default class Preloader extends Phaser.Scene {
         this.anims.create({
             key: 'LluviaBeginBlockAnim',
             frames: this.anims.generateFrameNumbers('LluviaBloqueo', { start: 0, end: 2 }),
-            frameRate: 12,
+            frameRate: 24,
             repeat: 0
         });
 
@@ -320,7 +320,7 @@ export default class Preloader extends Phaser.Scene {
         this.anims.create({
             key: 'LluviaEndBlockAnim',
             frames: this.anims.generateFrameNumbers('LluviaBloqueo', { start: 2, end: 4 }),
-            frameRate: 12,
+            frameRate: 24,
             repeat: 0
         });
 
@@ -408,7 +408,7 @@ export default class Preloader extends Phaser.Scene {
         this.anims.create({
             key: 'FlechaDownAttackAnim',
             frames: this.anims.generateFrameNumbers('FlechaBajo', { start: 0, end: 6 }),
-            frameRate: 12,
+            frameRate: 24,
             repeat: 0
         });
 
@@ -416,7 +416,7 @@ export default class Preloader extends Phaser.Scene {
         this.anims.create({
             key: 'FlechaBeginBlockAnim',
             frames: this.anims.generateFrameNumbers('FlechaBloqueo', { start: 0, end: 4 }),
-            frameRate: 12,
+            frameRate: 24,
             repeat: 0
         });
 
@@ -430,7 +430,7 @@ export default class Preloader extends Phaser.Scene {
         this.anims.create({
             key: 'FlechaEndBlockAnim',
             frames: this.anims.generateFrameNumbers('FlechaBloqueo', { start: 4, end: 0 }),
-            frameRate: 12,
+            frameRate: 24,
             repeat: 0
         });
 
@@ -510,7 +510,7 @@ export default class Preloader extends Phaser.Scene {
         this.anims.create({
             key: 'TrepadoraBasicAttackAnim',
             frames: this.anims.generateFrameNumbers('TrepadoraBasico', { start: 0, end: 9 }),
-            frameRate: 12,
+            frameRate: 24,
             repeat: 0
         });
 
@@ -518,7 +518,7 @@ export default class Preloader extends Phaser.Scene {
         this.anims.create({
             key: 'TrepadoraDownAttackAnim',
             frames: this.anims.generateFrameNumbers('TrepadoraBajo', { start: 0, end: 9 }),
-            frameRate: 12,
+            frameRate: 24,
             repeat: 0
         });
 
@@ -526,7 +526,7 @@ export default class Preloader extends Phaser.Scene {
         this.anims.create({
             key: 'TrepadoraBeginBlockAnim',
             frames: this.anims.generateFrameNumbers('TrepadoraBloqueo', { start: 0, end: 3 }),
-            frameRate: 12,
+            frameRate: 24,
             repeat: 0
         });
 
@@ -540,7 +540,7 @@ export default class Preloader extends Phaser.Scene {
         this.anims.create({
             key: 'TrepadoraEndBlockAnim',
             frames: this.anims.generateFrameNumbers('TrepadoraBloqueo', { start: 3, end: 0 }),
-            frameRate: 12,
+            frameRate: 24,
             repeat: 0
         });
 
