@@ -90,12 +90,40 @@ export default class Preloader extends Phaser.Scene {
         this.load.image('logoRanaToro', 'LogoRanaToro.png');
         this.load.image('logoRanaTrepadora', 'LogoRanaTrepadora.png');
 
-        //ASSETS AUDIO//
+        //ASSETS MUSICA//
         this.load.setPath('assets/Music');
         this.load.audio('desiertoMusic', 'Desierto.mp3');
         this.load.audio('menuMusic', 'rockMainMenu.mp3');
         this.load.audio('nenufarMusic', 'Nenufar.mp3');
         this.load.audio('selvaMusic', 'Selva.mp3');
+        this.load.audio('resultsMusic', 'Results.mp3');
+
+        //ASSETS SFX//
+        this.load.setPath('assets/SoundEffects');
+        this.load.audio('aguilaSound', 'Aguila.mp3');
+        this.load.audio('chapoteoSound', 'Chapoteo.mp3');
+            //Rana Flecha
+        this.load.audio('flechaAttackSound', 'FlechaAttack.mp3');
+        this.load.audio('flechaCrouchAttackSound', 'FlechaCrouchAttack.mp3');
+        this.load.audio('flechaAttackBlockedSound', 'FlechaAttackBlocked.mp3');
+        this.load.audio('flechaCrouchAttackBlockedSound', 'FlechaCrouchAttackBlocked.mp3');
+            //Rana Lluvia
+        this.load.audio('lluviaAttackSound', 'LluviaAttack.mp3');
+        this.load.audio('lluviaCrouchAttackSound', 'LluviaCrouchAttack.mp3');
+        this.load.audio('lluviaAttackBlockedSound', 'LluviaAttackBlocked.mp3');
+        this.load.audio('lluviaCrouchAttackBlockedSound', 'LluviaCrouchAttackBlocked.mp3');
+            //Rana Toro
+        this.load.audio('toroAttackSound', 'ToroAttack.mp3');
+        this.load.audio('toroAttackBlockedSound', 'ToroAttackBlocked.mp3');
+            //Rana Trepadora
+        this.load.audio('trepadoraAttackSound', 'TrepadoraAttack.mp3');
+        this.load.audio('trepadoraAttackBlockedSound', 'TrepadoraAttackBlocked.mp3');
+
+        //ASSETS AMBIENTE
+        this.load.audio('ambienteSelvaSound', 'AmbienteSelva.mp3');
+        this.load.audio('vientoSound', 'Viento.mp3');
+        this.load.audio('rioSound', 'Rio.mp3');
+        this.load.audio('ribbitsSound', 'RibbitsAmbiente.mp3');     
 
         //ASSETS TEXTOS//
         this.load.setPath('assets/TextInterface');
