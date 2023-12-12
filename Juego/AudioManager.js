@@ -5,20 +5,20 @@ export default class AudioManager extends Phaser.Scene {
     constructor() {
         super('AudioManager');
         //Musica del juego
-        this.musicaMenus = null;
-        this.musicaDesierto = null;
-        this.musicaNenufar = null;
-        this.musicaSelva = null;
-        this.musicaResultados = null;
+        this.musicaMenus = null;        // Track -1
+        this.musicaDesierto = null;     // Track 1
+        this.musicaNenufar = null;      // Track 2
+        this.musicaSelva = null;        // Track 3
+        this.musicaResultados = null;   // Track 4
 
         //Sonidos del juego
 
-        this.sonidoAguila = null;
-        this.sonidoViento = null;
-        this.sonidoRio = null;
-        this.sonidoRibbits = null;
-        this.sonidoSelva = null;
-        this.sonidoChapoteo = null;
+        this.sonidoAguila = null;       // MapTrack 1
+        this.sonidoViento = null;       // Track 1
+        this.sonidoRio = null;          // Track 3
+        this.sonidoRibbits = null;      // Track 2
+        this.sonidoSelva = null;        // Track 3
+        this.sonidoChapoteo = null;     // MapTrack 2
 
         //Sonidos de ranas
 
@@ -40,6 +40,10 @@ export default class AudioManager extends Phaser.Scene {
         this.volumeMusic = 1;
         this.volumeSFX = 1;
         this.track = -1;
+        this.sound = 0;
+        this.mapTrack = 0;
+        this.soundTimer;
+        this.ranNum= Math.random() * (26 - 10) + 10;
     }
 
     create() {
@@ -92,7 +96,7 @@ export default class AudioManager extends Phaser.Scene {
             volume: this.volumeSFX,
             loop: true
         });
-        
+
         //Guarda sonidos de las ranas en las variables con sus propiedades
 
         //Rana Toro
@@ -157,55 +161,198 @@ export default class AudioManager extends Phaser.Scene {
             loop: false
         });
 
-
         //GESTION DE EVENTOS PARA EL AUDIO MANAGER//
-
+        //Evento para controlar volumen de musica
         this.events.on('changeVolumeMusic', (newVolumeMusic) => {
-            this.volumeMusic = newVolumeMusic;
+
+            this.musicaMenus.setVolume(newVolumeMusic);
+            this.musicaDesierto.setVolume(newVolumeMusic);
+            this.musicaNenufar.setVolume(newVolumeMusic);
+            this.musicaSelva.setVolume(newVolumeMusic);
+            this.musicaResultados.setVolume(newVolumeMusic);
         });
+        //Evento para controlar volumen de sonido
         this.events.on('changeVolumeSFX', (newVolumeSFX) => {
-            this.volumeSFX = newVolumeSFX;
+
+            this.sonidoAguila.setVolume(newVolumeMusic);
+            this.sonidoViento.setVolume(newVolumeSFX);
+            this.sonidoRio.setVolume(newVolumeSFX);
+            this.sonidoRibbits.setVolume(newVolumeSFX);
+            this.sonidoSelva.setVolume(newVolumeSFX);
+            this.sonidoChapoteo.setVolume(newVolumeSFX);
+
+            this.toroAt.setVolume(newVolumeSFX);
+            this.toroAtB.setVolume(newVolumeSFX);
+            this.trepadoraAt.setVolume(newVolumeSFX);
+            this.trepadoraAtB.setVolume(newVolumeSFX);
+            this.lluviaAt.setVolume(newVolumeSFX);
+            this.lluviaCAt.setVolume(newVolumeSFX);
+            this.lluviaAtB.setVolume(newVolumeSFX);
+            this.lluviaCAtB.setVolume(newVolumeSFX);
+            this.flechaAt.setVolume(newVolumeSFX);
+            this.flechaCAt.setVolume(newVolumeSFX);
+            this.flechaAtB.setVolume(newVolumeSFX);
+            this.flechaCAtB.setVolume(newVolumeSFX);
+            this.jumpSound.setVolume(newVolumeSFX);
         });
+
+        //Eventos para cambiar musica
         this.events.on('changeTrackMaps', (newTrack) => {
             this.track = newTrack;
+            this.mapTrack = newTrack;
         });
-        /*this.events.on('changeTrackResults', (newTrack) => {
-            this.track = newTrack;
+        this.events.on('changeTrackResults', () => {
+            this.track = 4;
         });
-        this.events.on('changeTrackMenu', (newTrack) => {
-            this.track = newTrack;
-        });*/
+        /*
+        //////////////////////////GAME.JS////////////////////////////////
+        //Antes del cambio de escena a Results-> this.changeTrackResults();
+        //Abajo del todo
+        changeTrackResults()
+        {
+            this.scene.get('AudioManager').events.emit('changeTrackResults')
+        }
+        */
+        this.events.on('changeTrackMenu', () => {
+            this.track = -1;
+        });
+        /*
+        //////////////////////////RESULTS.JS////////////////////////////////
+        //Antes del cambio de escena a MainMenu-> this.changeTrackMenu();
+        changeTrackMenu()
+        {
+            this.scene.get('AudioManager').events.emit('changeTrackMenu')
+        }
+        */
+
+        //Eventos para generar SFX
+        this.events.on('selectSound', (soundNumber)=>{
+            switch(soundNumber){
+                case 0:
+                    this.jumpSound.play();
+                    break;
+                case 1:
+                    this.trepadoraAt.play();
+                    break;
+                case 2:
+                    this.trepadoraAtB.play();
+                    break;
+                case 3:
+                    this.toroAt.play();
+                    break;
+                case 4:
+                    this.toroAtB.play();
+                    break;
+                case 5:
+                    this.lluviaAt.play();
+                    break;
+                case 6:
+                    this.lluviaAtB.play();
+                    break;
+                case 7:
+                    this.lluviaCAt.play();
+                    break;
+                case 8:
+                    this.lluviaCAtB.play();
+                    break;
+                case 9:
+                    this.flechaAt.play();
+                    break;
+                case 10:
+                    this.flechaAtB.play();
+                    break;
+                case 11:
+                    this.flechaCAt.play();
+                    break;
+                case 12:
+                    this.flechaCAtB.play();
+                    break;
+                default:
+                    console.log("Error de SFX de las ranas");
+            }
+        });
+        /*
+        //////////////////////////RESULTS.JS////////////////////////////////
+        //Donde quieras un sonido-> this.selectSound(el numero del sonido);
+        selectSound(soundNum)
+        {
+            this.scene.get('AudioManager').events.emit('selectSound', soundNum)
+        }
+        */
 
     }
-    update() {
-        
-        if(this.track == -1){
+    update(time,delta) {
+        //En funcion de la variable track se cambia la musica y se para la que sonaba antes
+
+        //MUSICA
+        //PLAY DE LA MUSICA DE LOS MENUS
+        if (this.track == -1) {
+            if (this.mapTrack == -1) {
+                this.musicaResultados.stop();
+            }
             this.musicaMenus.play();
             this.track = 0;
         }
-        if(this.track>0){
+
+        //PLAY DE LA MUSICA DE LOS MAPAS
+        if (this.track > 0) {
             this.musicaMenus.stop();
         }
-        if(this.track == 1){
+        if (this.track == 1) {
             this.musicaDesierto.play();
+            this.sonidoViento.play();
             this.track = 0;
         }
-        if(this.track == 2){
+        if (this.track == 2) {
             this.musicaNenufar.play();
+            this.sonidoRibbits.play();
             this.track = 0;
         }
-        if(this.track == 3){
+        if (this.track == 3) {
             this.musicaSelva.play();
+            this.sonidoSelva.play();
+            this.sonidoRio.play();
             this.track = 0;
         }
-        if(this.track == 4){
-            this.musicaSelva.play();
+        if (this.mapTrack > 0) {
+
+            this.soundTimer+=delta/1000;
+            
+            if(this.mapTrack ==1 && this.soundTimer > this.ranNum){
+                this.sonidoAguila.play();
+                this.soundTimer=0;
+                this.ranNum= Math.random() * (26 - 10) + 10;
+                
+            }
+            if(this.mapTrack ==2 && this.soundTimer > this.ranNum){
+                this.sonidoChapoteo.play();
+                this.soundTimer=0;
+                this.ranNum= Math.random() * (26 - 10) + 10;
+            }
+        }
+
+        //PLAY DE LA MUSICA DE RESULTADOS
+        if (this.track == 4) {
+            switch (this.mapTrack) {
+                case 1:
+                    this.musicaDesierto.stop();
+                    break;
+                case 2:
+                    this.musicaNenufar.stop();
+                    break;
+                case 3:
+                    this.musicaSelva.stop();
+                    break;
+                default:
+                    console.log("Error");
+            }
+            this.musicaResultados.play();
+            this.mapTrack = -1;
             this.track = 0;
         }
-        this.musicaMenus.setVolume(this.volumeMusic);
-        this.musicaDesierto.setVolume(this.volumeMusic);
-        this.musicaNenufar.setVolume(this.volumeMusic);
-        this.musicaSelva.setVolume(this.volumeMusic);
+
+
+
     }
 
 
