@@ -116,8 +116,6 @@ export default class MapSelectionMenu extends Phaser.Scene {
         if (this.gameStarting == 2) {
             this.timer += delta / 1000;
             this.timerFinal += delta / 1000;
-            console.log("Timer 1 = " + this.timer)
-            console.log("Timer 2 = " + this.timerFinal)
 
             if (this.timer < 0.25) {
                 this.mapOneImage.setTint(0x808080);
@@ -196,8 +194,6 @@ export default class MapSelectionMenu extends Phaser.Scene {
         if (this.gameStarting == 4) {
             this.parameters.mapID = this.finalSelection;
             this.timerChangeScene += delta / 1000;
-            console.log("Timer 3 = " + this.timerChangeScene)
-
 
             if (this.timerChangeScene >= 3) {
                 this.playersReady = false;

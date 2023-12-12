@@ -20,6 +20,9 @@ export default class Game extends Phaser.Scene {
         this.keyNumpad1;
         this.keyNumpad2;
 
+        this.AttackHitboxP1;
+        this.AttackHitboxP2;
+
         this.parameters = {
             p1CharacterID: 0,
             p2CharacterID: 0,
@@ -114,7 +117,6 @@ export default class Game extends Phaser.Scene {
 
         this.physics.add.collider(this.player1, this.ground, () => this.player1.touchingGround = true);
         this.physics.add.collider(this.player2, this.ground, () => this.player2.touchingGround = true);
-        this.physics.add.overlap(this.player1, this.player2, () => this.playerOverlap());
 
         //Inputs
         this.cursors = this.input.keyboard.createCursorKeys();
@@ -126,6 +128,59 @@ export default class Game extends Phaser.Scene {
         this.keyG = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.G);
         this.keyNumpad1 = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.NUMPAD_ONE);
         this.keyNumpad2 = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.NUMPAD_TWO);
+
+        //Attack HitBoxes
+        switch (this.parameters.p1CharacterID) {
+            case 0:
+                this.AttackHitboxP1 = this.physics.add.image(this.player1.x + 210, this.player1.y, '');
+                this.AttackHitboxP1.setAlpha(0);
+                this.AttackHitboxP1.setSize(50, 50);
+                break;
+            case 1:
+                this.AttackHitboxP1 = this.physics.add.image(this.player1.x + 210, this.player1.y, '');
+                this.AttackHitboxP1.setAlpha(0);
+                this.AttackHitboxP1.setSize(50, 50);
+                break;
+            case 2:
+                this.AttackHitboxP1 = this.physics.add.image(this.player1.x + 210, this.player1.y, '');
+                this.AttackHitboxP1.setAlpha(0);
+                this.AttackHitboxP1.setSize(50, 50);
+                break;
+            case 3:
+                this.AttackHitboxP1 = this.physics.add.image(this.player1.x + 210, this.player1.y, '');
+                this.AttackHitboxP1.setAlpha(0);
+                this.AttackHitboxP1.setSize(50, 50);
+                break;
+        }
+
+        switch (this.parameters.p2CharacterID) {
+            case 0:
+                this.AttackHitboxP2 = this.physics.add.image(this.player2.x - 210, this.player2.y, '');
+                this.AttackHitboxP2.setAlpha(0);
+                this.AttackHitboxP2.setSize(50, 50);
+                break;
+            case 1:
+                this.AttackHitboxP2 = this.physics.add.image(this.player2.x - 210, this.player2.y, '');
+                this.AttackHitboxP2.setAlpha(0);
+                this.AttackHitboxP2.setSize(50, 50);
+                break;
+            case 2:
+                this.AttackHitboxP2 = this.physics.add.image(this.player2.x - 210, this.player2.y, '');
+                this.AttackHitboxP2.setAlpha(0);
+                this.AttackHitboxP2.setSize(50, 50);
+                break;
+            case 3:
+                this.AttackHitboxP2 = this.physics.add.image(this.player2.x - 210, this.player2.y, '');
+                this.AttackHitboxP2.setAlpha(0);
+                this.AttackHitboxP2.setSize(50, 50);
+                break;
+        }
+
+        this.AttackHitboxP1.body.setAllowGravity(false);
+        this.AttackHitboxP2.body.setAllowGravity(false);
+
+        this.physics.add.overlap(this.AttackHitboxP1, this.player2, () => this.playerOverlap());
+        this.physics.add.overlap(this.player1, this.AttackHitboxP2, () => this.playerOverlap());
 
         //UI P1
         this.add.image(450, 150, 'UIGamePieza1').setScale(0.65, 0.65);
@@ -142,7 +197,7 @@ export default class Game extends Phaser.Scene {
             case 1:
                 this.add.image(130, 145, 'ranaLluviaUI').setScale(0.65, 0.65);
 
-                this.punteroP1 = this.physics.add.image(this.player1.x, this.player1.y - 150, 'PunteroP1');
+                this.punteroP1 = this.physics.add.image(this.player1.x, this.player1.y - 200, 'PunteroP1');
                 break;
             case 2:
                 this.add.image(130, 145, 'ranaFlechaUI').setScale(0.65, 0.65);
@@ -179,7 +234,7 @@ export default class Game extends Phaser.Scene {
             case 1:
                 this.add.image(1790, 145, 'ranaLluviaUI').setScale(0.65, 0.65).setFlipX(true);
 
-                this.punteroP2 = this.physics.add.image(this.player2.x, this.player2.y - 150, 'PunteroP2');
+                this.punteroP2 = this.physics.add.image(this.player2.x, this.player2.y - 200, 'PunteroP2');
                 break;
             case 2:
                 this.add.image(1790, 145, 'ranaFlechaUI').setScale(0.65, 0.65).setFlipX(true);
@@ -219,12 +274,24 @@ export default class Game extends Phaser.Scene {
             this.player1.setVelocityX(300);
             this.player1.setFlipX(false);
 
+            console.log(this.AttackHitboxP1.x - this.player1.x);
+
+            if((this.AttackHitboxP1.x - this.player1.x) < 0){
+                this.AttackHitboxP1.x = this.player1.x-(this.AttackHitboxP1.x - this.player1.x);
+            }
+
             if (!this.player1.jumping) {
                 this.player1.playWalkAnim();
             }
         } else if (this.keyA.isDown && !this.player1.crouching && !this.player1.blocking && !this.player1.attacking && !this.player1.receivingDamage) {
             this.player1.setVelocityX(-300);
             this.player1.setFlipX(true);
+
+            console.log(this.AttackHitboxP1.x - this.player1.x);
+            
+            if((this.AttackHitboxP1.x - this.player1.x) > 0){
+                this.AttackHitboxP1.x = this.player1.x-(this.AttackHitboxP1.x - this.player1.x);
+            }
 
             if (!this.player1.jumping) {
                 this.player1.playWalkAnim();
@@ -235,7 +302,7 @@ export default class Game extends Phaser.Scene {
         }
 
         //Atacar//
-        if (!this.player1.crouching && Phaser.Input.Keyboard.JustDown(this.keyF) && !this.player1.blocking && !this.player1.attacking && !this.player1.receivingDamage) {
+        if (!this.player1.crouching && Phaser.Input.Keyboard.JustDown(this.keyF) && !this.player1.blocking && !this.player1.jumping && !this.player1.attacking && !this.player1.receivingDamage) {
             this.player1.setVelocityX(0);
             this.player1.attacking = true;
             this.player1.justAttack = true;
@@ -310,7 +377,7 @@ export default class Game extends Phaser.Scene {
         }
 
         //Atacar//
-        if (!this.player2.crouching && Phaser.Input.Keyboard.JustDown(this.keyNumpad1) && !this.player2.blocking && !this.player2.attacking && !this.player2.receivingDamage) {
+        if (!this.player2.crouching && Phaser.Input.Keyboard.JustDown(this.keyNumpad1) && !this.player2.blocking && !this.player2.jumping && !this.player2.attacking && !this.player2.receivingDamage) {
             this.player2.setVelocityX(0);
             this.player2.attacking = true;
             this.player2.justAttack = true;
@@ -362,8 +429,49 @@ export default class Game extends Phaser.Scene {
             this.player2.jumping = false;
         }
 
-        //Si la rana escogida es la toro o trepadora, el puntero debe estar más arriba
-        if (this.parameters.p1CharacterID == 0 || this.parameters.p1CharacterID == 3) {
+        /////////////////////////////////////////////ATTACK HITBOXES//////////////////////////////////////////////////////
+        switch (this.parameters.p1CharacterID) {
+            case 0:
+                this.AttackHitboxP1.x = this.player1.x + 210;
+                this.AttackHitboxP1.y = this.player1.y;
+                break;
+            case 1:
+                this.AttackHitboxP1.x = this.player1.x + 210;
+                this.AttackHitboxP1.y = this.player1.y;
+                break;
+            case 2:
+                this.AttackHitboxP1.x = this.player1.x + 210;
+                this.AttackHitboxP1.y = this.player1.y;
+                break;
+            case 3:
+                this.AttackHitboxP1.x = this.player1.x + 210;
+                this.AttackHitboxP1.y = this.player1.y;
+                break;
+        }
+
+        switch (this.parameters.p2CharacterID) {
+            case 0:
+                this.AttackHitboxP2.x = this.player2.x - 210;
+                this.AttackHitboxP2.y = this.player2.y;
+                break;
+            case 1:
+                this.AttackHitboxP2.x = this.player2.x - 210;
+                this.AttackHitboxP2.y = this.player2.y;
+                break;
+            case 2:
+                this.AttackHitboxP2.x = this.player2.x - 210;
+                this.AttackHitboxP2.y = this.player2.y;
+                break;
+            case 3:
+                this.AttackHitboxP2.x = this.player2.x - 210;
+                this.AttackHitboxP2.y = this.player2.y;
+                break;
+        }
+
+        /////////////////////////////////////////////PUNTEROS PERSONAJES////////////////////////////////////////////////////////
+
+        //Si la rana escogida es la toro, lluvia o trepadora, el puntero debe estar más arriba
+        if (this.parameters.p1CharacterID == 0 || this.parameters.p1CharacterID == 3 || this.parameters.p1CharacterID == 1) {
             this.punteroP1.x = this.player1.x;
             this.punteroP1.y = this.player1.y - 200;
         } else {
@@ -372,8 +480,8 @@ export default class Game extends Phaser.Scene {
             this.punteroP1.y = this.player1.y - 100;
         }
 
-        //Si la rana escogida es la toro o trepadora, el puntero debe estar más arriba
-        if (this.parameters.p2CharacterID == 0 || this.parameters.p2CharacterID == 3) {
+        //Si la rana escogida es la toro, lluvia o trepadora, el puntero debe estar más arriba
+        if (this.parameters.p2CharacterID == 0 || this.parameters.p2CharacterID == 3 || this.parameters.p1CharacterID == 1) {
             this.punteroP2.x = this.player2.x;
             this.punteroP2.y = this.player2.y - 200;
         } else {
