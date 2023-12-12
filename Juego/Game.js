@@ -351,11 +351,11 @@ export default class Game extends Phaser.Scene {
             this.player1.setVelocityX(0);
             this.player1.blocking = true;
             this.player1.playBeginBlockAnim();
-        } else if (this.keyG.isDown && this.player1.blocking) {
+        } else if (this.keyG.isDown && this.player1.blocking && !this.player1.receivingDamage) {
             this.player1.playBlockAnim();
-        } else if (Phaser.Input.Keyboard.JustUp(this.keyG) && this.player1.blocking) {
+        } else if (Phaser.Input.Keyboard.JustUp(this.keyG) && this.player1.blocking && !this.player1.receivingDamage) {
             this.player1.playEndBlockAnim();
-        } else if (this.player1.blocking && !this.player1.anims.isPlaying) {
+        } else if (this.player1.blocking && !this.player1.anims.isPlaying && !this.player1.receivingDamage) {
             this.player1.blocking = false;
         }
 
@@ -377,9 +377,9 @@ export default class Game extends Phaser.Scene {
             this.player1.touchingGround = false;
             this.player1.setVelocityY(this.player1.jump);
             this.player1.playBeginJumpAnim();
-        } else if (this.player1.jumping && !this.player1.touchingGround) {
+        } else if (this.player1.jumping && !this.player1.touchingGround && !this.player1.receivingDamage) {
             this.player1.playJumpAnim();
-        } else if (this.player1.jumping && this.player1.touchingGround) {
+        } else if (this.player1.jumping && this.player1.touchingGround && !this.player1.receivingDamage) {
             this.player1.playEndJumpAnim();
             this.player1.jumping = false;
         }
@@ -430,11 +430,11 @@ export default class Game extends Phaser.Scene {
             this.player2.setVelocityX(0);
             this.player2.blocking = true;
             this.player2.playBeginBlockAnim();
-        } else if (this.keyNumpad2.isDown && this.player2.blocking) {
+        } else if (this.keyNumpad2.isDown && this.player2.blocking && !this.player2.receivingDamage) {
             this.player2.playBlockAnim();
-        } else if (Phaser.Input.Keyboard.JustUp(this.keyNumpad2) && this.player2.blocking) {
+        } else if (Phaser.Input.Keyboard.JustUp(this.keyNumpad2) && this.player2.blocking && !this.player2.receivingDamage) {
             this.player2.playEndBlockAnim();
-        } else if (this.player2.blocking && !this.player2.anims.isPlaying) {
+        } else if (this.player2.blocking && !this.player2.anims.isPlaying && !this.player2.receivingDamage) {
             this.player2.blocking = false;
         }
 
@@ -649,7 +649,7 @@ export default class Game extends Phaser.Scene {
             this.player2.takeDamage(10);
             this.setValueBar2(this.player2.hp);
             this.player1.justAttack = false;
-            console.log('player 2 received damage!');
+            console.log('player 2 received 10 damage after an UpAttack!');
         }
 
         if (this.player1.attacking && this.player2.blocking && this.player1.justAttack && !this.player2.receivingDamage && !this.player1.crouching) {
@@ -657,7 +657,7 @@ export default class Game extends Phaser.Scene {
             this.player2.takeDamage(5);
             this.setValueBar2(this.player2.hp);
             this.player1.justAttack = false;
-            console.log('player 2 received damage!');
+            console.log('player 2 received 5 damage after an UpAttack!');
         }
     }
 
@@ -666,14 +666,14 @@ export default class Game extends Phaser.Scene {
             this.player1.takeDamage(10);
             this.setValueBar1(this.player1.hp);
             this.player2.justAttack = false;
-            console.log('player 1 received damage!');
+            console.log('player 1 received 10 damage after an UpAttack!');
         }
 
         if (this.player2.attacking && this.player1.blocking && this.player2.justAttack && !this.player1.receivingDamage && !this.player2.crouching) {
             this.player1.takeDamage(5);
             this.setValueBar1(this.player1.hp);
             this.player2.justAttack = false;
-            console.log('player 1 received damage!');
+            console.log('player 1 received 5 damage after an UpAttack!');
         }
     }
 
@@ -684,7 +684,7 @@ export default class Game extends Phaser.Scene {
             this.player2.takeDamage(10);
             this.setValueBar2(this.player2.hp);
             this.player1.justAttack = false;
-            console.log('player 2 received damage!');
+            console.log('player 2 received 10 damage after a DownAttack!');
         }
 
         if (this.player1.attacking && this.player2.blocking && this.player1.justAttack && !this.player2.receivingDamage && this.player1.crouching) {
@@ -692,7 +692,7 @@ export default class Game extends Phaser.Scene {
             this.player2.takeDamage(5);
             this.setValueBar2(this.player2.hp);
             this.player1.justAttack = false;
-            console.log('player 2 received damage!');
+            console.log('player 2 received 5 damage after a DownAttack!');
         }
     }
 
@@ -701,14 +701,14 @@ export default class Game extends Phaser.Scene {
             this.player1.takeDamage(10);
             this.setValueBar1(this.player1.hp);
             this.player2.justAttack = false;
-            console.log('player 1 received damage!');
+            console.log('player 1 received 10 damage after a DownAttack!');
         }
 
         if (this.player2.attacking && this.player1.blocking && this.player2.justAttack && !this.player1.receivingDamage && this.player2.crouching) {
             this.player1.takeDamage(5);
             this.setValueBar1(this.player1.hp);
             this.player2.justAttack = false;
-            console.log('player 1 received damage!');
+            console.log('player 1 received 5 damage after a DownAttack!');
         }
     }
 

@@ -154,7 +154,13 @@ export default class Fighter extends Phaser.Physics.Arcade.Sprite {
     }
 
     playBlockAnim() {
-        if (this.anims.getProgress(this.beginBlockAnim) == 1) {
+        var currentAnimationKey = this.anims.currentAnim ? this.anims.currentAnim.key : '';
+
+        if (currentAnimationKey === this.beginBlockAnim) {
+            if (this.anims.getProgress(this.beginBlockAnim) == 1) {
+                this.anims.play(this.blockAnim, true);
+            }
+        } else {
             this.anims.play(this.blockAnim, true);
         }
     }
