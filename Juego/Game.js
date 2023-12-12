@@ -44,8 +44,8 @@ export default class Game extends Phaser.Scene {
         this.timer = 0;
         this.numeroUno;
         this.numeroDos;
-        this.cifra1 = 6;
-        this.cifra2 = 0;
+        this.cifra1;
+        this.cifra2;
 
         this.punteroP1;
         this.punteroP2;
@@ -294,8 +294,10 @@ export default class Game extends Phaser.Scene {
         this.punteroP2.setAlpha(1);
 
 
-        this.numeroUno = this.add.image(900, 80, '6').setScale(0.65, 0.65);
-        this.numeroDos = this.add.image(1020, 80, '0').setScale(0.65, 0.65);
+        this.cifra1 = 6;
+        this.cifra2 = 0;
+        this.numeroUno = this.add.image(900, 80, this.cifra1.toString()).setScale(0.65, 0.65);
+        this.numeroDos = this.add.image(1020, 80, this.cifra2.toString()).setScale(0.65, 0.65);
 
         //La carga de la pantalla de resultados o la siguiente ronda puede llamarla la escena o el jugador derrotado.
         //La siguiente ronda se puede hacer recargando la escena con el número de victorias actualizado
