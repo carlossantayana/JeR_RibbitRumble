@@ -115,6 +115,8 @@ export default class Game extends Phaser.Scene {
         this.player1 = new Fighter(this, 190, 800, this.parameters.p1CharacterID, this.parameters.p1AltSkin, 1, p1Texture);
         this.player2 = new Fighter(this, 1730, 800, this.parameters.p2CharacterID, this.parameters.p2AltSkin, 2, p2Texture);
 
+        this.player1.lookingRight = true;
+
         this.physics.add.collider(this.player1, this.ground, () => this.player1.touchingGround = true);
         this.physics.add.collider(this.player2, this.ground, () => this.player2.touchingGround = true);
 
@@ -274,11 +276,7 @@ export default class Game extends Phaser.Scene {
             this.player1.setVelocityX(300);
             this.player1.setFlipX(false);
 
-            console.log(this.AttackHitboxP1.x - this.player1.x);
-
-            if((this.AttackHitboxP1.x - this.player1.x) < 0){
-                this.AttackHitboxP1.x = this.player1.x-(this.AttackHitboxP1.x - this.player1.x);
-            }
+            this.player1.lookingRight = true;
 
             if (!this.player1.jumping) {
                 this.player1.playWalkAnim();
@@ -287,11 +285,7 @@ export default class Game extends Phaser.Scene {
             this.player1.setVelocityX(-300);
             this.player1.setFlipX(true);
 
-            console.log(this.AttackHitboxP1.x - this.player1.x);
-            
-            if((this.AttackHitboxP1.x - this.player1.x) > 0){
-                this.AttackHitboxP1.x = this.player1.x-(this.AttackHitboxP1.x - this.player1.x);
-            }
+            this.player1.lookingRight = false;
 
             if (!this.player1.jumping) {
                 this.player1.playWalkAnim();
@@ -361,12 +355,16 @@ export default class Game extends Phaser.Scene {
             this.player2.setVelocityX(300);
             this.player2.setFlipX(false);
 
+            this.player2.lookingRight = true;
+
             if (!this.player2.jumping) {
                 this.player2.playWalkAnim();
             }
         } else if (this.cursors.left.isDown && !this.player2.crouching && !this.player2.blocking && !this.player2.attacking && !this.player2.receivingDamage) {
             this.player2.setVelocityX(-300);
             this.player2.setFlipX(true);
+
+            this.player2.lookingRight = false;
 
             if (!this.player2.jumping) {
                 this.player2.playWalkAnim();
@@ -429,41 +427,57 @@ export default class Game extends Phaser.Scene {
             this.player2.jumping = false;
         }
 
-        /////////////////////////////////////////////ATTACK HITBOXES//////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////UPDATE ATTACK HITBOXES////////////////////////////////////////////////
+
+        var directionP1;
+        var directionP2;
+
+        if(this.player1.lookingRight){
+            directionP1 = 1;
+        }else{
+            directionP1 = -1;
+        }
+
+        if(this.player2.lookingRight){
+            directionP2 = 1;
+        }else{
+            directionP2 = -1;
+        }
+
         switch (this.parameters.p1CharacterID) {
             case 0:
-                this.AttackHitboxP1.x = this.player1.x + 210;
+                this.AttackHitboxP1.x = this.player1.x + 210 * directionP1;
                 this.AttackHitboxP1.y = this.player1.y;
                 break;
             case 1:
-                this.AttackHitboxP1.x = this.player1.x + 210;
+                this.AttackHitboxP1.x = this.player1.x + 210 * directionP1;
                 this.AttackHitboxP1.y = this.player1.y;
                 break;
             case 2:
-                this.AttackHitboxP1.x = this.player1.x + 210;
+                this.AttackHitboxP1.x = this.player1.x + 210 * directionP1;
                 this.AttackHitboxP1.y = this.player1.y;
                 break;
             case 3:
-                this.AttackHitboxP1.x = this.player1.x + 210;
+                this.AttackHitboxP1.x = this.player1.x + 210 * directionP1;
                 this.AttackHitboxP1.y = this.player1.y;
                 break;
         }
 
         switch (this.parameters.p2CharacterID) {
             case 0:
-                this.AttackHitboxP2.x = this.player2.x - 210;
+                this.AttackHitboxP2.x = this.player2.x + 210 * directionP2;
                 this.AttackHitboxP2.y = this.player2.y;
                 break;
             case 1:
-                this.AttackHitboxP2.x = this.player2.x - 210;
+                this.AttackHitboxP2.x = this.player2.x + 210 * directionP2;
                 this.AttackHitboxP2.y = this.player2.y;
                 break;
             case 2:
-                this.AttackHitboxP2.x = this.player2.x - 210;
+                this.AttackHitboxP2.x = this.player2.x + 210 * directionP2;
                 this.AttackHitboxP2.y = this.player2.y;
                 break;
             case 3:
-                this.AttackHitboxP2.x = this.player2.x - 210;
+                this.AttackHitboxP2.x = this.player2.x + 210 * directionP2;
                 this.AttackHitboxP2.y = this.player2.y;
                 break;
         }
