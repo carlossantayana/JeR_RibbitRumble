@@ -32,7 +32,7 @@ export default class Preloader extends Phaser.Scene {
         this.load.spritesheet('FlechaBasico', 'RanaFlecha/FlechaAtaqueBasico.png', { frameWidth: 301, frameHeight: 252 });
         this.load.spritesheet('FlechaBloqueo', 'RanaFlecha/FlechaBloqueo.png', { frameWidth: 301, frameHeight: 252 });
         this.load.spritesheet('FlechaAgachado', 'RanaFlecha/FlechaAgachar.png', { frameWidth: 301, frameHeight: 252 });
-        this.load.spritesheet('FlechaBajo', 'RanaFlecha/FlechaAtaqueBajo.png', { frameWidth: 301, frameHeight: 252 });
+        this.load.spritesheet('FlechaBajo', 'RanaFlecha/FlechaAtaqueBajo.png', { frameWidth: 303, frameHeight: 252 });
         this.load.spritesheet('FlechaSalto', 'RanaFlecha/FlechaSalto.png', { frameWidth: 301, frameHeight: 252 });
         this.load.spritesheet('FlechaDaño', 'RanaFlecha/FlechaDaño.png', { frameWidth: 300, frameHeight: 250 });
 
