@@ -17,6 +17,8 @@ export default class Results extends Phaser.Scene {
         this.parameters.p2CharacterID = data.p2CharacterID;
         this.parameters.winnerID = data.winnerId;
         this.parameters.winerLoses = data.loses;
+        console.log(data.winnerId);
+        console.log(this.parameters.winnerID);
     }
 
     create() {
@@ -90,9 +92,9 @@ export default class Results extends Phaser.Scene {
                 break;
         }
 
+
         this.corona = this.add.image(400, 700, "corona").setScale(0.2);
         this.foco = this.add.image(1410, 300, "foco").setScale(0.65, 1.1);
-        console.log(this.parameters.winnerID);
         if (this.parameters.winnerID === 1) {
             this.p1Sprite.setPosition(400, 800);
             switch (this.parameters.p1CharacterID) {
@@ -121,7 +123,7 @@ export default class Results extends Phaser.Scene {
                     this.p2Sprite.setScale(0.75);
                     break;
                 case 1:
-                    this.p2Sprite.setScale(0.4);
+                    this.p2Sprite.setScale(0.5);
                     break;
                 case 2:
                     this.p2Sprite.setScale(0.75);
@@ -160,7 +162,7 @@ export default class Results extends Phaser.Scene {
                     this.p1Sprite.setScale(0.75);
                     break;
                 case 1:
-                    this.p1Sprite.setScale(0.1);
+                    this.p1Sprite.setScale(0.5);
                     break;
                 case 2:
                     this.p1Sprite.setScale(0.75);
@@ -171,8 +173,8 @@ export default class Results extends Phaser.Scene {
             }
             this.p1Sprite.flipX = true;
         }
-
-        if (this.parameters.winnerId === 1) {
+        console.log(this.parameters.winnerID);
+        if (this.parameters.winnerID === 1) {
             this.add.text(100, 40, "Gana el Jugador 1", { fontSize: '90px' });
             this.add.text(100, 140, "2 victorias", { fontSize: '60px' });
             if (this.parameters.winerLoses === 1) {

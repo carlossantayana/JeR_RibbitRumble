@@ -275,12 +275,12 @@ export default class Game extends Phaser.Scene {
             case 1:
                 this.add.image(1790, 145, 'ranaLluviaUI').setScale(0.65, 0.65).setFlipX(true);
 
-                this.punteroP2 = this.physics.add.image(this.player2.x, this.player2.y - 200, 'PunteroP2');
+                this.punteroP2 = this.physics.add.image(this.player2.x, this.player2.y - 3000, 'PunteroP2');
                 break;
             case 2:
                 this.add.image(1790, 145, 'ranaFlechaUI').setScale(0.65, 0.65).setFlipX(true);
 
-                this.punteroP2 = this.physics.add.image(this.player2.x, this.player2.y - 150, 'PunteroP2');
+                this.punteroP2 = this.physics.add.image(this.player2.x, this.player2.y - 200, 'PunteroP2');
                 break;
             case 3:
                 this.add.image(1790, 145, 'ranaTrepadoraUI').setScale(0.65, 0.65).setFlipX(true);
@@ -574,10 +574,15 @@ export default class Game extends Phaser.Scene {
         }
 
         //Si la rana escogida es la toro, lluvia o trepadora, el puntero debe estar más arriba
-        if (this.parameters.p2CharacterID == 0 || this.parameters.p2CharacterID == 3 || this.parameters.p1CharacterID == 1) {
+        if (this.parameters.p2CharacterID == 0 || this.parameters.p2CharacterID == 3 ) {
             this.punteroP2.x = this.player2.x;
             this.punteroP2.y = this.player2.y - 200;
-        } else {
+        } else if( this.parameters.p1CharacterID == 1) 
+        {
+            this.punteroP2.x = this.player2.x;
+            this.punteroP2.y = this.player2.y - 225;
+        }
+        else {
 
             this.punteroP2.x = this.player2.x;
             this.punteroP2.y = this.player2.y - 100;
@@ -614,6 +619,7 @@ export default class Game extends Phaser.Scene {
     }
 
     roundEnd(looserId) {
+        console.log("loser: "+ looserId);
         switch (looserId) {
             case 2://Victoria P1
                 this.parameters.p1WonRounds += 1;
@@ -631,6 +637,7 @@ export default class Game extends Phaser.Scene {
             this.parameters.loses = this.parameters.p2WonRounds;
             this.changeTrackResults();
             //Cargar escena de resultados con P1 como ganador
+            console.log(this.parameters.winnerId);
             this.scene.start("Results", this.parameters);
             this.scene.stop();
         }
@@ -639,12 +646,12 @@ export default class Game extends Phaser.Scene {
             this.parameters.loses = this.parameters.p1WonRounds;
             this.changeTrackResults();
             //Cargar escena de resultados con P2 como ganador
+            console.log(this.parameters.winnerId);
             this.scene.start("Results", this.parameters);
             this.scene.stop();
         }
         else {
             //Recargar la escena de juego con los parametros necesarios
-            //this.scene.restart("Game",this.parameters);
             this.timer = 0;
             this.cifra1 = 6;
             this.cifra2 = 0;

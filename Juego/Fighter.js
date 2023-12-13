@@ -23,7 +23,7 @@ export default class Fighter extends Phaser.Physics.Arcade.Sprite {
             this.hp = 150;
             this.maxhp = 150;
             this.speed = 200;
-            this.jump = -850;
+            this.jump = -650;
         }
 
         if (this.characterID == 1) {
@@ -32,7 +32,7 @@ export default class Fighter extends Phaser.Physics.Arcade.Sprite {
             this.hp = 125;
             this.maxhp = 125;
             this.speed = 275;
-            this.jump = -875;
+            this.jump = -775;
         }
 
         if (this.characterID == 2) {
@@ -49,7 +49,7 @@ export default class Fighter extends Phaser.Physics.Arcade.Sprite {
             this.hp = 100;
             this.maxhp = 100;
             this.speed = 300;
-            this.jump = -900;
+            this.jump = -800;
         }
 
         if (this.playerID == 2) {
