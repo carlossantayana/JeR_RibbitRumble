@@ -339,6 +339,7 @@ export default class Game extends Phaser.Scene {
             this.player1.attacking = true;
             this.player1.justAttack = true;
             this.player1.playBasicAttackAnim();
+            
         } else if (this.player1.crouching && Phaser.Input.Keyboard.JustDown(this.keyF) && !this.player1.blocking && !this.player1.jumping && !this.player1.attacking && !this.player1.receivingDamage) {
             this.player1.setVelocityX(0);
             this.player1.attacking = true;
@@ -379,6 +380,7 @@ export default class Game extends Phaser.Scene {
             this.player1.touchingGround = false;
             this.player1.setVelocityY(this.player1.jump);
             this.player1.playBeginJumpAnim();
+            this.selectSound(0);
         } else if (this.player1.jumping && !this.player1.touchingGround && !this.player1.receivingDamage) {
             this.player1.playJumpAnim();
         } else if (this.player1.jumping && this.player1.touchingGround && !this.player1.receivingDamage) {
@@ -418,6 +420,20 @@ export default class Game extends Phaser.Scene {
             this.player2.attacking = true;
             this.player2.justAttack = true;
             this.player2.playBasicAttackAnim();
+            switch (this.parameters.p2CharacterID) {
+                case 0:
+                    this.selectSound(3);
+                    break;
+                case 1:
+                    this.selectSound(5);
+                    break;
+                case 2:
+                    this.selectSound(9);
+                    break;
+                case 3:
+                    this.selectSound(1);
+                    break;
+            }
         } else if (this.player2.crouching && Phaser.Input.Keyboard.JustDown(this.keyNumpad1) && !this.player2.blocking && !this.player2.jumping && !this.player2.attacking && !this.player2.receivingDamage) {
             this.player2.setVelocityX(0);
             this.player2.attacking = true;
@@ -458,6 +474,7 @@ export default class Game extends Phaser.Scene {
             this.player2.touchingGround = false;
             this.player2.setVelocityY(this.player2.jump);
             this.player2.playBeginJumpAnim();
+            this.selectSound(0);
         } else if (this.player2.jumping && !this.player2.touchingGround && !this.player2.receivingDamage) {
             this.player2.playJumpAnim();
         } else if (this.player2.jumping && this.player2.touchingGround && !this.player2.receivingDamage) {
@@ -582,14 +599,11 @@ export default class Game extends Phaser.Scene {
                 this.numeroUno = this.add.image(900, 80, this.cifra1.toString()).setScale(0.65, 0.65);
                 this.numeroDos = this.add.image(1020, 80, this.cifra2.toString()).setScale(0.65, 0.65);
             }
-            if(this.cifra1===0 && this.cifra2===0)
-            {
-                if(this.player1.hp>=this.player2.hp)
-                {
+            if (this.cifra1 === 0 && this.cifra2 === 0) {
+                if (this.player1.hp >= this.player2.hp) {
                     this.roundEnd(2);
                 }
-                else
-                {
+                else {
                     this.roundEnd(1);
                 }
             }
@@ -602,11 +616,11 @@ export default class Game extends Phaser.Scene {
     roundEnd(looserId) {
         switch (looserId) {
             case 2://Victoria P1
-                this.parameters.p1WonRounds+=1;
+                this.parameters.p1WonRounds += 1;
                 this.updateWins(1);
                 break;
             case 1://Victoria P2
-                this.parameters.p2WonRounds+=1;
+                this.parameters.p2WonRounds += 1;
                 this.updateWins(2);
                 break;
         }
@@ -615,14 +629,18 @@ export default class Game extends Phaser.Scene {
         if (this.parameters.p1WonRounds === 2) {
             this.parameters.winnerId = 1;
             this.parameters.loses = this.parameters.p2WonRounds;
+            this.changeTrackResults();
             //Cargar escena de resultados con P1 como ganador
             this.scene.start("Results", this.parameters);
+            this.scene.stop();
         }
         else if (this.parameters.p2WonRounds === 2) {
             this.parameters.winnerId = 2;
             this.parameters.loses = this.parameters.p1WonRounds;
+            this.changeTrackResults();
             //Cargar escena de resultados con P2 como ganador
             this.scene.start("Results", this.parameters);
+            this.scene.stop();
         }
         else {
             //Recargar la escena de juego con los parametros necesarios
@@ -630,14 +648,14 @@ export default class Game extends Phaser.Scene {
             this.timer = 0;
             this.cifra1 = 6;
             this.cifra2 = 0;
-            this.player1.hp=this.player1.maxhp;
-            this.player2.hp=this.player2.maxhp;
+            this.player1.hp = this.player1.maxhp;
+            this.player2.hp = this.player2.maxhp;
             this.setValueBar1(this.player1.maxhp);
             this.setValueBar2(this.player2.maxhp);
-            this.player1.x=190;
-            this.player1.y=800;
-            this.player2.x=1730;
-            this.player2.y=800;
+            this.player1.x = 190;
+            this.player1.y = 800;
+            this.player2.x = 1730;
+            this.player2.y = 800;
             this.player1.setFlipX(false);
             this.player2.setFlipX(true);
 
@@ -649,6 +667,20 @@ export default class Game extends Phaser.Scene {
         if (this.player1.attacking && !this.player2.blocking && this.player1.justAttack && !this.player2.receivingDamage && !this.player1.crouching) {
             console.log("Ataque Alto");
             this.player2.takeDamage(10);
+            switch (this.parameters.p1CharacterID) {
+                case 0:
+                    this.selectSound(3);
+                    break;
+                case 1:
+                    this.selectSound(5);
+                    break;
+                case 2:
+                    this.selectSound(9);
+                    break;
+                case 3:
+                    this.selectSound(1);
+                    break;
+            }
             this.setValueBar2(this.player2.hp);
             this.player1.justAttack = false;
             console.log('player 2 received 10 damage after an UpAttack!');
@@ -657,6 +689,20 @@ export default class Game extends Phaser.Scene {
         if (this.player1.attacking && this.player2.blocking && this.player1.justAttack && !this.player2.receivingDamage && !this.player1.crouching) {
             console.log("Ataque Alto");
             this.player2.takeDamage(5);
+            switch (this.parameters.p1CharacterID) {
+                case 0:
+                    this.selectSound(4);
+                    break;
+                case 1:
+                    this.selectSound(6);
+                    break;
+                case 2:
+                    this.selectSound(10);
+                    break;
+                case 3:
+                    this.selectSound(2);
+                    break;
+            }
             this.setValueBar2(this.player2.hp);
             this.player1.justAttack = false;
             console.log('player 2 received 5 damage after an UpAttack!');
@@ -666,6 +712,20 @@ export default class Game extends Phaser.Scene {
     player2AttackUp() {
         if (this.player2.attacking && !this.player1.blocking && this.player2.justAttack && !this.player1.receivingDamage && !this.player2.crouching) {
             this.player1.takeDamage(10);
+            switch (this.parameters.p2CharacterID) {
+                case 0:
+                    this.selectSound(3);
+                    break;
+                case 1:
+                    this.selectSound(5);
+                    break;
+                case 2:
+                    this.selectSound(9);
+                    break;
+                case 3:
+                    this.selectSound(1);
+                    break;
+            }
             this.setValueBar1(this.player1.hp);
             this.player2.justAttack = false;
             console.log('player 1 received 10 damage after an UpAttack!');
@@ -673,6 +733,20 @@ export default class Game extends Phaser.Scene {
 
         if (this.player2.attacking && this.player1.blocking && this.player2.justAttack && !this.player1.receivingDamage && !this.player2.crouching) {
             this.player1.takeDamage(5);
+            switch (this.parameters.p2CharacterID) {
+                case 0:
+                    this.selectSound(4);
+                    break;
+                case 1:
+                    this.selectSound(6);
+                    break;
+                case 2:
+                    this.selectSound(10);
+                    break;
+                case 3:
+                    this.selectSound(2);
+                    break;
+            }
             this.setValueBar1(this.player1.hp);
             this.player2.justAttack = false;
             console.log('player 1 received 5 damage after an UpAttack!');
@@ -684,6 +758,20 @@ export default class Game extends Phaser.Scene {
         if (this.player1.attacking && !this.player2.blocking && this.player1.justAttack && !this.player2.receivingDamage && this.player1.crouching) {
             console.log("Ataque Bajo");
             this.player2.takeDamage(10);
+            switch (this.parameters.p1CharacterID) {
+                case 0:
+                    this.selectSound(3);
+                    break;
+                case 1:
+                    this.selectSound(7);
+                    break;
+                case 2:
+                    this.selectSound(11);
+                    break;
+                case 3:
+                    this.selectSound(1);
+                    break;
+            }
             this.setValueBar2(this.player2.hp);
             this.player1.justAttack = false;
             console.log('player 2 received 10 damage after a DownAttack!');
@@ -692,6 +780,20 @@ export default class Game extends Phaser.Scene {
         if (this.player1.attacking && this.player2.blocking && this.player1.justAttack && !this.player2.receivingDamage && this.player1.crouching) {
             console.log("Ataque Bajo");
             this.player2.takeDamage(5);
+            switch (this.parameters.p1CharacterID) {
+                case 0:
+                    this.selectSound(4);
+                    break;
+                case 1:
+                    this.selectSound(8);
+                    break;
+                case 2:
+                    this.selectSound(12);
+                    break;
+                case 3:
+                    this.selectSound(2);
+                    break;
+            }
             this.setValueBar2(this.player2.hp);
             this.player1.justAttack = false;
             console.log('player 2 received 5 damage after a DownAttack!');
@@ -701,6 +803,20 @@ export default class Game extends Phaser.Scene {
     player2AttackDown() {
         if (this.player2.attacking && !this.player1.blocking && this.player2.justAttack && !this.player1.receivingDamage && this.player2.crouching) {
             this.player1.takeDamage(10);
+            switch (this.parameters.p2CharacterID) {
+                case 0:
+                    this.selectSound(3);
+                    break;
+                case 1:
+                    this.selectSound(7);
+                    break;
+                case 2:
+                    this.selectSound(11);
+                    break;
+                case 3:
+                    this.selectSound(1);
+                    break;
+            }
             this.setValueBar1(this.player1.hp);
             this.player2.justAttack = false;
             console.log('player 1 received 10 damage after a DownAttack!');
@@ -708,6 +824,20 @@ export default class Game extends Phaser.Scene {
 
         if (this.player2.attacking && this.player1.blocking && this.player2.justAttack && !this.player1.receivingDamage && this.player2.crouching) {
             this.player1.takeDamage(5);
+            switch (this.parameters.p2CharacterID) {
+                case 0:
+                    this.selectSound(4);
+                    break;
+                case 1:
+                    this.selectSound(8);
+                    break;
+                case 2:
+                    this.selectSound(12);
+                    break;
+                case 3:
+                    this.selectSound(2);
+                    break;
+            }
             this.setValueBar1(this.player1.hp);
             this.player2.justAttack = false;
             console.log('player 1 received 5 damage after a DownAttack!');
@@ -738,14 +868,20 @@ export default class Game extends Phaser.Scene {
         this.barraVidaP2.scaleX = (percentage / this.player2.maxhp) * -1;
     }
 
-    updateWins(winner){
-        switch(winner){
-            case 1: 
+    updateWins(winner) {
+        switch (winner) {
+            case 1:
                 this.add.image(650, 210, 'Rondas').setScale(0.5, 0.5);
-              break;
-            case 2: 
+                break;
+            case 2:
                 this.add.image(1270, 210, 'Rondas').setScale(0.5, 0.5);
-              break;
+                break;
         }
+    }
+    changeTrackResults() {
+        this.scene.get('AudioManager').events.emit('changeTrackResults')
+    }
+    selectSound(soundNum) {
+        this.scene.get('AudioManager').events.emit('selectSound', soundNum)
     }
 }

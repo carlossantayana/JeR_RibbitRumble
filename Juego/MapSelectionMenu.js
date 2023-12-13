@@ -210,6 +210,7 @@ export default class MapSelectionMenu extends Phaser.Scene {
                 this.timerChangeScene = 0;
                 this.changeTrackMaps(this.parameters.mapID + 1);
                 this.scene.start('Game', this.parameters);
+                this.scene.stop();
             }
         }
     }

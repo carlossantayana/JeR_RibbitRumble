@@ -208,11 +208,17 @@ export default class Results extends Phaser.Scene {
     }
 
     rematchOnClick() {
+        this.changeTrackMenu();
         this.scene.start("PlayerSelectionMenu");
+        this.scene.stop();
+
     }
 
     backOnClick() {
-        this.scene.start("MainMenu");
+        this.changeTrackMenu();
+        this.scene.resume("MainMenu");
+        this.scene.stop();
+        
     }
 
     rematchButtonOver(button) {
@@ -237,5 +243,8 @@ export default class Results extends Phaser.Scene {
         button.on('pointerout', function () {
             button.setScale(0.5);
         })
+    }
+    changeTrackMenu() {
+        this.scene.get('AudioManager').events.emit('changeTrackMenu');
     }
 }

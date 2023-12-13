@@ -27,10 +27,11 @@ export default class ModeSelectionMenu extends Phaser.Scene {
     }
     returnToMenu() {
         this.scene.resume('MainMenu');
-        this.scene.sleep();
+        this.scene.stop();
     }
     startLocal() {
         this.scene.start('PlayerSelectionMenu');
+        this.scene.stop();
     }
     startNet() {
         //Para cuando se haga

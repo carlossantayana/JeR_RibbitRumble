@@ -6,10 +6,10 @@ export default class AudioManager extends Phaser.Scene {
         super('AudioManager');
         //Musica del juego
         this.musicaMenus = null;        // Track -1
-        this.musicaDesierto = null;     // Track 1
-        this.musicaNenufar = null;      // Track 2
-        this.musicaSelva = null;        // Track 3
-        this.musicaResultados = null;   // Track 4
+        this.musicaDesierto = null;     // Track 1 o mapTrack 1
+        this.musicaNenufar = null;      // Track 2 o mapTrack 2
+        this.musicaSelva = null;        // Track 3 o mapTrack 3
+        this.musicaResultados = null;   // Track 4 o mapTrack -1
 
         //Sonidos del juego
 
@@ -22,27 +22,26 @@ export default class AudioManager extends Phaser.Scene {
 
         //Sonidos de ranas
 
-        this.toroAt = null;
-        this.toroAtB = null;
-        this.trepadoraAt = null;
-        this.trepadoraAtB = null;
-        this.lluviaAt = null;
-        this.lluviaCAt = null;
-        this.lluviaAtB = null;
-        this.lluviaCAtB = null;
-        this.flechaAt = null;
-        this.flechaCAt = null;
-        this.flechaAtB = null;
-        this.flechaCAtB = null;
-        this.jumpSound = null;
+        this.jumpSound = null;          // soundNumber 0
+        this.trepadoraAt = null;        // soundNumber 1
+        this.trepadoraAtB = null;       // soundNumber 2
+        this.toroAt = null;             // soundNumber 3
+        this.toroAtB = null;            // soundNumber 4
+        this.lluviaAt = null;           // soundNumber 5
+        this.lluviaAtB = null;          // soundNumber 6
+        this.lluviaCAt = null;          // soundNumber 7
+        this.lluviaCAtB = null;         // soundNumber 8
+        this.flechaAt = null;           // soundNumber 9
+        this.flechaAtB = null;          // soundNumber 10
+        this.flechaCAt = null;          // soundNumber 11
+        this.flechaCAtB = null;         // soundNumber 12
 
         //Parametros para la escena AudioManager
         this.volumeMusic = 1;
         this.volumeSFX = 1;
         this.track = -1;
-        //this.sound = 0;
         this.mapTrack = 0;
-        this.soundTimer;
+        this.soundTimer = 0;
         this.ranNum= Math.random() * (26 - 10) + 10;
     }
 
@@ -174,7 +173,7 @@ export default class AudioManager extends Phaser.Scene {
         //Evento para controlar volumen de sonido
         this.events.on('changeVolumeSFX', (newVolumeSFX) => {
 
-            this.sonidoAguila.setVolume(newVolumeMusic);
+            this.sonidoAguila.setVolume(newVolumeSFX);
             this.sonidoViento.setVolume(newVolumeSFX);
             this.sonidoRio.setVolume(newVolumeSFX);
             this.sonidoRibbits.setVolume(newVolumeSFX);
@@ -204,27 +203,11 @@ export default class AudioManager extends Phaser.Scene {
         this.events.on('changeTrackResults', () => {
             this.track = 4;
         });
-        /*
-        //////////////////////////GAME.JS////////////////////////////////
-        //Antes del cambio de escena a Results-> this.changeTrackResults();
-        //Abajo del todo
-        changeTrackResults()
-        {
-            this.scene.get('AudioManager').events.emit('changeTrackResults')
-        }
-        */
+        
         this.events.on('changeTrackMenu', () => {
             this.track = -1;
         });
-        /*
-        //////////////////////////RESULTS.JS////////////////////////////////
-        //Antes del cambio de escena a MainMenu-> this.changeTrackMenu();
-        changeTrackMenu()
-        {
-            this.scene.get('AudioManager').events.emit('changeTrackMenu')
-        }
-        */
-
+        
         //Eventos para generar SFX
         this.events.on('selectSound', (soundNumber)=>{
             switch(soundNumber){
@@ -271,15 +254,6 @@ export default class AudioManager extends Phaser.Scene {
                     console.log("Error de SFX de las ranas");
             }
         });
-        /*
-        //////////////////////////RESULTS.JS////////////////////////////////
-        //Donde quieras un sonido-> this.selectSound(el numero del sonido);
-        selectSound(soundNum)
-        {
-            this.scene.get('AudioManager').events.emit('selectSound', soundNum)
-        }
-        */
-
     }
     update(time,delta) {
         //En funcion de la variable track se cambia la musica y se para la que sonaba antes
@@ -318,7 +292,7 @@ export default class AudioManager extends Phaser.Scene {
 
             this.soundTimer+=delta/1000;
             
-            if(this.mapTrack ==1 && this.soundTimer > this.ranNum){
+            if(this.mapTrack == 1 && this.soundTimer > this.ranNum){
                 this.sonidoAguila.play();
                 this.soundTimer=0;
                 this.ranNum= Math.random() * (26 - 10) + 10;
@@ -336,25 +310,24 @@ export default class AudioManager extends Phaser.Scene {
             switch (this.mapTrack) {
                 case 1:
                     this.musicaDesierto.stop();
+                    this.sonidoViento.stop();
                     break;
                 case 2:
                     this.musicaNenufar.stop();
+                    this.sonidoRibbits.stop();
                     break;
                 case 3:
                     this.musicaSelva.stop();
+                    this.sonidoRio.stop();
+                    this.sonidoSelva.stop();
                     break;
                 default:
-                    console.log("Error");
+                    console.log("Error al detener la musica de los mapas");
             }
             this.musicaResultados.play();
             this.mapTrack = -1;
             this.track = 0;
         }
-
-
-
     }
-
-
 }
 

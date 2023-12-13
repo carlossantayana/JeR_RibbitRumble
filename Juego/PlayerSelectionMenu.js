@@ -151,5 +151,6 @@ export default class PlayerSelectionMenu extends Phaser.Scene {
         this.playersReady = false;
         this.playerSelect = 1
         this.scene.start('MapSelectionMenu', this.parameters); //Cargar Escena de selección de mapa, hay que pasarle la id de personajes
+        this.scene.stop()
     }
 }
