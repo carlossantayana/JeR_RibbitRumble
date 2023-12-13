@@ -67,7 +67,7 @@ Marcos De Ozaeta Cabadas
 
 [8.	Desarrollo	](#_toc148190703)
 
-[11.	Mejoras para el Futuro	](#_toc148190704)
+[9.	Mejoras para el Futuro	](#_toc148190704)
 
 [10.	Referencias	](#_toc148190705)
 
