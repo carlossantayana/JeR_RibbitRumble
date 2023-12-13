@@ -319,14 +319,14 @@ En la pantalla de resultados, sonarán aplausos mientras que de fondo se escucha
 Tanto en la pantalla de selección de personajes como de mapas, a la hora de seleccionar el personaje/mapa se escucharán diversos sonidos. En el caso de los personajes, su “ribbit” correspondiente, y para los mapas, alguno de los efectos mencionados anteriormente.
 
 # <a name="_toc148190703"></a>Desarrollo
-Los colores de los personajes del videojuego son planos y con pocos detalles, para semejarse más el estilo cartoon buscado por el equipo. 
+Los colores de los personajes del videojuego son planos y con pocos detalles, para asemejarse más el estilo cartoon buscado por el equipo. 
 
 ![](ImagenesMD/RanasColor.png)
 **“Colores finales de los personajes”**
 
-Las animaciones de los personajes se implementan en el juego mediante una hoja de sprites hechos a mano, habiendo una hoja por cada animación con una cantidad de frames variable. En total, cada personaje tiene asociados 8 hojas de sprites. 
+Las animaciones de los personajes se implementan en el juego mediante una hoja de sprites hechos a mano, habiendo una hoja por cada animación con una cantidad de frames variable. En total, cada personaje tiene asociadas 8 hojas de sprites. 
 
-Los colores de los escenarios siguen esta misma tendencia de estilo.
+Los colores de los escenarios siguen la misma tendencia de estilo cartoon.
 
 ![](ImagenesMD/Desierto.png)
 ***“Mapa del desierto final”***
@@ -364,7 +364,7 @@ Los botones del juego siguen el estilo de la portada, teniendo efectos de óxido
 ![](ImagenesMD/Botones.png)
 ***“Botones finales del juego”***
 
-El flujo del juego presenta pequeños cambios respecto de la idea inicial. La pantalla de selección de modo se diseñó desde cero y la pantalla de resultados se cambió ligeramente en respecto a su boceto inicial, ocurriendo lo mismo con la interfaz de selección de personajes y mapas. También se agregó una pantalla de carga con una pequeña animación que se muestra mientras el juego carga los recursos. Adicionalmente, se eliminó la opción de volver atrás en la interfaz de selección de personaje y selección de mapa, para mantener la simplicidad de sus interfaces.
+El flujo del juego presenta pequeños cambios respecto de la idea inicial. La pantalla de selección de modo se diseñó desde cero y la pantalla de resultados se cambió ligeramente en respecto a su boceto inicial, ocurriendo lo mismo con la interfaz de selección de personajes y mapas. También se agregó una pantalla de carga con una pequeña animación que se muestra mientras el juego carga los recursos. Adicionalmente, se eliminó la opción de volver atrás en la interfaz de selección de personajes y selección de mapas.
 
 ![](ImagenesMD/PantallaModo.png)
 ***“Pantalla de selección de modo”***
@@ -393,7 +393,7 @@ Algunos aspectos comentados anteriormente en este documento no fueron implementa
 
 Se ha tomado como referencia juegos como Mortal Kombat y Street Fighter a la hora de diseñar las mecánicas y diseño de los niveles. La estructura del GDD ha sido extraída de la teoría enseñada en la asignatura "Fundamentos del diseño y la Jugabilidad" de primero de Diseño y Desarrollo de Videojuegos.
 
-Adicionalmente, en este apartado están las referencias a las imágenes de terceros utilizadas que no son Creative Commons. El resto de las imágenes que no son de elaboración propia son de libre uso.
+Adicionalmente, en este apartado están las referencias a las imágenes de terceros utilizadas que no son de uso libre. El resto de las imágenes que no son de elaboración propia son de libre uso.
 
 [* foto de la rana Trepadora](https://calphotos.berkeley.edu/cgi/img_query?enlarge=0000+0000+1008+1676)
 
