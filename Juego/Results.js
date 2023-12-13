@@ -147,7 +147,7 @@ export default class Results extends Phaser.Scene {
                     break;
                 case 2:
                     this.p2Sprite.setScale(2.5);
-                    this.p1Sprite.y -= 30;
+                    this.p2Sprite.y -= 30;
                     this.corona.setPosition(575, 810);
                     break;
                 case 3:
@@ -176,22 +176,22 @@ export default class Results extends Phaser.Scene {
         console.log(this.parameters.winnerID);
         if (this.parameters.winnerID === 1) {
             this.add.text(100, 40, "Gana el Jugador 1", { fontSize: '90px' });
-            this.add.text(100, 140, "2 victorias", { fontSize: '60px' });
+            this.add.text(100, 140, "Jugador 1 : 2 rondas ganadas", { fontSize: '50px' });
             if (this.parameters.winerLoses === 1) {
-                this.add.text(100, 220, this.parameters.winerLoses + " derrota", { fontSize: '60px' });
+                this.add.text(100, 210,"Jugador 2 : "+ this.parameters.winerLoses + " ronda ganada", { fontSize: '50px' });
             }
             else {
-                this.add.text(100, 220, this.parameters.winerLoses + " derrotas", { fontSize: '60px' });
+                this.add.text(100, 210,"Jugador 2 : "+ this.parameters.winerLoses + " rondas ganadas", { fontSize: '50px' });
             }
         }
         else {
             this.add.text(100, 40, "Gana el Jugador 2", { fontSize: '90px' });
-            this.add.text(100, 140, "2 victorias", { fontSize: '60px' });
+            this.add.text(100, 140, "Jugador 2 : 2 rondas ganadas", { fontSize: '50px' });
             if (this.parameters.winerLoses === 1) {
-                this.add.text(100, 220, this.parameters.winerLoses + " derrota", { fontSize: '60px' });
+                this.add.text(100, 210,"Jugador 1 : "+ this.parameters.winerLoses + " ronda ganada", { fontSize: '50px' });
             }
             else {
-                this.add.text(100, 220, this.parameters.winerLoses + " derrotas", { fontSize: '60px' });
+                this.add.text(100, 210,"Jugador 1 : "+ this.parameters.winerLoses + " rondas ganadas", { fontSize: '50px' });
             }
         }
 
