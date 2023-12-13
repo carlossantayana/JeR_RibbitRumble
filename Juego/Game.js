@@ -420,20 +420,6 @@ export default class Game extends Phaser.Scene {
             this.player2.attacking = true;
             this.player2.justAttack = true;
             this.player2.playBasicAttackAnim();
-            switch (this.parameters.p2CharacterID) {
-                case 0:
-                    this.selectSound(3);
-                    break;
-                case 1:
-                    this.selectSound(5);
-                    break;
-                case 2:
-                    this.selectSound(9);
-                    break;
-                case 3:
-                    this.selectSound(1);
-                    break;
-            }
         } else if (this.player2.crouching && Phaser.Input.Keyboard.JustDown(this.keyNumpad1) && !this.player2.blocking && !this.player2.jumping && !this.player2.attacking && !this.player2.receivingDamage) {
             this.player2.setVelocityX(0);
             this.player2.attacking = true;
