@@ -29,7 +29,7 @@ export default class Results extends Phaser.Scene {
                     this.p1Sprite = this.add.sprite(940, 500, "ToroIdle");
                 }
                 else {
-                    this.p1Sprite = this.add.sprite(940, 500, "ToroDaño");//Hay que cambiarlo por el sprite de daño
+                    this.p1Sprite = this.add.sprite(940, 500, "ToroDaño");
                 }
                 break;
             case 1:
@@ -37,7 +37,7 @@ export default class Results extends Phaser.Scene {
                     this.p1Sprite = this.add.sprite(940, 500, "LluviaIdle");
                 }
                 else {
-                    this.p1Sprite = this.add.sprite(940, 500, "LluviaDaño");//Hay que cambiarlo por el sprite de daño
+                    this.p1Sprite = this.add.sprite(940, 500, "LluviaDaño");
                 }
                 break;
             case 2:
@@ -45,7 +45,7 @@ export default class Results extends Phaser.Scene {
                     this.p1Sprite = this.add.sprite(940, 500, "FlechaIdle");
                 }
                 else {
-                    this.p1Sprite = this.add.sprite(940, 500, "FlechaDaño");//Hay que cambiarlo por el sprite de daño
+                    this.p1Sprite = this.add.sprite(940, 500, "FlechaDaño");
                 }
                 break;
             case 3:
@@ -53,7 +53,7 @@ export default class Results extends Phaser.Scene {
                     this.p1Sprite = this.add.sprite(940, 500, "TrepadoraIdle");
                 }
                 else {
-                    this.p1Sprite = this.add.sprite(940, 500, "TrepadoraDaño");//Hay que cambiarlo por el sprite de daño
+                    this.p1Sprite = this.add.sprite(940, 500, "TrepadoraDaño");
                 }
                 break;
         }
@@ -63,7 +63,7 @@ export default class Results extends Phaser.Scene {
                     this.p2Sprite = this.add.sprite(940, 500, "ToroIdle");
                 }
                 else {
-                    this.p2Sprite = this.add.sprite(940, 500, "ToroDaño");//Hay que cambiarlo por el sprite de daño
+                    this.p2Sprite = this.add.sprite(940, 500, "ToroDaño");
                 }
                 break;
             case 1:
@@ -71,7 +71,7 @@ export default class Results extends Phaser.Scene {
                     this.p2Sprite = this.add.sprite(940, 500, "LluviaIdle");
                 }
                 else {
-                    this.p2Sprite = this.add.sprite(940, 500, "LluviaDaño");//Hay que cambiarlo por el sprite de daño
+                    this.p2Sprite = this.add.sprite(940, 500, "LluviaDaño");
                 }
                 break;
             case 2:
@@ -79,7 +79,7 @@ export default class Results extends Phaser.Scene {
                     this.p2Sprite = this.add.sprite(940, 500, "FlechaIdle");
                 }
                 else {
-                    this.p2Sprite = this.add.sprite(940, 500, "FlechaDaño");//Hay que cambiarlo por el sprite de daño
+                    this.p2Sprite = this.add.sprite(940, 500, "FlechaDaño");
                 }
                 break;
             case 3:
@@ -87,7 +87,7 @@ export default class Results extends Phaser.Scene {
                     this.p2Sprite = this.add.sprite(940, 500, "TrepadoraIdle");
                 }
                 else {
-                    this.p2Sprite = this.add.sprite(940, 500, "TrepadoraDaño");//Hay que cambiarlo por el sprite de daño
+                    this.p2Sprite = this.add.sprite(940, 500, "TrepadoraDaño");
                 }
                 break;
         }

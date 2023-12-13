@@ -21,7 +21,7 @@ export default class PlayerSelectionMenu extends Phaser.Scene {
 
         this.add.image(960, 534.5, 'menuFondo').setScale(0.5);
 
-        //Creacion de los iconos de los personajes (400x400)
+        //Creacion de los iconos de los personajes 
         this.add.rectangle(800, 380, 250, 250, 0x606060);
         var BullFrog = this.add.rectangle(800, 380, 230, 230, 0x808080);
         this.add.image(800, 380, 'logoRanaToro').setScale(0.2);
@@ -135,7 +135,7 @@ export default class PlayerSelectionMenu extends Phaser.Scene {
             }
 
 
-            //Forma hortera de ver turno del personaje a elegir, todavia no esta la opcion de volver atras
+            //Forma de ver turno del personaje a elegir
             if (this.playerSelect == 1) {
                 this.playerSelect = 2;
             }
@@ -150,7 +150,7 @@ export default class PlayerSelectionMenu extends Phaser.Scene {
     onMapSelection() {
         this.playersReady = false;
         this.playerSelect = 1
-        this.scene.start('MapSelectionMenu', this.parameters); //Cargar Escena de selección de mapa, hay que pasarle la id de personajes
+        this.scene.start('MapSelectionMenu', this.parameters); //Cargar Escena de selección de mapa
         this.scene.stop()
     }
 }

@@ -52,7 +52,7 @@ export default class Game extends Phaser.Scene {
 
     }
 
-    init(data) //Esto se ejecuta al iniciar la escena, debería recibir los personajes elegidos y el mapa seleccionado (y el número de rondas ganadas por cada uno)
+    init(data) //Esto se ejecuta al iniciar la escena, recibe los personajes elegidos y el mapa seleccionado 
     {
         this.parameters.p1CharacterID = data.player1CharacterID;
         this.parameters.p2CharacterID = data.player2CharacterID;
@@ -299,8 +299,7 @@ export default class Game extends Phaser.Scene {
         this.numeroUno = this.add.image(900, 80, this.cifra1.toString()).setScale(0.65, 0.65);
         this.numeroDos = this.add.image(1020, 80, this.cifra2.toString()).setScale(0.65, 0.65);
 
-        //La carga de la pantalla de resultados o la siguiente ronda puede llamarla la escena o el jugador derrotado.
-        //La siguiente ronda se puede hacer recargando la escena con el número de victorias actualizado
+    
     }
 
     update(timer, delta) {
