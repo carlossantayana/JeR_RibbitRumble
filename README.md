@@ -319,7 +319,7 @@ En la pantalla de resultados, sonarán aplausos mientras que de fondo se escucha
 Tanto en la pantalla de selección de personajes como de mapas, a la hora de seleccionar el personaje/mapa se escucharán diversos sonidos. En el caso de los personajes, su “ribbit” correspondiente, y para los mapas, alguno de los efectos mencionados anteriormente.
 
 # <a name="_toc148190703"></a>Desarrollo
-Los colores de los personajes del videojuego son planos y con pocos detalles, para asemejarse más el estilo cartoon buscado por el equipo. 
+Los colores de los personajes del videojuego son planos y con pocos detalles, para asemejarse más a el estilo cartoon buscado por el equipo. 
 
 ![](ImagenesMD/RanasColor.png)
 **“Colores finales de los personajes”**
