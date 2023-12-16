@@ -8,11 +8,11 @@
 		<version>3.2.0</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.RibbitRumble</groupId>
-	<artifactId>ribbit_rumble</artifactId>
+	<groupId>com.jerRibbitRumble</groupId>
+	<artifactId>Ribbit_Rumble</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>ribit_Rumble</name>
-	<description>Ribbit rumble server</description>
+	<name>Ribbit_Rumble</name>
+	<description>Juego Ribbit Rumble</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>

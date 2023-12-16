@@ -1,10 +1,10 @@
-package com.RibbitRumble.ribbit_rumble;
+package com.jerRibbitRumble.Ribbit_Rumble;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class RibitRumbleApplicationTests {
+class RibbitRumbleApplicationTests {
 
 	@Test
 	void contextLoads() {

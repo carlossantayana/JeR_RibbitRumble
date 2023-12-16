@@ -1,13 +1,13 @@
-package com.RibbitRumble.ribbit_rumble;
+package com.jerRibbitRumble.Ribbit_Rumble;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class RibitRumbleApplication {
+public class RibbitRumbleApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(RibitRumbleApplication.class, args);
+		SpringApplication.run(RibbitRumbleApplication.class, args);
 	}
 
 }
