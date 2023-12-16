@@ -11,6 +11,14 @@
     <!-- Links a hojas de estilo-->
     <link type="text/css" rel="stylesheet" href="canvasStyle.css" />
 
+    <!-- Links a JQuery-->
+    <script
+  src="https://code.jquery.com/jquery-3.7.1.min.js"
+  integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+  crossorigin="anonymous"></script>
+
+  <script src="jquery.js"></script>
+
     <title>Ribbit Rumble</title>
 </head>
 
@@ -21,9 +29,12 @@
     
     <!-- Contenedor del chat -->
     <div id="chat-container">
-        <div id="chat-messages"></div>
+        <div id="chat-messages">
+            <textarea style="width: 1920px"> </textarea>
+        </div>
         <input type="text" id="input-message" placeholder="Escribe un mensaje">
         <button>Enviar</button>
+        
     </div>
 
 </body>
