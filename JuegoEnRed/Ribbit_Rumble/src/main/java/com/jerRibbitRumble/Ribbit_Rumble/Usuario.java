@@ -2,7 +2,6 @@ package com.jerRibbitRumble.Ribbit_Rumble;
 
 public class Usuario {
 	
-	private static int userCount=0;
 	private long id;
 	private String username;
 	private String password;
@@ -11,16 +10,8 @@ public class Usuario {
 	private int roundWins;
 	private int roundLoses;
 
-	public Usuario(String user, String pw) 
+	public Usuario() 
 	{
-		username=user;
-		password=pw;
-		wins = 0;
-		loses = 0;
-		roundWins = 0;
-		roundLoses = 0;
-		id=userCount;
-		userCount++;
 	}
 
 	public long getId() {
@@ -80,5 +71,4 @@ public class Usuario {
 	}
 	
 	
-
 }
