@@ -17,7 +17,7 @@
   integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
   crossorigin="anonymous"></script>
 
-  <script src="jquery.js"></script>
+  <script src="queriesAPIREST.js"></script>
 
     <title>Ribbit Rumble</title>
 </head>
@@ -29,11 +29,12 @@
     
     <!-- Contenedor del chat -->
     <div id="chat-container">
+        <h3 style="color:white"> Chat del Juego</h3>
         <div id="chat-messages">
-            <textarea style="width: 1920px"> </textarea>
+            <textarea id="chatBox" style="width: 1920px" readonly> </textarea>
         </div>
-        <input type="text" id="input-message" placeholder="Escribe un mensaje">
-        <button>Enviar</button>
+        <input type='text' id='input-message' placeholder="Escribe un mensaje">
+        <button id='sendChat'>Enviar</button>
         
     </div>
 
