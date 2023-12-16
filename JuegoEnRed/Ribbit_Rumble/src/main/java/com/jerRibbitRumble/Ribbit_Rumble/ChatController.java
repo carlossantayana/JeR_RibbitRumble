@@ -27,7 +27,7 @@ public class ChatController {
 	private Map<Long, Mensaje> chatMessages = new ConcurrentHashMap<>();
 	private AtomicLong lastId = new AtomicLong();
 	
-	private String fileName = "ChatMessagesFile";
+	private String fileName = "ChatMessagesFile.txt";
 
 	@PostMapping(value = "/")
 	@ResponseStatus(HttpStatus.CREATED)
