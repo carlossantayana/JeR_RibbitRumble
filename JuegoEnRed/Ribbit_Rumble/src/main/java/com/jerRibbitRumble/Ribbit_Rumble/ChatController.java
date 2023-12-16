@@ -1,9 +1,17 @@
 package com.jerRibbitRumble.Ribbit_Rumble;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
+
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +26,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class ChatController {
 	private Map<Long, Mensaje> chatMessages = new ConcurrentHashMap<>();
 	private AtomicLong lastId = new AtomicLong();
+	
+	private String fileName = "ChatMessagesFile";
 
 	@PostMapping(value = "/")
 	@ResponseStatus(HttpStatus.CREATED)
@@ -68,5 +78,28 @@ public class ChatController {
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
+	}
+	
+	@PreDestroy
+	public void writeChatMessagesFile() {
+	    try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(fileName))) {
+	        outputStream.writeObject(chatMessages);
+	        System.out.println("HashMap guardado en el archivo '" + fileName + "' correctamente.");
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
+	}
+	
+	@PostConstruct
+	public void readChatMessagesFile() {
+	    try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(fileName))) {
+	    	chatMessages = (Map<Long, Mensaje>) inputStream.readObject();
+	        System.out.println("Map leído desde el archivo '" + fileName + "':");
+	        for (Long key : chatMessages.keySet()) {
+	            System.out.println("Key: " + key + ", Value: " + chatMessages.get(key));
+	        }
+	    } catch (IOException | ClassNotFoundException e) {
+	        e.printStackTrace();
+	    }
 	}
 }
