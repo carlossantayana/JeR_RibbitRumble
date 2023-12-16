@@ -65,7 +65,7 @@ public class UsuarioController {
 
 		if (user != null) {
 			userUpdated.setId(id);
-			users.put(null, userUpdated);
+			users.put(id, userUpdated);
 			return new ResponseEntity<>(userUpdated, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
