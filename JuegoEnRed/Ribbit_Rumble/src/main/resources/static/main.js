@@ -15,6 +15,7 @@ const config = { //Configuración general
     type: Phaser.AUTO,
     width: 1920,
     height: 1080,
+    parent: 'game-container', // Especifica el contenedor del juego
     backgroundColor: '#000000',
     scene: [Charging, Preloader, MainMenu, SettingsMenu, AudioManager, ModeSelectionMenu, PlayerSelectionMenu, MapSelectionMenu, Game, Results], //Escenas, Preloader está primero, se cargara Preloader primero
     scale: {
