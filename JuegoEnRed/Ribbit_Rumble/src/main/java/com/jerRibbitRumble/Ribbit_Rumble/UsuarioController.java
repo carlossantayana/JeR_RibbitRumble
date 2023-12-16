@@ -29,7 +29,7 @@ public class UsuarioController {
 	private Map<Long, Usuario> users = new ConcurrentHashMap<>();
 	private AtomicLong lastId = new AtomicLong();
 
-	String nombreArchivo = "usuariosMap.txt";
+	String fileName = "usersFile.txt";
 
 	@PostMapping(value = "/")
 	@ResponseStatus(HttpStatus.CREATED)
@@ -84,9 +84,9 @@ public class UsuarioController {
 	
 	@PreDestroy
 	public void escribirFichero() {
-	    try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(nombreArchivo))) {
+	    try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(fileName))) {
 	        outputStream.writeObject(users);
-	        System.out.println("HashMap guardado en el archivo '" + nombreArchivo + "' correctamente.");
+	        System.out.println("HashMap guardado en el archivo '" + fileName + "' correctamente.");
 	    } catch (IOException e) {
 	        e.printStackTrace();
 	    }
@@ -94,9 +94,9 @@ public class UsuarioController {
 	
 	@PostConstruct
 	public void leerFichero() {
-	    try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(nombreArchivo))) {
+	    try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(fileName))) {
 	        users = (Map<Long, Usuario>) inputStream.readObject();
-	        System.out.println("Map leído desde el archivo '" + nombreArchivo + "':");
+	        System.out.println("Map leído desde el archivo '" + fileName + "':");
 	        for (Long key : users.keySet()) {
 	            System.out.println("Key: " + key + ", Value: " + users.get(key));
 	        }
