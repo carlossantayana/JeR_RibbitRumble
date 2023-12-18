@@ -9,7 +9,7 @@ public class Mensaje implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	private long id;
-	private Usuario user;
+	private String username;
 	private String message;
 	private LocalDateTime messageDate;
 	private String dateHHMM;
@@ -27,12 +27,12 @@ public class Mensaje implements Serializable{
 		this.id = id;
 	}
 	
-	public Usuario getUser() {
-		return user;
+	public String getUser() {
+		return username;
 	}
 
-	public void setUser(Usuario user) {
-		this.user = user;
+	public void setUser(String user) {
+		this.username = user;
 	}
 	
 	public String getMessage() {

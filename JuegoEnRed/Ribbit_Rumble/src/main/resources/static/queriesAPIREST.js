@@ -4,12 +4,13 @@ $(document).ready(function () {
     //Variables para el funcionamiento del chat
     var chatbox = $('#chatBox')
     var message = $('#input-message')
-    var logedUserId; //ID del usuario conectado
+    var logedUserName; //nombre del usuario conectado
     var access = false;
 
     //Metodo que controla el click sobre el boton de enviar mensaje
     $("#sendChat").click(function () {
-        chatbox.val(chatbox.val() + message.val() + '\n');
+        createMessage(message.val(),logedUserName)
+        chatbox.val(chatbox.val()+"<"+logedUserName+">: "+ message.val() + '\n');
         message.val(''); // Limpiar el input después de enviar el mensaje
     })
 
@@ -43,6 +44,7 @@ $(document).ready(function () {
                     registerUser(nombre, password)
                     access = true;
                 }
+                logedUserName=nombre;
                 //Si ya hay usuarios en el servidor, se ejecuta este else
             } else {
                 //Bucle de inicio de sesion
@@ -104,9 +106,9 @@ $(document).ready(function () {
                             access = true;
                             } else {alert("Usuario ya existente en el servidor")}
                         }
-
                     }
                 }
+                logedUserName=nombre;
             }
         });
 
@@ -117,6 +119,28 @@ $(document).ready(function () {
 
 
 }); //Fin del documento.ready
+
+function createMessage(messageContent,User){
+    console.log(User);
+    var message = {
+        username: User,
+        message: messageContent
+    }
+
+    $.ajax({
+        method: 'POST',
+        url: "http://localhost:8080/Chat/",
+        data: JSON.stringify(message),
+        processData: false,
+        headers: {
+            "Content-Type": "application/json"
+        }
+    }).done(function () {
+        console.log("Mensaje enviado");
+    }).fail(function () {
+        console.log("Falló el envio de mensaje");
+    });
+}
 
 //Funcion que se llama cuando se va a registrar un usuario y hace el POST al servidor
 function registerUser(usernameP, passwordP) {
