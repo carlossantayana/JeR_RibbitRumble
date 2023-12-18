@@ -9,7 +9,7 @@ $(document).ready(function () {
 
     //Metodo que controla el click sobre el boton de enviar mensaje
     $("#sendChat").click(function () {
-        createMessage(message.val(),logedUserName)
+        createMessage(message.val(), logedUserName)
         chatbox.val(chatbox.val()+"<"+logedUserName+">: "+ message.val() + '\n');
         message.val(''); // Limpiar el input después de enviar el mensaje
     })
@@ -44,7 +44,7 @@ $(document).ready(function () {
                     registerUser(nombre, password)
                     access = true;
                 }
-                logedUserName=nombre;
+                logedUserName = nombre;
                 //Si ya hay usuarios en el servidor, se ejecuta este else
             } else {
                 //Bucle de inicio de sesion
@@ -71,6 +71,7 @@ $(document).ready(function () {
 
                             if (nombre === Users[i].username && password === Users[i].password) {
                                 alert("Inicio de sesion exitoso!")
+                                logedUserName = nombre;
                                 access = true;
                             }
                         }//Si tras buscar, no encontro nada, se muestra este alert y sigue el bucle
@@ -104,11 +105,12 @@ $(document).ready(function () {
                             //Llamada al metodo de crear usuario
                             registerUser(nombre, password)
                             access = true;
+                            logedUserName = nombre;
                             } else {alert("Usuario ya existente en el servidor")}
                         }
                     }
                 }
-                logedUserName=nombre;
+                //logedUserName=nombre;
             }
         });
 
@@ -120,13 +122,15 @@ $(document).ready(function () {
 
 }); //Fin del documento.ready
 
-function createMessage(messageContent,User){
+function createMessage(messageContent, User){
     console.log(User);
+
     var message = {
-        username: User,
+        user: User,
         message: messageContent
     }
 
+    console.log("nombre del json: " + message.username)
     $.ajax({
         method: 'POST',
         url: "http://localhost:8080/Chat/",
@@ -150,7 +154,7 @@ function registerUser(usernameP, passwordP) {
         username: usernameP,
         password: passwordP
     }
-
+    
     //Se hace la peticion con AJAX
     $.ajax({
         method: 'POST',
