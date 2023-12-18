@@ -27,14 +27,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class UsuarioController {
 
 	private Map<Long, Usuario> users = new ConcurrentHashMap<>();
-	private AtomicLong lastId = new AtomicLong();
 
 	String fileName = "usersFile.txt";
 
 	@PostMapping(value = "/")
 	@ResponseStatus(HttpStatus.CREATED)
 	public Usuario createUsuario(@RequestBody Usuario user) {
-		long id = lastId.getAndIncrement();
+		long id = users.size();
 
 		user.setId(id);
 		users.put(id, user);
