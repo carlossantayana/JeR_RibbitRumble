@@ -111,6 +111,9 @@ $(document).ready(function () {
         });
 
     }
+    
+    //FIN DE USUARIOS
+    
 
 
 }); //Fin del documento.ready
@@ -165,6 +168,20 @@ function GetUsers(callback) {
 
     }).fail(function () {
         console.log("No se pudo conseguir el numero de usuarios")
+    });
+}
+
+function GetMessages(callback) {
+    $.ajax({
+        method: "GET",
+        url: "http://localhost:8080/Chat/"
+    }).done(function (data) {
+        // Llamamos al callback con el número de usuarios (esto soluciona la no sincronizacion del AJAX)
+        console.log("Chat recibido ")
+        callback(data);
+
+    }).fail(function () {
+        console.log("No se pudo conseguir el chat")
     });
 }
 

@@ -12,9 +12,11 @@ public class Mensaje implements Serializable{
 	private Usuario user;
 	private String message;
 	private LocalDateTime messageDate;
+	private String dateHHMM;
 	
 	public Mensaje() {
 		messageDate = LocalDateTime.now();
+		getMessageDate();
 	}
 	
 	public long getId() {
@@ -41,11 +43,9 @@ public class Mensaje implements Serializable{
 		this.message = message;
 	}
 	
-	public String getMessageDate() {
+	public void getMessageDate() {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
 		
-		String hourMinute = messageDate.format(formatter);
-		
-		return hourMinute;
+		dateHHMM = messageDate.format(formatter);
 	}
 }
