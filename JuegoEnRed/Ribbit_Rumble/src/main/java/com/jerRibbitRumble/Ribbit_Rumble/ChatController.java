@@ -31,10 +31,11 @@ public class ChatController {
 
 	@PostMapping(value = "/")
 	@ResponseStatus(HttpStatus.CREATED)
-	public Mensaje createMensaje(@RequestBody Mensaje message) {
+	public Mensaje createMensaje(@RequestBody Mensaje message, String username) {
 		long id = chatMessages.size();
 
 		message.setId(id);
+		message.setUser(username);
 		chatMessages.put(id, message);
 
 		return message;
