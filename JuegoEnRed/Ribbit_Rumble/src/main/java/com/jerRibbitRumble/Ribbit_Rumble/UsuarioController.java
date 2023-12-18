@@ -91,13 +91,25 @@ public class UsuarioController {
 	    }
 	}
 	
+	@PreDestroy
+	public void usersInactive() 
+	{
+		for (Map.Entry<Long, Usuario> user : users.entrySet()) {
+		    
+		    Usuario usuario = user.getValue();
+		    
+		    usuario.setActive(false);
+		    
+		    }
+	}
+	
 	@PostConstruct
 	public void leerFichero() {
 	    try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(fileName))) {
 	        users = (Map<Long, Usuario>) inputStream.readObject();
 	        System.out.println("Map leído desde el archivo '" + fileName + "':");
 	        for (Long key : users.keySet()) {
-	            System.out.println("Key: " + key + ", Value: " + users.get(key));
+	            System.out.println("ID: " + key + ", Usuario: " + users.get(key));
 	        }
 	    } catch (IOException | ClassNotFoundException e) {
 	        e.printStackTrace();
