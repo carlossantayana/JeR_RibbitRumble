@@ -9,15 +9,15 @@ public class Mensaje implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	private long id;
-	private String user;
+	private String username;
 	private String message;
-	private String dateHHMM;
+	private String date;
 	
 	public Mensaje() {
 		LocalDateTime messageDate = LocalDateTime.now();
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("(HH:mm:ss / dd-MM-yyyy)");
 		
-		dateHHMM = messageDate.format(formatter);
+		date = messageDate.format(formatter);
 	}
 	
 	public long getId() {
@@ -28,12 +28,12 @@ public class Mensaje implements Serializable{
 		this.id = id;
 	}
 	
-	public String getUser() {
-		return user;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setUser(String user) {
-		this.user = user;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 	
 	public String getMessage() {
@@ -44,7 +44,7 @@ public class Mensaje implements Serializable{
 		this.message = message;
 	}
 	
-	public String getDateHHMM() {
-		return dateHHMM;
+	public String getDate() {
+		return date;
 	}
 }
