@@ -11,8 +11,9 @@ $(document).ready(function () {
 
     //Metodo que controla el click sobre el boton de enviar mensaje
     $("#sendChat").click(function () {
-        createMessage(message.val(), logedUserName)
-        chatbox.val(chatbox.val()+"<"+logedUserName+">: "+ message.val() + '\n');
+        createMessage(message.val(), logedUserName, function(MessageCreated){
+            chatbox.val(chatbox.val()+"<"+logedUserName+">: "+ message.val() + MessageCreated.date + '\n');
+        })
         message.val(''); // Limpiar el input después de enviar el mensaje
     })
 
@@ -123,12 +124,16 @@ $(document).ready(function () {
     
     //FIN DE USUARIOS
     
-
+    GetMessages(function(Messages){
+        for(var i = 0; i < Messages.length; i++){
+            chatbox.val(chatbox.val()+"<"+ Messages[i].username +">: "+ Messages[i].message + " " + Messages[i].date + '\n');
+        }
+    });
 
 }); //Fin del documento.ready
 
 //Funcion encargada de crear mensajes y mandarlos al servidor
-function createMessage(messageContent, User){
+function createMessage(messageContent, User, callback){
 
     var message = {
         user: User,
@@ -146,7 +151,7 @@ function createMessage(messageContent, User){
         }
     }).done(function (data) {
         console.log("Mensaje enviado");
-        
+        callback(data);
     }).fail(function () {
         console.log("Falló el envio de mensaje");
     });
