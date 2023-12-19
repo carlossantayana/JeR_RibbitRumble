@@ -29,7 +29,7 @@ $(document).ready(function () {
 
             //Si no hay usuarios en el servidor
             if (Users.length === 0) {
-                alert("No existen usuarios en el servidor, crea uno para poder jugar");
+                alert("No existen usuarios en el servidor.\nPulsa aceptar para crear un usuario nuevo.");
 
                 //Primer bucle donde se crea el primer usuario
                 while (!access) {
@@ -56,7 +56,7 @@ $(document).ready(function () {
                 //Bucle de inicio de sesion
                 while (!access) {
                     //Si confirma que quiere iniciar sesion
-                    if (confirm("Para poder jugar necesitas un usuario, quieres iniciar sesión?")) {
+                    if (confirm("Para poder jugar necesitas un usuario.\nPulsa aceptar para iniciar sesión o cancelar para crear un nuevo usuario.")) {
 
                         var nombre
                         var password
@@ -85,7 +85,7 @@ $(document).ready(function () {
                                 updateUserStatusEnter(logedUser);
                             }
                         }//Si tras buscar, no encontro nada, se muestra este alert y sigue el bucle
-                        if (!access) { alert("Usuario o contraseñas incorrectas") }
+                        if (!access) { alert("Usuario o contraseñas incorrectas.") }
 
                     } else { //Si no quiere iniciar sesion y quiere crear un nuevo usuario, entra en el bucle de crear cuenta
                         while (!access) {
@@ -116,7 +116,7 @@ $(document).ready(function () {
                                 registerUser(nombre, password)
                                 access = true;
                                 logedUserName = nombre;
-                            } else { alert("Usuario ya existente en el servidor") }
+                            } else { alert("Usuario ya existente en el servidor.") }
                         }
                     }
                 }
