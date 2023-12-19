@@ -1,8 +1,9 @@
 package com.jerRibbitRumble.Ribbit_Rumble;
 
 import java.io.*;
-
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -26,13 +27,24 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class UsuarioController {
 
 	private Map<Long, Usuario> users = new ConcurrentHashMap<>();
+	private List<Long> idFree = new ArrayList<>();
 
 	String fileName = "usersFile.txt";
 
 	@PostMapping(value = "/")
 	@ResponseStatus(HttpStatus.CREATED)
 	public Usuario createUsuario(@RequestBody Usuario user) {
-		long id = users.size();
+		long id;
+		
+		if(idFree.size() == 0) {
+			id = users.size();
+		}
+			
+		else{
+			id = idFree.get(0);
+			idFree.remove(0);
+			
+		}
 
 		user.setId(id);
 		users.put(id, user);
@@ -72,6 +84,7 @@ public class UsuarioController {
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<Usuario> deleteUsuario(@PathVariable long id) {
 		Usuario user = users.remove(id);
+		idFree.add(id);
 
 		if (user != null) {
 			return new ResponseEntity<>(user, HttpStatus.OK);

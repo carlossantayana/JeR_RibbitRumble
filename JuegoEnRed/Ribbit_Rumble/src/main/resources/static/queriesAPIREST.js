@@ -9,6 +9,7 @@ $(document).ready(function () {
     var chatbox = $('#chatBox')
     var message = $('#input-message')
     var activeUsers = $('#active-users');
+    var actualUser = $('#actual-user');
     var logedUserName; //nombre del usuario conectado
     var access = false;
 
@@ -49,6 +50,7 @@ $(document).ready(function () {
                     //Llamada al metodo de crear usuario
                     registerUser(nombre, password)
                     access = true;
+                    actualUser.text('Usuario actual: ' + nombre);
                 }
                 logedUserName = nombre;
                 //Si ya hay usuarios en el servidor, se ejecuta este else
@@ -79,6 +81,7 @@ $(document).ready(function () {
                                 alert("¡Inicio de sesion exitoso!")
                                 logedUserName = nombre;
                                 access = true;
+                                actualUser.text('Usuario actual: ' + nombre);
                                 logedUser = Users[i];
                                 // SE LE ASIGNA EL ID DEL JUGADOR UNO SIEMPRE //
                                 logedUser.player = 1;
@@ -115,6 +118,7 @@ $(document).ready(function () {
                                 //Llamada al metodo de crear usuario
                                 registerUser(nombre, password)
                                 access = true;
+                                actualUser.text('Usuario actual: ' + nombre);
                                 logedUserName = nombre;
                             } else { alert("Usuario ya existente en el servidor.") }
                         }
@@ -123,8 +127,9 @@ $(document).ready(function () {
 
             }
         });
-
+        
     }
+    
     
     $(window).on('beforeunload', function () {
         // Llamar a updateUserStatusExit para enviar una solicitud PUT al servidor antes de que se cierre la ventana
@@ -156,7 +161,10 @@ $(document).ready(function () {
     setInterval(ActiveUsers, 2000);
 
     //FIN DE USUARIOS
-
+	$("#delete-user").click(function () {
+		deleteUser(logedUser);
+		location.reload();
+	});
 
 
 }); //Fin del documento.ready
@@ -169,7 +177,7 @@ function createMessage(messageContent, User, callback){
         message: messageContent
     }
 
-    console.log("nombre del json: " + message.username)
+    console.log("Nombre del json: " + message.username)
     $.ajax({
         method: 'POST',
         url: "http://localhost:8080/Chat/",
@@ -206,12 +214,12 @@ function registerUser(usernameP, passwordP) {
             "Content-Type": "application/json"
         }
     }).done(function (data) {
-        alert("Usuario creado con éxito.")
+        console.log("Usuario creado con éxito.")
         logedUser = data
         // SE LE ASIGNA EL ID DEL JUGADOR UNO SIEMPRE //
         logedUser.player = 1;
     }).fail(function () {
-        alert("No ha sido posible crear el usuario")
+        console.log("No ha sido posible crear el usuario")
     });
 }
 
@@ -269,9 +277,9 @@ function updateUserStatusExit(user) {
         contentType: 'application/json',
         data: JSON.stringify(user)
     }).done(function () {
-        alert("Usuario actualizado con éxito.")
+        console.log("Usuario actualizado")
     }).fail(function () {
-        alert("No ha sido posible actualizar el usuario")
+        console.log("No ha sido posible actualizar el usuario")
     });
 }
 
@@ -283,8 +291,21 @@ function updateUserStatusEnter(user) {
         contentType: 'application/json',
         data: JSON.stringify(user)
     }).done(function () {
-        alert("Usuario actualizado con éxito.")
+        console.log("Usuario actualizado con éxito.")
     }).fail(function () {
-        alert("No ha sido posible actualizar el usuario")
+        console.log("No ha sido posible actualizar el usuario")
+    });
+}
+
+function deleteUser(user) {
+    $.ajax({
+        url: 'http://localhost:8080/Usuarios/' + user.id,
+        method: 'DELETE',
+        contentType: 'application/json',
+        data: JSON.stringify(user)
+    }).done(function () {
+        console.log("Usuario borrado con éxito.")
+    }).fail(function () {
+        console.log("No ha sido posible borrar el usuario")
     });
 }

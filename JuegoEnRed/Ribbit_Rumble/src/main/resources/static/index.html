@@ -2,42 +2,51 @@
 <html lang="es">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Links al CDN que contiene el fichero de Phaser-->
-    <script src="https://cdn.jsdelivr.net/npm/phaser@3.70.0/dist/phaser.min.js"></script>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- Links al CDN que contiene el fichero de Phaser-->
+	<script src="https://cdn.jsdelivr.net/npm/phaser@3.70.0/dist/phaser.min.js"></script>
 
-    <script type="module" src="main.js"></script>
-    <!-- Links a hojas de estilo-->
-    <link type="text/css" rel="stylesheet" href="canvasStyle.css" />
+	<script type="module" src="main.js"></script>
+	<!-- Links a hojas de estilo-->
+	<link type="text/css" rel="stylesheet" href="canvasStyle.css" />
 
-    <!-- Links a JQuery-->
-    <script
-  src="https://code.jquery.com/jquery-3.7.1.min.js"
-  integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
-  crossorigin="anonymous"></script>
+	<!-- Links a JQuery-->
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js"
+		integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 
-  <script src="queriesAPIREST.js"></script>
+	<script src="queriesAPIREST.js"></script>
 
-    <title>Ribbit Rumble</title>
+	<title>Ribbit Rumble</title>
 </head>
 
 <body>
 
-    <!-- Contenedor del juego Phaser -->
-    <div id="game-container"></div>
-    
-    <!-- Contenedor del chat -->
-    <div id="chat-container">
-        <h3 style="color:white"> Chat del Juego</h3>
-        <div id="chat-messages">
-            <textarea id="chatBox" style="width: 1920px" readonly></textarea>
+	<!-- Contenedor del juego Phaser -->
+	<div id="game-container"></div>
+
+	<!-- Contenedor del chat -->
+	<div id="chat-container">
+		<h3 style="color:white"> Chat del Juego</h3>
+		<div id="chat-messages">
+			<textarea id="chatBox" style="width: 1920px" readonly></textarea>
+		</div>
+        <div>
+		<input type='text' id='input-message' placeholder="Escribe un mensaje">
+		<button id='sendChat'>Enviar</button>
         </div>
-        <input type='text' id='input-message' placeholder="Escribe un mensaje">
-        <button id='sendChat'>Enviar</button>
-        <p id="active-users">Usuarios activos: 0</p>
-        
-    </div>
+		<section style="display: inline-block;">
+			<p id="active-users">Usuarios activos: 0</p>
+		</section>
+		<section style="display: inline-block;">
+			<button id='delete-user'>Borrar usuario actual</button>
+		</section>
+        <section style="display: inline-block;">
+			<p id='actual-user'>Usuario actual: </p>
+		</section>
+
+
+	</div>
 
 </body>
 
