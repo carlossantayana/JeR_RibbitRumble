@@ -19,3 +19,7 @@ html, body {
     padding: 10px;
     box-sizing: border-box;
 }
+
+#active-users {
+   	color:white;
+}
