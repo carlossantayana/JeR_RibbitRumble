@@ -15,10 +15,13 @@ $(document).ready(function () {
 
     //Metodo que controla el click sobre el boton de enviar mensaje
     $("#sendChat").click(function () {
-        createMessage(message.val(), logedUserName, function(MessageCreated){
-            chatbox.val(chatbox.val()+"<"+logedUserName+">: "+ message.val() + " " + MessageCreated.date + '\n');
-            message.val(''); // Limpiar el input después de enviar el mensaje
-        })
+        if (message.val() != "") {  //Si el mensaje no es un espacio vacio
+            createMessage(message.val(), logedUserName, function (MessageCreated) {
+                chatbox.val(chatbox.val() + logedUserName + ": " + message.val() + " " + MessageCreated.date + '\n');
+                chatbox.scrollTop(chatbox[0].scrollHeight);
+                message.val(''); // Limpiar el input después de enviar el mensaje
+            })
+        }
     })
 
     if (!access) {
@@ -127,27 +130,28 @@ $(document).ready(function () {
 
             }
         });
-        
+
     }
-    
-    
+
+
     $(window).on('beforeunload', function () {
         // Llamar a updateUserStatusExit para enviar una solicitud PUT al servidor antes de que se cierre la ventana
         updateUserStatusExit(logedUser);
     });
 
-    
-    
-    GetMessages(function(Messages){
-        for(var i = 0; i < Messages.length; i++){
-            chatbox.val(chatbox.val()+"<"+ Messages[i].username +">: "+ Messages[i].message + " " + Messages[i].date + '\n');
+
+
+    GetMessages(function (Messages) {
+        for (var i = 0; i < Messages.length; i++) {
+            chatbox.val(chatbox.val() + Messages[i].username + ": " + Messages[i].message + " " + Messages[i].date + '\n');
         }
+        chatbox.scrollTop(chatbox[0].scrollHeight);
     });
-    
+
     function ActiveUsers() {
         GetUsers(function (Users) {
             var num = 0;
-            
+
             for (var i = 0; i < Users.length; i++) {
                 console.log("User: " + Users[i].active)
                 if (Users[i].active == true) {
@@ -161,16 +165,16 @@ $(document).ready(function () {
     setInterval(ActiveUsers, 2000);
 
     //FIN DE USUARIOS
-	$("#delete-user").click(function () {
-		deleteUser(logedUser);
-		location.reload();
-	});
+    $("#delete-user").click(function () {
+        deleteUser(logedUser);
+        location.reload();
+    });
 
 
 }); //Fin del documento.ready
 
 //Funcion encargada de crear mensajes y mandarlos al servidor
-function createMessage(messageContent, User, callback){
+function createMessage(messageContent, User, callback) {
 
     var message = {
         username: User,
@@ -236,7 +240,7 @@ function GetUsers(callback) {
     }).fail(function () {
         console.log("No se pudo conseguir el numero de usuarios")
     });
-    
+
 }
 
 function GetMessages(callback) {
@@ -270,7 +274,7 @@ function updateUserData(user) {
 
 function updateUserStatusExit(user) {
     user.active = false;
-    
+
     $.ajax({
         url: 'http://localhost:8080/Usuarios/' + user.id,
         method: 'PUT',
