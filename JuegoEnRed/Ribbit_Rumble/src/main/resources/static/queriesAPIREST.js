@@ -12,9 +12,9 @@ $(document).ready(function () {
     //Metodo que controla el click sobre el boton de enviar mensaje
     $("#sendChat").click(function () {
         createMessage(message.val(), logedUserName, function(MessageCreated){
-            chatbox.val(chatbox.val()+"<"+logedUserName+">: "+ message.val() + MessageCreated.date + '\n');
+            chatbox.val(chatbox.val()+"<"+logedUserName+">: "+ message.val() + " " + MessageCreated.date + '\n');
+            message.val(''); // Limpiar el input después de enviar el mensaje
         })
-        message.val(''); // Limpiar el input después de enviar el mensaje
     })
 
     if (!access) {
@@ -136,7 +136,7 @@ $(document).ready(function () {
 function createMessage(messageContent, User, callback){
 
     var message = {
-        user: User,
+        username: User,
         message: messageContent
     }
 
