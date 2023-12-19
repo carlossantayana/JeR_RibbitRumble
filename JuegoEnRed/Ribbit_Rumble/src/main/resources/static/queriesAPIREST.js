@@ -1,11 +1,14 @@
 var logedUser;
 
+
+
 $(document).ready(function () {
     console.log("El DOM está cargado")
 
     //Variables para el funcionamiento del chat
     var chatbox = $('#chatBox')
     var message = $('#input-message')
+    var activeUsers = $('#active-users');
     var logedUserName; //nombre del usuario conectado
     var access = false;
 
@@ -79,6 +82,7 @@ $(document).ready(function () {
                                 logedUser = Users[i];
                                 // SE LE ASIGNA EL ID DEL JUGADOR UNO SIEMPRE //
                                 logedUser.player = 1;
+                                updateUserStatusEnter(logedUser);
                             }
                         }//Si tras buscar, no encontro nada, se muestra este alert y sigue el bucle
                         if (!access) { alert("Usuario o contraseñas incorrectas") }
@@ -107,28 +111,57 @@ $(document).ready(function () {
                                 }
                             }
 
-                            if(!repeated){
-                            //Llamada al metodo de crear usuario
-                            registerUser(nombre, password)
-                            access = true;
-                            logedUserName = nombre;
-                            } else {alert("Usuario ya existente en el servidor")}
+                            if (!repeated) {
+                                //Llamada al metodo de crear usuario
+                                registerUser(nombre, password)
+                                access = true;
+                                logedUserName = nombre;
+                            } else { alert("Usuario ya existente en el servidor") }
                         }
                     }
                 }
-                
+
             }
         });
 
     }
     
-    //FIN DE USUARIOS
+    window.addEventListener('beforeunload', function (event) {
+        // Mostrar un mensaje de confirmación al usuario
+        event.preventDefault(); // Esto activa el mensaje de confirmación del navegador
+        event.returnValue = ''; // Esto agrega un texto al mensaje de confirmación (puede variar según el navegador)
+        
+        // Llamar a updateUserStatusExit para enviar una solicitud PUT al servidor antes de que se cierre la ventana
+        updateUserStatusExit(logedUser);
+    });
+
+    
     
     GetMessages(function(Messages){
         for(var i = 0; i < Messages.length; i++){
             chatbox.val(chatbox.val()+"<"+ Messages[i].username +">: "+ Messages[i].message + " " + Messages[i].date + '\n');
         }
     });
+    
+    function ActiveUsers() {
+        GetUsers(function (Users) {
+            var num = 0;
+            
+            for (var i = 0; i < Users.length; i++) {
+                console.log("User: " + Users[i].active)
+                if (Users[i].active == true) {
+                    num++;
+                }
+            }
+            activeUsers.text('Usuarios activos: ' + num);
+        });
+    }
+
+    setInterval(ActiveUsers, 5000);
+
+    //FIN DE USUARIOS
+
+
 
 }); //Fin del documento.ready
 
@@ -152,6 +185,7 @@ function createMessage(messageContent, User, callback){
     }).done(function (data) {
         console.log("Mensaje enviado");
         callback(data);
+
     }).fail(function () {
         console.log("Falló el envio de mensaje");
     });
@@ -165,7 +199,7 @@ function registerUser(usernameP, passwordP) {
         username: usernameP,
         password: passwordP
     }
-    
+
     //Se hace la peticion con AJAX
     $.ajax({
         method: 'POST',
@@ -198,6 +232,7 @@ function GetUsers(callback) {
     }).fail(function () {
         console.log("No se pudo conseguir el numero de usuarios")
     });
+    
 }
 
 function GetMessages(callback) {
@@ -214,19 +249,46 @@ function GetMessages(callback) {
     });
 }
 
-function updateUserData(user){
-        $.ajax({
-            method: 'PUT',
-            url: 'http://localhost:8080/Usuarios/' + user.id,
-            data: JSON.stringify(user),
-            processData: false,
-            headers: {
-                "Content-Type": "application/json"
-            }
-        }).done(function (data) {
-            console.log("Usuario actualizado: " + data)
-        })
-    
+function updateUserData(user) {
+    $.ajax({
+        method: 'PUT',
+        url: 'http://localhost:8080/Usuarios/' + user.id,
+        data: JSON.stringify(user),
+        processData: false,
+        headers: {
+            "Content-Type": "application/json"
+        }
+    }).done(function (data) {
+        console.log("Usuario actualizado: " + data)
+    })
+
 }
 
+function updateUserStatusExit(user) {
+    user.isActive = false;
+    
+    $.ajax({
+        url: 'http://localhost:8080/Usuarios/' + user.id,
+        method: 'PUT',
+        contentType: 'application/json',
+        data: JSON.stringify(user)
+    }).done(function () {
+        alert("Usuario actualizado con éxito.")
+    }).fail(function () {
+        alert("No ha sido posible actualizar el usuario")
+    });
+}
 
+function updateUserStatusEnter(user) {
+    user.isActive = true;
+    $.ajax({
+        url: 'http://localhost:8080/Usuarios/' + user.id,
+        method: 'PUT',
+        contentType: 'application/json',
+        data: JSON.stringify(user)
+    }).done(function () {
+        alert("Usuario actualizado con éxito.")
+    }).fail(function () {
+        alert("No ha sido posible actualizar el usuario")
+    });
+}
