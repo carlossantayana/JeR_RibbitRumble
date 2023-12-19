@@ -195,6 +195,40 @@ export default class Results extends Phaser.Scene {
             }
         }
 
+        /////////////////////////////////////////////// Parte de API REST ///////////////////////////////////////////////
+
+        //Si el jugador que inicio sesion (jugador 1) gana
+        if(this.parameters.winnerID == logedUser.player){
+            //Aumentamos su numero de partidas ganadas
+            logedUser.wins += 1;
+            //Aumentamos su numero de rondas ganadas
+            logedUser.roundWins += 2;
+            //Aumentamos su numero de rondas perdidas
+            logedUser.roundLoses += this.parameters.winerLoses;
+
+            //Llamamos al metodo que actualiza dicho usuario en el servidor
+            updateUserData(logedUser)
+
+            this.add.text(100, 280,"Estadisticas del Ganador: ", { fontSize: '45px' });
+            this.add.text(100, 340,"Partidas ganadas en total: " + logedUser.wins, { fontSize: '45px' });
+            this.add.text(100, 400,"Rondas ganadas en total: " + logedUser.roundWins, { fontSize: '45px' });
+            this.add.text(100, 460,"Rondas perdidas en total: " + logedUser.roundLoses, { fontSize: '45px' });
+
+            //Si el jugador ha perdido
+        } else{
+            //Decrementamos su numero de partidas perdidas
+            logedUser.loses += 1;
+            //Aumentamos su numero de rondas perdidas
+            logedUser.roundLoses += this.parameters.winerLoses;
+
+            //Llamamos al metodo que actualiza dicho usuario en el servidor
+            updateUserData(logedUser)
+        }
+
+        this.add.text(100, 210,"Jugador 1 : "+ this.parameters.winerLoses + " rondas ganadas", { fontSize: '50px' });
+
+        /////////////////////////////////////////////// Parte de API REST ///////////////////////////////////////////////
+
 
         const rematchButton = this.add.image(1000, 950, 'botonRevancha').setScale(0.75).setInteractive(); //Objeto que queremos que sea el boton
         const backButton = this.add.image(1500, 1000, 'botonVolver').setScale(0.5).setInteractive(); //Objeto que queremos que sea el boton

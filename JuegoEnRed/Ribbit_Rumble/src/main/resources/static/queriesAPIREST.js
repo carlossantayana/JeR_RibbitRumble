@@ -1,3 +1,5 @@
+var logedUser;
+
 $(document).ready(function () {
     console.log("El DOM está cargado")
 
@@ -35,10 +37,10 @@ $(document).ready(function () {
                     while (nombre === null || nombre === undefined) {
                         nombre = prompt("Nombre de usuario a crear:", "")
                     }
-                    password = prompt("Contraseña", "")
+                    password = prompt("Contraseña:", "")
                     //Si deja el espacio vacio
                     while (password === null || password === undefined) {
-                        password = prompt("Contraseña", "")
+                        password = prompt("Contraseña:", "")
                     }
                     //Llamada al metodo de crear usuario
                     registerUser(nombre, password)
@@ -60,19 +62,22 @@ $(document).ready(function () {
                         while (nombre === null || nombre === undefined) {
                             nombre = prompt("Nombre de usuario para iniciar sesion:", "")
                         }
-                        password = prompt("Contraseña del usuario", "")
+                        password = prompt("Contraseña del usuario:", "")
                         //Si deja el espacio vacio
                         while (password === null || password === undefined) {
-                            password = prompt("Contraseña del usuario", "")
+                            password = prompt("Contraseña del usuario:", "")
                         }
 
                         //Buscamos el usuario entre los datos que ha devuelto el servidor
                         for (var i = 0; i < Users.length; i++) {
 
                             if (nombre === Users[i].username && password === Users[i].password) {
-                                alert("Inicio de sesion exitoso!")
+                                alert("¡Inicio de sesion exitoso!")
                                 logedUserName = nombre;
                                 access = true;
+                                logedUser = Users[i];
+                                // SE LE ASIGNA EL ID DEL JUGADOR UNO SIEMPRE //
+                                logedUser.player = 1;
                             }
                         }//Si tras buscar, no encontro nada, se muestra este alert y sigue el bucle
                         if (!access) { alert("Usuario o contraseñas incorrectas") }
@@ -87,16 +92,16 @@ $(document).ready(function () {
                             while (nombre === null || nombre === undefined) {
                                 nombre = prompt("Nombre de usuario a crear:", "")
                             }
-                            password = prompt("Contraseña", "")
+                            password = prompt("Contraseña:", "")
                             //Si deja el espacio vacio
                             while (password === null || password === undefined) {
-                                password = prompt("Contraseña", "")
+                                password = prompt("Contraseña:", "")
                             }
 
                             //Comprobamos que el usuario que quiere crear no es repetido
                             var repeated = false;
                             for (var i = 0; i < Users.length; i++) {
-                                if (nombre === Users[i].username && password === Users[i].password) {
+                                if (nombre === Users[i].username) {
                                     repeated = true;
                                 }
                             }
@@ -110,7 +115,7 @@ $(document).ready(function () {
                         }
                     }
                 }
-                //logedUserName=nombre;
+                
             }
         });
 
@@ -122,8 +127,8 @@ $(document).ready(function () {
 
 }); //Fin del documento.ready
 
+//Funcion encargada de crear mensajes y mandarlos al servidor
 function createMessage(messageContent, User){
-    console.log(User);
 
     var message = {
         user: User,
@@ -139,8 +144,9 @@ function createMessage(messageContent, User){
         headers: {
             "Content-Type": "application/json"
         }
-    }).done(function () {
+    }).done(function (data) {
         console.log("Mensaje enviado");
+        
     }).fail(function () {
         console.log("Falló el envio de mensaje");
     });
@@ -164,25 +170,15 @@ function registerUser(usernameP, passwordP) {
         headers: {
             "Content-Type": "application/json"
         }
-    }).done(function () {
+    }).done(function (data) {
         alert("Usuario creado con éxito.")
+        logedUser = data
+        // SE LE ASIGNA EL ID DEL JUGADOR UNO SIEMPRE //
+        logedUser.player = 1;
     }).fail(function () {
         alert("No ha sido posible crear el usuario")
     });
 }
-
-function GetUserId(username, password) {
-    $.ajax({
-        url: "http://localhost:8080/Usuarios/"
-    }).done(function (data) {
-        for (var i = 0; i < data.items.length; i++) {
-            if (data.item[i].username === username && data.items[i].password === password) {
-                return data.item[i].id;
-            }
-        }
-        return -1;
-    });
-};
 
 //Funcion que devuelve el número de usuarios almacenados en el servidor
 function GetUsers(callback) {
@@ -211,6 +207,21 @@ function GetMessages(callback) {
     }).fail(function () {
         console.log("No se pudo conseguir el chat")
     });
+}
+
+function updateUserData(user){
+        $.ajax({
+            method: 'PUT',
+            url: 'http://localhost:8080/Usuarios/' + user.id,
+            data: JSON.stringify(user),
+            processData: false,
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).done(function (data) {
+            console.log("Usuario actualizado: " + data)
+        })
+    
 }
 
 
