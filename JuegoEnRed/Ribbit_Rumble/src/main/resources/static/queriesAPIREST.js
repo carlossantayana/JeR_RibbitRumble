@@ -11,6 +11,7 @@ $(document).ready(function () {
     var activeUsers = $('#active-users');
     var actualUser = $('#actual-user');
     var logedUserName; //nombre del usuario conectado
+    var actualChatMessagesLenght = 0;
     var access = false;
 
     //Metodo que controla el click sobre el boton de enviar mensaje
@@ -144,9 +145,28 @@ $(document).ready(function () {
     GetMessages(function (Messages) {
         for (var i = 0; i < Messages.length; i++) {
             chatbox.val(chatbox.val() + Messages[i].username + ": " + Messages[i].message + " " + Messages[i].date + '\n');
+            actualChatMessagesLenght = Messages.length;
         }
         chatbox.scrollTop(chatbox[0].scrollHeight);
     });
+
+    function CheckMessages(){
+        GetMessages(function (Messages){
+            if(Messages.length != actualChatMessagesLenght){
+                for (var i = actualChatMessagesLenght; i < Messages.length; i++) {
+                    if(logedUser.username != Messages[i].username){
+                        chatbox.val(chatbox.val() + Messages[i].username + ": " + Messages[i].message + " " + Messages[i].date + '\n');
+                    }
+                }
+
+                actualChatMessagesLenght = Messages.length;
+
+                chatbox.scrollTop(chatbox[0].scrollHeight);
+            }
+        });
+    }
+
+    setInterval(CheckMessages, 2000);
 
     function ActiveUsers() {
         GetUsers(function (Users) {
