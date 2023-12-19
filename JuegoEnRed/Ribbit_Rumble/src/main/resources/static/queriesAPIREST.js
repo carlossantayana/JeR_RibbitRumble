@@ -166,8 +166,10 @@ $(document).ready(function () {
 
     //FIN DE USUARIOS
     $("#delete-user").click(function () {
+		if(confirm("Pulsa aceptar si quieres borrar su cuenta. Tendrás que iniciar sesión con otra cuenta o crear una nueva.")){
         deleteUser(logedUser);
         location.reload();
+        }
     });
 
 
