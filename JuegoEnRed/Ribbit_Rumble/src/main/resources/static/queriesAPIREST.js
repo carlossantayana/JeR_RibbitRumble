@@ -126,11 +126,7 @@ $(document).ready(function () {
 
     }
     
-    window.addEventListener('beforeunload', function (event) {
-        // Mostrar un mensaje de confirmación al usuario
-        event.preventDefault(); // Esto activa el mensaje de confirmación del navegador
-        event.returnValue = ''; // Esto agrega un texto al mensaje de confirmación (puede variar según el navegador)
-        
+    $(window).on('beforeunload', function () {
         // Llamar a updateUserStatusExit para enviar una solicitud PUT al servidor antes de que se cierre la ventana
         updateUserStatusExit(logedUser);
     });
@@ -157,7 +153,7 @@ $(document).ready(function () {
         });
     }
 
-    setInterval(ActiveUsers, 5000);
+    setInterval(ActiveUsers, 2000);
 
     //FIN DE USUARIOS
 
@@ -265,7 +261,7 @@ function updateUserData(user) {
 }
 
 function updateUserStatusExit(user) {
-    user.isActive = false;
+    user.active = false;
     
     $.ajax({
         url: 'http://localhost:8080/Usuarios/' + user.id,
@@ -280,7 +276,7 @@ function updateUserStatusExit(user) {
 }
 
 function updateUserStatusEnter(user) {
-    user.isActive = true;
+    user.active = true;
     $.ajax({
         url: 'http://localhost:8080/Usuarios/' + user.id,
         method: 'PUT',
