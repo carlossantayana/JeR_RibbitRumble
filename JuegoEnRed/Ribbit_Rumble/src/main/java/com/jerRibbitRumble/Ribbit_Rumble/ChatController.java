@@ -1,7 +1,8 @@
 package com.jerRibbitRumble.Ribbit_Rumble;
 
 import java.io.*;
-
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -82,22 +83,32 @@ public class ChatController {
 	}
 	
 	@PreDestroy
-	public void writeChatMessagesFile() {
-	    try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(fileName))) {
-	        outputStream.writeObject(chatMessages);
-	        System.out.println("HashMap guardado en el archivo '" + fileName + "' correctamente.");
+	public void escribirFichero() {
+	    try {
+	        Path filePath = Paths.get(fileName);
+	        Path absolutePath = filePath.toAbsolutePath();
+
+	        try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(absolutePath.toString()))) {
+	            outputStream.writeObject(chatMessages);
+	            System.out.println("HashMap guardado en el archivo '" + absolutePath + "' correctamente.");
+	        }
 	    } catch (IOException e) {
 	        e.printStackTrace();
 	    }
 	}
 	
 	@PostConstruct
-	public void readChatMessagesFile() {
-	    try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(fileName))) {
-	    	chatMessages = (Map<Long, Mensaje>) inputStream.readObject();
-	        System.out.println("Map leído desde el archivo '" + fileName + "':");
-	        for (Long key : chatMessages.keySet()) {
-	            System.out.println("Key: " + key + ", Value: " + chatMessages.get(key));
+	public void leerFichero() {
+		try {
+	        Path filePath = Paths.get(fileName);
+	        Path absolutePath = filePath.toAbsolutePath();
+
+	        try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(absolutePath.toString()))) {
+	            chatMessages = (Map<Long, Mensaje>) inputStream.readObject();
+	            System.out.println("Map leído desde el archivo '" + absolutePath + "':");
+	            for (Long key : chatMessages.keySet()) {
+	                System.out.println("ID: " + key + ", Mensaje: " + chatMessages.get(key));
+	            }
 	        }
 	    } catch (IOException | ClassNotFoundException e) {
 	        e.printStackTrace();

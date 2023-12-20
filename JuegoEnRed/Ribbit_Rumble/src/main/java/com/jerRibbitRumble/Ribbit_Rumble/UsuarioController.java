@@ -1,6 +1,8 @@
 package com.jerRibbitRumble.Ribbit_Rumble;
 
 import java.io.*;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -97,12 +99,17 @@ public class UsuarioController {
 	
 	@PreDestroy
 	public void escribirFichero() {
-	    try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(fileName))) {
-	        outputStream.writeObject(users);
-	        System.out.println("HashMap guardado en el archivo '" + fileName + "' correctamente.");
-	    } catch (IOException e) {
-	        e.printStackTrace();
-	    }
+		 try {
+		        Path filePath = Paths.get(fileName);
+		        Path absolutePath = filePath.toAbsolutePath();
+
+		        try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(absolutePath.toString()))) {
+		            outputStream.writeObject(users);
+		            System.out.println("HashMap guardado en el archivo '" + absolutePath + "' correctamente.");
+		        }
+		    } catch (IOException e) {
+		        e.printStackTrace();
+		    }
 	}
 	
 	@PreDestroy
@@ -119,14 +126,20 @@ public class UsuarioController {
 	
 	@PostConstruct
 	public void leerFichero() {
-	    try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(fileName))) {
-	        users = (Map<Long, Usuario>) inputStream.readObject();
-	        System.out.println("Map leído desde el archivo '" + fileName + "':");
-	        for (Long key : users.keySet()) {
-	            System.out.println("ID: " + key + ", Usuario: " + users.get(key));
+		try {
+	        Path filePath = Paths.get(fileName);
+	        Path absolutePath = filePath.toAbsolutePath();
+
+	        try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(absolutePath.toString()))) {
+	            users = (Map<Long, Usuario>) inputStream.readObject();
+	            System.out.println("Map leído desde el archivo '" + absolutePath + "':");
+	            for (Long key : users.keySet()) {
+	                System.out.println("ID: " + key + ", Usuario: " + users.get(key));
+	            }
 	        }
 	    } catch (IOException | ClassNotFoundException e) {
 	        e.printStackTrace();
 	    }
 	}
 }
+
