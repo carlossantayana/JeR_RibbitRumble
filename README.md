@@ -67,9 +67,11 @@ Marcos De Ozaeta Cabadas
 
 [8.	Desarrollo	](#_toc148190703)
 
-[9.	Mejoras para el Futuro	](#_toc148190704)
+[9. Implementación con una API REST ](#_toc148190704)
 
-[10.	Referencias	](#_toc148190705)
+[10. Mejoras para el Futuro ](#_toc148190705)
+
+[11. Referencias ](#_toc148190706)
 
 
 
@@ -382,14 +384,75 @@ En lo que respecta a cambios en los ataques, el ataque bajo de la rana toro fue 
 
 En cuanto a los sonidos, al entrar en cualquiera de los tres escenarios, se reproduce una canción característica junto con sonidos de ambiente. Asimismo, todos los menús reproducen una canción de rock para acompañar al estilo artístico realista mencionado antes.
 
-# <a name="_toc148190704"></a>Mejoras para el Futuro
+# <a name="_toc148190704"></a>Implementación con una API REST
+Para la fase 3 del juego, se han implementado una serie de funcionalidades haciendo uso de una API REST y utilizando el framework de Spring.
+
+Aquí se puede observar el diagrama UML de clases de la API REST:
+![](ImagenesMD/UML.png)
+***“Diagrama UML de la API REST”***
+
+En este diagrama se puede observar que hay una clase Usuario y una clase Mensaje, y ambas tienen su respectivo controlador en los que se guardan dichos usuarios y mensajes. También están implementados en ambas clases los distintos métodos HTTP y la lectura y escritura de ficheros.
+
+Cabe destacar que la clase Usuario Controller también tiene un método que, al cerrarse el servidor, pone a los usuarios en modo desconectado; lo que permite que las sesiones de los usuarios no queden activas al volver a abrir el servidor.
+
+En cuanto a la parte del cliente, al acceder a la página se le solicita obligatoriamente que se registre como usuario.
+Para ello pueden ocurrir dos situaciones: 
+
+1. Si el servidor no tiene usuarios en memoria.
+
+![](ImagenesMD/noUsers.png)
+
+2. Si el servidor tiene usuarios en memoria.
+
+![](ImagenesMD/register_log_users.png)
+
+Si crea un usuario le saldrán dos campos de texto en los que deberá escribir su nombre y su contraseña.
+
+![](ImagenesMD/createUsername.png) 
+
+![](ImagenesMD/createPassword.png)
+
+Por el contrario, si decide iniciar sesión, le saldrán dos campos de texto parecidos y, dependiendo de si el usuario es correcto o no, aparecerán estos mensajes:
+
+![](ImagenesMD/successLog.png) 
+
+![](ImagenesMD/failedLog.png) 
+
+Los usuarios se guardarán con los siguientes atributos:
+
+![](ImagenesMD/getUsers.png) 
+
+Tras tener un usuario, ya se podrá acceder al juego y al chat de la parte inferior de la pantalla. También será capaz de ver el número de usuarios conectados simultaneamente.
+
+El usuario podrá borrar su cuenta pulsando el botón "Borrar usuario actual", y dicha cuenta estará representada por el nombre de su usuario a la derecha del botón.
+
+Al pulsar el botón de borrar la cuenta, le saldrá un mensaje de confirmación.
+
+![](ImagenesMD/deleteUser.png) 
+
+***“Confirmación de borrado de cuenta”***
+
+Respecto al chat, el usuario podrá escribir un mensaje en un campo de texto y, al enviarlo pulsando el botón "Enviar", dicho mensaje aparecerá en el campo superior con formato <Usuario: mensaje (fecha y hora)>.
+
+Además está implementado de forma que se actualiza en tiempo real para todos los usuarios cada vez que alguien manda un mensaje.
+
+Aquí se puede observar la interfaz de la pagina principal:
+![](ImagenesMD/localhostTotal.png) 
+***“Interfaz de la página”***
+
+Como última parte de la implementación en el cliente, tambien se guardan las estadísticas del usuario tras cada partida, en la que se muestran el número de partidas ganadas y el número de rondas ganadas y perdidas en total.
+
+![](ImagenesMD/resultsApiRest.png) 
+***“Pantalla de resultados”***
+
+# <a name="_toc148190705"></a>Mejoras para el Futuro
 Algunos aspectos comentados anteriormente en este documento no fueron implementados durante la fase de desarrollo inicial. Siendo entonces contenido que se ha recortado del juego, pero que son posibles implementaciones futuras. Dichos aspectos son:
 
 1. Ataque ascendente, aéreo y especial de los personajes.
 2. Animaciones de los escenarios.
 3. Control del brillo de la pantalla.
 
-# <a name="_toc148190705"></a>Referencias
+# <a name="_toc148190706"></a>Referencias
 
 Se ha tomado como referencia juegos como Mortal Kombat y Street Fighter a la hora de diseñar las mecánicas y diseño de los niveles. La estructura del GDD ha sido extraída de la teoría enseñada en la asignatura "Fundamentos del diseño y la Jugabilidad" de primero de Diseño y Desarrollo de Videojuegos.
 
@@ -402,6 +465,3 @@ La música del juego, así como los efectos de sonido, fueron sacadas de la pág
 [* Página de Pixabay](https://pixabay.com/)
 
 [* Página de Splice](https://splice.com/)
-
-
-
