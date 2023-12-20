@@ -11,15 +11,14 @@ $(document).ready(function () {
     var message = $('#input-message')
     var activeUsers = $('#active-users');
     var actualUser = $('#actual-user');
-    var logedUserName; //nombre del usuario conectado
     var actualChatMessagesLenght = 0;
     var access = false;
 
     //Metodo que controla el click sobre el boton de enviar mensaje
     $("#sendChat").click(function () {
         if (message.val() != "") {  //Si el mensaje no es un espacio vacio
-            createMessage(message.val(), logedUserName, function (MessageCreated) {
-                chatbox.val(chatbox.val() + logedUserName + ": " + message.val() + " " + MessageCreated.date + '\n');
+            createMessage(message.val(), logedUser.username, function (MessageCreated) {
+                chatbox.val(chatbox.val() + logedUser.username + ": " + message.val() + " " + MessageCreated.date + '\n');
                 chatbox.scrollTop(chatbox[0].scrollHeight);
                 message.val(''); // Limpiar el input después de enviar el mensaje
             })
@@ -30,9 +29,6 @@ $(document).ready(function () {
 
         //Utilizamos un callback para obtener el numero de usuarios en el servidor
         GetUsers(function (Users) {
-            //CONTROL PARA SABER SI FUNCIONA CORRECTAMENTE
-            console.log(Users.length)
-
             //Si no hay usuarios en el servidor
             if (Users.length === 0) {
                 alert("No existen usuarios en el servidor.\nPulsa aceptar para crear un usuario nuevo.");
@@ -57,7 +53,6 @@ $(document).ready(function () {
                     access = true;
                     actualUser.text('Usuario actual: ' + nombre);
                 }
-                logedUserName = nombre;
                 //Si ya hay usuarios en el servidor, se ejecuta este else
             } else {
                 //Bucle de inicio de sesion
@@ -83,13 +78,13 @@ $(document).ready(function () {
                         for (var i = 0; i < Users.length; i++) {
 
                             if (nombre === Users[i].username && password === Users[i].password) {
-                                alert("¡Inicio de sesion exitoso!")
-                                logedUserName = nombre;
+                                alert("¡Inicio de sesion exitoso!");
                                 access = true;
                                 actualUser.text('Usuario actual: ' + nombre);
                                 logedUser = Users[i];
                                 // SE LE ASIGNA EL ID DEL JUGADOR UNO SIEMPRE //
                                 logedUser.player = 1;
+                                console.log(logedUser);
                                 updateUserStatusEnter(logedUser);
                             }
                         }//Si tras buscar, no encontro nada, se muestra este alert y sigue el bucle
@@ -124,15 +119,13 @@ $(document).ready(function () {
                                 registerUser(nombre, password)
                                 access = true;
                                 actualUser.text('Usuario actual: ' + nombre);
-                                logedUserName = nombre;
                             } else { alert("Usuario ya existente en el servidor.") }
                         }
                     }
                 }
 
             }
-        });
-
+        });  
     }
 
 
@@ -167,14 +160,13 @@ $(document).ready(function () {
         });
     }
 
-    setInterval(CheckMessages, 2000);
+    setInterval(CheckMessages, 500);
 
     function ActiveUsers() {
         GetUsers(function (Users) {
             var num = 0;
 
             for (var i = 0; i < Users.length; i++) {
-                console.log("User: " + Users[i].active)
                 if (Users[i].active == true) {
                     num++;
                 }
@@ -204,7 +196,7 @@ function createMessage(messageContent, User, callback) {
         message: messageContent
     }
 
-    console.log("Nombre del json: " + message.username)
+    console.log("Usuario del mensaje: " + message.username)
     $.ajax({
         method: 'POST',
         url: "http://"+serverIP+"/Chat/",
@@ -242,26 +234,27 @@ function registerUser(usernameP, passwordP) {
         }
     }).done(function (data) {
         console.log("Usuario creado con éxito.")
-        logedUser = data
+        logedUser = data;
         // SE LE ASIGNA EL ID DEL JUGADOR UNO SIEMPRE //
         logedUser.player = 1;
+        console.log(logedUser);
     }).fail(function () {
         console.log("No ha sido posible crear el usuario")
     });
 }
 
-//Funcion que devuelve el número de usuarios almacenados en el servidor
+//Funcion que devuelve la lista de usuarios almacenados en el servidor
 function GetUsers(callback) {
     $.ajax({
         method: "GET",
         url: "http://"+serverIP+"/Usuarios/"
     }).done(function (data) {
-        // Llamamos al callback con el número de usuarios (esto soluciona la no sincronizacion del AJAX)
-        console.log("Numero de usuarios devuelto exitosamente")
+        // Llamamos al callback con la lista de usuarios (esto soluciona la no sincronizacion del AJAX)
+        console.log("Lista de usuarios devuelta exitosamente")
         callback(data);
 
     }).fail(function () {
-        console.log("No se pudo conseguir el numero de usuarios")
+        console.log("No se pudo conseguir la lista de usuarios")
     });
 
 }
