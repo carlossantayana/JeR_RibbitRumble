@@ -1,9 +1,10 @@
+"use strict";
 var logedUser;
-
-
+var serverIP;
 
 $(document).ready(function () {
     console.log("El DOM está cargado")
+    serverIP = location.host;
 
     //Variables para el funcionamiento del chat
     var chatbox = $('#chatBox')
@@ -206,7 +207,7 @@ function createMessage(messageContent, User, callback) {
     console.log("Nombre del json: " + message.username)
     $.ajax({
         method: 'POST',
-        url: "http://localhost:8080/Chat/",
+        url: "http://"+serverIP+"/Chat/",
         data: JSON.stringify(message),
         processData: false,
         headers: {
@@ -233,7 +234,7 @@ function registerUser(usernameP, passwordP) {
     //Se hace la peticion con AJAX
     $.ajax({
         method: 'POST',
-        url: "http://localhost:8080/Usuarios/",
+        url: "http://"+serverIP+"/Usuarios/",
         data: JSON.stringify(user),
         processData: false,
         headers: {
@@ -253,7 +254,7 @@ function registerUser(usernameP, passwordP) {
 function GetUsers(callback) {
     $.ajax({
         method: "GET",
-        url: "http://localhost:8080/Usuarios/"
+        url: "http://"+serverIP+"/Usuarios/"
     }).done(function (data) {
         // Llamamos al callback con el número de usuarios (esto soluciona la no sincronizacion del AJAX)
         console.log("Numero de usuarios devuelto exitosamente")
@@ -268,7 +269,7 @@ function GetUsers(callback) {
 function GetMessages(callback) {
     $.ajax({
         method: "GET",
-        url: "http://localhost:8080/Chat/"
+        url: "http://"+serverIP+"/Chat/"
     }).done(function (data) {
         // Llamamos al callback con el número de usuarios (esto soluciona la no sincronizacion del AJAX)
         console.log("Chat recibido ")
@@ -282,7 +283,7 @@ function GetMessages(callback) {
 function updateUserData(user) {
     $.ajax({
         method: 'PUT',
-        url: 'http://localhost:8080/Usuarios/' + user.id,
+        url: 'http://'+serverIP+'/Usuarios/' + user.id,
         data: JSON.stringify(user),
         processData: false,
         headers: {
@@ -298,7 +299,7 @@ function updateUserStatusExit(user) {
     user.active = false;
 
     $.ajax({
-        url: 'http://localhost:8080/Usuarios/' + user.id,
+        url: 'http://' +serverIP+'/Usuarios/' + user.id,
         method: 'PUT',
         contentType: 'application/json',
         data: JSON.stringify(user)
@@ -312,7 +313,7 @@ function updateUserStatusExit(user) {
 function updateUserStatusEnter(user) {
     user.active = true;
     $.ajax({
-        url: 'http://localhost:8080/Usuarios/' + user.id,
+        url: 'http://'+serverIP+'/Usuarios/' + user.id,
         method: 'PUT',
         contentType: 'application/json',
         data: JSON.stringify(user)
@@ -325,7 +326,7 @@ function updateUserStatusEnter(user) {
 
 function deleteUser(user) {
     $.ajax({
-        url: 'http://localhost:8080/Usuarios/' + user.id,
+        url: 'http://'+serverIP+'/Usuarios/' + user.id,
         method: 'DELETE',
         contentType: 'application/json',
         data: JSON.stringify(user)

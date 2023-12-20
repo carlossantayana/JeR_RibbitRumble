@@ -209,7 +209,7 @@ export default class Results extends Phaser.Scene {
             //Llamamos al metodo que actualiza dicho usuario en el servidor
             updateUserData(logedUser)
 
-            this.add.text(100, 280,"Estadisticas del Ganador: ", { fontSize: '45px' });
+            this.add.text(100, 280,"Estadisticas de: " + logedUser.username, { fontSize: '45px' });
             this.add.text(100, 340,"Partidas ganadas en total: " + logedUser.wins, { fontSize: '45px' });
             this.add.text(100, 400,"Rondas ganadas en total: " + logedUser.roundWins, { fontSize: '45px' });
             this.add.text(100, 460,"Rondas perdidas en total: " + logedUser.roundLoses, { fontSize: '45px' });
@@ -225,7 +225,7 @@ export default class Results extends Phaser.Scene {
             updateUserData(logedUser)
         }
 
-        this.add.text(100, 210,"Jugador 1 : "+ this.parameters.winerLoses + " rondas ganadas", { fontSize: '50px' });
+        //this.add.text(100, 210,"Jugador 1 : "+ this.parameters.winerLoses + " rondas ganadas", { fontSize: '50px' });
 
         /////////////////////////////////////////////// Parte de API REST ///////////////////////////////////////////////
 
