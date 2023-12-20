@@ -623,6 +623,7 @@ export default class Game extends Phaser.Scene {
             this.changeTrackResults();
             //Cargar escena de resultados con P1 como ganador
             console.log(this.parameters.winnerId);
+            console.log("L "+this.parameters.loses);
             this.scene.start("Results", this.parameters);
             this.scene.stop();
         }
@@ -632,6 +633,7 @@ export default class Game extends Phaser.Scene {
             this.changeTrackResults();
             //Cargar escena de resultados con P2 como ganador
             console.log(this.parameters.winnerId);
+            console.log("L "+this.parameters.loses);
             this.scene.start("Results", this.parameters);
             this.scene.stop();
         }
