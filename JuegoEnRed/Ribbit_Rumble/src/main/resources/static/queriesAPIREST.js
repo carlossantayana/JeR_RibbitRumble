@@ -127,7 +127,7 @@ $(document).ready(function () {
             }
         });  
     }
-
+    
 
     $(window).on('beforeunload', function () {
         // Llamar a updateUserStatusExit para enviar una solicitud PUT al servidor antes de que se cierre la ventana
