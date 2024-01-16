@@ -1,6 +1,6 @@
-export default class Charging extends Phaser.Scene {
+export default class Pairing extends Phaser.Scene {
     constructor() {
-        super('Charging');
+        super('Pairing');
     }
 
     preload()//Cargar imagenes y sonido
@@ -27,8 +27,12 @@ export default class Charging extends Phaser.Scene {
 
         //Reproducimos la animacion
         this.pantalla.anims.play('PantallaCarga')
+    }
 
-        //Cargamos en paralelo la otra escena
-        this.scene.launch('Preloader')
+    update()
+    {
+        if (connection.readyState === WebSocket.OPEN) {
+            connection.send("pairing");
+        }
     }
 }

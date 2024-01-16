@@ -34,7 +34,9 @@ export default class ModeSelectionMenu extends Phaser.Scene {
         this.scene.stop();
     }
     startNet() {
-        //Para cuando se haga
+        CreateWebSocket();
+        this.scene.start('Pairing');
+        this.scene.stop();
     }
 
 

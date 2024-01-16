@@ -250,7 +250,7 @@ function GetUsers(callback) {
         url: "http://"+serverIP+"/Usuarios/"
     }).done(function (data) {
         // Llamamos al callback con la lista de usuarios (esto soluciona la no sincronizacion del AJAX)
-        console.log("Lista de usuarios devuelta exitosamente")
+        //console.log("Lista de usuarios devuelta exitosamente")
         callback(data);
 
     }).fail(function () {
@@ -265,7 +265,7 @@ function GetMessages(callback) {
         url: "http://"+serverIP+"/Chat/"
     }).done(function (data) {
         // Llamamos al callback con el número de usuarios (esto soluciona la no sincronizacion del AJAX)
-        console.log("Chat recibido ")
+        //console.log("Chat recibido ")
         callback(data);
 
     }).fail(function () {
