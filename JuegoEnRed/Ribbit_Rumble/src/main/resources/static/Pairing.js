@@ -31,8 +31,15 @@ export default class Pairing extends Phaser.Scene {
 
     update()
     {
-        if (connection.readyState === WebSocket.OPEN) {
-            connection.send("pairing");
+		if(!paired){
+	        if (connection.readyState === WebSocket.OPEN) {
+	            connection.send("pairing");
+	        }
         }
+        
+        if(paired){
+			this.scene.start("PlayerSelectionMenuNet");
+			this.scene.stop("Pairing");
+		}
     }
 }

@@ -20,7 +20,13 @@ public class WebSocketHandler extends TextWebSocketHandler{
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		System.out.println("New session: " + session.getId());
+		
 		sessions.put(session.getId(), session);
+		
+		ObjectNode node = mapper.createObjectNode();
+		node.put("type", "login");
+		node.put("data", (sessions.size()));
+		session.sendMessage(new TextMessage(node.toString()));
 	}
 	
 	@Override
@@ -47,8 +53,8 @@ public class WebSocketHandler extends TextWebSocketHandler{
 
 		ObjectNode node = mapper.createObjectNode();
 		node.put("type", "pair");
-		node.put("state", pairState);
+		node.put("data", pairState);
 
-		session.sendMessage(new TextMessage(node.asText()));
+		session.sendMessage(new TextMessage(node.toString()));
 	}
 }

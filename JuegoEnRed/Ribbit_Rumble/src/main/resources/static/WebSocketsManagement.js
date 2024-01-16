@@ -1,5 +1,7 @@
 "use strict";
-var connection
+var connection;
+
+var paired = false;
 
 function CreateWebSocket(){
 	connection = new WebSocket('ws://'+ serverIP+'/ribbits');
@@ -14,20 +16,18 @@ function CreateWebSocket(){
 	}
 
 	connection.onmessage = function(msg) {
-		console.log("WS message: " + msg.data);
+		var jsonmsg = JSON.parse(msg.data);
+		console.log("WS message: " + jsonmsg);
 
-		switch(msg.data.type){
+		switch(jsonmsg.type){
 			case "pair":
-				if(msg.data.state){
-					pairPlayers();
+				if(jsonmsg.data === "true"){
+					paired = true;
 				}
+				break;
+			case "login":
+				logedUser.player = jsonmsg.data;
 				break;
 		}
 	}
-}
-
-function pairPlayers(){
-	console.log("Se llamó a esta función");
-	game.scenes.start("PlayerSelectionMenuNet");
-	game.scenes.stop("Pairing");
 }
