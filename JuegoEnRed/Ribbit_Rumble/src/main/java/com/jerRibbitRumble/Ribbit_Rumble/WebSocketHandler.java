@@ -9,6 +9,7 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
@@ -37,8 +38,21 @@ public class WebSocketHandler extends TextWebSocketHandler{
 	
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-		if(message.getPayload().equals("pairing")){
-			pairPlayers(session);
+		JsonNode node =mapper.readTree(message.getPayload());
+		System.out.println(node.get("type").asText());
+		switch(node.get("type").asText()) {
+			case "pairing":
+				pairPlayers(session);
+				break;
+			case "selectingCharacter":
+				for (Map.Entry<String, WebSocketSession> entry : sessions.entrySet()) 
+				{
+		            if(entry.getKey()!= session.getId()) {
+		            	System.out.println(entry.getValue());
+		            	selectCharacter(entry.getValue(),message);
+		            }
+				}
+				break;
 		}
 	}
 
@@ -55,6 +69,13 @@ public class WebSocketHandler extends TextWebSocketHandler{
 		node.put("type", "pair");
 		node.put("data", pairState);
 
+		session.sendMessage(new TextMessage(node.toString()));
+	}
+	
+	public void selectCharacter(WebSocketSession session, TextMessage message) throws Exception{
+		ObjectNode node = mapper.createObjectNode();
+		node.put("type", "playerSelect");
+		node.put("data", message.toString());
 		session.sendMessage(new TextMessage(node.toString()));
 	}
 }

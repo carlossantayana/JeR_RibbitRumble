@@ -3,6 +3,8 @@ var connection;
 
 var paired = false;
 
+var otherCharacter=null;
+
 function CreateWebSocket(){
 	connection = new WebSocket('ws://'+ serverIP+'/ribbits');
 
@@ -28,6 +30,11 @@ function CreateWebSocket(){
 			case "login":
 				logedUser.player = jsonmsg.data;
 				break;
+			case "playerSelect":
+				
+				otherCharacter=jsonmsg.data;
+				console.log(otherCharacter);
+				break
 		}
 	}
 }

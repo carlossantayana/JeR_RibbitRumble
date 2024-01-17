@@ -7,8 +7,7 @@ export default class PlayerSelectionMenuNet extends Phaser.Scene {
         //Variables auxiliares
         //Indica cuando los dos jugadores han escogido personaje
         this.playersReady = false;
-        //Indica el turno del jugador para escoger personaje
-        this.playerSelect = 1;
+        this.selected1 = false;
 
         this.parameters = {
             player1CharacterID: null,
@@ -85,64 +84,78 @@ export default class PlayerSelectionMenuNet extends Phaser.Scene {
     onFrogSelected(frogName) {
         if (!this.playersReady) {
             var scale = 0.5;
-            switch (frogName) {
-                case 'BullFrog':
-                    if (this.playerSelect == 1) {
-                        this.add.image(200, 700, 'ranaToroSelect').setScale(scale);
-                        this.parameters.player1CharacterID = 0;
-                    }
-                    else if (this.playerSelect == 2) {
-                        this.add.image(1720, 700, 'ranaToroSelect').setScale(scale).setFlipX(true);
-                        this.parameters.player2CharacterID = 0;
-                    }
-                    console.log('Rana toro seleccionada');
-                    break;
-                case 'RainFrog':
-                    if (this.playerSelect == 1) {
-                        this.add.image(200, 700, 'ranaLLuviaSelect').setScale(scale);
-                        this.parameters.player1CharacterID = 1;
-                    }
-                    else if (this.playerSelect == 2) {
-                        this.add.image(1720, 700, 'ranaLLuviaSelect').setScale(scale).setFlipX(true);
-                        this.parameters.player2CharacterID = 1;
-                    }
-                    console.log('Rana de lluvia seleccionada');
-                    break;
-                case 'PoisonFrog':
-                    if (this.playerSelect == 1) {
-                        this.add.image(200, 700, 'ranaFlechaSelect').setScale(scale);
-                        this.parameters.player1CharacterID = 2;
-                    }
-                    else if (this.playerSelect == 2) {
-                        this.add.image(1720, 700, 'ranaFlechaSelect').setScale(scale).setFlipX(true);
-                        this.parameters.player2CharacterID = 2;
-                    }
-                    console.log('Rana punta de flecha seleccionada');
-                    break;
-                case 'TrepadoraFrog':
-                    if (this.playerSelect == 1) {
-                        this.add.image(200, 700, 'ranaTrepadoraSelect').setScale(scale);
-                        this.parameters.player1CharacterID = 3;
-                    }
-                    else if (this.playerSelect == 2) {
-                        this.add.image(1720, 700, 'ranaTrepadoraSelect').setScale(scale).setFlipX(true);
-                        this.parameters.player2CharacterID = 3;
-                    }
-                    console.log('Rana trepadora seleccionada');
-                    break;
-                default:
-                    console.log('El boton si funciona pero no entra en los casos');
-            }
-
-
-            //Forma de ver turno del personaje a elegir
-            if (this.playerSelect == 1) {
-                this.playerSelect = 2;
-            }
-            else if (this.playerSelect == 2) {
-                this.playerSelect == 0;
-                this.playersReady = true;
-            }
+            if((logedUser.player == 1 && !this.selected1) || (logedUser.player==2 && otherCharacter!=null))
+            {
+				var characterSelect={
+					type: "selectingCharacter",
+					character : -1
+				};
+				console.log(this.selected1);
+				switch (frogName) {
+	                case 'BullFrog':
+						characterSelect.character=0;
+	                    if (logedUser.player == 1) {
+	                        this.add.image(200, 700, 'ranaToroSelect').setScale(scale);
+							this.selected1=true;             
+	                        this.parameters.player1CharacterID = 0;
+	                        connection.send(JSON.stringify(characterSelect));
+	                    }
+	                    else if (logedUser.player == 2) {
+	                        this.add.image(1720, 700, 'ranaToroSelect').setScale(scale).setFlipX(true);
+	                        this.parameters.player2CharacterID = 0;
+	                        connection.send(JSON.stringify(characterSelect));                     
+	                    }
+	                    console.log('Rana toro seleccionada');
+	                    break;
+	                case 'RainFrog':
+						characterSelect.character=1;
+	                    if (logedUser.player == 1) {
+	                        this.add.image(200, 700, 'ranaLLuviaSelect').setScale(scale);
+	                        this.selected1=true;  
+	                        this.parameters.player1CharacterID = 1;
+	                        connection.send(JSON.stringify(characterSelect));                   
+	                    }
+	                    else if (logedUser.player == 2) {
+	                        this.add.image(1720, 700, 'ranaLLuviaSelect').setScale(scale).setFlipX(true);
+	                        this.parameters.player2CharacterID = 1;
+	                        connection.send(JSON.stringify(characterSelect));                       
+	                    }
+	                    console.log('Rana de lluvia seleccionada');
+	                    break;
+	                case 'PoisonFrog':
+						characterSelect.character=2;
+	                    if (logedUser.player == 1) {
+	                        this.add.image(200, 700, 'ranaFlechaSelect').setScale(scale);
+	                        this.selected1=true;
+	                        this.parameters.player1CharacterID = 2;
+	                        connection.send(JSON.stringify(characterSelect));                           
+	                    }
+	                    else if (logedUser.player == 2) {
+	                        this.add.image(1720, 700, 'ranaFlechaSelect').setScale(scale).setFlipX(true);
+	                        this.parameters.player2CharacterID = 2;
+	                        connection.send(JSON.stringify(characterSelect));                        
+	                    }
+	                    console.log('Rana punta de flecha seleccionada');
+	                    break;
+	                case 'TrepadoraFrog':
+						characterSelect.character=3;
+	                    if (logedUser.player == 1) {
+	                        this.add.image(200, 700, 'ranaTrepadoraSelect').setScale(scale);
+	                        this.selected1=true;	                        
+	                        this.parameters.player1CharacterID = 3;
+	                        connection.send(JSON.stringify(characterSelect));                         
+	                    }
+	                    else if (logedUser.player == 2) {
+	                        this.add.image(1720, 700, 'ranaTrepadoraSelect').setScale(scale).setFlipX(true);
+	                        this.parameters.player2CharacterID = 3;
+	                        connection.send(JSON.stringify(characterSelect));                     
+	                    }
+	                    console.log('Rana trepadora seleccionada');
+	                    break;
+	                default:
+	                    console.log('El boton si funciona pero no entra en los casos');
+            	}
+			}
         }
     }
 

@@ -33,7 +33,10 @@ export default class Pairing extends Phaser.Scene {
     {
 		if(!paired){
 	        if (connection.readyState === WebSocket.OPEN) {
-	            connection.send("pairing");
+				var pairRequest={
+					type:"pairing"
+				}
+	            connection.send(JSON.stringify(pairRequest));
 	        }
         }
         
