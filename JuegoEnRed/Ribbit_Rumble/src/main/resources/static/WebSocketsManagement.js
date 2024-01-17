@@ -34,7 +34,7 @@ function CreateWebSocket(){
 				
 				otherCharacter=jsonmsg.data;
 				console.log(otherCharacter);
-				break
+				break;
 		}
 	}
 }

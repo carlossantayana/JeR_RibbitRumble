@@ -70,7 +70,54 @@ export default class PlayerSelectionMenuNet extends Phaser.Scene {
         this.mapSelection.setVisible(false)
     }
 
+    SetOtherCharacter(){
+		var scale = 0.5;
+		if(logedUser.player == 1 && (otherCharacter != null) && this.parameters.player2CharacterID == null) {	//Para mostrar la rana del jugador 2 al jugador 1
+			switch(otherCharacter){
+				case "0": //Rana toro
+						this.add.image(1720, 700, 'ranaToroSelect').setScale(scale).setFlipX(true);
+	                    this.parameters.player2CharacterID = 0;
+					break;
+				case "1": //Rana lluvia
+					 	this.add.image(1720, 700, 'ranaLLuviaSelect').setScale(scale).setFlipX(true);
+	                    this.parameters.player2CharacterID = 1;
+					break;
+				case "2": //Rana punta
+						this.add.image(1720, 700, 'ranaFlechaSelect').setScale(scale).setFlipX(true);
+	                    this.parameters.player2CharacterID = 2;
+					break;
+				case "3": //Rana trepadora
+					    this.add.image(1720, 700, 'ranaTrepadoraSelect').setScale(scale).setFlipX(true);
+	                    this.parameters.player2CharacterID = 3;
+					break;
+			}
+		}  
+		
+		if(logedUser.player == 2 && (otherCharacter != null) && this.parameters.player1CharacterID == null) { // Para que el jugador 2 vea que selecciono el jugador 1
+			switch(otherCharacter){
+				case "0": //Rana toro
+						this.add.image(200, 700, 'ranaToroSelect').setScale(scale);            
+	                    this.parameters.player1CharacterID = 0;
+					break;
+				case "1": //Rana lluvia
+						this.add.image(200, 700, 'ranaLLuviaSelect').setScale(scale); 
+	                    this.parameters.player1CharacterID = 1;
+					break;
+				case "2": //Rana punta
+						this.add.image(200, 700, 'ranaFlechaSelect').setScale(scale);
+	                    this.parameters.player1CharacterID = 2;
+					break;
+				case "3": //Rana trepadora
+						this.add.image(200, 700, 'ranaTrepadoraSelect').setScale(scale);	                        
+	                    this.parameters.player1CharacterID = 3;
+					break;
+								}
+			}  
+	}
+
     update() {
+		
+		this.SetOtherCharacter();
         //Si los dos jugadores han escogido personaje, se pone visible el boton para ir a seleccion de mapa
         if (this.playersReady == true) {
             this.mapSelection.setVisible(true)
@@ -84,16 +131,16 @@ export default class PlayerSelectionMenuNet extends Phaser.Scene {
     onFrogSelected(frogName) {
         if (!this.playersReady) {
             var scale = 0.5;
-            if((logedUser.player == 1 && !this.selected1) || (logedUser.player==2 && otherCharacter!=null))
+            if((logedUser.player == 1 && !this.selected1) || (logedUser.player==2 && otherCharacter!=null && !this.selected1))
             {
 				var characterSelect={
 					type: "selectingCharacter",
-					character : -1
+					data: -1
 				};
 				console.log(this.selected1);
 				switch (frogName) {
 	                case 'BullFrog':
-						characterSelect.character=0;
+						characterSelect.data=0;
 	                    if (logedUser.player == 1) {
 	                        this.add.image(200, 700, 'ranaToroSelect').setScale(scale);
 							this.selected1=true;             
@@ -102,13 +149,14 @@ export default class PlayerSelectionMenuNet extends Phaser.Scene {
 	                    }
 	                    else if (logedUser.player == 2) {
 	                        this.add.image(1720, 700, 'ranaToroSelect').setScale(scale).setFlipX(true);
+	                        this.selected1=true;
 	                        this.parameters.player2CharacterID = 0;
 	                        connection.send(JSON.stringify(characterSelect));                     
 	                    }
 	                    console.log('Rana toro seleccionada');
 	                    break;
 	                case 'RainFrog':
-						characterSelect.character=1;
+						characterSelect.data=1;
 	                    if (logedUser.player == 1) {
 	                        this.add.image(200, 700, 'ranaLLuviaSelect').setScale(scale);
 	                        this.selected1=true;  
@@ -117,13 +165,14 @@ export default class PlayerSelectionMenuNet extends Phaser.Scene {
 	                    }
 	                    else if (logedUser.player == 2) {
 	                        this.add.image(1720, 700, 'ranaLLuviaSelect').setScale(scale).setFlipX(true);
+	                        this.selected1=true;
 	                        this.parameters.player2CharacterID = 1;
 	                        connection.send(JSON.stringify(characterSelect));                       
 	                    }
 	                    console.log('Rana de lluvia seleccionada');
 	                    break;
 	                case 'PoisonFrog':
-						characterSelect.character=2;
+						characterSelect.data=2;
 	                    if (logedUser.player == 1) {
 	                        this.add.image(200, 700, 'ranaFlechaSelect').setScale(scale);
 	                        this.selected1=true;
@@ -132,13 +181,14 @@ export default class PlayerSelectionMenuNet extends Phaser.Scene {
 	                    }
 	                    else if (logedUser.player == 2) {
 	                        this.add.image(1720, 700, 'ranaFlechaSelect').setScale(scale).setFlipX(true);
+	                        this.selected1=true;
 	                        this.parameters.player2CharacterID = 2;
 	                        connection.send(JSON.stringify(characterSelect));                        
 	                    }
 	                    console.log('Rana punta de flecha seleccionada');
 	                    break;
 	                case 'TrepadoraFrog':
-						characterSelect.character=3;
+						characterSelect.data=3;
 	                    if (logedUser.player == 1) {
 	                        this.add.image(200, 700, 'ranaTrepadoraSelect').setScale(scale);
 	                        this.selected1=true;	                        
@@ -147,6 +197,7 @@ export default class PlayerSelectionMenuNet extends Phaser.Scene {
 	                    }
 	                    else if (logedUser.player == 2) {
 	                        this.add.image(1720, 700, 'ranaTrepadoraSelect').setScale(scale).setFlipX(true);
+	                        this.selected1=true;
 	                        this.parameters.player2CharacterID = 3;
 	                        connection.send(JSON.stringify(characterSelect));                     
 	                    }
@@ -159,6 +210,9 @@ export default class PlayerSelectionMenuNet extends Phaser.Scene {
         }
     }
 
+
+
+	
     //Encargada de llevar a la escena de seleccion de mapa
     onMapSelection() {
         this.playersReady = false;
@@ -166,4 +220,5 @@ export default class PlayerSelectionMenuNet extends Phaser.Scene {
         this.scene.start('MapSelectionMenu', this.parameters); //Cargar Escena de selección de mapa
         this.scene.stop()
     }
+    
 }

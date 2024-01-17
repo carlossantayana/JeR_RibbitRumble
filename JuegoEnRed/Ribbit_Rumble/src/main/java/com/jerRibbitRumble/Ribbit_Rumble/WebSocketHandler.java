@@ -40,6 +40,7 @@ public class WebSocketHandler extends TextWebSocketHandler{
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 		JsonNode node = mapper.readTree(message.getPayload());
 		String type = node.get("type").toString();
+		
 		type = type.replaceAll("\"", "");
 		
 		switch(type) {
@@ -47,11 +48,15 @@ public class WebSocketHandler extends TextWebSocketHandler{
 				pairPlayers(session);
 				break;
 			case "selectingCharacter":
+				
+				String data = node.get("data").toString();
+				data = data.replaceAll("\"", "");
+				
 				for (Map.Entry<String, WebSocketSession> entry : sessions.entrySet()) 
 				{
 		            if(entry.getKey()!= session.getId()) {
 		            	System.out.println(entry.getValue());
-		            	selectCharacter(entry.getValue(),message);
+		            	selectCharacter(entry.getValue(), data);
 		            }
 				}
 				break;
@@ -74,10 +79,10 @@ public class WebSocketHandler extends TextWebSocketHandler{
 		session.sendMessage(new TextMessage(node.toString()));
 	}
 	
-	public void selectCharacter(WebSocketSession session, TextMessage message) throws Exception{
+	public void selectCharacter(WebSocketSession session, String message) throws Exception{
 		ObjectNode node = mapper.createObjectNode();
 		node.put("type", "playerSelect");
-		node.put("data", message.toString());
+		node.put("data", message);
 		session.sendMessage(new TextMessage(node.toString()));
 	}
 }
