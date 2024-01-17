@@ -1,4 +1,7 @@
 "use strict";
+var transitionTimer = 0;
+
+var transition = false
 
 export default class PlayerSelectionMenuNet extends Phaser.Scene {
     constructor() {
@@ -60,14 +63,6 @@ export default class PlayerSelectionMenuNet extends Phaser.Scene {
         PoisonFrog.on('pointerdown', () => this.onFrogSelected('PoisonFrog'));
         TrepadoraFrog.on('pointerdown', () => this.onFrogSelected('TrepadoraFrog'));
 
-        //Creacion del boton de ir a seleccion de mapa
-        this.mapSelection = this.add.image(960, 960, 'botonContinuar').setScale(0.5);
-
-        this.mapSelection.setInteractive()
-        this.mapSelection.on('pointerdown', () => this.onMapSelection());
-        this.mapSelection.on('pointerover', function () { this.setScale(0.55) });
-        this.mapSelection.on('pointerout', function () { this.setScale(0.5) });
-        this.mapSelection.setVisible(false)
     }
 
     SetOtherCharacter(){
@@ -115,16 +110,25 @@ export default class PlayerSelectionMenuNet extends Phaser.Scene {
 			}  
 	}
 
-    update() {
+    update(time, delta) {
 		
 		this.SetOtherCharacter();
-        //Si los dos jugadores han escogido personaje, se pone visible el boton para ir a seleccion de mapa
-        if (this.playersReady == true) {
-            this.mapSelection.setVisible(true)
-        }
-        else {  //En el caso contrario, lo deja oculto
-            this.mapSelection.setVisible(false)
-        }
+        //Si los dos jugadores han escogido personaje, se va a la seleccion de mapa
+        if(this.parameters.player1CharacterID!=null && this.parameters.player2CharacterID!=null)
+        {
+			transition= true;
+		}
+        if(transition)
+        {
+			transitionTimer += delta/1000;
+			if(transitionTimer > 3)
+			{
+				//cambio de escena
+				this.scene.start("MapSelectionMenuNet", this.parameters);
+				this.scene.stop();
+			}
+		}
+        
     }
 
     //Encargada de indicar el personaje elegido y de mostrar la imagen del rectangulo
@@ -209,16 +213,4 @@ export default class PlayerSelectionMenuNet extends Phaser.Scene {
 			}
         }
     }
-
-
-
-	
-    //Encargada de llevar a la escena de seleccion de mapa
-    onMapSelection() {
-        this.playersReady = false;
-        this.playerSelect = 1
-        this.scene.start('MapSelectionMenu', this.parameters); //Cargar Escena de selección de mapa
-        this.scene.stop()
-    }
-    
 }

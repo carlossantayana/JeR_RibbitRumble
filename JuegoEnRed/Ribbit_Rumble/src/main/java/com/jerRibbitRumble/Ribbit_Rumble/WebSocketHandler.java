@@ -60,6 +60,32 @@ public class WebSocketHandler extends TextWebSocketHandler{
 		            }
 				}
 				break;
+			case "selectingMap":
+				
+				String data2 = node.get("data").toString();
+				data2 = data2.replaceAll("\"", "");
+				
+				for (Map.Entry<String, WebSocketSession> entry : sessions.entrySet()) 
+				{
+		            if(entry.getKey()!= session.getId()) {
+		            	System.out.println(entry.getValue());
+		            	selectMap(entry.getValue(), data2);
+		            }
+				}
+				break;
+			case "mapSelected":
+				
+				String data3 = node.get("data").toString();
+				data3 = data3.replaceAll("\"", "");
+				
+				for (Map.Entry<String, WebSocketSession> entry : sessions.entrySet()) 
+				{
+		            if(entry.getKey()!= session.getId()) {
+		            	System.out.println(entry.getValue());
+		            	mapFinalSelection(entry.getValue(), data3);
+		            }
+				}
+				break;
 		}
 	}
 
@@ -82,6 +108,18 @@ public class WebSocketHandler extends TextWebSocketHandler{
 	public void selectCharacter(WebSocketSession session, String message) throws Exception{
 		ObjectNode node = mapper.createObjectNode();
 		node.put("type", "playerSelect");
+		node.put("data", message);
+		session.sendMessage(new TextMessage(node.toString()));
+	}
+	public void selectMap(WebSocketSession session, String message) throws Exception{
+		ObjectNode node = mapper.createObjectNode();
+		node.put("type", "mapSelect");
+		node.put("data", message);
+		session.sendMessage(new TextMessage(node.toString()));
+	}
+	public void mapFinalSelection(WebSocketSession session, String message) throws Exception{
+		ObjectNode node = mapper.createObjectNode();
+		node.put("type", "finalSelect");
 		node.put("data", message);
 		session.sendMessage(new TextMessage(node.toString()));
 	}

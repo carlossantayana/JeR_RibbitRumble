@@ -5,6 +5,10 @@ var paired = false;
 
 var otherCharacter=null;
 
+var otherMap = null;
+
+var finalMap = null;
+
 function CreateWebSocket(){
 	connection = new WebSocket('ws://'+ serverIP+'/ribbits');
 
@@ -34,6 +38,18 @@ function CreateWebSocket(){
 				
 				otherCharacter=jsonmsg.data;
 				console.log(otherCharacter);
+				break;
+				
+			case "mapSelect":
+				
+				otherMap=jsonmsg.data;
+				console.log(otherMap);
+				break;
+				
+			case "finalSelect":
+				
+				finalMap = jsonmsg.data;
+				console.log(finalMap);
 				break;
 		}
 	}
