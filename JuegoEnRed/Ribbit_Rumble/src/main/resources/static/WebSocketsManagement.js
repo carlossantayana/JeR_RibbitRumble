@@ -10,7 +10,7 @@ function CreateWebSocket(){
 
 	connection.onopen = function () {
 		console.log("WS connection established");
-		connection.send(logedUser.username);
+		//connection.send(JSON.stringify(logedUser));
 	}
 
 	connection.onerror = function(e) {

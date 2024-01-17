@@ -38,9 +38,11 @@ public class WebSocketHandler extends TextWebSocketHandler{
 	
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-		JsonNode node =mapper.readTree(message.getPayload());
-		System.out.println(node.get("type").asText());
-		switch(node.get("type").asText()) {
+		JsonNode node = mapper.readTree(message.getPayload());
+		String type = node.get("type").toString();
+		type = type.replaceAll("\"", "");
+		
+		switch(type) {
 			case "pairing":
 				pairPlayers(session);
 				break;
