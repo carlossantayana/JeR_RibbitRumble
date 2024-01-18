@@ -58,9 +58,10 @@ export default class Game extends Phaser.Scene {
         this.parameters.p2CharacterID = data.player2CharacterID;
         this.parameters.p1AltSkin = false;
         this.parameters.p2AltSkin = false;
-        this.parameters.mapID = data.mapID;
+        this.parameters.mapID = parseInt(data.mapID);
         this.parameters.p1WonRounds = 0;
         this.parameters.p2WonRounds = 0;
+        
     }
 
     create() {
@@ -70,16 +71,22 @@ export default class Game extends Phaser.Scene {
 
         switch (this.parameters.mapID) {
             case 0:
+				console.log("Creando suelo desierto")
                 this.ground.create(960, 1075, '').setScale(1920, 4).refreshBody();
                 this.add.image(960, 540, 'desiertoFondo');
                 break;
             case 1:
+				console.log("Creando suelo nenufar")
                 this.ground.create(960, 1080, '').setScale(1920, 4).refreshBody();
                 this.add.image(960, 540, 'nenufarFondo');
                 break;
             case 2:
+				console.log("Creando suelo jungla")
                 this.ground.create(960, 1030, '').setScale(1920, 6).refreshBody();
                 this.add.image(960, 540, 'junglaFondo');
+                break;
+            default:
+				console.log("No se ha podido crear el fondo y el suelo")
         }
 
         var p1Texture;

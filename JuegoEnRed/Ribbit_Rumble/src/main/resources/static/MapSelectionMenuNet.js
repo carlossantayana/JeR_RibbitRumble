@@ -102,6 +102,7 @@ export default class MapSelectionMenuNet extends Phaser.Scene {
 					type: "mapSelected",
 					data: this.finalSelection
 				};
+				console.log("Enviando el mapa final al servidor: " + mapSelected)
 				connection.send(JSON.stringify(mapSelected));
 			}
 		}
@@ -118,7 +119,7 @@ export default class MapSelectionMenuNet extends Phaser.Scene {
 					}
 					this.finalSelection = finalMap;
 					console.log(this.finalSelection);
-					this.finalMap = null
+					finalMap = null
 					this.gameStarting++;
 				}
 			}
@@ -224,7 +225,7 @@ export default class MapSelectionMenuNet extends Phaser.Scene {
 				console.log("Player 1: " + this.parameters.player1CharacterID);
 				console.log("Player 2: " + this.parameters.player2CharacterID);
 				console.log("MapID: " + this.parameters.mapID);
-				this.scene.start('Game', this.parameters);
+				this.scene.start('GameNet', this.parameters);
 				this.scene.stop();
 			}
 		}

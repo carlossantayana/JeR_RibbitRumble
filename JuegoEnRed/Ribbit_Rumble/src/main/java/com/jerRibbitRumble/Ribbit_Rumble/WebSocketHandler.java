@@ -47,6 +47,7 @@ public class WebSocketHandler extends TextWebSocketHandler{
 			case "pairing":
 				pairPlayers(session);
 				break;
+				
 			case "selectingCharacter":
 				
 				String data = node.get("data").toString();
@@ -86,6 +87,16 @@ public class WebSocketHandler extends TextWebSocketHandler{
 		            }
 				}
 				break;
+			case "inputUpdate":
+				
+				for (Map.Entry<String, WebSocketSession> entry : sessions.entrySet()) 
+				{
+		            if(entry.getKey()!= session.getId()) {
+		            	System.out.println(entry.getValue());
+		            	updateInputs(entry.getValue(), node);
+		            }
+				}
+				break;
 		}
 	}
 
@@ -121,6 +132,10 @@ public class WebSocketHandler extends TextWebSocketHandler{
 		ObjectNode node = mapper.createObjectNode();
 		node.put("type", "finalSelect");
 		node.put("data", message);
+		session.sendMessage(new TextMessage(node.toString()));
+	}
+	
+	public void updateInputs(WebSocketSession session, JsonNode node) throws Exception{
 		session.sendMessage(new TextMessage(node.toString()));
 	}
 }

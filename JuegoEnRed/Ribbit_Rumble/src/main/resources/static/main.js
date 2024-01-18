@@ -12,6 +12,7 @@ import ModeSelectionMenu from './ModeSelectionMenu.js';
 import MapSelectionMenu from './MapSelectionMenu.js';
 import MapSelectionMenuNet from './MapSelectionMenuNet.js';
 import Game from './Game.js';
+import GameNet from './GameNet.js';
 import Results from './Results.js';
 
 const config = { //Configuración general
@@ -20,7 +21,7 @@ const config = { //Configuración general
     height: 1080,
     parent: 'game-container', // Especifica el contenedor del juego
     backgroundColor: '#000000',
-    scene: [Charging, Preloader, MainMenu, SettingsMenu, AudioManager, ModeSelectionMenu, PlayerSelectionMenu, Pairing, PlayerSelectionMenuNet, MapSelectionMenu, MapSelectionMenuNet, Game, Results], //Escenas, Preloader está primero, se cargara Preloader primero
+    scene: [Charging, Preloader, MainMenu, SettingsMenu, AudioManager, ModeSelectionMenu, PlayerSelectionMenu, Pairing, PlayerSelectionMenuNet, MapSelectionMenu, MapSelectionMenuNet, Game, GameNet, Results], //Escenas, Preloader está primero, se cargara Preloader primero
     scale: {
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH

@@ -9,6 +9,18 @@ var otherMap = null;
 
 var finalMap = null;
 
+//Booleanos para el movimiento, sustituyen la comprobacion de la entrada, luego actualizan el valor de las variables this.player locales
+var otherWalkLeft = false;	//Vale true si mantiene pulsado
+var otherWalkRight = false;	//Vale true si mantiene pulsado
+
+var otherJump = false;	//dudoso
+var otherCrounching = false
+//Bloquear, mantener pulsado
+var otherBlocking = false;
+//Atacar, solo pulsar
+var otherAttack = false;
+var otherLowAttack = false;
+
 function CreateWebSocket(){
 	connection = new WebSocket('ws://'+ serverIP+'/ribbits');
 
@@ -50,6 +62,16 @@ function CreateWebSocket(){
 				
 				finalMap = jsonmsg.data;
 				console.log(finalMap);
+				break;
+			case "inputUpdate":
+				 otherWalkLeft = jsonmsg.walkLeft;	
+				 otherWalkRight = jsonmsg.walkRight;	
+				
+				 //otherJump = false;	
+				 //otherCrounching = false
+				 //otherBlocking = false;
+				 //otherAttack = false;
+				 //otherLowAttack = false;
 				break;
 		}
 	}
