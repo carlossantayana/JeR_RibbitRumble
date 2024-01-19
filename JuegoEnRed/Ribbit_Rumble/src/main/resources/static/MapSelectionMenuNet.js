@@ -29,6 +29,9 @@ export default class MapSelectionMenuNet extends Phaser.Scene {
 			player2CharacterID: null,
 			mapID: null
 		}
+		
+		this.turnoTexto = null;
+		this.turnoNum = null;
 	}
 
 	init(data) {
@@ -43,8 +46,16 @@ export default class MapSelectionMenuNet extends Phaser.Scene {
 
 
 
-		//Texto superior "Selecciona un escenario:"
-		this.add.text(400, 40, "Selecciona un escenario", { fontSize: '80px' });
+		//Texto superior 
+		if (logedUser.player == 1) {
+			this.add.text(60, 40, "Eres el jugador 1", { fontSize: '40px' });
+		}
+
+		if (logedUser.player == 2) {
+			this.add.text(60, 40, "Eres el jugador 2", { fontSize: '40px' });
+		}
+
+		this.turnoTexto = this.add.text(740, 40, "Turno del jugador 1", { fontSize: '40px' });
 
 		//Fondo para los mapas a seleccionar
 		this.add.rectangle(960, 280, 1670, 300, 0x606060);
@@ -208,7 +219,24 @@ export default class MapSelectionMenuNet extends Phaser.Scene {
 			this.parameters.mapID = this.finalSelection;
 			this.timerChangeScene += delta / 1000;
 
-			if (this.timerChangeScene >= 3) {
+			if(this.timerChangeScene >= 0 && this.timerChangeScene < 1)
+			{
+				if(this.turnoNum != null){
+				this.turnoNum.destroy();
+				}
+				this.turnoNum = this.add.image(960, 960, '3').setScale(0.65, 0.65);
+			}
+			if(this.timerChangeScene >= 1 && this.timerChangeScene < 2)
+			{
+				this.turnoNum.destroy();
+				this.turnoNum = this.add.image(960, 960, '2').setScale(0.65, 0.65);
+			}
+			if(this.timerChangeScene >= 2 && this.timerChangeScene <= 3)
+			{
+				this.turnoNum.destroy();
+				this.turnoNum = this.add.image(960, 960, '1').setScale(0.65, 0.65);
+			}
+			if (this.timerChangeScene > 3) {
 				this.playersReady = false;
 				this.gameStarting = 0;
 				this.mapOneImage = undefined;
@@ -297,6 +325,8 @@ export default class MapSelectionMenuNet extends Phaser.Scene {
 					this.player1Selection = 3;
 					break;
 			}
+			this.turnoTexto.destroy();
+			this.turnoTexto = this.add.text(740, 40, "Turno del jugador 2", { fontSize: '40px' });
 		}
 	}
 
@@ -326,7 +356,8 @@ export default class MapSelectionMenuNet extends Phaser.Scene {
 							this.player1Selection = 0;
 							this.selected1 = true;
 							connection.send(JSON.stringify(mapSelect));
-
+							this.turnoTexto.destroy();
+							this.turnoTexto = this.add.text(740, 40, "Turno del jugador 2", { fontSize: '40px' });
 						}
 						else if (logedUser.player == 2) {
 							this.add.rectangle(posX2, posY, rectWidth, rectHeight, 0x606060);
@@ -348,6 +379,8 @@ export default class MapSelectionMenuNet extends Phaser.Scene {
 							this.player1Selection = 1;
 							this.selected1 = true;
 							connection.send(JSON.stringify(mapSelect));
+							this.turnoTexto.destroy();
+							this.turnoTexto = this.add.text(740, 40, "Turno del jugador 2", { fontSize: '40px' });
 						}
 						else if (logedUser.player == 2) {
 							this.add.rectangle(posX2, posY, rectWidth, rectHeight, 0x606060);
@@ -369,6 +402,8 @@ export default class MapSelectionMenuNet extends Phaser.Scene {
 							this.player1Selection = 2;
 							this.selected1 = true;
 							connection.send(JSON.stringify(mapSelect));
+							this.turnoTexto.destroy();
+							this.turnoTexto = this.add.text(740, 40, "Turno del jugador 2", { fontSize: '40px' });
 						}
 						else if (logedUser.player == 2) {
 							this.add.rectangle(posX2, posY, rectWidth, rectHeight, 0x606060);
@@ -390,6 +425,8 @@ export default class MapSelectionMenuNet extends Phaser.Scene {
 							this.player1Selection = 3;
 							this.selected1 = true;
 							connection.send(JSON.stringify(mapSelect));
+							this.turnoTexto.destroy();
+							this.turnoTexto = this.add.text(740, 40, "Turno del jugador 2", { fontSize: '40px' });
 						}
 						else if (logedUser.player == 2) {
 							this.add.rectangle(posX2, posY, rectWidth, rectHeight, 0x606060);
