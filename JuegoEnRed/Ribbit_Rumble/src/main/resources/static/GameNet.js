@@ -348,7 +348,9 @@ export default class GameNet extends Phaser.Scene {
         //Movimiento básico//
         //Si pulsa la D
         if (this.keyD.isDown && !this.player.crouching && !this.player.blocking && !this.player.attacking && !this.player.receivingDamage) {
-			
+			if(this.inputUpdates.walkLeft){
+				this.inputUpdates.walkLeft = false;
+			}
 			this.inputUpdates.walkRight = true;
 			
             this.player.setVelocityX(this.player.speed);
@@ -360,7 +362,9 @@ export default class GameNet extends Phaser.Scene {
                 this.player.playWalkAnim();
             }
         } else if (this.keyA.isDown && !this.player.crouching && !this.player.blocking && !this.player.attacking && !this.player.receivingDamage) {
-            
+            if(this.inputUpdates.walkRight){
+				this.inputUpdates.walkRight = false;
+			}
             this.inputUpdates.walkLeft = true;
             
             this.player.setVelocityX(-this.player.speed);
