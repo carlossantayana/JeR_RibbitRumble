@@ -9,6 +9,8 @@ export default class ResultsNet extends Phaser.Scene {
             winnerID: 0,
             winnerLoses: 0
         }
+
+        this.timer = 0;
     }
 
     init(data) //Esto se ejecuta al iniciar la escena, recibirá el personaje ganador y perdedor, además del número del jugador que haya ganado
@@ -17,9 +19,11 @@ export default class ResultsNet extends Phaser.Scene {
         this.parameters.p2CharacterID = data.player2CharacterID;
         this.parameters.winnerID = data.winnerId;
         this.parameters.winnerLoses = data.loses;
+
         console.log(data.winnerId);
         console.log(this.parameters.winnerID);
-        connection.close();
+
+        this.timer = 0;
     }
 
     create() {
@@ -292,5 +296,15 @@ export default class ResultsNet extends Phaser.Scene {
     }
     changeTrackMenu() {
         this.scene.get('AudioManager').events.emit('changeTrackMenu');
+    }
+
+    update(time, delta){
+        if(this.timer <= 1){
+            this.timer += delta / 1000;
+        }else{
+            if(connection.readyState === WebSocket.OPEN){
+                connection.close();
+            }
+        }
     }
 }
