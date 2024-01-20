@@ -117,7 +117,9 @@ export default class AccountScene extends Phaser.Scene {
 			if(this.warning != null || this.warning != undefined){
 				this.warning.destroy()
 			}
+			
 				this.warning = this.add.text(this.background.x - 250, this.background.y + 180, "Este usuario ya existe", { fontSize: '40px', color: 'black' });
+				
 			
 			break;
 			
@@ -267,8 +269,11 @@ export default class AccountScene extends Phaser.Scene {
 			console.log("Usuario o contraseña invalida")
 			code = 1
 		} else {
-		registerUser(this.username, this.password)
-		this.repeatedUserCreation = true
+			
+		if(!registerUser(this.username, this.password)){
+			this.repeatedUserCreation = true
+		}
+	
 		}
 	}
 	
@@ -326,7 +331,7 @@ export default class AccountScene extends Phaser.Scene {
 function loginUser(username, password){ 
 		GetUsers(function (Users) {            
           	//Buscamos el usuario entre los datos que ha devuelto el servidor
-          	if(Users.length < 1 ){
+          	if(Users.length > 0 ){
               for (var i = 0; i < Users.length; i++) {
                  if (username === Users[i].username && password === Users[i].password) {
                     if(!Users[i].active){

@@ -114,7 +114,7 @@ function createMessage(messageContent, User, callback) {
 //Funcion que se llama cuando se va a registrar un usuario y hace el POST al servidor
 function registerUser(usernameP, passwordP) {
 //Obtenemos los usuarios existentes para comprobar si el usuario a crear ya existe
-GetUsers(function (Users) {
+return GetUsers(function (Users) {
 	
      var repeated = false;
      for (var i = 0; i < Users.length; i++) {
@@ -145,11 +145,13 @@ GetUsers(function (Users) {
         // SE LE ASIGNA EL ID DEL JUGADOR UNO SIEMPRE //
         logedUser.player = 1;
         console.log(logedUser);
+        return true;
     }).fail(function () {
         console.log("No ha sido posible crear el usuario")
     	});
     } else {
 		console.log("Usuario ya existente en el servidor")
+		return false
 		}
 })
 
