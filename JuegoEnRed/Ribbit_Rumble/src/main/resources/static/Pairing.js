@@ -6,16 +6,16 @@ export default class Pairing extends Phaser.Scene {
     preload()//Cargar imagenes y sonido
     {
         //Pantalla de Carga
-        this.load.setPath('assets');
-        this.load.spritesheet('Cargando', 'Cargando.png', { frameWidth: 1920, frameHeight: 1080 });
+        this.load.setPath('assets/Menu/Menus general');
+        this.load.spritesheet('Emparejamiento', 'Emparejamiento.png', { frameWidth: 1920, frameHeight: 1080 });
 
     }
 
     create() //crear animaciones y cargar escena inicial
     {
         //Creacion del objeto
-        this.pantalla = this.physics.add.sprite(960, 540, 'Cargando');
-        this.pantalla.setCollideWorldBounds(true);
+        this.pantalla2 = this.physics.add.sprite(960, 540, 'Emparejamiento');
+        this.pantalla2.setCollideWorldBounds(true);
         
         //Boton para volver al menu principal
         
@@ -25,15 +25,15 @@ export default class Pairing extends Phaser.Scene {
         volverButton.on('pointerout', function () { volverButton.setScale(0.5) });
 
         //Creacion de la animacion
-        this.pantalla.anims.create({
-            key: 'PantallaCarga',
-            frames: this.anims.generateFrameNumbers('Cargando', { start: 0, end: 4 }),
+        this.pantalla2.anims.create({
+            key: 'PantallaEmparejamiento',
+            frames: this.anims.generateFrameNumbers('Emparejamiento', { start: 0, end: 4 }),
             frameRate: 12,
             repeat: -1
         });
 
         //Reproducimos la animacion
-        this.pantalla.anims.play('PantallaCarga')
+        this.pantalla2.anims.play('PantallaEmparejamiento')
     }
 
     update()
