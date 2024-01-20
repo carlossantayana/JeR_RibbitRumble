@@ -31,7 +31,7 @@ const config = { //Configuración general
         default: 'arcade',
         arcade: {
             gravity: 300,
-            debug: false
+            debug: true
         }
     }
 };

@@ -71,9 +71,6 @@ function CreateWebSocket(){
 				otherAttack = jsonmsg.attack;
 				otherLowAttack = jsonmsg.lowAttack;
 				break;
-			case "syncHealth":
-				otherHealth=jsonmsg.health;
-				break;
 			case "syncTime":
 				otherCifra1=parseInt(jsonmsg.cifra1);
 				otherCifra2=parseInt(jsonmsg.cifra2);

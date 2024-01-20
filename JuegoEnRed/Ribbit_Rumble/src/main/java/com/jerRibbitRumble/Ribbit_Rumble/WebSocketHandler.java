@@ -85,15 +85,6 @@ public class WebSocketHandler extends TextWebSocketHandler{
 		            }
 				}
 				break;
-			case "syncHealth":
-				for (Map.Entry<String, WebSocketSession> entry : sessions.entrySet()) 
-				{
-		            if(entry.getKey()!= session.getId()) {
-		            	System.out.println(entry.getValue());
-		            	SyncHealth(entry.getValue(), node);
-		            }
-				}
-				break;
 			case "syncTime":
 				for (Map.Entry<String, WebSocketSession> entry : sessions.entrySet()) 
 				{
