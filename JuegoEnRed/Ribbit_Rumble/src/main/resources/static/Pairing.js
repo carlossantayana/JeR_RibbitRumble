@@ -16,6 +16,13 @@ export default class Pairing extends Phaser.Scene {
         //Creacion del objeto
         this.pantalla = this.physics.add.sprite(960, 540, 'Cargando');
         this.pantalla.setCollideWorldBounds(true);
+        
+        //Boton para volver al menu principal
+        
+        var volverButton = this.add.image(1650, 150, 'botonVolver').setScale(0.5).setInteractive();//Creacion y funcionalidad del boton volver
+        volverButton.on('pointerdown', () => this.returnToMenu());
+        volverButton.on('pointerover', function () { volverButton.setScale(0.55) });
+        volverButton.on('pointerout', function () { volverButton.setScale(0.5) });
 
         //Creacion de la animacion
         this.pantalla.anims.create({
@@ -45,4 +52,11 @@ export default class Pairing extends Phaser.Scene {
 			this.scene.stop("Pairing");
 		}
     }
+    
+    returnToMenu()
+    {
+		connection.close();
+		this.scene.start('MainMenu');
+        this.scene.stop();
+	}
 }
