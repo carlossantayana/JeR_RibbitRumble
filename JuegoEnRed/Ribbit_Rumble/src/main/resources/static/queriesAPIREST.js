@@ -24,131 +24,7 @@ $(document).ready(function () {
                 message.val(''); // Limpiar el input después de enviar el mensaje
             })
         }
-    })
-
-
-    /*function loginUser(username, password){ 
-		GetUsers(function (Users) {            
-                        //Buscamos el usuario entre los datos que ha devuelto el servidor
-                        for (var i = 0; i < Users.length; i++) {
-
-                            if (nombre === Users[i].username && password === Users[i].password) {
-                                alert("¡Inicio de sesion exitoso!");
-                                access = true;
-                                actualUser.text('Usuario actual: ' + nombre);
-                                logedUser = Users[i];
-                                // SE LE ASIGNA EL ID DEL JUGADOR UNO SIEMPRE //
-                                logedUser.player = 1;
-                                console.log(logedUser);
-                                updateUserStatusEnter(logedUser);
-                            }
-                        }
-					});
-				}*/
-
-   /* if (!access) {
-
-        //Utilizamos un callback para obtener el numero de usuarios en el servidor
-        GetUsers(function (Users) {
-            //Si no hay usuarios en el servidor
-            if (Users.length === 0) {
-                alert("No existen usuarios en el servidor.\nPulsa aceptar para crear un usuario nuevo.");
-
-                //Primer bucle donde se crea el primer usuario
-                while (!access) {
-                    var nombre
-                    var password
-
-                    nombre = prompt("Nombre de usuario a crear:", "")
-                    //Si deja el espacio vacio
-                    while (nombre === null || nombre === undefined) {
-                        nombre = prompt("Nombre de usuario a crear:", "")
-                    }
-                    password = prompt("Contraseña:", "")
-                    //Si deja el espacio vacio
-                    while (password === null || password === undefined) {
-                        password = prompt("Contraseña:", "")
-                    }
-                    //Llamada al metodo de crear usuario
-                    registerUser(nombre, password)
-                    access = true;
-                    actualUser.text('Usuario actual: ' + nombre);
-                }
-                //Si ya hay usuarios en el servidor, se ejecuta este else
-            } else {
-                //Bucle de inicio de sesion
-                while (!access) {
-                    //Si confirma que quiere iniciar sesion
-                    if (confirm("Para poder jugar necesitas un usuario.\nPulsa aceptar para iniciar sesión o cancelar para crear un nuevo usuario.")) {
-
-                        var nombre
-                        var password
-
-                        nombre = prompt("Nombre de usuario para iniciar sesion:", "")
-                        //Si deja el espacio vacio
-                        while (nombre === null || nombre === undefined) {
-                            nombre = prompt("Nombre de usuario para iniciar sesion:", "")
-                        }
-                        password = prompt("Contraseña del usuario:", "")
-                        //Si deja el espacio vacio
-                        while (password === null || password === undefined) {
-                            password = prompt("Contraseña del usuario:", "")
-                        }
-
-                        //Buscamos el usuario entre los datos que ha devuelto el servidor
-                        for (var i = 0; i < Users.length; i++) {
-
-                            if (nombre === Users[i].username && password === Users[i].password) {
-                                alert("¡Inicio de sesion exitoso!");
-                                access = true;
-                                actualUser.text('Usuario actual: ' + nombre);
-                                logedUser = Users[i];
-                                // SE LE ASIGNA EL ID DEL JUGADOR UNO SIEMPRE //
-                                logedUser.player = 1;
-                                console.log(logedUser);
-                                updateUserStatusEnter(logedUser);
-                            }
-                        }//Si tras buscar, no encontro nada, se muestra este alert y sigue el bucle
-                        if (!access) { alert("Usuario o contraseñas incorrectas.") }
-
-                    } else { //Si no quiere iniciar sesion y quiere crear un nuevo usuario, entra en el bucle de crear cuenta
-                        while (!access) {
-                            var nombre
-                            var password
-
-                            nombre = prompt("Nombre de usuario a crear:", "")
-                            //Si deja el espacio vacio
-                            while (nombre === null || nombre === undefined) {
-                                nombre = prompt("Nombre de usuario a crear:", "")
-                            }
-                            password = prompt("Contraseña:", "")
-                            //Si deja el espacio vacio
-                            while (password === null || password === undefined) {
-                                password = prompt("Contraseña:", "")
-                            }
-
-                            //Comprobamos que el usuario que quiere crear no es repetido
-                            var repeated = false;
-                            for (var i = 0; i < Users.length; i++) {
-                                if (nombre === Users[i].username) {
-                                    repeated = true;
-                                }
-                            }
-
-                            if (!repeated) {
-                                //Llamada al metodo de crear usuario
-                                registerUser(nombre, password)
-                                access = true;
-                                actualUser.text('Usuario actual: ' + nombre);
-                            } else { alert("Usuario ya existente en el servidor.") }
-                        }
-                    }
-                }
-
-            }
-        });  
-    }*/
-    
+    })    
 
     $(window).on('beforeunload', function () {
         // Llamar a updateUserStatusExit para enviar una solicitud PUT al servidor antes de que se cierre la ventana
@@ -237,9 +113,18 @@ function createMessage(messageContent, User, callback) {
 
 //Funcion que se llama cuando se va a registrar un usuario y hace el POST al servidor
 function registerUser(usernameP, passwordP) {
-
-    //Creamos el usuario con los parametros pasados
-    var user = {
+//Obtenemos los usuarios existentes para comprobar si el usuario a crear ya existe
+GetUsers(function (Users) {
+	
+     var repeated = false;
+     for (var i = 0; i < Users.length; i++) {
+          if (usernameP === Users[i].username) {
+              repeated = true;
+              }
+           }	
+  if(!repeated){ 
+	         
+	var user = {
         username: usernameP,
         password: passwordP
     }
@@ -262,7 +147,10 @@ function registerUser(usernameP, passwordP) {
         console.log(logedUser);
     }).fail(function () {
         console.log("No ha sido posible crear el usuario")
-    });
+    	});
+    } else {console.log("Usuario ya existente en el servidor")}
+})
+
 }
 
 //Funcion que devuelve la lista de usuarios almacenados en el servidor

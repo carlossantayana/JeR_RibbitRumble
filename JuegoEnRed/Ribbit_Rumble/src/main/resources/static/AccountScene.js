@@ -18,6 +18,7 @@ export default class AccountScene extends Phaser.Scene {
         this.dirty = false;
         
         this.continue
+        //this.actualUser = $('#actual-user');
         
         
     }
@@ -56,6 +57,9 @@ export default class AccountScene extends Phaser.Scene {
     update(){
     
     if(access){
+		var actualUser = document.getElementById('actual-user');
+        actualUser.innerHTML = ('Usuario actual: ' + this.username);
+        
 		this.scene.start('MainMenu');
 		this.scene.stop('AccountScene');
 	}
@@ -193,21 +197,21 @@ export default class AccountScene extends Phaser.Scene {
 
 function loginUser(username, password){ 
 		GetUsers(function (Users) {            
-                        //Buscamos el usuario entre los datos que ha devuelto el servidor
-                        for (var i = 0; i < Users.length; i++) {
+              //Buscamos el usuario entre los datos que ha devuelto el servidor
+                  for (var i = 0; i < Users.length; i++) {
 
-                            if (username === Users[i].username && password === Users[i].password) {
-                                //alert("¡Inicio de sesion exitoso!");
+                        if (username === Users[i].username && password === Users[i].password) {
+                                if(!Users[i].active){
                                 access = true;
-                                var actualUser = document.getElementById("actual-user");
-                                actualUser.innerHTML = ('Usuario actual: ' + username);
+                                 // this.actualUser.text('Usuario actual: ' + username);
                                 logedUser = Users[i];
                                 // SE LE ASIGNA EL ID DEL JUGADOR UNO SIEMPRE //
                                 logedUser.player = 1;
                                 console.log(logedUser);
                                 updateUserStatusEnter(logedUser);
+                                } else {console.log("Usuario ya logeado")}
                             }
-                        }
-					});
-				}
+                   }
+		});
+	}
 
