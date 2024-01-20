@@ -21,6 +21,10 @@ var otherBlocking = false;
 var otherAttack = false;
 var otherLowAttack = false;
 
+var otherHealth;
+var otherCifra1;
+var otherCifra2;
+
 function CreateWebSocket(){
 	connection = new WebSocket('ws://'+ serverIP+'/ribbits');
 
@@ -47,31 +51,32 @@ function CreateWebSocket(){
 				logedUser.player = jsonmsg.data;
 				break;
 			case "characterSelection":
-				
 				otherCharacter=parseInt(jsonmsg.data);
 				console.log(otherCharacter);
 				break;
-				
 			case "mapSelection":
-				
 				otherMap=parseInt(jsonmsg.data);
 				console.log(otherMap);
 				break;
-				
 			case "finalMapSelection":
-				
 				finalMapSelection = parseInt(jsonmsg.data);
 				console.log(finalMapSelection);
 				break;
 			case "inputUpdate":
-				 otherWalkLeft = jsonmsg.walkLeft;	
-				 otherWalkRight = jsonmsg.walkRight;	
-				
-				 otherJump = jsonmsg.jump;	
-				 otherCrouching = jsonmsg.crouching;
-				 otherBlocking = jsonmsg.blocking;
-				 otherAttack = jsonmsg.attack;
-				 otherLowAttack = jsonmsg.lowAttack;
+				otherWalkLeft = jsonmsg.walkLeft;	
+				otherWalkRight = jsonmsg.walkRight;	
+				otherJump = jsonmsg.jump;	
+				otherCrouching = jsonmsg.crouching;
+				otherBlocking = jsonmsg.blocking;
+				otherAttack = jsonmsg.attack;
+				otherLowAttack = jsonmsg.lowAttack;
+				break;
+			case "syncHealth":
+				otherHealth=jsonmsg.health;
+				break;
+			case "syncTime":
+				otherCifra1=parseInt(jsonmsg.cifra1);
+				otherCifra2=parseInt(jsonmsg.cifra2);
 				break;
 		}
 	}

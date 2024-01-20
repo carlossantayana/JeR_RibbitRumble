@@ -59,8 +59,7 @@ export default class GameNet extends Phaser.Scene {
 				blocking: false,
 				attack: false,
 				lowAttack: false
-				};
-
+		};
     }
 
     init(data) //Esto se ejecuta al iniciar la escena, recibe los personajes elegidos y el mapa seleccionado 
@@ -706,31 +705,61 @@ export default class GameNet extends Phaser.Scene {
         ///////////////////////////////////////////Gestion del tiempo////////////////////////////////////////////////////////////
 
         //Si ha pasado un segundo
-        if (this.timer >= 1) {
-            //Disminuimos la segunda cifra del temporizador
-            this.cifra2--;
-            if (this.cifra2 == -1) {  //Si la segunda cifra es negativa, le asignamos el valor 9 y reducimos la otra cifra
-                this.cifra2 = 9;
-                this.cifra1--
-            }
-            if (this.cifra1 != -1) {  //Mientras la primera cifra no valga -1, actualizamos las imágenes
-                this.numeroUno.destroy();
+		if (this.timer >= 1) {
+        //Disminuimos la segunda cifra del temporizador
+        if(logedUser.player==1){
+			this.cifra2--;
+	        if (this.cifra2 == -1) {  //Si la segunda cifra es negativa, le asignamos el valor 9 y reducimos la otra cifra
+	            this.cifra2 = 9;
+	            this.cifra1--
+	        }
+	        if (this.cifra1 != -1) {  //Mientras la primera cifra no valga -1, actualizamos las imágenes
+	            this.numeroUno.destroy();
+	            this.numeroDos.destroy();
+	            this.numeroUno = this.add.image(900, 80, this.cifra1.toString()).setScale(0.65, 0.65);
+	            this.numeroDos = this.add.image(1020, 80, this.cifra2.toString()).setScale(0.65, 0.65);
+	            //JSON que guarda el estado de los numeros del cronómetro
+        		this.timeNumbers = {
+					type: "syncTime",
+					cifra1: this.cifra1,
+					cifra2: this.cifra2
+				};
+	            connection.send(JSON.stringify(this.timeNumbers));
+	        }
+		}
+		else{
+			if(logedUser.player==2){
+				this.cifra1=otherCifra1;
+				this.cifra2=otherCifra2
+				console.log("cifra1"+otherCifra1);
+				console.log("cifra2"+otherCifra2);
+				this.numeroUno.destroy();
                 this.numeroDos.destroy();
-                this.numeroUno = this.add.image(900, 80, this.cifra1.toString()).setScale(0.65, 0.65);
+			    this.numeroUno = this.add.image(900, 80, this.cifra1.toString()).setScale(0.65, 0.65);
                 this.numeroDos = this.add.image(1020, 80, this.cifra2.toString()).setScale(0.65, 0.65);
+	            if (this.cifra1 === 0 && this.cifra2 === 0) {
+	                if (this.player.hp >= this.otherPlayer.hp) {
+	                    this.roundEnd(2);
+	                }
+	                else {
+	                    this.roundEnd(1);
+	                }
+	            }
+			}
+		}
+        if (this.cifra1 === 0 && this.cifra2 === 0) {
+            if (this.player.hp >= this.otherPlayer.hp) {
+                this.roundEnd(2);
             }
-            if (this.cifra1 === 0 && this.cifra2 === 0) {
-                if (this.player.hp >= this.otherPlayer.hp) {
-                    this.roundEnd(2);
-                }
-                else {
-                    this.roundEnd(1);
-                }
+            else {
+                this.roundEnd(1);
             }
+        }
 
             this.timer = 0;
         }
         this.timer += delta / 1000;
+
         
         //Send de los inputs al servidor
         console.log("Enviando inputs");
@@ -780,13 +809,21 @@ export default class GameNet extends Phaser.Scene {
             this.otherPlayer.hp = this.otherPlayer.maxhp;
             this.setValueBar1(1);
             this.setValueBar2(1);
-            this.player.x = 190;
+            if(logedUser.player==1){
+            	this.player.x = 190;
+            	this.otherPlayer.x = 1730;
+            	this.player.setFlipX(false);
+            	this.otherPlayer.setFlipX(true);
+			}
+			else if (logedUser.player==2)
+			{
+				this.player.x = 1730;
+            	this.otherPlayer.x = 190;
+            	this.player.setFlipX(true);
+            	this.otherPlayer.setFlipX(false);
+			}
             this.player.y = 800;
-            this.otherPlayer.x = 1730;
             this.otherPlayer.y = 800;
-            this.player.setFlipX(false);
-            this.otherPlayer.setFlipX(true);
-
         }
     }
 

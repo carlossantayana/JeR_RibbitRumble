@@ -85,6 +85,24 @@ public class WebSocketHandler extends TextWebSocketHandler{
 		            }
 				}
 				break;
+			case "syncHealth":
+				for (Map.Entry<String, WebSocketSession> entry : sessions.entrySet()) 
+				{
+		            if(entry.getKey()!= session.getId()) {
+		            	System.out.println(entry.getValue());
+		            	SyncHealth(entry.getValue(), node);
+		            }
+				}
+				break;
+			case "syncTime":
+				for (Map.Entry<String, WebSocketSession> entry : sessions.entrySet()) 
+				{
+		            if(entry.getKey()!= session.getId()) {
+		            	System.out.println(entry.getValue());
+		            	SyncTime(entry.getValue(), node);
+		            }
+				}
+				break;
 		}
 	}
 
@@ -115,6 +133,14 @@ public class WebSocketHandler extends TextWebSocketHandler{
 	}
 	
 	public void updateInputs(WebSocketSession session, JsonNode node) throws Exception{
+		session.sendMessage(new TextMessage(node.toString()));
+	}
+	
+	public void SyncHealth(WebSocketSession session, JsonNode node) throws Exception{
+		session.sendMessage(new TextMessage(node.toString()));
+	}
+	
+	public void SyncTime(WebSocketSession session, JsonNode node) throws Exception{
 		session.sendMessage(new TextMessage(node.toString()));
 	}
 }
