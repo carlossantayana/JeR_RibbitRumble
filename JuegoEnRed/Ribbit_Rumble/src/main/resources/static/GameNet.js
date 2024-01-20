@@ -10,7 +10,6 @@ export default class GameNet extends Phaser.Scene {
 
         this.ground;
 
-        this.cursors;
         this.keyW;
         this.keyA;
         this.keyS;
@@ -56,7 +55,7 @@ export default class GameNet extends Phaser.Scene {
 				walkLeft: false,
 				walkRight: false,
 				jump: false,
-				crounching: false,
+				crouching: false,
 				blocking: false,
 				attack: false,
 				lowAttack: false
@@ -160,7 +159,6 @@ export default class GameNet extends Phaser.Scene {
 		}
 		
         //Inputs
-        this.cursors = this.input.keyboard.createCursorKeys();
         this.keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
         this.keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         this.keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
@@ -341,12 +339,10 @@ export default class GameNet extends Phaser.Scene {
     update(timer, delta) {
         this.player.checkInmuneStatus();
         this.otherPlayer.checkInmuneStatus();
-        this.updateOtherInputs()	//Llamada para actualizar los inputs del otro
 
         /////////////////////////////////////////////////Player Inputs//////////////////////////////////////////////////////////
 
         //Movimiento básico//
-        //Si pulsa la D
         if (this.keyD.isDown && !this.player.crouching && !this.player.blocking && !this.player.attacking && !this.player.receivingDamage) {
 			if(this.inputUpdates.walkLeft){
 				this.inputUpdates.walkLeft = false;
@@ -386,28 +382,35 @@ export default class GameNet extends Phaser.Scene {
 
         //Atacar//
         if (!this.player.crouching && Phaser.Input.Keyboard.JustDown(this.keyF) && !this.player.blocking && !this.player.jumping && !this.player.attacking && !this.player.receivingDamage) {
+            this.inputUpdates.attack = true;
             this.player.setVelocityX(0);
             this.player.attacking = true;
             this.player.justAttack = true;
             this.player.playBasicAttackAnim();
             
         } else if (this.player.crouching && Phaser.Input.Keyboard.JustDown(this.keyF) && !this.player.blocking && !this.player.jumping && !this.player.attacking && !this.player.receivingDamage) {
+            this.inputUpdates.lowAttack = true;
             this.player.setVelocityX(0);
             this.player.attacking = true;
             this.player.justAttack = true;
             this.player.playDownAttackAnim();
         } else if (this.player.attacking && !this.player.anims.isPlaying) {
+            this.inputUpdates.attack = false;
+            this.inputUpdates.lowAttack = false;
             this.player.attacking = false;
         }
 
         //Bloquear//
         if (this.keyG.isDown && !this.player.crouching && !this.player.jumping && !this.player.blocking && !this.player.attacking && !this.player.receivingDamage) {
+            this.inputUpdates.blocking = true;
+            
             this.player.setVelocityX(0);
             this.player.blocking = true;
             this.player.playBeginBlockAnim();
         } else if (this.keyG.isDown && this.player.blocking && !this.player.receivingDamage) {
             this.player.playBlockAnim();
         } else if (Phaser.Input.Keyboard.JustUp(this.keyG) && this.player.blocking && !this.player.receivingDamage) {
+            this.inputUpdates.blocking = false;
             this.player.playEndBlockAnim();
         } else if (this.player.blocking && !this.player.anims.isPlaying && !this.player.receivingDamage) {
             this.player.blocking = false;
@@ -415,26 +418,36 @@ export default class GameNet extends Phaser.Scene {
 
         //Agacharse//
         if (this.keyS.isDown && !this.player.crouching && !this.player.jumping && !this.player.blocking && !this.player.attacking && !this.player.receivingDamage) {
+            this.inputUpdates.crouching = true;
+            
             this.player.setVelocityX(0);
             this.player.crouching = true;
             this.player.playBeginCrouchAnim();
         } else if (this.keyS.isDown && this.player.crouching && !this.player.attacking && !this.player.receivingDamage) {
             this.player.playCrouchAnim();
         } else if (this.player.crouching && !this.player.attacking && (Phaser.Input.Keyboard.JustUp(this.keyS) || this.keyS.isUp) && !this.player.receivingDamage) {
+            this.inputUpdates.crouching = false;
+            
             this.player.playEndCrouchAnim();
             this.player.crouching = false;
         }
 
         //Saltar//
         if (this.keyW.isDown && !this.player.jumping && this.player.touchingGround && !this.player.crouching && !this.player.blocking && !this.player.attacking && !this.player.receivingDamage) {
+            this.inputUpdates.jump = true;
+            
             this.player.jumping = true;
             this.player.touchingGround = false;
             this.player.setVelocityY(this.player.jump);
             this.player.playBeginJumpAnim();
             this.selectSound(0);
         } else if (this.player.jumping && !this.player.touchingGround && !this.player.receivingDamage) {
+            this.inputUpdates.jump = false;
+            
             this.player.playJumpAnim();
         } else if (this.player.jumping && this.player.touchingGround && !this.player.receivingDamage) {
+            this.inputUpdates.jump = false;
+
             this.player.playEndJumpAnim();
             this.player.jumping = false;
         }
@@ -466,12 +479,12 @@ export default class GameNet extends Phaser.Scene {
         }
 
         //Atacar//
-        if (!this.otherPlayer.crouching && Phaser.Input.Keyboard.JustDown(this.keyNumpad1) && !this.otherPlayer.blocking && !this.otherPlayer.jumping && !this.otherPlayer.attacking && !this.otherPlayer.receivingDamage) {
+        if (!this.otherPlayer.crouching && otherAttack && !this.otherPlayer.blocking && !this.otherPlayer.jumping && !this.otherPlayer.attacking && !this.otherPlayer.receivingDamage) {
             this.otherPlayer.setVelocityX(0);
             this.otherPlayer.attacking = true;
             this.otherPlayer.justAttack = true;
             this.otherPlayer.playBasicAttackAnim();
-        } else if (this.otherPlayer.crouching && Phaser.Input.Keyboard.JustDown(this.keyNumpad1) && !this.otherPlayer.blocking && !this.otherPlayer.jumping && !this.otherPlayer.attacking && !this.otherPlayer.receivingDamage) {
+        } else if (this.otherPlayer.crouching && otherLowAttack && !this.otherPlayer.blocking && !this.otherPlayer.jumping && !this.otherPlayer.attacking && !this.otherPlayer.receivingDamage) {
             this.otherPlayer.setVelocityX(0);
             this.otherPlayer.attacking = true;
             this.otherPlayer.justAttack = true;
@@ -481,11 +494,11 @@ export default class GameNet extends Phaser.Scene {
         }
 
         //Bloquear//
-        if (this.keyNumpad2.isDown && !this.otherPlayer.crouching && !this.otherPlayer.jumping && !this.otherPlayer.blocking && !this.otherPlayer.attacking && !this.otherPlayer.receivingDamage) {
+        if (otherBlocking && !this.otherPlayer.crouching && !this.otherPlayer.jumping && !this.otherPlayer.blocking && !this.otherPlayer.attacking && !this.otherPlayer.receivingDamage) {
             this.otherPlayer.setVelocityX(0);
             this.otherPlayer.blocking = true;
             this.otherPlayer.playBeginBlockAnim();
-        } else if (this.keyNumpad2.isDown && this.otherPlayer.blocking && !this.otherPlayer.receivingDamage) {
+        } else if (otherBlocking && this.otherPlayer.blocking && !this.otherPlayer.receivingDamage) {
             this.otherPlayer.playBlockAnim();
         } else if (Phaser.Input.Keyboard.JustUp(this.keyNumpad2) && this.otherPlayer.blocking && !this.otherPlayer.receivingDamage) {
             this.otherPlayer.playEndBlockAnim();
@@ -494,19 +507,19 @@ export default class GameNet extends Phaser.Scene {
         }
 
         //Agacharse//
-        if (this.cursors.down.isDown && !this.otherPlayer.crouching && !this.otherPlayer.jumping && !this.otherPlayer.blocking && !this.otherPlayer.attacking && !this.otherPlayer.receivingDamage) {
+        if (otherCrouching && !this.otherPlayer.crouching && !this.otherPlayer.jumping && !this.otherPlayer.blocking && !this.otherPlayer.attacking && !this.otherPlayer.receivingDamage) {
             this.otherPlayer.setVelocityX(0);
             this.otherPlayer.crouching = true;
             this.otherPlayer.playBeginCrouchAnim();
-        } else if (this.cursors.down.isDown && this.otherPlayer.crouching && !this.otherPlayer.attacking && !this.otherPlayer.receivingDamage) {
+        } else if (otherCrouching && this.otherPlayer.crouching && !this.otherPlayer.attacking && !this.otherPlayer.receivingDamage) {
             this.otherPlayer.playCrouchAnim();
-        } else if (this.otherPlayer.crouching && !this.otherPlayer.attacking && (Phaser.Input.Keyboard.JustUp(this.cursors.down) || this.cursors.down.isUp) && !this.otherPlayer.receivingDamage) {
+        } else if (this.otherPlayer.crouching && !this.otherPlayer.attacking && (!otherCrouching) && !this.otherPlayer.receivingDamage) {
             this.otherPlayer.playEndCrouchAnim();
             this.otherPlayer.crouching = false;
         }
 
         //Saltar//
-        if (this.cursors.up.isDown && !this.otherPlayer.jumping && this.otherPlayer.touchingGround && !this.otherPlayer.crouching && !this.otherPlayer.blocking && !this.otherPlayer.attacking && !this.otherPlayer.receivingDamage) {
+        if (otherJump && !this.otherPlayer.jumping && this.otherPlayer.touchingGround && !this.otherPlayer.crouching && !this.otherPlayer.blocking && !this.otherPlayer.attacking && !this.otherPlayer.receivingDamage) {
             this.otherPlayer.jumping = true;
             this.otherPlayer.touchingGround = false;
             this.otherPlayer.setVelocityY(this.otherPlayer.jump);
@@ -934,8 +947,4 @@ export default class GameNet extends Phaser.Scene {
     selectSound(soundNum) {
         this.scene.get('AudioManager').events.emit('selectSound', soundNum)
     }
-    
-    updateOtherInputs(){
-		//this.otherPlayer.
-	}
 }

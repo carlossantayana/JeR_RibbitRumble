@@ -58,7 +58,7 @@ export default class Game extends Phaser.Scene {
         this.parameters.p2CharacterID = data.player2CharacterID;
         this.parameters.p1AltSkin = false;
         this.parameters.p2AltSkin = false;
-        this.parameters.mapID = parseInt(data.mapID);
+        this.parameters.mapID = data.mapID;
         this.parameters.p1WonRounds = 0;
         this.parameters.p2WonRounds = 0;
         

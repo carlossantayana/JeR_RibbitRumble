@@ -14,7 +14,7 @@ var otherWalkLeft = false;	//Vale true si mantiene pulsado
 var otherWalkRight = false;	//Vale true si mantiene pulsado
 
 var otherJump = false;	//dudoso
-var otherCrounching = false
+var otherCrouching = false
 //Bloquear, mantener pulsado
 var otherBlocking = false;
 //Atacar, solo pulsar
@@ -67,11 +67,11 @@ function CreateWebSocket(){
 				 otherWalkLeft = jsonmsg.walkLeft;	
 				 otherWalkRight = jsonmsg.walkRight;	
 				
-				 //otherJump = false;	
-				 //otherCrounching = false
-				 //otherBlocking = false;
-				 //otherAttack = false;
-				 //otherLowAttack = false;
+				 otherJump = jsonmsg.jump;	
+				 otherCrouching = jsonmsg.crouching;
+				 otherBlocking = jsonmsg.blocking;
+				 otherAttack = jsonmsg.attack;
+				 otherLowAttack = jsonmsg.lowAttack;
 				break;
 		}
 	}
