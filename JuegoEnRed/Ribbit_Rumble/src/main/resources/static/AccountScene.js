@@ -22,7 +22,7 @@ export default class AccountScene extends Phaser.Scene {
         //Variables que almacenan los datos
         this.username = ""
         this.password = ""
-        this.notVisiblepassword = ""
+        this.notVisiblePassword = ""
         
         //Booleanos de control de escritura
         this.canWriteUsername = false;
@@ -129,6 +129,15 @@ export default class AccountScene extends Phaser.Scene {
 				this.warning = this.add.text(this.background.x - 580, this.background.y + 180, "Ya hay una sesion iniciada con este usuario", { fontSize: '40px', color: 'black' });
 			
 			break;
+			
+			case 4: //No hay usuarios en el servidor
+			
+			if(this.warning != null || this.warning != undefined){
+				this.warning.destroy()
+			}
+				this.warning = this.add.text(this.background.x - 510, this.background.y + 180, "No hay usuarios en el servidor. Crea uno", { fontSize: '40px', color: 'black' });
+			
+			break;
 		}
 	}
     
@@ -162,18 +171,18 @@ export default class AccountScene extends Phaser.Scene {
         if (event.key == 'Backspace' || event.code == 'Backspace' || event.keyCode == 127) {
             // Si es la tecla de retroceso, elimina el último carácter de 'username'
             this.password = this.password.slice(0, -1);
-            this.notVisiblepassword = this.notVisiblepassword.slice(0, -1)
+            this.notVisiblePassword = this.notVisiblePassword.slice(0, -1)
         } else {
             // Agrega el carácter a 'password' y un * a 'notVisiblePassword' y si no supera lso 20 caracteres
             if(this.password.length < 20){
             	this.password += event.key;
-            	this.notVisiblepassword += "*"
+            	this.notVisiblePassword += "*"
             }
         }
         
         //Actualiza el texto de la pantalla
         this.passwordLineText.destroy()
-		this.passwordLineText = this.add.text(this.passwordBox.x - 250, this.passwordBox.y - 20, this.password.toString(), { fontSize: '40px', color: 'black' });
+		this.passwordLineText = this.add.text(this.passwordBox.x - 250, this.passwordBox.y - 20, this.notVisiblePassword.toString(), { fontSize: '40px', color: 'black' });
     }
 }
 
@@ -190,7 +199,7 @@ export default class AccountScene extends Phaser.Scene {
        
        //Creacion de la caja donde se escribe la contraseña
        this.passwordBox = this.add.rectangle(960, 430, 500, 80, 0xFFFFFF).setInteractive();
-       this.passwordLineText = this.add.text(this.passwordBox.x - 250, this.passwordBox.y  - 20, this.password.toString(), { fontSize: '40px', color: 'black' });
+       this.passwordLineText = this.add.text(this.passwordBox.x - 250, this.passwordBox.y  - 20, this.notVisiblePassword.toString(), { fontSize: '40px', color: 'black' });
        this.passwordLabel = this.add.text(this.passwordBox.x - 250, this.passwordBox.y - 75, "Contraseña", { fontSize: '40px', color: 'white' });
        
        //Eventos cuando se pulsa sobre ellos
@@ -236,7 +245,7 @@ export default class AccountScene extends Phaser.Scene {
        
        //Creacion de la caja donde se escribe la contraseña
        this.passwordBox = this.add.rectangle(960, 430, 500, 80, 0xFFFFFF).setInteractive();
-       this.passwordLineText = this.add.text(this.passwordBox.x - 250, this.passwordBox.y - 20, this.password.toString(), { fontSize: '40px', color: 'black' });
+       this.passwordLineText = this.add.text(this.passwordBox.x - 250, this.passwordBox.y - 20, this.notVisiblePassword.toString(), { fontSize: '40px', color: 'black' });
        this.passwordLabel = this.add.text(this.passwordBox.x - 250, this.passwordBox.y - 75, "Contraseña", { fontSize: '40px', color: 'white' });
        
        //Eventos cuando se pulsa sobre ellos
@@ -298,7 +307,7 @@ export default class AccountScene extends Phaser.Scene {
 		this.return.destroy()
 		this.username = ""
         this.password = ""
-        this.notVisiblepassword = ""
+        this.notVisiblePassword = ""
         this.canWriteUsername = false;
         this.canWritePassword = false;
         this.dirty = false
@@ -317,7 +326,8 @@ export default class AccountScene extends Phaser.Scene {
 function loginUser(username, password){ 
 		GetUsers(function (Users) {            
           	//Buscamos el usuario entre los datos que ha devuelto el servidor
-             for (var i = 0; i < Users.length; i++) {
+          	if(Users.length < 1 ){
+              for (var i = 0; i < Users.length; i++) {
                  if (username === Users[i].username && password === Users[i].password) {
                     if(!Users[i].active){
                      access = true;
@@ -338,7 +348,11 @@ function loginUser(username, password){
 					code = 0
 					
 				 }
-             }
+               }
+             } else {
+				 console.log("No hay usuarios en el servidor")
+				 code = 4
+			 	}
 	    });
 	}
 
