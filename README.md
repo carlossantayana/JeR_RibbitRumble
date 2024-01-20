@@ -69,9 +69,11 @@ Marcos De Ozaeta Cabadas
 
 [9. Implementación con una API REST ](#_toc148190704)
 
-[10. Mejoras para el Futuro ](#_toc148190705)
+[10. Implementación con Web Sockets ](#_toc148190705)
 
-[11. Referencias ](#_toc148190706)
+[10. Mejoras para el Futuro ](#_toc148190706)
+
+[11. Referencias ](#_toc148190707)
 
 
 
@@ -445,14 +447,40 @@ Como última parte de la implementación en el cliente, tambien se guardan las e
 ![](ImagenesMD/resultsApiRest.png) 
 ***“Pantalla de resultados”***
 
-# <a name="_toc148190705"></a>Mejoras para el Futuro
+# <a name="_toc148190705"></a>Implementación con Web Sockets
+Para la fase 4, se han implementado una serie de funcionalidades haciendo uso de Web Sockets y utilizando, al igual que con la API REST, el framework de Spring.
+
+Aquí se puede observar el diagrama UML de clases de la parte del servidor relacionada con Web Sockets.
+![](ImagenesMD/UML_Fase4.jpg)
+***“Diagrama UML del servidor relacionado con Web Sockets”***
+
+En el diagrama se muestra como se relacionan las distintas clases que se encargan de la parte de gestionar los Web Sockets. 
+Los mensajes que mandan los usuarios se gestionan y procesan en la clase WebSocketHandler. Todos los mensajes que se envían al servidor contienen un string que los envía a su gestión del mensaje correspondiente. Así pues, estos mensajes se utilizan para las siguientes funcionalidades en red:
+- **Emparejamiento entre ambos jugadores.** Cuando se pulsa el botón de selección de modo "En red", se abre una conexión al servidor por medio de un Web Socket, que en el instante que se crea comienza a mandar un string, "pairing", al servidor para conectarse con el otro cliente. el servidor devuelve un JSON con un booleano que indica si se han conectado 2 clientes o no, y ambos clientes lo reciben hasta que dicho booleano es true.
+  
+- **Selección de personajes y mapas.** Una vez emparejados, se asigna el jugador 1 al cliente que creó primero el Web Socket y, por tanto, el segundo cliente es el jugador 2. A la hora de elegir personaje, esto se hace por turnos. Primero elige el jugador 1, que en el momento en el que selecciona un personaje, este se envía al servidor como un número entero dentro de un JSON, que a su vez contiene un string, "characterSelection", para que se gestione en su correspondiente función. El servidor le mandará al otro cliente cual es el personaje que eligió el jugador 1. Se repiten los mismos pasos para el jugador 2, y tras elegir se hace una cuenta atrás para continuar con la selección de mapas.
+En la selección de mapas se hace de forma similar a la de personajes, pero cambiando el string por "mapSelection". La diferencia es al momento de elegir un mapa de entre los dos seleccionados. Como se realiza de forma aleatoria con números aleatorios, es el jugador 2 el que genera ese numero aleatorio y se lo envía al servidor en un JSON con el string "finalMapSelection" para que el jugador 1 pueda recibir desde el servidor el mapa en el van a jugar ambos.
+
+- **Gameplay.**
+  
+- **Pantalla de resultados.** 
+
+En cuanto al flujo del juego, este ha sido modificado para poder implementar el uso de WebSockets:
+
+![](ImagenesMD/Flujograma_Fase4.jpg)
+ ***“Flujograma del juego con WebSockets”***
+ 
+ Las escenas de selección de personajes, de selección de mapas, del gameplay y de la pantalla de resultados se han duplicado para que el juego pueda seguir siendo jugable en local.
+ También se ha añadido la escena de emparejamiento.
+ 
+# <a name="_toc148190706"></a>Mejoras para el Futuro
 Algunos aspectos comentados anteriormente en este documento no fueron implementados durante la fase de desarrollo inicial. Siendo entonces contenido que se ha recortado del juego, pero que son posibles implementaciones futuras. Dichos aspectos son:
 
 1. Ataque ascendente, aéreo y especial de los personajes.
 2. Animaciones de los escenarios.
 3. Control del brillo de la pantalla.
 
-# <a name="_toc148190706"></a>Referencias
+# <a name="_toc148190707"></a>Referencias
 
 Se ha tomado como referencia juegos como Mortal Kombat y Street Fighter a la hora de diseñar las mecánicas y diseño de los niveles. La estructura del GDD ha sido extraída de la teoría enseñada en la asignatura "Fundamentos del diseño y la Jugabilidad" de primero de Diseño y Desarrollo de Videojuegos.
 
