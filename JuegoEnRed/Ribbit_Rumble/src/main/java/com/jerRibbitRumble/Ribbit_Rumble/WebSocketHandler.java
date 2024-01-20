@@ -21,13 +21,20 @@ public class WebSocketHandler extends TextWebSocketHandler{
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		System.out.println("New session: " + session.getId());
+		System.out.println("Numero total de sesiones abiertas: " + sessions.size());
 		
+		
+		if(sessions.size() <= 1) {
 		sessions.put(session.getId(), session);
 		
 		ObjectNode node = mapper.createObjectNode();
 		node.put("type", "login");
 		node.put("data", (sessions.size()));
 		session.sendMessage(new TextMessage(node.toString()));
+		} else {
+			System.out.println("Numero maximo de sesiones abiertas, cerrando WebSocket");
+			session.close();
+		}
 	}
 	
 	@Override

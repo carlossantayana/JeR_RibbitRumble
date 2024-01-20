@@ -51,6 +51,14 @@ export default class Pairing extends Phaser.Scene {
 			this.scene.start("PlayerSelectionMenuNet");
 			this.scene.stop("Pairing");
 		}
+		
+		//En caso de que el servidor le cierre la conexion
+		if(connection.readyState === WebSocket.CLOSED){
+			alert("Ya hay dos jugadores emparejados, volviendo al menu principal")
+			this.scene.start('MainMenu');
+       		this.scene.stop();
+			
+		}
     }
     
     returnToMenu()

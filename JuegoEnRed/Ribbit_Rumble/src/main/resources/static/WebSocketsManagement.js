@@ -1,5 +1,6 @@
 "use strict";
 var connection;
+var connectionState;
 
 var paired = false;
 
@@ -76,5 +77,9 @@ function CreateWebSocket(){
 				otherCifra2=parseInt(jsonmsg.cifra2);
 				break;
 		}
+	}
+	
+	connection.onclose = function (e){
+		console.log("Conexion cerrada")
 	}
 }
