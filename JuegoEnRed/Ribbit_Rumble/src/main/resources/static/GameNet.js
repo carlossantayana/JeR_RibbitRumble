@@ -44,7 +44,6 @@ export default class GameNet extends Phaser.Scene {
         this.cifra2;
 
         this.punteroPlayer;
-        this.punteroOtherPlayer;
 
         //JSON que guarda el estado de los inputs del cliente actual para mandarlos al otro
         this.inputUpdates = {
@@ -63,8 +62,6 @@ export default class GameNet extends Phaser.Scene {
     {
         this.parameters.player1CharacterID = data.player1CharacterID;
         this.parameters.player2CharacterID = data.player2CharacterID;
-        this.parameters.playerAltSkin = false;
-        this.parameters.otherPlayerAltSkin = false;
         this.parameters.mapID = data.mapID;
         this.parameters.playerWonRounds = 0;
         this.parameters.otherPlayerWonRounds = 0;
@@ -132,8 +129,8 @@ export default class GameNet extends Phaser.Scene {
         //ASIGNACION DEL PERSONAJE SEGUN EL JUGADOR 1 O 2
         if (logedUser.player == 1) {
 
-            this.player = new Fighter(this, 190, 800, this.parameters.player1CharacterID, this.parameters.playerAltSkin, 1, playerTexture);
-            this.otherPlayer = new Fighter(this, 1730, 800, this.parameters.player2CharacterID, this.parameters.otherPlayerAltSkin, 2, otherPlayerTexture);
+            this.player = new Fighter(this, 190, 800, this.parameters.player1CharacterID, 1, playerTexture);
+            this.otherPlayer = new Fighter(this, 1730, 800, this.parameters.player2CharacterID, 2, otherPlayerTexture);
             this.player.lookingRight = true;
 
             this.physics.add.collider(this.player, this.ground, () => this.player.touchingGround = true);
@@ -143,8 +140,8 @@ export default class GameNet extends Phaser.Scene {
 
         if (logedUser.player == 2) {
 
-            this.player = new Fighter(this, 1730, 800, this.parameters.player2CharacterID, this.parameters.otherPlayerAltSkin, 2, otherPlayerTexture);
-            this.otherPlayer = new Fighter(this, 190, 800, this.parameters.player1CharacterID, this.parameters.playerAltSkin, 1, playerTexture);
+            this.player = new Fighter(this, 1730, 800, this.parameters.player2CharacterID, 2, otherPlayerTexture);
+            this.otherPlayer = new Fighter(this, 190, 800, this.parameters.player1CharacterID, 1, playerTexture);
             this.otherPlayer.lookingRight = true;
 
             this.physics.add.collider(this.player, this.ground, () => this.player.touchingGround = true);
@@ -164,164 +161,164 @@ export default class GameNet extends Phaser.Scene {
 
         //Attack HitBoxes
         if (logedUser.player == 1) {
-			switch (this.parameters.player1CharacterID) {
-            case 0:
-                this.AttackHitboxUpPlayer = this.physics.add.image(this.player.x + 180 , this.player.y - 20, '');
-                this.AttackHitboxUpPlayer.setAlpha(0);
-                this.AttackHitboxUpPlayer.setSize(60, 120);
+            switch (this.parameters.player1CharacterID) {
+                case 0:
+                    this.AttackHitboxUpPlayer = this.physics.add.image(this.player.x + 180, this.player.y - 20, '');
+                    this.AttackHitboxUpPlayer.setAlpha(0);
+                    this.AttackHitboxUpPlayer.setSize(60, 120);
 
-                this.AttackHitboxDownPlayer = this.physics.add.image(this.player.x + 215 , this.player.y, '');
-                this.AttackHitboxDownPlayer.setAlpha(0);
-                this.AttackHitboxDownPlayer.setSize(170, 25);
-                break;
-            case 1:
-                this.AttackHitboxUpPlayer = this.physics.add.image(this.player.x + 130 , this.player.y - 20, '');
-                this.AttackHitboxUpPlayer.setAlpha(0);
-                this.AttackHitboxUpPlayer.setSize(45, 115);
+                    this.AttackHitboxDownPlayer = this.physics.add.image(this.player.x + 215, this.player.y, '');
+                    this.AttackHitboxDownPlayer.setAlpha(0);
+                    this.AttackHitboxDownPlayer.setSize(170, 25);
+                    break;
+                case 1:
+                    this.AttackHitboxUpPlayer = this.physics.add.image(this.player.x + 130, this.player.y - 20, '');
+                    this.AttackHitboxUpPlayer.setAlpha(0);
+                    this.AttackHitboxUpPlayer.setSize(45, 115);
 
-                this.AttackHitboxDownPlayer = this.physics.add.image(this.player.x + 130 , this.player.y + 45, '');
-                this.AttackHitboxDownPlayer.setAlpha(0);
-                this.AttackHitboxDownPlayer.setSize(45, 70);
-                break;
-            case 2:
-                this.AttackHitboxUpPlayer = this.physics.add.image(this.player.x + 100 , this.player.y + 78, '');
-                this.AttackHitboxUpPlayer.setAlpha(0);
-                this.AttackHitboxUpPlayer.setSize(50, 40);
+                    this.AttackHitboxDownPlayer = this.physics.add.image(this.player.x + 130, this.player.y + 45, '');
+                    this.AttackHitboxDownPlayer.setAlpha(0);
+                    this.AttackHitboxDownPlayer.setSize(45, 70);
+                    break;
+                case 2:
+                    this.AttackHitboxUpPlayer = this.physics.add.image(this.player.x + 100, this.player.y + 78, '');
+                    this.AttackHitboxUpPlayer.setAlpha(0);
+                    this.AttackHitboxUpPlayer.setSize(50, 40);
 
-                this.AttackHitboxDownPlayer = this.physics.add.image(this.player.x + 120 , this.player.y + 95, '');
-                this.AttackHitboxDownPlayer.setAlpha(0);
-                this.AttackHitboxDownPlayer.setSize(55, 30);
-                break;
-            case 3:
-                this.AttackHitboxUpPlayer = this.physics.add.image(this.player.x + 170 , this.player.y - 35, '');
-                this.AttackHitboxUpPlayer.setAlpha(0);
-                this.AttackHitboxUpPlayer.setSize(210, 50);
+                    this.AttackHitboxDownPlayer = this.physics.add.image(this.player.x + 120, this.player.y + 95, '');
+                    this.AttackHitboxDownPlayer.setAlpha(0);
+                    this.AttackHitboxDownPlayer.setSize(55, 30);
+                    break;
+                case 3:
+                    this.AttackHitboxUpPlayer = this.physics.add.image(this.player.x + 170, this.player.y - 35, '');
+                    this.AttackHitboxUpPlayer.setAlpha(0);
+                    this.AttackHitboxUpPlayer.setSize(210, 50);
 
-                this.AttackHitboxDownPlayer = this.physics.add.image(this.player.x + 170 , this.player.y - 14, '');
-                this.AttackHitboxDownPlayer.setAlpha(0);
-                this.AttackHitboxDownPlayer.setSize(210, 50);
-                break;
+                    this.AttackHitboxDownPlayer = this.physics.add.image(this.player.x + 170, this.player.y - 14, '');
+                    this.AttackHitboxDownPlayer.setAlpha(0);
+                    this.AttackHitboxDownPlayer.setSize(210, 50);
+                    break;
+            }
+
+            switch (this.parameters.player2CharacterID) {
+                case 0:
+                    this.AttackHitboxUpOtherPlayer = this.physics.add.image(this.otherPlayer.x - 180, this.otherPlayer.y - 20, '');
+                    this.AttackHitboxUpOtherPlayer.setAlpha(0);
+                    this.AttackHitboxUpOtherPlayer.setSize(60, 120);
+
+                    this.AttackHitboxDownOtherPlayer = this.physics.add.image(this.otherPlayer.x - 215, this.otherPlayer.y, '');
+                    this.AttackHitboxDownOtherPlayer.setAlpha(0);
+                    this.AttackHitboxDownOtherPlayer.setSize(170, 25);
+                    break;
+                case 1:
+                    this.AttackHitboxUpOtherPlayer = this.physics.add.image(this.otherPlayer.x - 130, this.otherPlayer.y - 20, '');
+                    this.AttackHitboxUpOtherPlayer.setAlpha(0);
+                    this.AttackHitboxUpOtherPlayer.setSize(45, 115);
+
+                    this.AttackHitboxDownOtherPlayer = this.physics.add.image(this.otherPlayer.x - 130, this.otherPlayer.y + 45, '');
+                    this.AttackHitboxDownOtherPlayer.setAlpha(0);
+                    this.AttackHitboxDownOtherPlayer.setSize(45, 70);
+                    break;
+                case 2:
+                    this.AttackHitboxUpOtherPlayer = this.physics.add.image(this.otherPlayer.x - 100, this.otherPlayer.y + 78, '');
+                    this.AttackHitboxUpOtherPlayer.setAlpha(0);
+                    this.AttackHitboxUpOtherPlayer.setSize(50, 40);
+
+                    this.AttackHitboxDownOtherPlayer = this.physics.add.image(this.otherPlayer.x - 120, this.otherPlayer.y + 95, '');
+                    this.AttackHitboxDownOtherPlayer.setAlpha(0);
+                    this.AttackHitboxDownOtherPlayer.setSize(55, 30);
+                    break;
+                case 3:
+                    this.AttackHitboxUpOtherPlayer = this.physics.add.image(this.otherPlayer.x - 170, this.otherPlayer.y - 35, '');
+                    this.AttackHitboxUpOtherPlayer.setAlpha(0);
+                    this.AttackHitboxUpOtherPlayer.setSize(210, 50);
+
+                    this.AttackHitboxDownOtherPlayer = this.physics.add.image(this.otherPlayer.x - 170, this.otherPlayer.y - 14, '');
+                    this.AttackHitboxDownOtherPlayer.setAlpha(0);
+                    this.AttackHitboxDownOtherPlayer.setSize(210, 50);
+                    break;
+            }
+        }
+        else {
+            switch (this.parameters.player2CharacterID) {
+                case 0:
+                    this.AttackHitboxUpPlayer = this.physics.add.image(this.player.x + 180, this.player.y - 20, '');
+                    this.AttackHitboxUpPlayer.setAlpha(0);
+                    this.AttackHitboxUpPlayer.setSize(60, 120);
+
+                    this.AttackHitboxDownPlayer = this.physics.add.image(this.player.x + 215, this.player.y, '');
+                    this.AttackHitboxDownPlayer.setAlpha(0);
+                    this.AttackHitboxDownPlayer.setSize(170, 25);
+                    break;
+                case 1:
+                    this.AttackHitboxUpPlayer = this.physics.add.image(this.player.x + 130, this.player.y - 20, '');
+                    this.AttackHitboxUpPlayer.setAlpha(0);
+                    this.AttackHitboxUpPlayer.setSize(45, 115);
+
+                    this.AttackHitboxDownPlayer = this.physics.add.image(this.player.x + 130, this.player.y + 45, '');
+                    this.AttackHitboxDownPlayer.setAlpha(0);
+                    this.AttackHitboxDownPlayer.setSize(45, 70);
+                    break;
+                case 2:
+                    this.AttackHitboxUpPlayer = this.physics.add.image(this.player.x + 100, this.player.y + 78, '');
+                    this.AttackHitboxUpPlayer.setAlpha(0);
+                    this.AttackHitboxUpPlayer.setSize(50, 40);
+
+                    this.AttackHitboxDownPlayer = this.physics.add.image(this.player.x + 120, this.player.y + 95, '');
+                    this.AttackHitboxDownPlayer.setAlpha(0);
+                    this.AttackHitboxDownPlayer.setSize(55, 30);
+                    break;
+                case 3:
+                    this.AttackHitboxUpPlayer = this.physics.add.image(this.player.x + 170, this.player.y - 35, '');
+                    this.AttackHitboxUpPlayer.setAlpha(0);
+                    this.AttackHitboxUpPlayer.setSize(210, 50);
+
+                    this.AttackHitboxDownPlayer = this.physics.add.image(this.player.x + 170, this.player.y - 14, '');
+                    this.AttackHitboxDownPlayer.setAlpha(0);
+                    this.AttackHitboxDownPlayer.setSize(210, 50);
+                    break;
+            }
+
+            switch (this.parameters.player1CharacterID) {
+                case 0:
+                    this.AttackHitboxUpOtherPlayer = this.physics.add.image(this.otherPlayer.x - 180, this.otherPlayer.y - 20, '');
+                    this.AttackHitboxUpOtherPlayer.setAlpha(0);
+                    this.AttackHitboxUpOtherPlayer.setSize(60, 120);
+
+                    this.AttackHitboxDownOtherPlayer = this.physics.add.image(this.otherPlayer.x - 215, this.otherPlayer.y, '');
+                    this.AttackHitboxDownOtherPlayer.setAlpha(0);
+                    this.AttackHitboxDownOtherPlayer.setSize(170, 25);
+                    break;
+                case 1:
+                    this.AttackHitboxUpOtherPlayer = this.physics.add.image(this.otherPlayer.x - 130, this.otherPlayer.y - 20, '');
+                    this.AttackHitboxUpOtherPlayer.setAlpha(0);
+                    this.AttackHitboxUpOtherPlayer.setSize(45, 115);
+
+                    this.AttackHitboxDownOtherPlayer = this.physics.add.image(this.otherPlayer.x - 130, this.otherPlayer.y + 45, '');
+                    this.AttackHitboxDownOtherPlayer.setAlpha(0);
+                    this.AttackHitboxDownOtherPlayer.setSize(45, 70);
+                    break;
+                case 2:
+                    this.AttackHitboxUpOtherPlayer = this.physics.add.image(this.otherPlayer.x - 100, this.otherPlayer.y + 78, '');
+                    this.AttackHitboxUpOtherPlayer.setAlpha(0);
+                    this.AttackHitboxUpOtherPlayer.setSize(50, 40);
+
+                    this.AttackHitboxDownOtherPlayer = this.physics.add.image(this.otherPlayer.x - 120, this.otherPlayer.y + 95, '');
+                    this.AttackHitboxDownOtherPlayer.setAlpha(0);
+                    this.AttackHitboxDownOtherPlayer.setSize(55, 30);
+                    break;
+                case 3:
+                    this.AttackHitboxUpOtherPlayer = this.physics.add.image(this.otherPlayer.x - 170, this.otherPlayer.y - 35, '');
+                    this.AttackHitboxUpOtherPlayer.setAlpha(0);
+                    this.AttackHitboxUpOtherPlayer.setSize(210, 50);
+
+                    this.AttackHitboxDownOtherPlayer = this.physics.add.image(this.otherPlayer.x - 170, this.otherPlayer.y - 14, '');
+                    this.AttackHitboxDownOtherPlayer.setAlpha(0);
+                    this.AttackHitboxDownOtherPlayer.setSize(210, 50);
+                    break;
+            }
         }
 
-        switch (this.parameters.player2CharacterID) {
-            case 0:
-                this.AttackHitboxUpOtherPlayer = this.physics.add.image(this.otherPlayer.x - 180 , this.otherPlayer.y - 20, '');
-                this.AttackHitboxUpOtherPlayer.setAlpha(0);
-                this.AttackHitboxUpOtherPlayer.setSize(60, 120);
-
-                this.AttackHitboxDownOtherPlayer = this.physics.add.image(this.otherPlayer.x - 215 , this.otherPlayer.y, '');
-                this.AttackHitboxDownOtherPlayer.setAlpha(0);
-                this.AttackHitboxDownOtherPlayer.setSize(170, 25);
-                break;
-            case 1:
-                this.AttackHitboxUpOtherPlayer = this.physics.add.image(this.otherPlayer.x - 130 , this.otherPlayer.y - 20, '');
-                this.AttackHitboxUpOtherPlayer.setAlpha(0);
-                this.AttackHitboxUpOtherPlayer.setSize(45, 115);
-
-                this.AttackHitboxDownOtherPlayer = this.physics.add.image(this.otherPlayer.x - 130 , this.otherPlayer.y + 45, '');
-                this.AttackHitboxDownOtherPlayer.setAlpha(0);
-                this.AttackHitboxDownOtherPlayer.setSize(45, 70);
-                break;
-            case 2:
-                this.AttackHitboxUpOtherPlayer = this.physics.add.image(this.otherPlayer.x - 100 , this.otherPlayer.y + 78, '');
-                this.AttackHitboxUpOtherPlayer.setAlpha(0);
-                this.AttackHitboxUpOtherPlayer.setSize(50, 40);
-
-                this.AttackHitboxDownOtherPlayer = this.physics.add.image(this.otherPlayer.x - 120 , this.otherPlayer.y + 95, '');
-                this.AttackHitboxDownOtherPlayer.setAlpha(0);
-                this.AttackHitboxDownOtherPlayer.setSize(55, 30);
-                break;
-            case 3:
-                this.AttackHitboxUpOtherPlayer = this.physics.add.image(this.otherPlayer.x - 170 , this.otherPlayer.y - 35, '');
-                this.AttackHitboxUpOtherPlayer.setAlpha(0);
-                this.AttackHitboxUpOtherPlayer.setSize(210, 50);
-
-                this.AttackHitboxDownOtherPlayer = this.physics.add.image(this.otherPlayer.x - 170 , this.otherPlayer.y - 14, '');
-                this.AttackHitboxDownOtherPlayer.setAlpha(0);
-                this.AttackHitboxDownOtherPlayer.setSize(210, 50);
-                break;
-        	}
-        }
-        else{
-			switch (this.parameters.player2CharacterID) {
-            case 0:
-                this.AttackHitboxUpPlayer = this.physics.add.image(this.player.x + 180 , this.player.y - 20, '');
-                this.AttackHitboxUpPlayer.setAlpha(0);
-                this.AttackHitboxUpPlayer.setSize(60, 120);
-
-                this.AttackHitboxDownPlayer = this.physics.add.image(this.player.x + 215 , this.player.y, '');
-                this.AttackHitboxDownPlayer.setAlpha(0);
-                this.AttackHitboxDownPlayer.setSize(170, 25);
-                break;
-            case 1:
-                this.AttackHitboxUpPlayer = this.physics.add.image(this.player.x + 130 , this.player.y - 20, '');
-                this.AttackHitboxUpPlayer.setAlpha(0);
-                this.AttackHitboxUpPlayer.setSize(45, 115);
-
-                this.AttackHitboxDownPlayer = this.physics.add.image(this.player.x + 130 , this.player.y + 45, '');
-                this.AttackHitboxDownPlayer.setAlpha(0);
-                this.AttackHitboxDownPlayer.setSize(45, 70);
-                break;
-            case 2:
-                this.AttackHitboxUpPlayer = this.physics.add.image(this.player.x + 100 , this.player.y + 78, '');
-                this.AttackHitboxUpPlayer.setAlpha(0);
-                this.AttackHitboxUpPlayer.setSize(50, 40);
-
-                this.AttackHitboxDownPlayer = this.physics.add.image(this.player.x + 120 , this.player.y + 95, '');
-                this.AttackHitboxDownPlayer.setAlpha(0);
-                this.AttackHitboxDownPlayer.setSize(55, 30);
-                break;
-            case 3:
-                this.AttackHitboxUpPlayer = this.physics.add.image(this.player.x + 170 , this.player.y - 35, '');
-                this.AttackHitboxUpPlayer.setAlpha(0);
-                this.AttackHitboxUpPlayer.setSize(210, 50);
-
-                this.AttackHitboxDownPlayer = this.physics.add.image(this.player.x + 170 , this.player.y - 14, '');
-                this.AttackHitboxDownPlayer.setAlpha(0);
-                this.AttackHitboxDownPlayer.setSize(210, 50);
-                break;
-        }
-
-        switch (this.parameters.player1CharacterID) {
-            case 0:
-                this.AttackHitboxUpOtherPlayer = this.physics.add.image(this.otherPlayer.x - 180 , this.otherPlayer.y - 20, '');
-                this.AttackHitboxUpOtherPlayer.setAlpha(0);
-                this.AttackHitboxUpOtherPlayer.setSize(60, 120);
-
-                this.AttackHitboxDownOtherPlayer = this.physics.add.image(this.otherPlayer.x - 215 , this.otherPlayer.y, '');
-                this.AttackHitboxDownOtherPlayer.setAlpha(0);
-                this.AttackHitboxDownOtherPlayer.setSize(170, 25);
-                break;
-            case 1:
-                this.AttackHitboxUpOtherPlayer = this.physics.add.image(this.otherPlayer.x - 130 , this.otherPlayer.y - 20, '');
-                this.AttackHitboxUpOtherPlayer.setAlpha(0);
-                this.AttackHitboxUpOtherPlayer.setSize(45, 115);
-
-                this.AttackHitboxDownOtherPlayer = this.physics.add.image(this.otherPlayer.x - 130 , this.otherPlayer.y + 45, '');
-                this.AttackHitboxDownOtherPlayer.setAlpha(0);
-                this.AttackHitboxDownOtherPlayer.setSize(45, 70);
-                break;
-            case 2:
-                this.AttackHitboxUpOtherPlayer = this.physics.add.image(this.otherPlayer.x - 100 , this.otherPlayer.y + 78, '');
-                this.AttackHitboxUpOtherPlayer.setAlpha(0);
-                this.AttackHitboxUpOtherPlayer.setSize(50, 40);
-
-                this.AttackHitboxDownOtherPlayer = this.physics.add.image(this.otherPlayer.x - 120 , this.otherPlayer.y + 95, '');
-                this.AttackHitboxDownOtherPlayer.setAlpha(0);
-                this.AttackHitboxDownOtherPlayer.setSize(55, 30);
-                break;
-            case 3:
-                this.AttackHitboxUpOtherPlayer = this.physics.add.image(this.otherPlayer.x - 170 , this.otherPlayer.y - 35, '');
-                this.AttackHitboxUpOtherPlayer.setAlpha(0);
-                this.AttackHitboxUpOtherPlayer.setSize(210, 50);
-
-                this.AttackHitboxDownOtherPlayer = this.physics.add.image(this.otherPlayer.x - 170 , this.otherPlayer.y - 14, '');
-                this.AttackHitboxDownOtherPlayer.setAlpha(0);
-                this.AttackHitboxDownOtherPlayer.setSize(210, 50);
-                break;
-        	}
-        }
-        
 
         this.AttackHitboxUpPlayer.body.setAllowGravity(false);
         this.AttackHitboxDownPlayer.body.setAllowGravity(false);
@@ -335,74 +332,111 @@ export default class GameNet extends Phaser.Scene {
         this.physics.add.overlap(this.player, this.AttackHitboxUpOtherPlayer, () => this.otherPlayerAttackUp());
         this.physics.add.overlap(this.player, this.AttackHitboxDownOtherPlayer, () => this.otherPlayerAttackDown());
 
-        //UI Player
-        this.add.image(450, 150, 'UIGamePieza1').setScale(0.65, 0.65);
-        this.barraVidaPlayer = this.generarBarra(228, 37, 0xb82d3b) //Se crea un rectangulo para la barra
-        this.setValueBar1(1);               //Se pasa dicho rectangulo y el valor que tendrá la barra
-        this.add.image(450, 150, 'UIGamePieza2').setScale(0.65, 0.65);
+        if (logedUser.player == 1) {
+            //UI Player
+            this.add.image(450, 150, 'UIGamePieza1').setScale(0.65, 0.65);
+            this.barraVidaPlayer = this.generarBarra(228, 37, 0xb82d3b) //Se crea un rectangulo para la barra
+            this.setValueBar1Player1(1);               //Se pasa dicho rectangulo y el valor que tendrá la barra
+            this.add.image(450, 150, 'UIGamePieza2').setScale(0.65, 0.65);
 
-        switch (this.parameters.player1CharacterID) {
-            case 0:
-                this.add.image(130, 145, 'ranaToroUI').setScale(0.65, 0.65);
+            switch (this.parameters.player1CharacterID) {
+                case 0:
+                    this.add.image(130, 145, 'ranaToroUI').setScale(0.65, 0.65);
 
-                this.punteroPlayer = this.physics.add.image(this.player.x, this.player.y - 200, 'PunteroPlayer');
-                break;
-            case 1:
-                this.add.image(130, 145, 'ranaLluviaUI').setScale(0.65, 0.65);
+                    this.punteroPlayer = this.physics.add.image(this.player.x, this.player.y - 200, 'PunteroP1');
+                    break;
+                case 1:
+                    this.add.image(130, 145, 'ranaLluviaUI').setScale(0.65, 0.65);
 
-                this.punteroPlayer = this.physics.add.image(this.player.x, this.player.y - 200, 'PunteroPlayer');
-                break;
-            case 2:
-                this.add.image(130, 145, 'ranaFlechaUI').setScale(0.65, 0.65);
+                    this.punteroPlayer = this.physics.add.image(this.player.x, this.player.y - 200, 'PunteroP1');
+                    break;
+                case 2:
+                    this.add.image(130, 145, 'ranaFlechaUI').setScale(0.65, 0.65);
 
-                this.punteroPlayer = this.physics.add.image(this.player.x, this.player.y - 150, 'PunteroPlayer');
-                break;
-            case 3:
-                this.add.image(130, 145, 'ranaTrepadoraUI').setScale(0.65, 0.65);
+                    this.punteroPlayer = this.physics.add.image(this.player.x, this.player.y - 150, 'PunteroP1');
+                    break;
+                case 3:
+                    this.add.image(130, 145, 'ranaTrepadoraUI').setScale(0.65, 0.65);
 
-                this.punteroPlayer = this.physics.add.image(this.player.x, this.player.y - 200, 'PunteroPlayer');
-                break;
+                    this.punteroPlayer = this.physics.add.image(this.player.x, this.player.y - 200, 'PunteroP1');
+                    break;
+            }
+
+            //UI OtherPlayer
+            this.add.image(1470, 150, 'UIGamePieza1').setScale(0.65, 0.65).setFlipX(true);
+            this.barraVidaOtherPlayer = this.generarBarra(1690, 37, 0xb82d3b); //Se crea un rectangulo para la barra
+            this.setValueBar2Player1(1);                 //Se pasa dicho rectangulo y el valor que tendrá la barra
+            this.add.image(1470, 150, 'UIGamePieza2').setScale(0.65, 0.65).setFlipX(true);
+
+            switch (this.parameters.player2CharacterID) {
+                case 0:
+                    this.add.image(1790, 145, 'ranaToroUI').setScale(0.65, 0.65).setFlipX(true);
+                    break;
+                case 1:
+                    this.add.image(1790, 145, 'ranaLluviaUI').setScale(0.65, 0.65).setFlipX(true);
+                    break;
+                case 2:
+                    this.add.image(1790, 145, 'ranaFlechaUI').setScale(0.65, 0.65).setFlipX(true);
+                    break;
+                case 3:
+                    this.add.image(1790, 145, 'ranaTrepadoraUI').setScale(0.65, 0.65).setFlipX(true);
+                    break;
+            }
+
+            this.punteroPlayer.body.setAllowGravity(false);
+            this.punteroPlayer.setScale(0.75, 0.75);
+            this.punteroPlayer.setAlpha(1);
+        }else{
+            //UI OtherPlayer
+            this.add.image(450, 150, 'UIGamePieza1').setScale(0.65, 0.65);
+            this.barraVidaOtherPlayer = this.generarBarra(228, 37, 0xb82d3b) //Se crea un rectangulo para la barra
+            this.setValueBar1Player2(1);               //Se pasa dicho rectangulo y el valor que tendrá la barra
+            this.add.image(450, 150, 'UIGamePieza2').setScale(0.65, 0.65);
+
+            switch (this.parameters.player1CharacterID) {
+                case 0:
+                    this.add.image(130, 145, 'ranaToroUI').setScale(0.65, 0.65);
+                    break;
+                case 1:
+                    this.add.image(130, 145, 'ranaLluviaUI').setScale(0.65, 0.65);
+                    break;
+                case 2:
+                    this.add.image(130, 145, 'ranaFlechaUI').setScale(0.65, 0.65);
+                    break;
+                case 3:
+                    this.add.image(130, 145, 'ranaTrepadoraUI').setScale(0.65, 0.65);
+                    break;
+            }
+
+            //UI Player
+            this.add.image(1470, 150, 'UIGamePieza1').setScale(0.65, 0.65).setFlipX(true);
+            this.barraVidaPlayer = this.generarBarra(1690, 37, 0xb82d3b); //Se crea un rectangulo para la barra
+            this.setValueBar2Player2(1);                 //Se pasa dicho rectangulo y el valor que tendrá la barra
+            this.add.image(1470, 150, 'UIGamePieza2').setScale(0.65, 0.65).setFlipX(true);
+
+            switch (this.parameters.player2CharacterID) {
+                case 0:
+                    this.add.image(1790, 145, 'ranaToroUI').setScale(0.65, 0.65).setFlipX(true);
+                    this.punteroPlayer = this.physics.add.image(this.player.x, this.player.y - 200, 'PunteroP2');
+                    break;
+                case 1:
+                    this.add.image(1790, 145, 'ranaLluviaUI').setScale(0.65, 0.65).setFlipX(true);
+                    this.punteroPlayer = this.physics.add.image(this.player.x, this.player.y - 3000, 'PunteroP2');
+                    break;
+                case 2:
+                    this.add.image(1790, 145, 'ranaFlechaUI').setScale(0.65, 0.65).setFlipX(true);
+                    this.punteroPlayer = this.physics.add.image(this.player.x, this.player.y - 200, 'PunteroP2');
+                    break;
+                case 3:
+                    this.add.image(1790, 145, 'ranaTrepadoraUI').setScale(0.65, 0.65).setFlipX(true);
+                    this.punteroPlayer = this.physics.add.image(this.player.x, this.player.y - 200, 'PunteroP2');
+                    break;
+            }
+
+            this.punteroPlayer.body.setAllowGravity(false);
+            this.punteroPlayer.setScale(0.75, 0.75);
+            this.punteroPlayer.setAlpha(1);
         }
-
-        this.punteroPlayer.body.setAllowGravity(false);
-        this.punteroPlayer.setScale(0.75, 0.75);
-        this.punteroPlayer.setAlpha(1);
-
-
-
-        //UI OtherPlayer
-        this.add.image(1470, 150, 'UIGamePieza1').setScale(0.65, 0.65).setFlipX(true);
-        this.barraVidaOtherPlayer = this.generarBarra(1690, 37, 0xb82d3b); //Se crea un rectangulo para la barra
-        this.setValueBar2(1);                 //Se pasa dicho rectangulo y el valor que tendrá la barra
-        this.add.image(1470, 150, 'UIGamePieza2').setScale(0.65, 0.65).setFlipX(true);
-
-        switch (this.parameters.player2CharacterID) {
-            case 0:
-                this.add.image(1790, 145, 'ranaToroUI').setScale(0.65, 0.65).setFlipX(true);
-
-                this.punteroOtherPlayer = this.physics.add.image(this.otherPlayer.x, this.otherPlayer.y - 200, 'PunteroOtherPlayer');
-                break;
-            case 1:
-                this.add.image(1790, 145, 'ranaLluviaUI').setScale(0.65, 0.65).setFlipX(true);
-
-                this.punteroOtherPlayer = this.physics.add.image(this.otherPlayer.x, this.otherPlayer.y - 3000, 'PunteroOtherPlayer');
-                break;
-            case 2:
-                this.add.image(1790, 145, 'ranaFlechaUI').setScale(0.65, 0.65).setFlipX(true);
-
-                this.punteroOtherPlayer = this.physics.add.image(this.otherPlayer.x, this.otherPlayer.y - 200, 'PunteroOtherPlayer');
-                break;
-            case 3:
-                this.add.image(1790, 145, 'ranaTrepadoraUI').setScale(0.65, 0.65).setFlipX(true);
-
-                this.punteroOtherPlayer = this.physics.add.image(this.otherPlayer.x, this.otherPlayer.y - 200, 'PunteroOtherPlayer');
-                break;
-        }
-
-        this.punteroOtherPlayer.body.setAllowGravity(false);
-        this.punteroOtherPlayer.setScale(0.75, 0.75);
-        this.punteroOtherPlayer.setAlpha(1);
-
 
         this.cifra1 = 6;
         this.cifra2 = 0;
@@ -628,61 +662,61 @@ export default class GameNet extends Phaser.Scene {
         if (logedUser.player == 1) {
             switch (this.parameters.player1CharacterID) {
                 case 0:
-                    this.AttackHitboxUpPlayer.x = this.player.x + 180 * directionPlayer ;
+                    this.AttackHitboxUpPlayer.x = this.player.x + 180 * directionPlayer;
                     this.AttackHitboxUpPlayer.y = this.player.y - 20;
 
-                    this.AttackHitboxDownPlayer.x = this.player.x + 215 * directionPlayer ;
+                    this.AttackHitboxDownPlayer.x = this.player.x + 215 * directionPlayer;
                     this.AttackHitboxDownPlayer.y = this.player.y;
                     break;
                 case 1:
-                    this.AttackHitboxUpPlayer.x = this.player.x + 130 * directionPlayer ;
+                    this.AttackHitboxUpPlayer.x = this.player.x + 130 * directionPlayer;
                     this.AttackHitboxUpPlayer.y = this.player.y - 20;
 
-                    this.AttackHitboxDownPlayer.x = this.player.x + 130 * directionPlayer ;
+                    this.AttackHitboxDownPlayer.x = this.player.x + 130 * directionPlayer;
                     this.AttackHitboxDownPlayer.y = this.player.y + 45;
                     break;
                 case 2:
-                    this.AttackHitboxUpPlayer.x = this.player.x + 100 * directionPlayer ;
+                    this.AttackHitboxUpPlayer.x = this.player.x + 100 * directionPlayer;
                     this.AttackHitboxUpPlayer.y = this.player.y + 78;
 
-                    this.AttackHitboxDownPlayer.x = this.player.x + 120 * directionPlayer ;
+                    this.AttackHitboxDownPlayer.x = this.player.x + 120 * directionPlayer;
                     this.AttackHitboxDownPlayer.y = this.player.y + 95;
                     break;
                 case 3:
-                    this.AttackHitboxUpPlayer.x = this.player.x + 170 * directionPlayer ;
+                    this.AttackHitboxUpPlayer.x = this.player.x + 170 * directionPlayer;
                     this.AttackHitboxUpPlayer.y = this.player.y - 35;
 
-                    this.AttackHitboxDownPlayer.x = this.player.x + 170 * directionPlayer ;
+                    this.AttackHitboxDownPlayer.x = this.player.x + 170 * directionPlayer;
                     this.AttackHitboxDownPlayer.y = this.player.y - 14;
                     break;
             }
             switch (this.parameters.player2CharacterID) {
                 case 0:
-                    this.AttackHitboxUpOtherPlayer.x = this.otherPlayer.x + 180 * directionOtherPlayer ;
+                    this.AttackHitboxUpOtherPlayer.x = this.otherPlayer.x + 180 * directionOtherPlayer;
                     this.AttackHitboxUpOtherPlayer.y = this.otherPlayer.y - 20;
 
-                    this.AttackHitboxDownOtherPlayer.x = this.otherPlayer.x + 215 * directionOtherPlayer ;
+                    this.AttackHitboxDownOtherPlayer.x = this.otherPlayer.x + 215 * directionOtherPlayer;
                     this.AttackHitboxDownOtherPlayer.y = this.otherPlayer.y;
                     break;
                 case 1:
-                    this.AttackHitboxUpOtherPlayer.x = this.otherPlayer.x + 130 * directionOtherPlayer ;
+                    this.AttackHitboxUpOtherPlayer.x = this.otherPlayer.x + 130 * directionOtherPlayer;
                     this.AttackHitboxUpOtherPlayer.y = this.otherPlayer.y - 20;
 
-                    this.AttackHitboxDownOtherPlayer.x = this.otherPlayer.x + 130 * directionOtherPlayer ;
+                    this.AttackHitboxDownOtherPlayer.x = this.otherPlayer.x + 130 * directionOtherPlayer;
                     this.AttackHitboxDownOtherPlayer.y = this.otherPlayer.y + 45;
                     break;
                 case 2:
-                    this.AttackHitboxUpOtherPlayer.x = this.otherPlayer.x + 100 * directionOtherPlayer ;
+                    this.AttackHitboxUpOtherPlayer.x = this.otherPlayer.x + 100 * directionOtherPlayer;
                     this.AttackHitboxUpOtherPlayer.y = this.otherPlayer.y + 78;
 
-                    this.AttackHitboxDownOtherPlayer.x = this.otherPlayer.x + 120 * directionOtherPlayer ;
+                    this.AttackHitboxDownOtherPlayer.x = this.otherPlayer.x + 120 * directionOtherPlayer;
                     this.AttackHitboxDownOtherPlayer.y = this.otherPlayer.y + 95;
                     break;
                 case 3:
-                    this.AttackHitboxUpOtherPlayer.x = this.otherPlayer.x + 170 * directionOtherPlayer ;
+                    this.AttackHitboxUpOtherPlayer.x = this.otherPlayer.x + 170 * directionOtherPlayer;
                     this.AttackHitboxUpOtherPlayer.y = this.otherPlayer.y - 35;
 
-                    this.AttackHitboxDownOtherPlayer.x = this.otherPlayer.x + 170 * directionOtherPlayer ;
+                    this.AttackHitboxDownOtherPlayer.x = this.otherPlayer.x + 170 * directionOtherPlayer;
                     this.AttackHitboxDownOtherPlayer.y = this.otherPlayer.y - 14;
                     break;
             }
@@ -690,61 +724,61 @@ export default class GameNet extends Phaser.Scene {
         else if (logedUser.player == 2) {
             switch (this.parameters.player2CharacterID) {
                 case 0:
-                    this.AttackHitboxUpPlayer.x = this.player.x + 180 * directionPlayer ;
+                    this.AttackHitboxUpPlayer.x = this.player.x + 180 * directionPlayer;
                     this.AttackHitboxUpPlayer.y = this.player.y - 20;
 
-                    this.AttackHitboxDownPlayer.x = this.player.x + 215 * directionPlayer ;
+                    this.AttackHitboxDownPlayer.x = this.player.x + 215 * directionPlayer;
                     this.AttackHitboxDownPlayer.y = this.player.y;
                     break;
                 case 1:
-                    this.AttackHitboxUpPlayer.x = this.player.x + 130 * directionPlayer ;
+                    this.AttackHitboxUpPlayer.x = this.player.x + 130 * directionPlayer;
                     this.AttackHitboxUpPlayer.y = this.player.y - 20;
 
-                    this.AttackHitboxDownPlayer.x = this.player.x + 130 * directionPlayer ;
+                    this.AttackHitboxDownPlayer.x = this.player.x + 130 * directionPlayer;
                     this.AttackHitboxDownPlayer.y = this.player.y + 45;
                     break;
                 case 2:
-                    this.AttackHitboxUpPlayer.x = this.player.x + 100 * directionPlayer ;
+                    this.AttackHitboxUpPlayer.x = this.player.x + 100 * directionPlayer;
                     this.AttackHitboxUpPlayer.y = this.player.y + 78;
 
-                    this.AttackHitboxDownPlayer.x = this.player.x + 120 * directionPlayer ;
+                    this.AttackHitboxDownPlayer.x = this.player.x + 120 * directionPlayer;
                     this.AttackHitboxDownPlayer.y = this.player.y + 95;
                     break;
                 case 3:
-                    this.AttackHitboxUpPlayer.x = this.player.x + 170 * directionPlayer ;
+                    this.AttackHitboxUpPlayer.x = this.player.x + 170 * directionPlayer;
                     this.AttackHitboxUpPlayer.y = this.player.y - 35;
 
-                    this.AttackHitboxDownPlayer.x = this.player.x + 170 * directionPlayer ;
+                    this.AttackHitboxDownPlayer.x = this.player.x + 170 * directionPlayer;
                     this.AttackHitboxDownPlayer.y = this.player.y - 14;
                     break;
             }
             switch (this.parameters.player1CharacterID) {
                 case 0:
-                    this.AttackHitboxUpOtherPlayer.x = this.otherPlayer.x + 180 * directionOtherPlayer ;
+                    this.AttackHitboxUpOtherPlayer.x = this.otherPlayer.x + 180 * directionOtherPlayer;
                     this.AttackHitboxUpOtherPlayer.y = this.otherPlayer.y - 20;
 
-                    this.AttackHitboxDownOtherPlayer.x = this.otherPlayer.x + 215 * directionOtherPlayer ;
+                    this.AttackHitboxDownOtherPlayer.x = this.otherPlayer.x + 215 * directionOtherPlayer;
                     this.AttackHitboxDownOtherPlayer.y = this.otherPlayer.y;
                     break;
                 case 1:
-                    this.AttackHitboxUpOtherPlayer.x = this.otherPlayer.x + 130 * directionOtherPlayer ;
+                    this.AttackHitboxUpOtherPlayer.x = this.otherPlayer.x + 130 * directionOtherPlayer;
                     this.AttackHitboxUpOtherPlayer.y = this.otherPlayer.y - 20;
 
-                    this.AttackHitboxDownOtherPlayer.x = this.otherPlayer.x + 130 * directionOtherPlayer ;
+                    this.AttackHitboxDownOtherPlayer.x = this.otherPlayer.x + 130 * directionOtherPlayer;
                     this.AttackHitboxDownOtherPlayer.y = this.otherPlayer.y + 45;
                     break;
                 case 2:
-                    this.AttackHitboxUpOtherPlayer.x = this.otherPlayer.x + 100 * directionOtherPlayer ;
+                    this.AttackHitboxUpOtherPlayer.x = this.otherPlayer.x + 100 * directionOtherPlayer;
                     this.AttackHitboxUpOtherPlayer.y = this.otherPlayer.y + 78;
 
-                    this.AttackHitboxDownOtherPlayer.x = this.otherPlayer.x + 120 * directionOtherPlayer ;
+                    this.AttackHitboxDownOtherPlayer.x = this.otherPlayer.x + 120 * directionOtherPlayer;
                     this.AttackHitboxDownOtherPlayer.y = this.otherPlayer.y + 95;
                     break;
                 case 3:
-                    this.AttackHitboxUpOtherPlayer.x = this.otherPlayer.x + 170 * directionOtherPlayer ;
+                    this.AttackHitboxUpOtherPlayer.x = this.otherPlayer.x + 170 * directionOtherPlayer;
                     this.AttackHitboxUpOtherPlayer.y = this.otherPlayer.y - 35;
 
-                    this.AttackHitboxDownOtherPlayer.x = this.otherPlayer.x + 170 * directionOtherPlayer ;
+                    this.AttackHitboxDownOtherPlayer.x = this.otherPlayer.x + 170 * directionOtherPlayer;
                     this.AttackHitboxDownOtherPlayer.y = this.otherPlayer.y - 14;
                     break;
             }
@@ -760,20 +794,6 @@ export default class GameNet extends Phaser.Scene {
 
             this.punteroPlayer.x = this.player.x;
             this.punteroPlayer.y = this.player.y - 100;
-        }
-
-        //Si la rana escogida es la toro, lluvia o trepadora, el puntero debe estar más arriba
-        if (this.parameters.player2CharacterID == 0 || this.parameters.player2CharacterID == 3) {
-            this.punteroOtherPlayer.x = this.otherPlayer.x;
-            this.punteroOtherPlayer.y = this.otherPlayer.y - 200;
-        } else if (this.parameters.player1CharacterID == 1) {
-            this.punteroOtherPlayer.x = this.otherPlayer.x;
-            this.punteroOtherPlayer.y = this.otherPlayer.y - 225;
-        }
-        else {
-
-            this.punteroOtherPlayer.x = this.otherPlayer.x;
-            this.punteroOtherPlayer.y = this.otherPlayer.y - 100;
         }
 
         ///////////////////////////////////////////Gestion del tiempo////////////////////////////////////////////////////////////
@@ -802,7 +822,7 @@ export default class GameNet extends Phaser.Scene {
                 }
             }
             else {
-                if(otherCifra1 != null && otherCifra2 != null){
+                if (otherCifra1 != null && otherCifra2 != null) {
                     this.cifra1 = otherCifra1;
                     this.cifra2 = otherCifra2
                     console.log("cifra1" + otherCifra1);
@@ -874,8 +894,13 @@ export default class GameNet extends Phaser.Scene {
             this.cifra2 = 0;
             this.player.hp = this.player.maxhp;
             this.otherPlayer.hp = this.otherPlayer.maxhp;
-            this.setValueBar1(1);
-            this.setValueBar2(1);
+            if(logedUser.player == 1){
+                this.setValueBar1Player1(1);
+                this.setValueBar2Player1(1);
+            }else{
+                this.setValueBar1Player2(1);
+                this.setValueBar2Player2(1);
+            }
             if (logedUser.player == 1) {
                 this.player.x = 190;
                 this.otherPlayer.x = 1730;
@@ -913,10 +938,10 @@ export default class GameNet extends Phaser.Scene {
                     break;
             }
             if (logedUser.player == 1) {
-                this.setValueBar2(this.otherPlayer.hp / this.otherPlayer.maxhp);
+                this.setValueBar2Player1(this.otherPlayer.hp / this.otherPlayer.maxhp);
             }
             else if (logedUser.player == 2) {
-                this.setValueBar1(this.otherPlayer.hp / this.otherPlayer.maxhp);
+                this.setValueBar1Player2(this.otherPlayer.hp / this.otherPlayer.maxhp);
             }
 
             this.player.justAttack = false;
@@ -941,10 +966,10 @@ export default class GameNet extends Phaser.Scene {
                     break;
             }
             if (logedUser.player == 1) {
-                this.setValueBar2(this.otherPlayer.hp / this.otherPlayer.maxhp);
+                this.setValueBar2Player1(this.otherPlayer.hp / this.otherPlayer.maxhp);
             }
             else if (logedUser.player == 2) {
-                this.setValueBar1(this.otherPlayer.hp / this.otherPlayer.maxhp);
+                this.setValueBar1Player2(this.otherPlayer.hp / this.otherPlayer.maxhp);
             }
             this.player.justAttack = false;
             console.log('player 2 received 5 damage after an UpAttack!');
@@ -969,10 +994,10 @@ export default class GameNet extends Phaser.Scene {
                     break;
             }
             if (logedUser.player == 1) {
-                this.setValueBar1(this.player.hp / this.player.maxhp);
+                this.setValueBar1Player1(this.player.hp / this.player.maxhp);
             }
             else if (logedUser.player == 2) {
-                this.setValueBar2(this.player.hp / this.player.maxhp);
+                this.setValueBar2Player2(this.player.hp / this.player.maxhp);
             }
 
             this.otherPlayer.justAttack = false;
@@ -996,10 +1021,10 @@ export default class GameNet extends Phaser.Scene {
                     break;
             }
             if (logedUser.player == 1) {
-                this.setValueBar1(this.player.hp / this.player.maxhp);
+                this.setValueBar1Player1(this.player.hp / this.player.maxhp);
             }
             else if (logedUser.player == 2) {
-                this.setValueBar2(this.player.hp / this.player.maxhp);
+                this.setValueBar2Player2(this.player.hp / this.player.maxhp);
             }
             this.otherPlayer.justAttack = false;
             console.log('player 1 received 5 damage after an UpAttack!');
@@ -1026,10 +1051,10 @@ export default class GameNet extends Phaser.Scene {
                     break;
             }
             if (logedUser.player == 1) {
-                this.setValueBar2(this.otherPlayer.hp / this.otherPlayer.maxhp);
+                this.setValueBar2Player1(this.otherPlayer.hp / this.otherPlayer.maxhp);
             }
             else if (logedUser.player == 2) {
-                this.setValueBar1(this.otherPlayer.hp / this.otherPlayer.maxhp);
+                this.setValueBar1Player2(this.otherPlayer.hp / this.otherPlayer.maxhp);
             }
             this.player.justAttack = false;
             console.log('player 2 received 10 damage after a DownAttack!');
@@ -1053,10 +1078,10 @@ export default class GameNet extends Phaser.Scene {
                     break;
             }
             if (logedUser.player == 1) {
-                this.setValueBar2(this.otherPlayer.hp / this.otherPlayer.maxhp);
+                this.setValueBar2Player1(this.otherPlayer.hp / this.otherPlayer.maxhp);
             }
             else if (logedUser.player == 2) {
-                this.setValueBar1(this.otherPlayer.hp / this.otherPlayer.maxhp);
+                this.setValueBar1Player2(this.otherPlayer.hp / this.otherPlayer.maxhp);
             }
             this.player.justAttack = false;
             console.log('player 2 received 5 damage after a DownAttack!');
@@ -1081,10 +1106,10 @@ export default class GameNet extends Phaser.Scene {
                     break;
             }
             if (logedUser.player == 1) {
-                this.setValueBar1(this.player.hp / this.player.maxhp);
+                this.setValueBar1Player1(this.player.hp / this.player.maxhp);
             }
             else if (logedUser.player == 2) {
-                this.setValueBar2(this.player.hp / this.player.maxhp);
+                this.setValueBar2Player2(this.player.hp / this.player.maxhp);
             }
             this.otherPlayer.justAttack = false;
             console.log('player 1 received 10 damage after a DownAttack!');
@@ -1107,10 +1132,10 @@ export default class GameNet extends Phaser.Scene {
                     break;
             }
             if (logedUser.player == 1) {
-                this.setValueBar1(this.player.hp / this.player.maxhp);
+                this.setValueBar1Player1(this.player.hp / this.player.maxhp);
             }
             else if (logedUser.player == 2) {
-                this.setValueBar2(this.player.hp / this.player.maxhp);
+                this.setValueBar2Player2(this.player.hp / this.player.maxhp);
             }
             this.otherPlayer.justAttack = false;
             console.log('player 1 received 5 damage after a DownAttack!');
@@ -1131,14 +1156,24 @@ export default class GameNet extends Phaser.Scene {
         return barra;
     }
 
-    setValueBar1(percentage) {
+    setValueBar1Player1(percentage) {
         // Escala la barra
         this.barraVidaPlayer.scaleX = percentage;
     }
 
-    setValueBar2(percentage) {
+    setValueBar1Player2(percentage) {
+        // Escala la barra
+        this.barraVidaOtherPlayer.scaleX = percentage;
+    }
+
+    setValueBar2Player1(percentage) {
         // Escala la barra
         this.barraVidaOtherPlayer.scaleX = percentage * -1;
+    }
+
+    setValueBar2Player2(percentage) {
+        // Escala la barra
+        this.barraVidaPlayer.scaleX = percentage * -1;
     }
 
     updateWins(winner) {

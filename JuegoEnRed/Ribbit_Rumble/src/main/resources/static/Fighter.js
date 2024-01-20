@@ -1,7 +1,7 @@
 "use strict";
 
 export default class Fighter extends Phaser.Physics.Arcade.Sprite {
-    constructor(scene, x, y, characterID, altSkin, playerID, texture) {
+    constructor(scene, x, y, characterID, playerID, texture) {
         super(scene, x, y, texture);
         this.scene = scene;
 
@@ -15,7 +15,6 @@ export default class Fighter extends Phaser.Physics.Arcade.Sprite {
         this.speed = 300;
         this.jump = -300;
         this.characterID = characterID;
-        this.altSkin = altSkin;
         this.playerID = playerID;
 
         if (this.characterID == 0) {
@@ -176,118 +175,72 @@ export default class Fighter extends Phaser.Physics.Arcade.Sprite {
 
     assignAnimations() {
         //Animaciones asignadas:
-        if (!this.altSkin) {
-            switch (this.characterID) {
-                case 0: //Se asigna el nombre de las animaciones dependiendo del personaje
-                    this.idleAnim = "ToroIdleAnim";
-                    this.walkAnim = "ToroWalkAnim";
-                    this.beginBlockAnim = "ToroBeginBlockAnim";
-                    this.blockAnim = "ToroBlockAnim";
-                    this.endBlockAnim = "ToroEndBlockAnim";
-                    this.beginJumpAnim = "ToroBeginJumpAnim";
-                    this.jumpAnim = "ToroJumpAnim";
-                    this.endJumpAnim = "ToroEndJumpAnim";
-                    this.beginDuckAnim = "ToroBeginCrouchAnim";
-                    this.duckAnim = "ToroCrouchAnim";
-                    this.endDuckAnim = "ToroEndCrouchAnim";
-                    this.attackAnim = "ToroBasicAttackAnim";
-                    this.downAttackAnim = "ToroDownAttackAnim";
-                    this.hurtAnim = "ToroHurtAnim";
-                    break;
-                case 1:
-                    this.idleAnim = "LluviaIdleAnim";
-                    this.walkAnim = "LluviaWalkAnim";
-                    this.beginBlockAnim = "LluviaBeginBlockAnim";
-                    this.blockAnim = "LluviaBlockAnim";
-                    this.endBlockAnim = "LluviaEndBlockAnim";
-                    this.beginJumpAnim = "LluviaBeginJumpAnim";
-                    this.jumpAnim = "LluviaJumpAnim";
-                    this.endJumpAnim = "LluviaEndJumpAnim";
-                    this.beginDuckAnim = "LluviaBeginCrouchAnim";
-                    this.duckAnim = "LluviaCrouchAnim";
-                    this.endDuckAnim = "LluviaEndCrouchAnim";
-                    this.attackAnim = "LluviaBasicAttackAnim";
-                    this.downAttackAnim = "LluviaDownAttackAnim";
-                    this.hurtAnim = "LluviaHurtAnim";
-                    break;
-                case 2:
-                    this.idleAnim = "FlechaIdleAnim";
-                    this.walkAnim = "FlechaWalkAnim";
-                    this.beginBlockAnim = "FlechaBeginBlockAnim";
-                    this.blockAnim = "FlechaBlockAnim";
-                    this.endBlockAnim = "FlechaEndBlockAnim";
-                    this.beginJumpAnim = "FlechaBeginJumpAnim";
-                    this.jumpAnim = "FlechaJumpAnim";
-                    this.endJumpAnim = "FlechaEndJumpAnim";
-                    this.beginDuckAnim = "FlechaBeginCrouchAnim";
-                    this.duckAnim = "FlechaCrouchAnim";
-                    this.endDuckAnim = "FlechaEndCrouchAnim";
-                    this.attackAnim = "FlechaBasicAttackAnim";
-                    this.downAttackAnim = "FlechaDownAttackAnim";
-                    this.hurtAnim = "FlechaHurtAnim";
-                    break;
-                case 3:
-                    this.idleAnim = "TrepadoraIdleAnim";
-                    this.walkAnim = "TrepadoraWalkAnim";
-                    this.beginBlockAnim = "TrepadoraBeginBlockAnim";
-                    this.blockAnim = "TrepadoraBlockAnim";
-                    this.endBlockAnim = "TrepadoraEndBlockAnim";
-                    this.beginJumpAnim = "TrepadoraBeginJumpAnim";
-                    this.jumpAnim = "TrepadoraJumpAnim";
-                    this.endJumpAnim = "TrepadoraEndJumpAnim";
-                    this.beginDuckAnim = "TrepadoraBeginCrouchAnim";
-                    this.duckAnim = "TrepadoraCrouchAnim";
-                    this.endDuckAnim = "TrepadoraEndCrouchAnim";
-                    this.attackAnim = "TrepadoraBasicAttackAnim";
-                    this.downAttackAnim = "TrepadoraDownAttackAnim";
-                    this.hurtAnim = "TrepadoraHurtAnim";
-                    break;
-            }
+        switch (this.characterID) {
+            case 0: //Se asigna el nombre de las animaciones dependiendo del personaje
+                this.idleAnim = "ToroIdleAnim";
+                this.walkAnim = "ToroWalkAnim";
+                this.beginBlockAnim = "ToroBeginBlockAnim";
+                this.blockAnim = "ToroBlockAnim";
+                this.endBlockAnim = "ToroEndBlockAnim";
+                this.beginJumpAnim = "ToroBeginJumpAnim";
+                this.jumpAnim = "ToroJumpAnim";
+                this.endJumpAnim = "ToroEndJumpAnim";
+                this.beginDuckAnim = "ToroBeginCrouchAnim";
+                this.duckAnim = "ToroCrouchAnim";
+                this.endDuckAnim = "ToroEndCrouchAnim";
+                this.attackAnim = "ToroBasicAttackAnim";
+                this.downAttackAnim = "ToroDownAttackAnim";
+                this.hurtAnim = "ToroHurtAnim";
+                break;
+            case 1:
+                this.idleAnim = "LluviaIdleAnim";
+                this.walkAnim = "LluviaWalkAnim";
+                this.beginBlockAnim = "LluviaBeginBlockAnim";
+                this.blockAnim = "LluviaBlockAnim";
+                this.endBlockAnim = "LluviaEndBlockAnim";
+                this.beginJumpAnim = "LluviaBeginJumpAnim";
+                this.jumpAnim = "LluviaJumpAnim";
+                this.endJumpAnim = "LluviaEndJumpAnim";
+                this.beginDuckAnim = "LluviaBeginCrouchAnim";
+                this.duckAnim = "LluviaCrouchAnim";
+                this.endDuckAnim = "LluviaEndCrouchAnim";
+                this.attackAnim = "LluviaBasicAttackAnim";
+                this.downAttackAnim = "LluviaDownAttackAnim";
+                this.hurtAnim = "LluviaHurtAnim";
+                break;
+            case 2:
+                this.idleAnim = "FlechaIdleAnim";
+                this.walkAnim = "FlechaWalkAnim";
+                this.beginBlockAnim = "FlechaBeginBlockAnim";
+                this.blockAnim = "FlechaBlockAnim";
+                this.endBlockAnim = "FlechaEndBlockAnim";
+                this.beginJumpAnim = "FlechaBeginJumpAnim";
+                this.jumpAnim = "FlechaJumpAnim";
+                this.endJumpAnim = "FlechaEndJumpAnim";
+                this.beginDuckAnim = "FlechaBeginCrouchAnim";
+                this.duckAnim = "FlechaCrouchAnim";
+                this.endDuckAnim = "FlechaEndCrouchAnim";
+                this.attackAnim = "FlechaBasicAttackAnim";
+                this.downAttackAnim = "FlechaDownAttackAnim";
+                this.hurtAnim = "FlechaHurtAnim";
+                break;
+            case 3:
+                this.idleAnim = "TrepadoraIdleAnim";
+                this.walkAnim = "TrepadoraWalkAnim";
+                this.beginBlockAnim = "TrepadoraBeginBlockAnim";
+                this.blockAnim = "TrepadoraBlockAnim";
+                this.endBlockAnim = "TrepadoraEndBlockAnim";
+                this.beginJumpAnim = "TrepadoraBeginJumpAnim";
+                this.jumpAnim = "TrepadoraJumpAnim";
+                this.endJumpAnim = "TrepadoraEndJumpAnim";
+                this.beginDuckAnim = "TrepadoraBeginCrouchAnim";
+                this.duckAnim = "TrepadoraCrouchAnim";
+                this.endDuckAnim = "TrepadoraEndCrouchAnim";
+                this.attackAnim = "TrepadoraBasicAttackAnim";
+                this.downAttackAnim = "TrepadoraDownAttackAnim";
+                this.hurtAnim = "TrepadoraHurtAnim";
+                break;
+        }
 
-        }
-        else {
-            switch (this.characterID) {
-                case 0: //Se asigna el nombre de las animaciones dependiendo del personaje con skin alternativa;
-                    this.idleAnim = "";
-                    this.walkAnim = "";
-                    this.blockAnim = "";
-                    this.jumpAnim = "";
-                    this.duckAnim = "";
-                    this.attackAnim = "";
-                    this.downAttackAnim = "";
-                    this.airAttackAnim = "";
-                    break;
-                case 1:
-                    this.idleAnim = "";
-                    this.walkAnim = "";
-                    this.blockAnim = "";
-                    this.jumpAnim = "";
-                    this.duckAnim = "";
-                    this.attackAnim = "";
-                    this.downAttackAnim = "";
-                    this.airAttackAnim = "";
-                    break;
-                case 2:
-                    this.idleAnim = "";
-                    this.walkAnim = "";
-                    this.blockAnim = "";
-                    this.jumpAnim = "";
-                    this.duckAnim = "";
-                    this.attackAnim = "";
-                    this.downAttackAnim = "";
-                    this.airAttackAnim = "";
-                    break;
-                case 3:
-                    this.idleAnim = "";
-                    this.walkAnim = "";
-                    this.blockAnim = "";
-                    this.jumpAnim = "";
-                    this.duckAnim = "";
-                    this.attackAnim = "";
-                    this.downAttackAnim = "";
-                    this.airAttackAnim = "";
-                    break;
-            }
-        }
     }
 }
