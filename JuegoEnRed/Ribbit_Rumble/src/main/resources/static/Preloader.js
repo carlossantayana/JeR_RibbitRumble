@@ -598,6 +598,6 @@ export default class Preloader extends Phaser.Scene {
             repeat: 12
         });
 
-        this.scene.start('MainMenu'); //Cargar Escena inicial
+        this.scene.start('AccountScene'); //Cargar Escena de usuario
     }
 }

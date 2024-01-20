@@ -1,6 +1,7 @@
 "use strict";
 var logedUser;
 var serverIP;
+var access = false;
 
 $(document).ready(function () {
     console.log("El DOM está cargado")
@@ -10,7 +11,7 @@ $(document).ready(function () {
     var chatbox = $('#chatBox')
     var message = $('#input-message')
     var activeUsers = $('#active-users');
-    var actualUser = $('#actual-user');
+    //var actualUser = $('#actual-user');
     var actualChatMessagesLenght = 0;
     var access = false;
 
@@ -25,7 +26,27 @@ $(document).ready(function () {
         }
     })
 
-    if (!access) {
+
+    /*function loginUser(username, password){ 
+		GetUsers(function (Users) {            
+                        //Buscamos el usuario entre los datos que ha devuelto el servidor
+                        for (var i = 0; i < Users.length; i++) {
+
+                            if (nombre === Users[i].username && password === Users[i].password) {
+                                alert("¡Inicio de sesion exitoso!");
+                                access = true;
+                                actualUser.text('Usuario actual: ' + nombre);
+                                logedUser = Users[i];
+                                // SE LE ASIGNA EL ID DEL JUGADOR UNO SIEMPRE //
+                                logedUser.player = 1;
+                                console.log(logedUser);
+                                updateUserStatusEnter(logedUser);
+                            }
+                        }
+					});
+				}*/
+
+   /* if (!access) {
 
         //Utilizamos un callback para obtener el numero de usuarios en el servidor
         GetUsers(function (Users) {
@@ -126,7 +147,7 @@ $(document).ready(function () {
 
             }
         });  
-    }
+    }*/
     
 
     $(window).on('beforeunload', function () {
@@ -235,6 +256,7 @@ function registerUser(usernameP, passwordP) {
     }).done(function (data) {
         console.log("Usuario creado con éxito.")
         logedUser = data;
+        access = true;
         // SE LE ASIGNA EL ID DEL JUGADOR UNO SIEMPRE //
         logedUser.player = 1;
         console.log(logedUser);
