@@ -262,7 +262,7 @@ export default class GameNet extends Phaser.Scene {
         //UI P1
         this.add.image(450, 150, 'UIGamePieza1').setScale(0.65, 0.65);
         this.barraVidaP1 = this.generarBarra(228, 37, 0xb82d3b) //Se crea un rectangulo para la barra
-        this.setValueBar1(this.player.maxhp);               //Se pasa dicho rectangulo y el valor que tendrá la barra
+        this.setValueBar1(1);               //Se pasa dicho rectangulo y el valor que tendrá la barra
         this.add.image(450, 150, 'UIGamePieza2').setScale(0.65, 0.65);
 
         switch (this.parameters.p1CharacterID) {
@@ -297,7 +297,7 @@ export default class GameNet extends Phaser.Scene {
         //UI P2
         this.add.image(1470, 150, 'UIGamePieza1').setScale(0.65, 0.65).setFlipX(true);
         this.barraVidaP2 = this.generarBarra(1690, 37, 0xb82d3b); //Se crea un rectangulo para la barra
-        this.setValueBar2(this.otherPlayer.maxhp);                 //Se pasa dicho rectangulo y el valor que tendrá la barra
+        this.setValueBar2(1);                 //Se pasa dicho rectangulo y el valor que tendrá la barra
         this.add.image(1470, 150, 'UIGamePieza2').setScale(0.65, 0.65).setFlipX(true);
 
         switch (this.parameters.p2CharacterID) {
@@ -713,8 +713,8 @@ export default class GameNet extends Phaser.Scene {
             this.cifra2 = 0;
             this.player.hp = this.player.maxhp;
             this.otherPlayer.hp = this.otherPlayer.maxhp;
-            this.setValueBar1(this.player.maxhp);
-            this.setValueBar2(this.otherPlayer.maxhp);
+            this.setValueBar1(1);
+            this.setValueBar2(1);
             this.player.x = 190;
             this.player.y = 800;
             this.otherPlayer.x = 1730;
@@ -744,7 +744,13 @@ export default class GameNet extends Phaser.Scene {
                     this.selectSound(1);
                     break;
             }
-            this.setValueBar2(this.otherPlayer.hp);
+            if(logedUser.player == 1){
+				this.setValueBar2(this.otherPlayer.hp/this.otherPlayer.maxhp);
+			}
+			else if(logedUser.player == 2){
+				this.setValueBar1(this.otherPlayer.hp/this.otherPlayer.maxhp);
+			}
+
             this.player.justAttack = false;
             console.log('player 2 received 10 damage after an UpAttack!');
         }
@@ -766,7 +772,12 @@ export default class GameNet extends Phaser.Scene {
                     this.selectSound(2);
                     break;
             }
-            this.setValueBar2(this.otherPlayer.hp);
+            if(logedUser.player == 1){
+				this.setValueBar2(this.otherPlayer.hp/this.otherPlayer.maxhp);
+			}
+			else if(logedUser.player == 2){
+				this.setValueBar1(this.otherPlayer.hp/this.otherPlayer.maxhp);
+			}
             this.player.justAttack = false;
             console.log('player 2 received 5 damage after an UpAttack!');
         }
@@ -789,7 +800,13 @@ export default class GameNet extends Phaser.Scene {
                     this.selectSound(1);
                     break;
             }
-            this.setValueBar1(this.player.hp);
+            if(logedUser.player ==1){
+				this.setValueBar1(this.player.hp/this.player.maxhp);
+			}
+			else if(logedUser.player ==2) {
+				this.setValueBar2(this.player.hp/this.player.maxhp);
+			}
+
             this.otherPlayer.justAttack = false;
             console.log('player 1 received 10 damage after an UpAttack!');
         }
@@ -810,7 +827,12 @@ export default class GameNet extends Phaser.Scene {
                     this.selectSound(2);
                     break;
             }
-            this.setValueBar1(this.player.hp);
+            if(logedUser.player ==1){
+				this.setValueBar1(this.player.hp/this.player.maxhp);
+			}
+			else if(logedUser.player ==2) {
+				this.setValueBar2(this.player.hp/this.player.maxhp);
+			}
             this.otherPlayer.justAttack = false;
             console.log('player 1 received 5 damage after an UpAttack!');
         }
@@ -835,7 +857,12 @@ export default class GameNet extends Phaser.Scene {
                     this.selectSound(1);
                     break;
             }
-            this.setValueBar2(this.otherPlayer.hp);
+            if(logedUser.player == 1){
+				this.setValueBar2(this.otherPlayer.hp/this.otherPlayer.maxhp);
+			}
+			else if(logedUser.player == 2){
+				this.setValueBar1(this.otherPlayer.hp/this.otherPlayer.maxhp);
+			}
             this.player.justAttack = false;
             console.log('player 2 received 10 damage after a DownAttack!');
         }
@@ -857,7 +884,12 @@ export default class GameNet extends Phaser.Scene {
                     this.selectSound(2);
                     break;
             }
-            this.setValueBar2(this.otherPlayer.hp);
+            if(logedUser.player == 1){
+				this.setValueBar2(this.otherPlayer.hp/this.otherPlayer.maxhp);
+			}
+			else if(logedUser.player == 2){
+				this.setValueBar1(this.otherPlayer.hp/this.otherPlayer.maxhp);
+			}
             this.player.justAttack = false;
             console.log('player 2 received 5 damage after a DownAttack!');
         }
@@ -879,8 +911,13 @@ export default class GameNet extends Phaser.Scene {
                 case 3:
                     this.selectSound(1);
                     break;
-            }
-            this.setValueBar1(this.player.hp);
+            }            
+            if(logedUser.player ==1){
+				this.setValueBar1(this.player.hp/this.player.maxhp);
+			}
+			else if(logedUser.player ==2) {
+				this.setValueBar2(this.player.hp/this.player.maxhp);
+			}
             this.otherPlayer.justAttack = false;
             console.log('player 1 received 10 damage after a DownAttack!');
         }
@@ -901,7 +938,12 @@ export default class GameNet extends Phaser.Scene {
                     this.selectSound(2);
                     break;
             }
-            this.setValueBar1(this.player.hp);
+            if(logedUser.player ==1){
+				this.setValueBar1(this.player.hp/this.player.maxhp);
+			}
+			else if(logedUser.player ==2) {
+				this.setValueBar2(this.player.hp/this.player.maxhp);
+			}
             this.otherPlayer.justAttack = false;
             console.log('player 1 received 5 damage after a DownAttack!');
         }
@@ -923,12 +965,12 @@ export default class GameNet extends Phaser.Scene {
 
     setValueBar1(percentage) {
         // Escala la barra
-        this.barraVidaP1.scaleX = percentage / this.player.maxhp;
+        this.barraVidaP1.scaleX = percentage ;
     }
 
     setValueBar2(percentage) {
         // Escala la barra
-        this.barraVidaP2.scaleX = (percentage / this.otherPlayer.maxhp) * -1;
+        this.barraVidaP2.scaleX = percentage * -1;
     }
 
     updateWins(winner) {
