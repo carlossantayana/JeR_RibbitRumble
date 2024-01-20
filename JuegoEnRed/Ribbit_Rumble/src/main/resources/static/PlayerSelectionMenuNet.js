@@ -81,19 +81,19 @@ export default class PlayerSelectionMenuNet extends Phaser.Scene {
 		var scale = 0.5;
 		if (logedUser.player == 1 && (otherCharacter != null) && this.parameters.player2CharacterID == null) {	//Para mostrar la rana del jugador 2 al jugador 1
 			switch (otherCharacter) {
-				case "0": //Rana toro
+				case 0: //Rana toro
 					this.add.image(1720, 700, 'ranaToroSelect').setScale(scale).setFlipX(true);
 					this.parameters.player2CharacterID = 0;
 					break;
-				case "1": //Rana lluvia
+				case 1: //Rana lluvia
 					this.add.image(1720, 700, 'ranaLLuviaSelect').setScale(scale).setFlipX(true);
 					this.parameters.player2CharacterID = 1;
 					break;
-				case "2": //Rana punta
+				case 2: //Rana punta
 					this.add.image(1720, 700, 'ranaFlechaSelect').setScale(scale).setFlipX(true);
 					this.parameters.player2CharacterID = 2;
 					break;
-				case "3": //Rana trepadora
+				case 3: //Rana trepadora
 					this.add.image(1720, 700, 'ranaTrepadoraSelect').setScale(scale).setFlipX(true);
 					this.parameters.player2CharacterID = 3;
 					break;
@@ -102,20 +102,20 @@ export default class PlayerSelectionMenuNet extends Phaser.Scene {
 
 		if (logedUser.player == 2 && (otherCharacter != null) && this.parameters.player1CharacterID == null) { // Para que el jugador 2 vea que selecciono el jugador 1
 			switch (otherCharacter) {
-				case "0": //Rana toro
+				case 0: //Rana toro
 					this.add.image(200, 700, 'ranaToroSelect').setScale(scale);
 					this.parameters.player1CharacterID = 0;
 
 					break;
-				case "1": //Rana lluvia
+				case 1: //Rana lluvia
 					this.add.image(200, 700, 'ranaLLuviaSelect').setScale(scale);
 					this.parameters.player1CharacterID = 1;
 					break;
-				case "2": //Rana punta
+				case 2: //Rana punta
 					this.add.image(200, 700, 'ranaFlechaSelect').setScale(scale);
 					this.parameters.player1CharacterID = 2;
 					break;
-				case "3": //Rana trepadora
+				case 3: //Rana trepadora
 					this.add.image(200, 700, 'ranaTrepadoraSelect').setScale(scale);
 					this.parameters.player1CharacterID = 3;
 					break;
@@ -166,19 +166,18 @@ export default class PlayerSelectionMenuNet extends Phaser.Scene {
 		if (!this.playersReady) {
 			var scale = 0.5;
 			if ((logedUser.player == 1 && !this.selected1) || (logedUser.player == 2 && otherCharacter != null && !this.selected1)) {
-				var characterSelect = {
-					type: "selectingCharacter",
+				var characterSelection = {
+					type: "characterSelection",
 					data: -1
 				};
 				console.log(this.selected1);
 				switch (frogName) {
 					case 'BullFrog':
-						characterSelect.data = 0;
+						characterSelection.data = 0;
 						if (logedUser.player == 1) {
 							this.add.image(200, 700, 'ranaToroSelect').setScale(scale);
 							this.selected1 = true;
 							this.parameters.player1CharacterID = 0;
-							connection.send(JSON.stringify(characterSelect));
 							this.turnoTexto.destroy();
 							this.turnoTexto = this.add.text(740, 40, "Turno del jugador 2", { fontSize: '40px' });
 						}
@@ -186,17 +185,15 @@ export default class PlayerSelectionMenuNet extends Phaser.Scene {
 							this.add.image(1720, 700, 'ranaToroSelect').setScale(scale).setFlipX(true);
 							this.selected1 = true;
 							this.parameters.player2CharacterID = 0;
-							connection.send(JSON.stringify(characterSelect));
 						}
 						console.log('Rana toro seleccionada');
 						break;
 					case 'RainFrog':
-						characterSelect.data = 1;
+						characterSelection.data = 1;
 						if (logedUser.player == 1) {
 							this.add.image(200, 700, 'ranaLLuviaSelect').setScale(scale);
 							this.selected1 = true;
 							this.parameters.player1CharacterID = 1;
-							connection.send(JSON.stringify(characterSelect));
 							this.turnoTexto.destroy();
 							this.turnoTexto = this.add.text(740, 40, "Turno del jugador 2", { fontSize: '40px' });
 						}
@@ -204,17 +201,15 @@ export default class PlayerSelectionMenuNet extends Phaser.Scene {
 							this.add.image(1720, 700, 'ranaLLuviaSelect').setScale(scale).setFlipX(true);
 							this.selected1 = true;
 							this.parameters.player2CharacterID = 1;
-							connection.send(JSON.stringify(characterSelect));
 						}
 						console.log('Rana de lluvia seleccionada');
 						break;
 					case 'PoisonFrog':
-						characterSelect.data = 2;
+						characterSelection.data = 2;
 						if (logedUser.player == 1) {
 							this.add.image(200, 700, 'ranaFlechaSelect').setScale(scale);
 							this.selected1 = true;
 							this.parameters.player1CharacterID = 2;
-							connection.send(JSON.stringify(characterSelect));
 							this.turnoTexto.destroy();
 							this.turnoTexto = this.add.text(740, 40, "Turno del jugador 2", { fontSize: '40px' });
 						}
@@ -222,17 +217,15 @@ export default class PlayerSelectionMenuNet extends Phaser.Scene {
 							this.add.image(1720, 700, 'ranaFlechaSelect').setScale(scale).setFlipX(true);
 							this.selected1 = true;
 							this.parameters.player2CharacterID = 2;
-							connection.send(JSON.stringify(characterSelect));
 						}
 						console.log('Rana punta de flecha seleccionada');
 						break;
 					case 'TrepadoraFrog':
-						characterSelect.data = 3;
+						characterSelection.data = 3;
 						if (logedUser.player == 1) {
 							this.add.image(200, 700, 'ranaTrepadoraSelect').setScale(scale);
 							this.selected1 = true;
 							this.parameters.player1CharacterID = 3;
-							connection.send(JSON.stringify(characterSelect));
 							this.turnoTexto.destroy();
 							this.turnoTexto = this.add.text(740, 40, "Turno del jugador 2", { fontSize: '40px' });
 						}
@@ -240,14 +233,13 @@ export default class PlayerSelectionMenuNet extends Phaser.Scene {
 							this.add.image(1720, 700, 'ranaTrepadoraSelect').setScale(scale).setFlipX(true);
 							this.selected1 = true;
 							this.parameters.player2CharacterID = 3;
-							connection.send(JSON.stringify(characterSelect));
 						}
 						console.log('Rana trepadora seleccionada');
 						break;
 					default:
 						console.log('El boton si funciona pero no entra en los casos');
 				}
-
+				connection.send(JSON.stringify(characterSelection));
 			}
 		}
 	}

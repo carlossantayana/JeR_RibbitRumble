@@ -109,28 +109,28 @@ export default class MapSelectionMenuNet extends Phaser.Scene {
 					a = Math.floor(Math.random() * 3);
 					this.finalSelection = a;
 				}
-				var mapSelected = {
-					type: "mapSelected",
+				var finalMapSelectionToSend = {
+					type: "finalMapSelection",
 					data: this.finalSelection
 				};
-				console.log("Enviando el mapa final al servidor: " + mapSelected)
-				connection.send(JSON.stringify(mapSelected));
+				console.log("Enviando el mapa final al servidor: " + finalMapSelectionToSend)
+				connection.send(JSON.stringify(finalMapSelectionToSend));
 			}
 		}
 
 		if (logedUser.player == 1) {
 			if (this.gameStarting == 1) {
-				if (finalMap != null) {
-					console.log("Player 1 entró con num de mapa: " + finalMap );
-					if(this.player1Selection == finalMap){
+				if (finalMapSelection != null) {
+					console.log("Player 1 entró con num de mapa: " + finalMapSelection );
+					if(this.player1Selection == finalMapSelection){
 						this.p1 = true;
 					}
 					else{
 						this.p1 = false;
 					}
-					this.finalSelection = finalMap;
+					this.finalSelection = finalMapSelection;
 					console.log(this.finalSelection);
-					finalMap = null
+					finalMapSelection = null
 					this.gameStarting++;
 				}
 			}
@@ -270,25 +270,25 @@ export default class MapSelectionMenuNet extends Phaser.Scene {
 		var rectHeight = 470;
 		if (logedUser.player == 1 && (otherMap != null) && this.player2Selection == null) {	//Para mostrar la rana del jugador 2 al jugador 1
 			switch (otherMap) {
-				case "0": //Mapa Desierto
+				case 0: //Mapa Desierto
 					this.add.rectangle(posX2, posY, rectWidth, rectHeight, 0x606060);
 					this.add.rectangle(posX2, posY, rectWidth - 10, rectHeight - 10, 0x808080);
 					this.mapTwoImage = this.add.image(posX2, posY, 'desiertoFondo').setScale(scale);
 					this.player2Selection = 0;
 					break;
-				case "1": //Mapa Nenufar
+				case 1: //Mapa Nenufar
 					this.add.rectangle(posX2, posY, rectWidth, rectHeight, 0x606060);
 					this.add.rectangle(posX2, posY, rectWidth - 10, rectHeight - 10, 0x808080);
 					this.mapTwoImage = this.add.image(posX2, posY, 'nenufarFondo').setScale(scale);
 					this.player2Selection = 1;
 					break;
-				case "2": //Mapa selva
+				case 2: //Mapa selva
 					this.add.rectangle(posX2, posY, rectWidth, rectHeight, 0x606060);
 					this.add.rectangle(posX2, posY, rectWidth - 10, rectHeight - 10, 0x808080);
 					this.mapTwoImage = this.add.image(posX2, posY, 'junglaFondo').setScale(scale);
 					this.player2Selection = 2;
 					break;
-				case "3": //Mapa aleatorio
+				case 3: //Mapa aleatorio
 					this.add.rectangle(posX2, posY, rectWidth, rectHeight, 0x606060);
 					this.add.rectangle(posX2, posY, rectWidth - 10, rectHeight - 10, 0x808080);
 					this.mapTwoImage = this.add.image(posX2, posY, 'randomFondo').setScale(scaleRandom);
@@ -300,25 +300,25 @@ export default class MapSelectionMenuNet extends Phaser.Scene {
 
 		if (logedUser.player == 2 && (otherMap != null) && this.player1Selection == null) { // Para que el jugador 2 vea que selecciono el jugador 1
 			switch (otherMap) {
-				case "0": //Mapa Desierto
+				case 0: //Mapa Desierto
 					this.add.rectangle(posX1, posY, rectWidth, rectHeight, 0x606060);
 					this.add.rectangle(posX1, posY, rectWidth - 10, rectHeight - 10, 0x808080);
 					this.mapOneImage = this.add.image(posX1, posY, 'desiertoFondo').setScale(scale);
 					this.player1Selection = 0;
 					break;
-				case "1": //Mapa Nenufar
+				case 1: //Mapa Nenufar
 					this.add.rectangle(posX1, posY, rectWidth, rectHeight, 0x606060);
 					this.add.rectangle(posX1, posY, rectWidth - 10, rectHeight - 10, 0x808080);
 					this.mapOneImage = this.add.image(posX1, posY, 'nenufarFondo').setScale(scale);
 					this.player1Selection = 1;
 					break;
-				case "2": //Mapa selva
+				case 2: //Mapa selva
 					this.add.rectangle(posX1, posY, rectWidth, rectHeight, 0x606060);
 					this.add.rectangle(posX1, posY, rectWidth - 10, rectHeight - 10, 0x808080);
 					this.mapOneImage = this.add.image(posX1, posY, 'junglaFondo').setScale(scale);
 					this.player1Selection = 2;
 					break;
-				case "3": //Mapa aleatorio
+				case 3: //Mapa aleatorio
 					this.add.rectangle(posX1, posY, rectWidth, rectHeight, 0x606060);
 					this.add.rectangle(posX1, posY, rectWidth - 10, rectHeight - 10, 0x808080);
 					this.mapOneImage = this.add.image(posX1, posY, 'randomFondo').setScale(scaleRandom);
@@ -341,21 +341,20 @@ export default class MapSelectionMenuNet extends Phaser.Scene {
 			var posX2 = 1500;
 			var rectWidth = 800;
 			var rectHeight = 470;
-			var mapSelect = {
-				type: "selectingMap",
+			var mapSelection = {
+				type: "mapSelection",
 				data: -1
 			};
 			if ((logedUser.player == 1 && !this.selected1) || (logedUser.player == 2 && otherMap != null && !this.selected1)) {
 				switch (mapName) {
 					case 'desierto':
-						mapSelect.data = 0;
+						mapSelection.data = 0;
 						if (logedUser.player == 1) {
 							this.add.rectangle(posX1, posY, rectWidth, rectHeight, 0x606060);
 							this.add.rectangle(posX1, posY, rectWidth - 10, rectHeight - 10, 0x808080);
 							this.mapOneImage = this.add.image(posX1, posY, 'desiertoFondo').setScale(scale);
 							this.player1Selection = 0;
 							this.selected1 = true;
-							connection.send(JSON.stringify(mapSelect));
 							this.turnoTexto.destroy();
 							this.turnoTexto = this.add.text(740, 40, "Turno del jugador 2", { fontSize: '40px' });
 						}
@@ -365,20 +364,18 @@ export default class MapSelectionMenuNet extends Phaser.Scene {
 							this.mapTwoImage = this.add.image(posX2, posY, 'desiertoFondo').setScale(scale);
 							this.player2Selection = 0;
 							this.selected1 = true;
-							connection.send(JSON.stringify(mapSelect));
 							this.onGameStart();
 						}
 						console.log('Desierto seleccionado');
 						break;
 					case 'nenufar':
-						mapSelect.data = 1;
+						mapSelection.data = 1;
 						if (logedUser.player == 1) {
 							this.add.rectangle(posX1, posY, rectWidth, rectHeight, 0x606060);
 							this.add.rectangle(posX1, posY, rectWidth - 10, rectHeight - 10, 0x808080);
 							this.mapOneImage = this.add.image(posX1, posY, 'nenufarFondo').setScale(scale);
 							this.player1Selection = 1;
 							this.selected1 = true;
-							connection.send(JSON.stringify(mapSelect));
 							this.turnoTexto.destroy();
 							this.turnoTexto = this.add.text(740, 40, "Turno del jugador 2", { fontSize: '40px' });
 						}
@@ -388,20 +385,18 @@ export default class MapSelectionMenuNet extends Phaser.Scene {
 							this.mapTwoImage = this.add.image(posX2, posY, 'nenufarFondo').setScale(scale);
 							this.player2Selection = 1;
 							this.selected1 = true;
-							connection.send(JSON.stringify(mapSelect));
 							this.onGameStart();
 						}
 						console.log('Nenufar seleccionado');
 						break;
 					case 'selva':
-						mapSelect.data = 2;
+						mapSelection.data = 2;
 						if (logedUser.player == 1) {
 							this.add.rectangle(posX1, posY, rectWidth, rectHeight, 0x606060);
 							this.add.rectangle(posX1, posY, rectWidth - 10, rectHeight - 10, 0x808080);
 							this.mapOneImage = this.add.image(posX1, posY, 'junglaFondo').setScale(scale);
 							this.player1Selection = 2;
 							this.selected1 = true;
-							connection.send(JSON.stringify(mapSelect));
 							this.turnoTexto.destroy();
 							this.turnoTexto = this.add.text(740, 40, "Turno del jugador 2", { fontSize: '40px' });
 						}
@@ -411,20 +406,18 @@ export default class MapSelectionMenuNet extends Phaser.Scene {
 							this.mapTwoImage = this.add.image(posX2, posY, 'junglaFondo').setScale(scale);
 							this.player2Selection = 2;
 							this.selected1 = true;
-							connection.send(JSON.stringify(mapSelect));
 							this.onGameStart();
 						}
 						console.log('Selva seleccionada');
 						break;
 					case 'random':
-						mapSelect.data = 3;
+						mapSelection.data = 3;
 						if (logedUser.player == 1) {
 							this.add.rectangle(posX1, posY, rectWidth, rectHeight, 0x606060);
 							this.add.rectangle(posX1, posY, rectWidth - 10, rectHeight - 10, 0x808080);
 							this.mapOneImage = this.add.image(posX1, posY, 'randomFondo').setScale(scaleRandom);
 							this.player1Selection = 3;
 							this.selected1 = true;
-							connection.send(JSON.stringify(mapSelect));
 							this.turnoTexto.destroy();
 							this.turnoTexto = this.add.text(740, 40, "Turno del jugador 2", { fontSize: '40px' });
 						}
@@ -434,7 +427,6 @@ export default class MapSelectionMenuNet extends Phaser.Scene {
 							this.mapTwoImage = this.add.image(posX2, posY, 'randomFondo').setScale(scaleRandom);
 							this.player2Selection = 3;
 							this.selected1 = true;
-							connection.send(JSON.stringify(mapSelect));
 							this.onGameStart();
 						}
 						console.log('Aleatorio seleccionado');
@@ -442,6 +434,7 @@ export default class MapSelectionMenuNet extends Phaser.Scene {
 					default:
 						console.log('El boton si funciona pero no entra en los casos');
 				}
+				connection.send(JSON.stringify(mapSelection));
 			}
 		}
 	}

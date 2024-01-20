@@ -7,7 +7,7 @@ var otherCharacter=null;
 
 var otherMap = null;
 
-var finalMap = null;
+var finalMapSelection = null;
 
 //Booleanos para el movimiento, sustituyen la comprobacion de la entrada, luego actualizan el valor de las variables this.player locales
 var otherWalkLeft = false;	//Vale true si mantiene pulsado
@@ -38,7 +38,7 @@ function CreateWebSocket(){
 		console.log("WS message: " + jsonmsg);
 
 		switch(jsonmsg.type){
-			case "pair":
+			case "pairing":
 				if(jsonmsg.data === "true"){
 					paired = true;
 				}
@@ -46,22 +46,22 @@ function CreateWebSocket(){
 			case "login":
 				logedUser.player = jsonmsg.data;
 				break;
-			case "playerSelect":
+			case "characterSelection":
 				
-				otherCharacter=jsonmsg.data;
+				otherCharacter=parseInt(jsonmsg.data);
 				console.log(otherCharacter);
 				break;
 				
-			case "mapSelect":
+			case "mapSelection":
 				
-				otherMap=jsonmsg.data;
+				otherMap=parseInt(jsonmsg.data);
 				console.log(otherMap);
 				break;
 				
-			case "finalSelect":
+			case "finalMapSelection":
 				
-				finalMap = jsonmsg.data;
-				console.log(finalMap);
+				finalMapSelection = parseInt(jsonmsg.data);
+				console.log(finalMapSelection);
 				break;
 			case "inputUpdate":
 				 otherWalkLeft = jsonmsg.walkLeft;	
