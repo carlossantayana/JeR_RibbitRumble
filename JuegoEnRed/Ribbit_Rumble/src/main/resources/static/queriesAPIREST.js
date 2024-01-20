@@ -148,7 +148,9 @@ GetUsers(function (Users) {
     }).fail(function () {
         console.log("No ha sido posible crear el usuario")
     	});
-    } else {console.log("Usuario ya existente en el servidor")}
+    } else {
+		console.log("Usuario ya existente en el servidor")
+		}
 })
 
 }
