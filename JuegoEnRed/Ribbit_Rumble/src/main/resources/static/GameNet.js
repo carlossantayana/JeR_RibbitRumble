@@ -24,7 +24,7 @@ export default class GameNet extends Phaser.Scene {
 
         this.AttackHitboxUpP2;
         this.AttackHitboxDownP2;
-
+		this.hitboxPosScale;
         this.parameters = {
             p1CharacterID: 0,
             p2CharacterID: 0,
@@ -136,25 +136,25 @@ export default class GameNet extends Phaser.Scene {
 		//ASIGNACION DEL PERSONAJE SEGUN EL JUGADOR 1 O 2
 		if(logedUser.player == 1){
 			
-        this.player = new Fighter(this, 190, 800, this.parameters.p1CharacterID, this.parameters.p1AltSkin, 1, p1Texture);
-        this.otherPlayer = new Fighter(this, 1730, 800, this.parameters.p2CharacterID, this.parameters.p2AltSkin, 2, p2Texture);
-
-        this.player.lookingRight = true;
-
-        this.physics.add.collider(this.player, this.ground, () => this.player.touchingGround = true);
-        this.physics.add.collider(this.otherPlayer, this.ground, () => this.otherPlayer.touchingGround = true);
+	        this.player = new Fighter(this, 190, 800, this.parameters.p1CharacterID, this.parameters.p1AltSkin, 1, p1Texture);
+	        this.otherPlayer = new Fighter(this, 1730, 800, this.parameters.p2CharacterID, this.parameters.p2AltSkin, 2, p2Texture);
+			this.hitboxPosScale=1;
+	        this.player.lookingRight = true;
+	
+	        this.physics.add.collider(this.player, this.ground, () => this.player.touchingGround = true);
+	        this.physics.add.collider(this.otherPlayer, this.ground, () => this.otherPlayer.touchingGround = true);
 
 		}
 		
-	if(logedUser.player == 2){
+		if(logedUser.player == 2){
 			
-        this.player = new Fighter(this, 1730, 800, this.parameters.p2CharacterID, this.parameters.p2AltSkin, 2, p2Texture);
-        this.otherPlayer = new Fighter(this, 190, 800, this.parameters.p1CharacterID, this.parameters.p1AltSkin, 1, p1Texture);
-
-        this.otherPlayer.lookingRight = true;
-
-        this.physics.add.collider(this.player, this.ground, () => this.player.touchingGround = true);
-        this.physics.add.collider(this.otherPlayer, this.ground, () => this.otherPlayer.touchingGround = true);
+	        this.player = new Fighter(this, 1730, 800, this.parameters.p2CharacterID, this.parameters.p2AltSkin, 2, p2Texture);
+	        this.otherPlayer = new Fighter(this, 190, 800, this.parameters.p1CharacterID, this.parameters.p1AltSkin, 1, p1Texture);
+			this.hitboxPosScale=1;
+	        this.otherPlayer.lookingRight = true;
+	
+	        this.physics.add.collider(this.player, this.ground, () => this.player.touchingGround = true);
+	        this.physics.add.collider(this.otherPlayer, this.ground, () => this.otherPlayer.touchingGround = true);
 
 		}
 		
@@ -171,38 +171,38 @@ export default class GameNet extends Phaser.Scene {
         //Attack HitBoxes
         switch (this.parameters.p1CharacterID) {
             case 0:
-                this.AttackHitboxUpP1 = this.physics.add.image(this.player.x + 180, this.player.y - 20, '');
+                this.AttackHitboxUpP1 = this.physics.add.image(this.player.x + 180*this.hitboxPosScale, this.player.y - 20, '');
                 this.AttackHitboxUpP1.setAlpha(0);
                 this.AttackHitboxUpP1.setSize(60, 120);
 
-                this.AttackHitboxDownP1 = this.physics.add.image(this.player.x + 215, this.player.y, '');
+                this.AttackHitboxDownP1 = this.physics.add.image(this.player.x + 215*this.hitboxPosScale, this.player.y, '');
                 this.AttackHitboxDownP1.setAlpha(0);
                 this.AttackHitboxDownP1.setSize(170, 25);
                 break;
             case 1:
-                this.AttackHitboxUpP1 = this.physics.add.image(this.player.x + 130, this.player.y - 20, '');
+                this.AttackHitboxUpP1 = this.physics.add.image(this.player.x + 130*this.hitboxPosScale, this.player.y - 20, '');
                 this.AttackHitboxUpP1.setAlpha(0);
                 this.AttackHitboxUpP1.setSize(45, 115);
 
-                this.AttackHitboxDownP1 = this.physics.add.image(this.player.x + 130, this.player.y + 45, '');
+                this.AttackHitboxDownP1 = this.physics.add.image(this.player.x + 130*this.hitboxPosScale, this.player.y + 45, '');
                 this.AttackHitboxDownP1.setAlpha(0);
                 this.AttackHitboxDownP1.setSize(45, 70);
                 break;
             case 2:
-                this.AttackHitboxUpP1 = this.physics.add.image(this.player.x + 100, this.player.y + 78, '');
+                this.AttackHitboxUpP1 = this.physics.add.image(this.player.x + 100*this.hitboxPosScale, this.player.y + 78, '');
                 this.AttackHitboxUpP1.setAlpha(0);
                 this.AttackHitboxUpP1.setSize(50, 40);
 
-                this.AttackHitboxDownP1 = this.physics.add.image(this.player.x + 120, this.player.y + 95, '');
+                this.AttackHitboxDownP1 = this.physics.add.image(this.player.x + 120*this.hitboxPosScale, this.player.y + 95, '');
                 this.AttackHitboxDownP1.setAlpha(0);
                 this.AttackHitboxDownP1.setSize(55, 30);
                 break;
             case 3:
-                this.AttackHitboxUpP1 = this.physics.add.image(this.player.x + 170, this.player.y - 35, '');
+                this.AttackHitboxUpP1 = this.physics.add.image(this.player.x + 170*this.hitboxPosScale, this.player.y - 35, '');
                 this.AttackHitboxUpP1.setAlpha(0);
                 this.AttackHitboxUpP1.setSize(210, 50);
 
-                this.AttackHitboxDownP1 = this.physics.add.image(this.player.x + 170, this.player.y - 14, '');
+                this.AttackHitboxDownP1 = this.physics.add.image(this.player.x + 170*this.hitboxPosScale, this.player.y - 14, '');
                 this.AttackHitboxDownP1.setAlpha(0);
                 this.AttackHitboxDownP1.setSize(210, 50);
                 break;
@@ -210,38 +210,38 @@ export default class GameNet extends Phaser.Scene {
 
         switch (this.parameters.p2CharacterID) {
             case 0:
-                this.AttackHitboxUpP2 = this.physics.add.image(this.otherPlayer.x - 180, this.otherPlayer.y - 20, '');
+                this.AttackHitboxUpP2 = this.physics.add.image(this.otherPlayer.x - 180*this.hitboxPosScale, this.otherPlayer.y - 20, '');
                 this.AttackHitboxUpP2.setAlpha(0);
                 this.AttackHitboxUpP2.setSize(60, 120);
 
-                this.AttackHitboxDownP2 = this.physics.add.image(this.otherPlayer.x - 215, this.otherPlayer.y, '');
+                this.AttackHitboxDownP2 = this.physics.add.image(this.otherPlayer.x - 215*this.hitboxPosScale, this.otherPlayer.y, '');
                 this.AttackHitboxDownP2.setAlpha(0);
                 this.AttackHitboxDownP2.setSize(170, 25);
                 break;
             case 1:
-                this.AttackHitboxUpP2 = this.physics.add.image(this.otherPlayer.x - 130, this.otherPlayer.y - 20, '');
+                this.AttackHitboxUpP2 = this.physics.add.image(this.otherPlayer.x - 130*this.hitboxPosScale, this.otherPlayer.y - 20, '');
                 this.AttackHitboxUpP2.setAlpha(0);
                 this.AttackHitboxUpP2.setSize(45, 115);
 
-                this.AttackHitboxDownP2 = this.physics.add.image(this.otherPlayer.x - 130, this.otherPlayer.y + 45, '');
+                this.AttackHitboxDownP2 = this.physics.add.image(this.otherPlayer.x - 130*this.hitboxPosScale, this.otherPlayer.y + 45, '');
                 this.AttackHitboxDownP2.setAlpha(0);
                 this.AttackHitboxDownP2.setSize(45, 70);
                 break;
             case 2:
-                this.AttackHitboxUpP2 = this.physics.add.image(this.otherPlayer.x - 100, this.otherPlayer.y + 78, '');
+                this.AttackHitboxUpP2 = this.physics.add.image(this.otherPlayer.x - 100*this.hitboxPosScale, this.otherPlayer.y + 78, '');
                 this.AttackHitboxUpP2.setAlpha(0);
                 this.AttackHitboxUpP2.setSize(50, 40);
 
-                this.AttackHitboxDownP2 = this.physics.add.image(this.otherPlayer.x - 120, this.otherPlayer.y + 95, '');
+                this.AttackHitboxDownP2 = this.physics.add.image(this.otherPlayer.x - 120*this.hitboxPosScale, this.otherPlayer.y + 95, '');
                 this.AttackHitboxDownP2.setAlpha(0);
                 this.AttackHitboxDownP2.setSize(55, 30);
                 break;
             case 3:
-                this.AttackHitboxUpP2 = this.physics.add.image(this.otherPlayer.x - 170, this.otherPlayer.y - 35, '');
+                this.AttackHitboxUpP2 = this.physics.add.image(this.otherPlayer.x - 170*this.hitboxPosScale, this.otherPlayer.y - 35, '');
                 this.AttackHitboxUpP2.setAlpha(0);
                 this.AttackHitboxUpP2.setSize(210, 50);
 
-                this.AttackHitboxDownP2 = this.physics.add.image(this.otherPlayer.x - 170, this.otherPlayer.y - 14, '');
+                this.AttackHitboxDownP2 = this.physics.add.image(this.otherPlayer.x - 170*this.hitboxPosScale, this.otherPlayer.y - 14, '');
                 this.AttackHitboxDownP2.setAlpha(0);
                 this.AttackHitboxDownP2.setSize(210, 50);
                 break;
@@ -549,67 +549,132 @@ export default class GameNet extends Phaser.Scene {
             directionP2 = -1;
         }
 
-        switch (this.parameters.p1CharacterID) {
-            case 0:
-                this.AttackHitboxUpP1.x = this.player.x + 180 * directionP1;
-                this.AttackHitboxUpP1.y = this.player.y - 20;
-
-                this.AttackHitboxDownP1.x = this.player.x + 215 * directionP1;
-                this.AttackHitboxDownP1.y = this.player.y;
-                break;
-            case 1:
-                this.AttackHitboxUpP1.x = this.player.x + 130 * directionP1;
-                this.AttackHitboxUpP1.y = this.player.y - 20;
-
-                this.AttackHitboxDownP1.x = this.player.x + 130 * directionP1;
-                this.AttackHitboxDownP1.y = this.player.y + 45;
-                break;
-            case 2:
-                this.AttackHitboxUpP1.x = this.player.x + 100 * directionP1;
-                this.AttackHitboxUpP1.y = this.player.y + 78;
-
-                this.AttackHitboxDownP1.x = this.player.x + 120 * directionP1;
-                this.AttackHitboxDownP1.y = this.player.y + 95;
-                break;
-            case 3:
-                this.AttackHitboxUpP1.x = this.player.x + 170 * directionP1;
-                this.AttackHitboxUpP1.y = this.player.y - 35;
-
-                this.AttackHitboxDownP1.x = this.player.x + 170 * directionP1;
-                this.AttackHitboxDownP1.y = this.player.y - 14;
-                break;
+		if(logedUser.player==1)
+		{
+	        switch (this.parameters.p1CharacterID) {
+	            case 0:
+	                this.AttackHitboxUpP1.x = this.player.x + 180 * directionP1*this.hitboxPosScale;
+	                this.AttackHitboxUpP1.y = this.player.y - 20;
+	
+	                this.AttackHitboxDownP1.x = this.player.x + 215 * directionP1*this.hitboxPosScale;
+	                this.AttackHitboxDownP1.y = this.player.y;
+	                break;
+	            case 1:
+	                this.AttackHitboxUpP1.x = this.player.x + 130 * directionP1*this.hitboxPosScale;
+	                this.AttackHitboxUpP1.y = this.player.y - 20;
+	
+	                this.AttackHitboxDownP1.x = this.player.x + 130 * directionP1*this.hitboxPosScale;
+	                this.AttackHitboxDownP1.y = this.player.y + 45;
+	                break;
+	            case 2:
+	                this.AttackHitboxUpP1.x = this.player.x + 100 * directionP1*this.hitboxPosScale;
+	                this.AttackHitboxUpP1.y = this.player.y + 78;
+	
+	                this.AttackHitboxDownP1.x = this.player.x + 120 * directionP1*this.hitboxPosScale;
+	                this.AttackHitboxDownP1.y = this.player.y + 95;
+	                break;
+	            case 3:
+	                this.AttackHitboxUpP1.x = this.player.x + 170 * directionP1*this.hitboxPosScale;
+	                this.AttackHitboxUpP1.y = this.player.y - 35;
+	
+	                this.AttackHitboxDownP1.x = this.player.x + 170 * directionP1*this.hitboxPosScale;
+	                this.AttackHitboxDownP1.y = this.player.y - 14;
+	                break;
+	        }
+	        switch (this.parameters.p2CharacterID) {
+	            case 0:
+	                this.AttackHitboxUpP2.x = this.otherPlayer.x + 180 * directionP2*this.hitboxPosScale;
+	                this.AttackHitboxUpP2.y = this.otherPlayer.y - 20;
+	
+	                this.AttackHitboxDownP2.x = this.otherPlayer.x + 215 * directionP2*this.hitboxPosScale;
+	                this.AttackHitboxDownP2.y = this.otherPlayer.y;
+	                break;
+	            case 1:
+	                this.AttackHitboxUpP2.x = this.otherPlayer.x + 130 * directionP2*this.hitboxPosScale;
+	                this.AttackHitboxUpP2.y = this.otherPlayer.y - 20;
+	
+	                this.AttackHitboxDownP2.x = this.otherPlayer.x + 130 * directionP2*this.hitboxPosScale;
+	                this.AttackHitboxDownP2.y = this.otherPlayer.y + 45;
+	                break;
+	            case 2:
+	                this.AttackHitboxUpP2.x = this.otherPlayer.x + 100 * directionP2*this.hitboxPosScale;
+	                this.AttackHitboxUpP2.y = this.otherPlayer.y + 78;
+	
+	                this.AttackHitboxDownP2.x = this.otherPlayer.x + 120 * directionP2*this.hitboxPosScale;
+	                this.AttackHitboxDownP2.y = this.otherPlayer.y + 95;
+	                break;
+	            case 3:
+	                this.AttackHitboxUpP2.x = this.otherPlayer.x + 170 * directionP2*this.hitboxPosScale;
+	                this.AttackHitboxUpP2.y = this.otherPlayer.y - 35;
+	
+	                this.AttackHitboxDownP2.x = this.otherPlayer.x + 170 * directionP2*this.hitboxPosScale;
+	                this.AttackHitboxDownP2.y = this.otherPlayer.y - 14;
+	                break;
+	        }
         }
-
-        switch (this.parameters.p2CharacterID) {
-            case 0:
-                this.AttackHitboxUpP2.x = this.otherPlayer.x + 180 * directionP2;
-                this.AttackHitboxUpP2.y = this.otherPlayer.y - 20;
-
-                this.AttackHitboxDownP2.x = this.otherPlayer.x + 215 * directionP2;
-                this.AttackHitboxDownP2.y = this.otherPlayer.y;
-                break;
-            case 1:
-                this.AttackHitboxUpP2.x = this.otherPlayer.x + 130 * directionP2;
-                this.AttackHitboxUpP2.y = this.otherPlayer.y - 20;
-
-                this.AttackHitboxDownP2.x = this.otherPlayer.x + 130 * directionP2;
-                this.AttackHitboxDownP2.y = this.otherPlayer.y + 45;
-                break;
-            case 2:
-                this.AttackHitboxUpP2.x = this.otherPlayer.x + 100 * directionP2;
-                this.AttackHitboxUpP2.y = this.otherPlayer.y + 78;
-
-                this.AttackHitboxDownP2.x = this.otherPlayer.x + 120 * directionP2;
-                this.AttackHitboxDownP2.y = this.otherPlayer.y + 95;
-                break;
-            case 3:
-                this.AttackHitboxUpP2.x = this.otherPlayer.x + 170 * directionP2;
-                this.AttackHitboxUpP2.y = this.otherPlayer.y - 35;
-
-                this.AttackHitboxDownP2.x = this.otherPlayer.x + 170 * directionP2;
-                this.AttackHitboxDownP2.y = this.otherPlayer.y - 14;
-                break;
-        }
+        else if(logedUser.player)
+        {
+			 switch (this.parameters.p1CharacterID) {
+	            case 0:
+	                this.AttackHitboxUpP1.x = this.otherPlayer.x + 180 * directionP2*this.hitboxPosScale;
+	                this.AttackHitboxUpP1.y = this.otherPlayer.y - 20;
+	
+	                this.AttackHitboxDownP1.x = this.otherPlayer.x + 215 * directionP2*this.hitboxPosScale;
+	                this.AttackHitboxDownP1.y = this.otherPlayer.y;
+	                break;
+	            case 1:
+	                this.AttackHitboxUpP1.x = this.otherPlayer.x + 130 * directionP2*this.hitboxPosScale;
+	                this.AttackHitboxUpP1.y = this.otherPlayer.y - 20;
+	
+	                this.AttackHitboxDownP1.x = this.otherPlayer.x + 130 * directionP2*this.hitboxPosScale;
+	                this.AttackHitboxDownP1.y = this.otherPlayer.y + 45;
+	                break;
+	            case 2:
+	                this.AttackHitboxUpP1.x = this.otherPlayer.x + 100 * directionP2*this.hitboxPosScale;
+	                this.AttackHitboxUpP1.y = this.otherPlayer.y + 78;
+	
+	                this.AttackHitboxDownP1.x = this.otherPlayer.x + 120 * directionP2*this.hitboxPosScale;
+	                this.AttackHitboxDownP1.y = this.otherPlayer.y + 95;
+	                break;
+	            case 3:
+	                this.AttackHitboxUpP1.x = this.otherPlayer.x + 170 * directionP2*this.hitboxPosScale;
+	                this.AttackHitboxUpP1.y = this.otherPlayer.y - 35;
+	
+	                this.AttackHitboxDownP1.x = this.otherPlayer.x + 170 * directionP2*this.hitboxPosScale;
+	                this.AttackHitboxDownP1.y = this.otherPlayer.y - 14;
+	                break;
+	        }
+	        switch (this.parameters.p2CharacterID) {
+	            case 0:
+	                this.AttackHitboxUpP2.x = this.player.x + 180 * directionP1*this.hitboxPosScale;
+	                this.AttackHitboxUpP2.y = this.player.y - 20;
+	
+	                this.AttackHitboxDownP2.x = this.player.x + 215 * directionP1*this.hitboxPosScale;
+	                this.AttackHitboxDownP2.y = this.player.y;
+	                break;
+	            case 1:
+	                this.AttackHitboxUpP2.x = this.player.x + 130 * directionP1*this.hitboxPosScale;
+	                this.AttackHitboxUpP2.y = this.player.y - 20;
+	
+	                this.AttackHitboxDownP2.x = this.player.x + 130 * directionP1*this.hitboxPosScale;
+	                this.AttackHitboxDownP2.y = this.player.y + 45;
+	                break;
+	            case 2:
+	                this.AttackHitboxUpP2.x = this.player.x + 100 * directionP1*this.hitboxPosScale;
+	                this.AttackHitboxUpP2.y = this.player.y + 78;
+	
+	                this.AttackHitboxDownP2.x = this.player.x + 120 * directionP1*this.hitboxPosScale;
+	                this.AttackHitboxDownP2.y = this.player.y + 95;
+	                break;
+	            case 3:
+	                this.AttackHitboxUpP2.x = this.player.x + 170 * directionP1*this.hitboxPosScale;
+	                this.AttackHitboxUpP2.y = this.player.y - 35;
+	
+	                this.AttackHitboxDownP2.x = this.player.x + 170 * directionP1*this.hitboxPosScale;
+	                this.AttackHitboxDownP2.y = this.player.y - 14;
+	                break;
+	        }
+		}
 
         /////////////////////////////////////////////PUNTEROS PERSONAJES////////////////////////////////////////////////////////
 
