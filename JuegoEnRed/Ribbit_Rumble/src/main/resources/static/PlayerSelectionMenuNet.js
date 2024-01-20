@@ -1,7 +1,4 @@
 "use strict";
-var transitionTimer = 0;
-
-var transition = false
 
 export default class PlayerSelectionMenuNet extends Phaser.Scene {
 	constructor() {
@@ -19,6 +16,14 @@ export default class PlayerSelectionMenuNet extends Phaser.Scene {
 
 		this.turnoTexto = null;
 		this.turnoNum = null;
+
+		this.transition = false;
+		this.transitionTimer = 0;
+	}
+
+	init(data){
+		this.parameters.player1CharacterID = null;
+		this.parameters.player2CharacterID = null;
 	}
 
 	create() {
@@ -127,32 +132,44 @@ export default class PlayerSelectionMenuNet extends Phaser.Scene {
 	}
 
 	update(time, delta) {
+		if(otherLogOut){
+			alert("El otro jugador ha abandonado la sesión de juego, volviendo al menu principal")
+			connection.close();
+			this.scene.start('MainMenu');
+       		this.scene.stop();
+		}
 
 		this.SetOtherCharacter();
 		//Si los dos jugadores han escogido personaje, se va a la seleccion de mapa
 		if (this.parameters.player1CharacterID != null && this.parameters.player2CharacterID != null) {
-			transition = true;
+			this.transition = true;
 		}
-		if (transition) {
-			transitionTimer += delta / 1000;
-			if(transitionTimer >= 0 && transitionTimer < 1)
+		if (this.transition) {
+			this.transitionTimer += delta / 1000;
+			if(this.transitionTimer >= 0 && this.transitionTimer < 1)
 			{
 				if(this.turnoNum != null){
 				this.turnoNum.destroy();
 				}
 				this.turnoNum = this.add.image(960, 960, '3').setScale(0.65, 0.65);
 			}
-			if(transitionTimer >= 1 && transitionTimer < 2)
+			if(this.transitionTimer >= 1 && this.transitionTimer < 2)
 			{
 				this.turnoNum.destroy();
 				this.turnoNum = this.add.image(960, 960, '2').setScale(0.65, 0.65);
 			}
-			if(transitionTimer >= 2 && transitionTimer <= 3)
+			if(this.transitionTimer >= 2 && this.transitionTimer <= 3)
 			{
 				this.turnoNum.destroy();
 				this.turnoNum = this.add.image(960, 960, '1').setScale(0.65, 0.65);
 			}
-			if (transitionTimer > 3) {
+			if (this.transitionTimer > 3) {
+				this.transition = false;
+				this.transitionTimer = 0;
+				this.playersReady = false;
+				this.selected1 = false;
+				this.turnoNum = null;
+				this.turnoTexto = null;
 				//cambio de escena
 				this.scene.start("MapSelectionMenuNet", this.parameters);
 				this.scene.stop();

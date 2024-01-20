@@ -28,11 +28,12 @@ export default class GameNet extends Phaser.Scene {
             player1CharacterID: 0,
             player2CharacterID: 0,
             mapID: 0,
-            playerWonRounds: 0,
-            otherPlayerWonRounds: 0,
             winnerId: 0,
             loses: 0
         }
+
+        this.player1WonRounds = 0;
+        this.player2WonRounds = 0;
 
         this.barraVidaplayer
         this.barraVidaotherPlayer
@@ -63,9 +64,8 @@ export default class GameNet extends Phaser.Scene {
         this.parameters.player1CharacterID = data.player1CharacterID;
         this.parameters.player2CharacterID = data.player2CharacterID;
         this.parameters.mapID = data.mapID;
-        this.parameters.playerWonRounds = 0;
-        this.parameters.otherPlayerWonRounds = 0;
-
+        this.parameters.winnerId = null;
+        this.parameters.loses = null;
     }
 
     create() {
@@ -386,7 +386,7 @@ export default class GameNet extends Phaser.Scene {
             this.punteroPlayer.body.setAllowGravity(false);
             this.punteroPlayer.setScale(0.75, 0.75);
             this.punteroPlayer.setAlpha(1);
-        }else{
+        } else {
             //UI OtherPlayer
             this.add.image(450, 150, 'UIGamePieza1').setScale(0.65, 0.65);
             this.barraVidaOtherPlayer = this.generarBarra(228, 37, 0xb82d3b) //Se crea un rectangulo para la barra
@@ -447,6 +447,13 @@ export default class GameNet extends Phaser.Scene {
     }
 
     update(timer, delta) {
+        if(otherLogOut){
+			alert("El otro jugador ha abandonado la sesión de juego, volviendo al menu principal")
+			connection.close();
+			this.scene.start('MainMenu');
+       		this.scene.stop();
+		}
+        
         this.player.checkInmuneStatus();
         this.otherPlayer.checkInmuneStatus();
 
@@ -835,11 +842,21 @@ export default class GameNet extends Phaser.Scene {
             }
 
             if (this.cifra1 === 0 && this.cifra2 === 0) {
-                if (this.player.hp >= this.otherPlayer.hp) {
-                    this.roundEnd(2);
+                if (this.player.hp / this.player.maxhp > this.otherPlayer.hp / this.otherPlayer.maxhp) {
+                    if(logedUser.player == 1){
+                        this.roundEnd(2);
+                    }else{
+                        this.roundEnd(1);
+                    }
                 }
-                else {
-                    this.roundEnd(1);
+                else if (this.player.hp / this.player.maxhp < this.otherPlayer.hp / this.otherPlayer.maxhp){
+                    if(logedUser.player == 1){
+                        this.roundEnd(1);
+                    }else{
+                        this.roundEnd(2);
+                    }
+                }else{
+                    this.roundEnd(-1);
                 }
             }
 
@@ -849,42 +866,65 @@ export default class GameNet extends Phaser.Scene {
 
 
         //Send de los inputs al servidor
-        console.log("Enviando inputs");
+        //console.log("Enviando inputs");
         connection.send(JSON.stringify(this.inputUpdates));
     }
 
-    roundEnd(looserId) {
-        console.log("loser: " + looserId);
-        switch (looserId) {
-            case 2://Victoria Player
-                this.parameters.playerWonRounds += 1;
+    roundEnd(loserId) {
+        console.log("loser: " + loserId);
+        switch (loserId) {
+            case 2://Victoria Player 1
+                this.player1WonRounds += 1;
                 this.updateWins(1);
                 break;
-            case 1://Victoria OtherPlayer
-                this.parameters.otherPlayerWonRounds += 1;
+            case 1://Victoria Player 2
+                this.player2WonRounds += 1;
                 this.updateWins(2);
                 break;
         }
-        console.log(this.parameters.playerWonRounds);
-        console.log(this.parameters.otherPlayerWonRounds);
-        if (this.parameters.playerWonRounds === 2) {
+
+        if (this.player1WonRounds === 2) {
             this.parameters.winnerId = 1;
-            this.parameters.loses = this.parameters.otherPlayerWonRounds;
+            this.parameters.loses = this.player2WonRounds;
             this.changeTrackResults();
             //Cargar escena de resultados con Player como ganador
             console.log(this.parameters.winnerId);
             console.log("L " + this.parameters.loses);
-            this.scene.start("Results", this.parameters);
+
+            this.player1WonRounds = 0;
+            this.player2WonRounds = 0;
+
+            this.inputUpdates.attack = false;
+            this.inputUpdates.blocking = false;
+            this.inputUpdates.crouching = false;
+            this.inputUpdates.jump = false;
+            this.inputUpdates.lowAttack = false;
+            this.inputUpdates.walkLeft = false;
+            this.inputUpdates.walkRight = false;
+
+            this.scene.start("ResultsNet", this.parameters);
             this.scene.stop();
         }
-        else if (this.parameters.otherPlayerWonRounds === 2) {
+        else if (this.player2WonRounds === 2) {
             this.parameters.winnerId = 2;
-            this.parameters.loses = this.parameters.playerWonRounds;
+            this.parameters.loses = this.player1WonRounds;
             this.changeTrackResults();
             //Cargar escena de resultados con OtherPlayer como ganador
             console.log(this.parameters.winnerId);
             console.log("L " + this.parameters.loses);
-            this.scene.start("Results", this.parameters);
+
+            this.player1WonRounds = 0;
+            this.player2WonRounds = 0;
+
+            this.inputUpdates.attack = false;
+            this.inputUpdates.blocking = false;
+            this.inputUpdates.crouching = false;
+            this.inputUpdates.jump = false;
+            this.inputUpdates.lowAttack = false;
+            this.inputUpdates.walkLeft = false;
+            this.inputUpdates.walkRight = false;
+
+            this.scene.start("ResultsNet", this.parameters);
             this.scene.stop();
         }
         else {
@@ -894,10 +934,11 @@ export default class GameNet extends Phaser.Scene {
             this.cifra2 = 0;
             this.player.hp = this.player.maxhp;
             this.otherPlayer.hp = this.otherPlayer.maxhp;
-            if(logedUser.player == 1){
+
+            if (logedUser.player == 1) {
                 this.setValueBar1Player1(1);
                 this.setValueBar2Player1(1);
-            }else{
+            } else {
                 this.setValueBar1Player2(1);
                 this.setValueBar2Player2(1);
             }
@@ -907,7 +948,7 @@ export default class GameNet extends Phaser.Scene {
                 this.player.setFlipX(false);
                 this.otherPlayer.setFlipX(true);
             }
-            else if (logedUser.player == 2) {
+            else {
                 this.player.x = 1730;
                 this.otherPlayer.x = 190;
                 this.player.setFlipX(true);

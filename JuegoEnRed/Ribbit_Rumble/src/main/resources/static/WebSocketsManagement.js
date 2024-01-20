@@ -1,8 +1,8 @@
 "use strict";
 var connection;
-var connectionState;
 
 var paired = false;
+var otherLogOut = false;
 
 var otherCharacter=null;
 
@@ -22,9 +22,8 @@ var otherBlocking = false;
 var otherAttack = false;
 var otherLowAttack = false;
 
-var otherHealth;
-var otherCifra1;
-var otherCifra2;
+var otherCifra1 = null;
+var otherCifra2 = null;
 
 function CreateWebSocket(){
 	connection = new WebSocket('ws://'+ serverIP+'/ribbits');
@@ -40,7 +39,7 @@ function CreateWebSocket(){
 
 	connection.onmessage = function(msg) {
 		var jsonmsg = JSON.parse(msg.data);
-		console.log("WS message: " + jsonmsg);
+		//console.log("WS message: " + jsonmsg);
 
 		switch(jsonmsg.type){
 			case "pairing":
@@ -76,10 +75,28 @@ function CreateWebSocket(){
 				otherCifra1=parseInt(jsonmsg.cifra1);
 				otherCifra2=parseInt(jsonmsg.cifra2);
 				break;
+			case "logout":
+				otherLogOut = jsonmsg.data;
+				break;
 		}
 	}
 	
 	connection.onclose = function (e){
+		paired = false;
+		otherCharacter = null;
+		otherMap = null;
+		finalMapSelection = null;
+		otherWalkLeft = false;
+		otherWalkRight = false;
+		otherJump = false;
+		otherCrouching = false;
+		otherBlocking = false;
+		otherAttack = false;
+		otherLowAttack = false;
+		otherCifra1 = null;
+		otherCifra2 = null;
+		otherLogOut = false;
+
 		console.log("Conexion cerrada")
 	}
 }

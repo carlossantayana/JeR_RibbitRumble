@@ -40,6 +40,13 @@ public class WebSocketHandler extends TextWebSocketHandler{
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
 		System.out.println("Session closed: " + session.getId());
+		for (Map.Entry<String, WebSocketSession> entry : sessions.entrySet()) 
+		{
+            if(entry.getKey()!= session.getId()) {
+            	System.out.println(entry.getValue());
+            	otherLogOut(entry.getValue());
+            }
+		}
 		sessions.remove(session.getId());
 	}
 	
@@ -139,6 +146,13 @@ public class WebSocketHandler extends TextWebSocketHandler{
 	}
 	
 	public void SyncTime(WebSocketSession session, JsonNode node) throws Exception{
+		session.sendMessage(new TextMessage(node.toString()));
+	}
+	
+	public void otherLogOut(WebSocketSession session) throws Exception{
+		ObjectNode node = mapper.createObjectNode();
+		node.put("type", "logout");
+		node.put("data", true);
 		session.sendMessage(new TextMessage(node.toString()));
 	}
 }

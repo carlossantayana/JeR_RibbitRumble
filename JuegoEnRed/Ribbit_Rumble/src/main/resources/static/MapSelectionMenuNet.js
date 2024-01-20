@@ -87,7 +87,13 @@ export default class MapSelectionMenuNet extends Phaser.Scene {
 
 	}
 	update(time, delta) {
-		
+		if(otherLogOut){
+			alert("El otro jugador ha abandonado la sesión de juego, volviendo al menu principal")
+			connection.close();
+			this.scene.start('MainMenu');
+       		this.scene.stop();
+		}
+
 		this.SetOtherMap();
 		//If al que entra el update una vez cuando se pulsa el boton, dentro se elige de forma aleatoria el mapa entre los dos mapas elegidos por los jugadores
 		if (logedUser.player == 2) {
@@ -238,6 +244,8 @@ export default class MapSelectionMenuNet extends Phaser.Scene {
 			}
 			if (this.timerChangeScene > 3) {
 				this.playersReady = false;
+				this.playerSelect = 1;
+				this.selected1 = false;
 				this.gameStarting = 0;
 				this.mapOneImage = undefined;
 				this.mapTwoImage = undefined;
@@ -248,6 +256,8 @@ export default class MapSelectionMenuNet extends Phaser.Scene {
 				this.timer = 0;
 				this.timerFinal = 0;
 				this.timerChangeScene = 0;
+				this.turnoTexto = null;
+				this.turnoNum = null;
 				this.changeTrackMaps(this.parameters.mapID + 1);
 				console.log("GAME START")
 				console.log("Player 1: " + this.parameters.player1CharacterID);
