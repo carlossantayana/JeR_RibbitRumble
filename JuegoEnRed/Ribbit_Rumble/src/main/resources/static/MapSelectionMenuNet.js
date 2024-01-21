@@ -117,7 +117,8 @@ export default class MapSelectionMenuNet extends Phaser.Scene {
 				}
 				var finalMapSelectionToSend = {
 					type: "finalMapSelection",
-					data: this.finalSelection
+					data: this.finalSelection,
+					isPlayer1: this.p1
 				};
 				console.log("Enviando el mapa final al servidor: " + finalMapSelectionToSend)
 				connection.send(JSON.stringify(finalMapSelectionToSend));
@@ -128,13 +129,8 @@ export default class MapSelectionMenuNet extends Phaser.Scene {
 			if (this.gameStarting == 1) {
 				if (finalMapSelection != null) {
 					console.log("Player 1 entró con num de mapa: " + finalMapSelection );
-					if(this.player1Selection == finalMapSelection){
-						this.p1 = true;
-					}
-					else{
-						this.p1 = false;
-					}
 					this.finalSelection = finalMapSelection;
+					this.p1 = isPlayer1Selection;
 					console.log(this.finalSelection);
 					finalMapSelection = null
 					this.gameStarting++;

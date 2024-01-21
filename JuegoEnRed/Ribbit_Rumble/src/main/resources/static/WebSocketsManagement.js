@@ -9,6 +9,7 @@ var otherCharacter=null;
 var otherMap = null;
 
 var finalMapSelection = null;
+var isPlayer1Selection = null;
 
 //Booleanos para el movimiento, sustituyen la comprobacion de la entrada, luego actualizan el valor de las variables this.player locales
 var otherWalkLeft = false;	//Vale true si mantiene pulsado
@@ -60,6 +61,7 @@ function CreateWebSocket(){
 				break;
 			case "finalMapSelection":
 				finalMapSelection = parseInt(jsonmsg.data);
+				isPlayer1Selection = jsonmsg.isPlayer1;
 				console.log(finalMapSelection);
 				break;
 			case "inputUpdate":
