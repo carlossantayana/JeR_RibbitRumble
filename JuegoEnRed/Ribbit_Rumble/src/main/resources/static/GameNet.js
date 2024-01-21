@@ -67,6 +67,7 @@ export default class GameNet extends Phaser.Scene {
 		this.parameters.mapID = data.mapID;
 		this.parameters.winnerId = null;
 		this.parameters.loses = null;
+		this.firstStarted=false;
 	}
 
 	create() {
@@ -458,10 +459,12 @@ export default class GameNet extends Phaser.Scene {
 			
 			if (!this.firstStarted) {
 				this.timerUpdates = {
-					type: "stopRound"
+					type: "restartRound"
 				}
 				Cifra1=6;
 				Cifra1=0;
+				this.cifra1=6;
+				this.cifra1=0;
 				connection.send(JSON.stringify(this.timerUpdates));
 				
 				console.log("start");
@@ -834,11 +837,6 @@ export default class GameNet extends Phaser.Scene {
 		this.numeroUno = this.add.image(900, 80, this.cifra1.toString()).setScale(0.65, 0.65);
 		this.numeroDos = this.add.image(1020, 80, this.cifra2.toString()).setScale(0.65, 0.65);
 		if (this.cifra1 === 0 && this.cifra2 === 0) {
-			console.log("stop");
-			this.timerUpdates = {
-				type: "stopRound"
-			}
-			connection.send(JSON.stringify(this.timerUpdates));
 			if (this.player.hp / this.player.maxhp > this.otherPlayer.hp / this.otherPlayer.maxhp) {
 				if (logedUser.player == 1) {
 					this.roundEnd(2);
@@ -871,6 +869,7 @@ export default class GameNet extends Phaser.Scene {
 		
 		Cifra1 = 6;
 		Cifra2 = 0;
+		this.firstStarted
 		console.log("Ronda perdida por el jugador: " + loserId);
 		switch (loserId) {
 			case 2://Victoria Player 1
@@ -884,6 +883,10 @@ export default class GameNet extends Phaser.Scene {
 		}
 
 		if (this.player1WonRounds === 2) {
+			console.log("stop");
+			this.timerUpdates = {
+				type: "stopRound"
+			}
 			this.parameters.winnerId = 1;
 			this.parameters.loses = this.player2WonRounds;
 			this.changeTrackResults();
@@ -900,12 +903,16 @@ export default class GameNet extends Phaser.Scene {
 			this.inputUpdates.lowAttack = false;
 			this.inputUpdates.walkLeft = false;
 			this.inputUpdates.walkRight = false;
-			this.firstStarted=false;
 
+			
 			this.scene.start("ResultsNet", this.parameters);
 			this.scene.stop();
 		}
 		else if (this.player2WonRounds === 2) {
+			console.log("stop");
+			this.timerUpdates = {
+				type: "stopRound"
+			}
 			this.parameters.winnerId = 2;
 			this.parameters.loses = this.player1WonRounds;
 			this.changeTrackResults();
@@ -922,19 +929,19 @@ export default class GameNet extends Phaser.Scene {
 			this.inputUpdates.lowAttack = false;
 			this.inputUpdates.walkLeft = false;
 			this.inputUpdates.walkRight = false;
-			this.firstStarted=false;
+
 
 			this.scene.start("ResultsNet", this.parameters);
 			this.scene.stop();
 		}
 		else {
-			if (logedUser.player == 1) {
-				console.log("start2");
-				this.timerUpdates = {
-					type: "startRound"
-				}
-				connection.send(JSON.stringify(this.timerUpdates));
+		
+			console.log("restart");
+			this.timerUpdates = {
+				type: "restartRound"
 			}
+			connection.send(JSON.stringify(this.timerUpdates));
+		
 
 			//Recargar la escena de juego con los parametros necesarios
 			this.cifra1 = 6;

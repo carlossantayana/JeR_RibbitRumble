@@ -48,6 +48,7 @@ public class WebSocketHandler extends TextWebSocketHandler{
 	
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
+		stopTimer();
 		System.out.println("Session closed: " + session.getId());
 		for (Map.Entry<String, WebSocketSession> entry : sessions.entrySet()) 
 		{
@@ -57,70 +58,73 @@ public class WebSocketHandler extends TextWebSocketHandler{
 				}
             }
 		}
-		sessions.remove(session.getId());
-		stopTimer();
+		sessions.remove(session.getId());	
 	}
 	
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-		JsonNode node = mapper.readTree(message.getPayload());
-		String type = node.get("type").toString();
-		
-		type = type.replaceAll("\"", "");
-		
-		switch(type) {
-			case "pairing":
-				pairPlayers(session);
-				break;
-				
-			case "characterSelection":
-				for (Map.Entry<String, WebSocketSession> entry : sessions.entrySet()) 
-				{
-		            if(entry.getKey()!= session.getId()) {
-		            	selectCharacter(entry.getValue(), node);
-		            }
-				}
-				break;
-			case "mapSelection":
-				for (Map.Entry<String, WebSocketSession> entry : sessions.entrySet()) 
-				{
-		            if(entry.getKey()!= session.getId()) {
-		            	selectMap(entry.getValue(), node);
-		            }
-				}
-				break;
-			case "finalMapSelection":
-				for (Map.Entry<String, WebSocketSession> entry : sessions.entrySet()) 
-				{
-		            if(entry.getKey()!= session.getId()) {
-		            	sendFinalMapSelection(entry.getValue(), node);
-		            }
-				}
-				break;
-			case "inputUpdate":
-				
-				for (Map.Entry<String, WebSocketSession> entry : sessions.entrySet()) 
-				{
-		            if(entry.getKey()!= session.getId()) {
-		            	updateInputs(entry.getValue(), node);
-		            }
-				}
-				break;
-			case "startRound":
-				System.out.println("Update started");
-				startTimer(session);
-				break;
-			case "stopRound":
-				stopTimer();
-				break;
+		if(message.getPayload()!=null)
+		{
+			JsonNode node = mapper.readTree(message.getPayload());
+			String type = node.get("type").toString();
+			
+			type = type.replaceAll("\"", "");
+			
+			switch(type) {
+				case "pairing":
+					pairPlayers(session);
+					break;
+					
+				case "characterSelection":
+					for (Map.Entry<String, WebSocketSession> entry : sessions.entrySet()) 
+					{
+			            if(entry.getKey()!= session.getId()) {
+			            	selectCharacter(entry.getValue(), node);
+			            }
+					}
+					break;
+				case "mapSelection":
+					for (Map.Entry<String, WebSocketSession> entry : sessions.entrySet()) 
+					{
+			            if(entry.getKey()!= session.getId()) {
+			            	selectMap(entry.getValue(), node);
+			            }
+					}
+					break;
+				case "finalMapSelection":
+					for (Map.Entry<String, WebSocketSession> entry : sessions.entrySet()) 
+					{
+			            if(entry.getKey()!= session.getId()) {
+			            	sendFinalMapSelection(entry.getValue(), node);
+			            }
+					}
+					break;
+				case "inputUpdate":
+					
+					for (Map.Entry<String, WebSocketSession> entry : sessions.entrySet()) 
+					{
+			            if(entry.getKey()!= session.getId()) {
+			            	updateInputs(entry.getValue(), node);
+			            }
+					}
+					break;
+				case "startRound":
+					System.out.println("Update started");
+					startTimer(session);
+					break;
+				case "stopRound":
+					stopTimer();
+					break;
+				case "restartRound":
+					restartTimer();
+					break;
+			}
 		}
+
 	}
 
 	private void startTimer(WebSocketSession session) {		
 	    if (executorService == null || executorService.isShutdown()) {	        
-
-	    	this.cifra1=6;
-	    	this.cifra2=0;
 	        executorService = Executors.newSingleThreadScheduledExecutor();
 	        executorService.scheduleAtFixedRate(() -> {
 				try {
@@ -149,12 +153,8 @@ public class WebSocketHandler extends TextWebSocketHandler{
 			node.put("data1", this.cifra1);
 			node.put("data2", this.cifra2);
 
-			sendMessageToSession(session,node);			
 			System.out.println("Updated countdown");
-			for (Map.Entry<String, WebSocketSession> entry : sessions.entrySet()) 
-			{
-				sendTime(node);
-			}
+			sendTime(node);
 	    } catch (InterruptedException e) {
 	        Thread.currentThread().interrupt();
 	        stopTimer();
@@ -164,12 +164,14 @@ public class WebSocketHandler extends TextWebSocketHandler{
 	
     private void stopTimer() {
         if (executorService != null && !executorService.isShutdown()) {
-	    	this.cifra1=6;
-	    	this.cifra2=0;
             executorService.shutdownNow();
-            executorService = null;            
+            executorService = null;   
         }
-        
+    }
+    
+    private void restartTimer() {
+	   	this.cifra1=6;
+	    this.cifra2=0;
     }
 	    
 	public void pairPlayers(WebSocketSession session) throws Exception{
