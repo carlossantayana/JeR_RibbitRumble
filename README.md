@@ -71,9 +71,11 @@ Marcos De Ozaeta Cabadas
 
 [10. Implementación con Web Sockets ](#_toc148190705)
 
-[10. Mejoras para el Futuro ](#_toc148190706)
+[11. Mejoras implementadas ](#_toc148190706)
 
-[11. Referencias ](#_toc148190707)
+[12. Mejoras para el Futuro ](#_toc148190707)
+
+[13. Referencias ](#_toc148190708)
 
 
 
@@ -459,11 +461,14 @@ Los mensajes que mandan los usuarios se gestionan y procesan en la clase WebSock
 - **Emparejamiento entre ambos jugadores.** Cuando se pulsa el botón de selección de modo "En red", se abre una conexión al servidor por medio de un Web Socket, que en el instante que se crea comienza a mandar un string, "pairing", al servidor para conectarse con el otro cliente. el servidor devuelve un JSON con un booleano que indica si se han conectado 2 clientes o no, y ambos clientes lo reciben hasta que dicho booleano es true.
   
 - **Selección de personajes y mapas.** Una vez emparejados, se asigna el jugador 1 al cliente que creó primero el Web Socket y, por tanto, el segundo cliente es el jugador 2. A la hora de elegir personaje, esto se hace por turnos. Primero elige el jugador 1, que en el momento en el que selecciona un personaje, este se envía al servidor como un número entero dentro de un JSON, que a su vez contiene un string, "characterSelection", para que se gestione en su correspondiente función. El servidor le mandará al otro cliente cual es el personaje que eligió el jugador 1. Se repiten los mismos pasos para el jugador 2, y tras elegir se hace una cuenta atrás para continuar con la selección de mapas.
-En la selección de mapas se hace de forma similar a la de personajes, pero cambiando el string por "mapSelection". La diferencia es al momento de elegir un mapa de entre los dos seleccionados. Como se realiza de forma aleatoria con números aleatorios, es el jugador 2 el que genera ese numero aleatorio y se lo envía al servidor en un JSON con el string "finalMapSelection" para que el jugador 1 pueda recibir desde el servidor el mapa en el van a jugar ambos.
+En la selección de mapas se hace de forma similar a la de personajes, pero cambiando el string por "mapSelection". La diferencia es al momento de elegir un mapa de entre los dos seleccionados. Como se realiza de forma aleatoria con números aleatorios, es el jugador 2 el que genera ese número aleatorio y se lo envía al servidor en un JSON con el string "finalMapSelection" para que el jugador 1 pueda recibir desde el servidor el mapa en el van a jugar ambos.
 
 - **Gameplay.**
+Hay una serie de diferencias respecto a la version local y en red del juego. En cada bucle del juego, los clientes envían al servidor objetos JSON para diversas gestiones. Entre ellas está la gestion de la entrada por teclado de cada jugador para poder mover a ambos personajes. Cada cliente guarda booleanos que son enviados al otro cliente y este los utiliza para simular las pulsaciones del otro jugador, de manera que se mueven los personajes en tiempo real. Otro objeto JSON es el encargado de indicarle al servidor que tiene que empezar a llevar la gestión del tiempo para que ambos clientes muestren el mismo tiempo restante de cada ronda.
+Los indicadores que aparecían sobre los personajes en la versión local tienen un pequeño cambio: En el juego en red cada cliente ve únicamente el indicador de su personaje. Se hizo de esta manera ya que cada cliente tiene su propio monitor para ver el juego y la eliminación del otro puntero facilitaría que los jugadores localicen a su personaje durante la partida.
   
 - **Pantalla de resultados.** 
+La pantalla de resultados es visualmente la misma que en la versión local, mostrando las estadísticas del jugador actual de la sesión. La diferencia es que en esta pantalla la conexión WebSocket se cierra. Esto facilita el funcionamiento del botón de "Revancha", que cuando es pulsado, lleva al jugador a la escena de "Emparejamiento" de forma que pueda comenzar otra partida rápidamente.
 
 En cuanto al flujo del juego, este ha sido modificado para poder implementar el uso de WebSockets:
 
@@ -472,15 +477,26 @@ En cuanto al flujo del juego, este ha sido modificado para poder implementar el 
  
  Las escenas de selección de personajes, de selección de mapas, del gameplay y de la pantalla de resultados se han duplicado para que el juego pueda seguir siendo jugable en local.
  También se ha añadido la escena de emparejamiento.
+
+# <a name="_toc148190706"></a>Mejoras implementadas
+Entre las mejoras implementadas para el juego, podemos destacar: 
+1. La eliminación de la barra de habilidad especial de la interfaz del jugador debido a que dicha mecánica no está implementada.
+   IMAGEN
+2. En caso de empate, se comienza una nueva ronda, en lugar de ganar siempre el jugador uno.
+3. Refactorización del sistema de registro y inicio de sesión de usuarios, pasando de ser un sistema basado en alerts del navegador a un sistema integrado en el juego.
+![](ImagenesMD/Usuario1.png)
+***“Interfaz de Acceso al Juego”***
+![](ImagenesMD/Usuario2.png)
+***“Introducción de datos al juego”***
  
-# <a name="_toc148190706"></a>Mejoras para el Futuro
+# <a name="_toc148190707"></a>Mejoras para el Futuro
 Algunos aspectos comentados anteriormente en este documento no fueron implementados durante la fase de desarrollo inicial. Siendo entonces contenido que se ha recortado del juego, pero que son posibles implementaciones futuras. Dichos aspectos son:
 
 1. Ataque ascendente, aéreo y especial de los personajes.
 2. Animaciones de los escenarios.
 3. Control del brillo de la pantalla.
 
-# <a name="_toc148190707"></a>Referencias
+# <a name="_toc148190708"></a>Referencias
 
 Se ha tomado como referencia juegos como Mortal Kombat y Street Fighter a la hora de diseñar las mecánicas y diseño de los niveles. La estructura del GDD ha sido extraída de la teoría enseñada en la asignatura "Fundamentos del diseño y la Jugabilidad" de primero de Diseño y Desarrollo de Videojuegos.
 
