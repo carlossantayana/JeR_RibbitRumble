@@ -481,7 +481,8 @@ En cuanto al flujo del juego, este ha sido modificado para poder implementar el 
 # <a name="_toc148190706"></a>Mejoras implementadas
 Entre las mejoras implementadas para el juego, podemos destacar: 
 1. La eliminación de la barra de habilidad especial de la interfaz del jugador debido a que dicha mecánica no está implementada.
-   IMAGEN
+![](ImagenesMD/NoBarraAzul.png)
+***“Interfaz sin la barra azul de habilidad”***
 2. En caso de empate, se comienza una nueva ronda, en lugar de ganar siempre el jugador uno.
 3. Refactorización del sistema de registro y inicio de sesión de usuarios, pasando de ser un sistema basado en alerts del navegador a un sistema integrado en el juego.
 ![](ImagenesMD/Usuario1.png)
