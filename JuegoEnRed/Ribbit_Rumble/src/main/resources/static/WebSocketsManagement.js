@@ -22,8 +22,8 @@ var otherBlocking = false;
 var otherAttack = false;
 var otherLowAttack = false;
 
-var otherCifra1 = null;
-var otherCifra2 = null;
+var Cifra1 = null;
+var Cifra2 = null;
 
 function CreateWebSocket(){
 	connection = new WebSocket('ws://'+ serverIP+'/ribbits');
@@ -71,9 +71,11 @@ function CreateWebSocket(){
 				otherAttack = jsonmsg.attack;
 				otherLowAttack = jsonmsg.lowAttack;
 				break;
-			case "syncTime":
-				otherCifra1=parseInt(jsonmsg.cifra1);
-				otherCifra2=parseInt(jsonmsg.cifra2);
+			case "time":
+				console.log("d1 "+jsonmsg.data1)
+				console.log("d2 "+jsonmsg.data2)
+				Cifra1=parseInt(jsonmsg.data1);
+				Cifra2=parseInt(jsonmsg.data2);
 				break;
 			case "logout":
 				otherLogOut = jsonmsg.data;

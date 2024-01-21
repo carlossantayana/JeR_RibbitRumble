@@ -1,8 +1,12 @@
 package com.jerRibbitRumble.Ribbit_Rumble;
 
 
+import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
@@ -17,6 +21,11 @@ public class WebSocketHandler extends TextWebSocketHandler{
 	
 	private Map<String, WebSocketSession> sessions = new ConcurrentHashMap<>();
 	private ObjectMapper mapper = new ObjectMapper();
+	private ScheduledExecutorService executorService;
+	private float startTime;
+	private float countdown;
+	private int cifra1;
+	private int cifra2;
 
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
@@ -25,12 +34,13 @@ public class WebSocketHandler extends TextWebSocketHandler{
 		
 		
 		if(sessions.size() <= 1) {
-		sessions.put(session.getId(), session);
-		
-		ObjectNode node = mapper.createObjectNode();
-		node.put("type", "login");
-		node.put("data", (sessions.size()));
-		session.sendMessage(new TextMessage(node.toString()));
+			sessions.put(session.getId(), session);
+			
+			ObjectNode node = mapper.createObjectNode();
+			node.put("type", "login");
+			node.put("data", (sessions.size()));
+			session.sendMessage(new TextMessage(node.toString()));
+			
 		} else {
 			System.out.println("Numero maximo de sesiones abiertas, cerrando WebSocket");
 			session.close();
@@ -99,18 +109,54 @@ public class WebSocketHandler extends TextWebSocketHandler{
 		            }
 				}
 				break;
-			case "syncTime":
-				for (Map.Entry<String, WebSocketSession> entry : sessions.entrySet()) 
-				{
-		            if(entry.getKey()!= session.getId()) {
-		            	System.out.println(entry.getValue());
-		            	SyncTime(entry.getValue(), node);
-		            }
-				}
+			case "startRound":
+				startTimer(session);
+				break;
+			case "stopRound":
+				stopTimer();
 				break;
 		}
 	}
 
+	private void startTimer(WebSocketSession session) {
+	    if (executorService == null || executorService.isShutdown()) {
+	        startTime = System.currentTimeMillis();
+
+	        executorService = Executors.newSingleThreadScheduledExecutor();
+	        executorService.scheduleAtFixedRate(() -> {
+				try {
+					updateCountdown();
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}, 0, 1, TimeUnit.SECONDS);
+	    }
+	}
+
+	private void updateCountdown() throws Exception {
+		this.cifra2--;
+        if (this.cifra2 == -1) {  
+            this.cifra2 = 9;
+            this.cifra1--;
+            for (WebSocketSession session : sessions.values()) {
+        		ObjectNode node = mapper.createObjectNode();
+        		node.put("type", "time");
+        		node.put("data1", this.cifra1);
+        		node.put("data2", this.cifra2);
+
+        		session.sendMessage(new TextMessage(node.toString()));
+            }
+        }
+	}
+	
+    private void stopTimer() {
+        if (executorService != null && !executorService.isShutdown()) {
+            executorService.shutdownNow();
+            executorService = null;            
+        }
+    }
+	    
 	public void pairPlayers(WebSocketSession session) throws Exception{
 		String pairState;
 
