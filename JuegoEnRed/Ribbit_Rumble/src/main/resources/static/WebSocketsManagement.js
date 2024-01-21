@@ -23,8 +23,8 @@ var otherBlocking = false;
 var otherAttack = false;
 var otherLowAttack = false;
 
-var Cifra1 = null;
-var Cifra2 = null;
+var Cifra1 = 6;
+var Cifra2 = 0;
 
 function CreateWebSocket(){
 	connection = new WebSocket('ws://'+ serverIP+'/ribbits');
@@ -97,8 +97,6 @@ function CreateWebSocket(){
 		otherBlocking = false;
 		otherAttack = false;
 		otherLowAttack = false;
-		otherCifra1 = null;
-		otherCifra2 = null;
 		otherLogOut = false;
 
 		console.log("Conexion cerrada")
