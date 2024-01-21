@@ -56,7 +56,7 @@ export default class Fighter extends Phaser.Physics.Arcade.Sprite {
             this.setFlipX(true);
         }
 
-        //Parámetros de estado del jugador utilizados para el control del sistema de animaciones y sistema de daño
+        //Parámetros de estado del jugador utilizados para el control del sistema de animaciones y sistema de dano
         this.attacking = false;
         this.blocking = false;
         this.crouching = false;

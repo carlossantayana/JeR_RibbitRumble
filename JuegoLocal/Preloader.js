@@ -16,7 +16,7 @@ export default class Preloader extends Phaser.Scene {
         this.load.spritesheet('ToroAgachado', 'RanaToro/ToroAgachadoV1.1.png', { frameWidth: 600, frameHeight: 293 });
         this.load.spritesheet('ToroBajo', 'RanaToro/ToroAtaqueBajoV1.1.png', { frameWidth: 600, frameHeight: 293 });
         this.load.spritesheet('ToroSalto', 'RanaToro/ToroSaltoV1.1.png', { frameWidth: 600, frameHeight: 293 });
-        this.load.spritesheet('ToroDaño', 'RanaToro/ToroDaño.png', { frameWidth: 600, frameHeight: 293 });
+        this.load.spritesheet('ToroDano', 'RanaToro/ToroDano.png', { frameWidth: 600, frameHeight: 293 });
 
         this.load.spritesheet('LluviaIdle', 'RanaDeLluvia/Idle_Spritesheet.png', { frameWidth: 702, frameHeight: 496 });
         this.load.spritesheet('LluviaCaminar', 'RanaDeLluvia/Walk_Spritesheet.png', { frameWidth: 702, frameHeight: 496 });
@@ -25,7 +25,7 @@ export default class Preloader extends Phaser.Scene {
         this.load.spritesheet('LluviaAgachado', 'RanaDeLluvia/Crouch_Spritesheet.png', { frameWidth: 702, frameHeight: 496 });
         this.load.spritesheet('LluviaBajo', 'RanaDeLluvia/DownAttack_Spritesheet.png', { frameWidth: 702, frameHeight: 496 });
         this.load.spritesheet('LluviaSalto', 'RanaDeLluvia/Jump_Spritesheet.png', { frameWidth: 702, frameHeight: 496 });
-        this.load.spritesheet('LluviaDaño', 'RanaDeLluvia/Hurt_Sprite.png', { frameWidth: 702, frameHeight: 496 });
+        this.load.spritesheet('LluviaDano', 'RanaDeLluvia/Hurt_Sprite.png', { frameWidth: 702, frameHeight: 496 });
 
         this.load.spritesheet('FlechaIdle', 'RanaFlecha/FlechaIdle.png', { frameWidth: 301, frameHeight: 252 });
         this.load.spritesheet('FlechaCaminar', 'RanaFlecha/FlechaAndar.png', { frameWidth: 301, frameHeight: 252 });
@@ -34,7 +34,7 @@ export default class Preloader extends Phaser.Scene {
         this.load.spritesheet('FlechaAgachado', 'RanaFlecha/FlechaAgachar.png', { frameWidth: 301, frameHeight: 252 });
         this.load.spritesheet('FlechaBajo', 'RanaFlecha/FlechaAtaqueBajo.png', { frameWidth: 301, frameHeight: 252 });
         this.load.spritesheet('FlechaSalto', 'RanaFlecha/FlechaSalto.png', { frameWidth: 301, frameHeight: 252 });
-        this.load.spritesheet('FlechaDaño', 'RanaFlecha/FlechaDaño.png', { frameWidth: 300, frameHeight: 250 });
+        this.load.spritesheet('FlechaDano', 'RanaFlecha/FlechaDano.png', { frameWidth: 300, frameHeight: 250 });
 
         this.load.spritesheet('TrepadoraIdle', 'RanaTrepadora/spritesheet_Idle.png', { frameWidth: 1146, frameHeight: 664 });
         this.load.spritesheet('TrepadoraCaminar', 'RanaTrepadora/spritesheet_Walk.png', { frameWidth: 1146, frameHeight: 664 });
@@ -43,7 +43,7 @@ export default class Preloader extends Phaser.Scene {
         this.load.spritesheet('TrepadoraAgachado', 'RanaTrepadora/spritesheet_Crouch.png', { frameWidth: 1146, frameHeight: 664 });
         this.load.spritesheet('TrepadoraBajo', 'RanaTrepadora/spritesheet_CrouchAttack.png', { frameWidth: 1146, frameHeight: 664 });
         this.load.spritesheet('TrepadoraSalto', 'RanaTrepadora/spritesheet_Jump.png', { frameWidth: 1146, frameHeight: 664 });
-        this.load.spritesheet('TrepadoraDaño', 'RanaTrepadora/RanaTrepadoraDamaged.png', { frameWidth: 1146, frameHeight: 664 });
+        this.load.spritesheet('TrepadoraDano', 'RanaTrepadora/RanaTrepadoraDamaged.png', { frameWidth: 1146, frameHeight: 664 });
 
         //ASSETS FONDOS//
         this.load.setPath('assets/Backgrounds'); //ruta de los assets, para que no sea necesario poner dicha ruta
@@ -81,10 +81,10 @@ export default class Preloader extends Phaser.Scene {
 
         //ASSETS RETRATOS Y LOGOS PERSONAJES//
         this.load.setPath('assets/CharacterPortraits');
-        this.load.image('ranaFlechaSelect', 'ranaFlechaSelect.png')
-        this.load.image('ranaToroSelect', 'ranaToroSelect.png')
-        this.load.image('ranaTrepadoraSelect', 'ranaTrepadoraSelect.png')
-        this.load.image('ranaLLuviaSelect', 'ranaLLuviaSelect.png')
+        this.load.image('ranaFlechaSelect', 'flechaSelect.png')
+        this.load.image('ranaToroSelect', 'toroSelect.png')
+        this.load.image('ranaTrepadoraSelect', 'trepadoraSelect.png')
+        this.load.image('ranaLLuviaSelect', 'lluviaSelect.png')
         this.load.image('logoRanaDeLluvia', 'LogoRanaDeLluvia.png');
         this.load.image('logoRanaPuntaDeFlecha', 'LogoRanaPuntaDeFlecha.png');
         this.load.image('logoRanaToro', 'LogoRanaToro.png');
@@ -260,10 +260,10 @@ export default class Preloader extends Phaser.Scene {
             repeat: 0
         });
 
-        //Animacion daño
+        //Animacion dano
         this.anims.create({
             key: 'ToroHurtAnim',
-            frames: this.anims.generateFrameNumbers('ToroDaño', { start: 0, end: 0 }),
+            frames: this.anims.generateFrameNumbers('ToroDano', { start: 0, end: 0 }),
             frameRate: 12,
             repeat: 12
         });
@@ -370,10 +370,10 @@ export default class Preloader extends Phaser.Scene {
             repeat: 0
         });
 
-        //Animacion daño
+        //Animacion dano
         this.anims.create({
             key: 'LluviaHurtAnim',
-            frames: this.anims.generateFrameNumbers('LluviaDaño', { start: 0, end: 0 }),
+            frames: this.anims.generateFrameNumbers('LluviaDano', { start: 0, end: 0 }),
             frameRate: 12,
             repeat: 12
         });
@@ -480,10 +480,10 @@ export default class Preloader extends Phaser.Scene {
             repeat: 0
         });
 
-        //Animacion daño
+        //Animacion dano
         this.anims.create({
             key: 'FlechaHurtAnim',
-            frames: this.anims.generateFrameNumbers('FlechaDaño', { start: 0, end: 0 }),
+            frames: this.anims.generateFrameNumbers('FlechaDano', { start: 0, end: 0 }),
             frameRate: 12,
             repeat: 12
         });
@@ -590,10 +590,10 @@ export default class Preloader extends Phaser.Scene {
             repeat: 0
         });
 
-        //Animacion daño
+        //Animacion dano
         this.anims.create({
             key: 'TrepadoraHurtAnim',
-            frames: this.anims.generateFrameNumbers('TrepadoraDaño', { start: 0, end: 0 }),
+            frames: this.anims.generateFrameNumbers('TrepadoraDano', { start: 0, end: 0 }),
             frameRate: 12,
             repeat: 12
         });
