@@ -449,10 +449,10 @@ export default class GameNet extends Phaser.Scene {
 
 	update(timer, delta) {
 		if (otherLogOut) {
+			
 			alert("El otro jugador ha abandonado la sesión de juego, volviendo al menu principal")
 			connection.close();
-			this.scene.start('MainMenu');
-			this.scene.stop();
+			location.reload();
 		}
 		if (logedUser.player == 1) {
 			
@@ -868,6 +868,9 @@ export default class GameNet extends Phaser.Scene {
 	}
 
 	roundEnd(loserId) {
+		
+		Cifra1 = 6;
+		Cifra2 = 0;
 		console.log("loser: " + loserId);
 		switch (loserId) {
 			case 2://Victoria Player 1
@@ -1236,6 +1239,9 @@ export default class GameNet extends Phaser.Scene {
 	changeTrackResults() {
 		this.scene.get('AudioManager').events.emit('changeTrackResults')
 	}
+	changeTrackMenu() {
+        this.scene.get('AudioManager').events.emit('changeTrackMenu');
+    }
 	selectSound(soundNum) {
 		this.scene.get('AudioManager').events.emit('selectSound', soundNum)
 	}
