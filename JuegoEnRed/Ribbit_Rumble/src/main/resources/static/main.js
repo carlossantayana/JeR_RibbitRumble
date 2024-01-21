@@ -23,7 +23,7 @@ const config = { //Configuración general
     height: 1080,
     parent: 'game-container', // Especifica el contenedor del juego
     backgroundColor: '#000000',
-    scene: [Charging, Preloader, AccountScene,  MainMenu, SettingsMenu, AudioManager, ModeSelectionMenu, PlayerSelectionMenu, Pairing, PlayerSelectionMenuNet, MapSelectionMenu, MapSelectionMenuNet, Game, GameNet, Results, ResultsNet], //Escenas, Preloader está primero, se cargara Preloader primero
+    scene: [Charging, Preloader, AccountScene, MainMenu, SettingsMenu, AudioManager, ModeSelectionMenu, PlayerSelectionMenu, Pairing, PlayerSelectionMenuNet, MapSelectionMenu, MapSelectionMenuNet, Game, GameNet, Results, ResultsNet], //Escenas, Preloader está primero, se cargara Preloader primero
     scale: {
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH

@@ -308,8 +308,7 @@ export default class MapSelectionMenu extends Phaser.Scene {
         this.gameStarting = 1;
     }
 
-    changeTrackMaps(newTrack)
-    {
+    changeTrackMaps(newTrack) {
         this.scene.get('AudioManager').events.emit('changeTrackMaps', newTrack)
     }
 }

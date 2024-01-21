@@ -21,7 +21,7 @@ export default class PlayerSelectionMenuNet extends Phaser.Scene {
 		this.transitionTimer = 0;
 	}
 
-	init(data){
+	init(data) {
 		this.parameters.player1CharacterID = null;
 		this.parameters.player2CharacterID = null;
 	}
@@ -132,11 +132,11 @@ export default class PlayerSelectionMenuNet extends Phaser.Scene {
 	}
 
 	update(time, delta) {
-		if(otherLogOut){
+		if (otherLogOut) {
 			alert("El otro jugador ha abandonado la sesión de juego, volviendo al menu principal")
 			connection.close();
 			this.scene.start('MainMenu');
-       		this.scene.stop();
+			this.scene.stop();
 		}
 
 		this.SetOtherCharacter();
@@ -146,20 +146,17 @@ export default class PlayerSelectionMenuNet extends Phaser.Scene {
 		}
 		if (this.transition) {
 			this.transitionTimer += delta / 1000;
-			if(this.transitionTimer >= 0 && this.transitionTimer < 1)
-			{
-				if(this.turnoNum != null){
-				this.turnoNum.destroy();
+			if (this.transitionTimer >= 0 && this.transitionTimer < 1) {
+				if (this.turnoNum != null) {
+					this.turnoNum.destroy();
 				}
 				this.turnoNum = this.add.image(960, 960, '3').setScale(0.65, 0.65);
 			}
-			if(this.transitionTimer >= 1 && this.transitionTimer < 2)
-			{
+			if (this.transitionTimer >= 1 && this.transitionTimer < 2) {
 				this.turnoNum.destroy();
 				this.turnoNum = this.add.image(960, 960, '2').setScale(0.65, 0.65);
 			}
-			if(this.transitionTimer >= 2 && this.transitionTimer <= 3)
-			{
+			if (this.transitionTimer >= 2 && this.transitionTimer <= 3) {
 				this.turnoNum.destroy();
 				this.turnoNum = this.add.image(960, 960, '1').setScale(0.65, 0.65);
 			}

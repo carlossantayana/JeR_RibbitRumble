@@ -29,7 +29,7 @@ export default class MapSelectionMenuNet extends Phaser.Scene {
 			player2CharacterID: null,
 			mapID: null
 		}
-		
+
 		this.turnoTexto = null;
 		this.turnoNum = null;
 	}
@@ -87,11 +87,11 @@ export default class MapSelectionMenuNet extends Phaser.Scene {
 
 	}
 	update(time, delta) {
-		if(otherLogOut){
+		if (otherLogOut) {
 			alert("El otro jugador ha abandonado la sesión de juego, volviendo al menu principal")
 			connection.close();
 			this.scene.start('MainMenu');
-       		this.scene.stop();
+			this.scene.stop();
 		}
 
 		this.SetOtherMap();
@@ -126,7 +126,7 @@ export default class MapSelectionMenuNet extends Phaser.Scene {
 		if (logedUser.player == 1) {
 			if (this.gameStarting == 1) {
 				if (finalMapSelection != null) {
-					console.log("Player 1 entró con num de mapa: " + finalMapSelection );
+					console.log("Player 1 entró con num de mapa: " + finalMapSelection);
 					this.finalSelection = finalMapSelection;
 					this.p1 = isPlayer1Selection;
 					finalMapSelection = null
@@ -218,20 +218,17 @@ export default class MapSelectionMenuNet extends Phaser.Scene {
 			this.parameters.mapID = this.finalSelection;
 			this.timerChangeScene += delta / 1000;
 
-			if(this.timerChangeScene >= 0 && this.timerChangeScene < 1)
-			{
-				if(this.turnoNum != null){
-				this.turnoNum.destroy();
+			if (this.timerChangeScene >= 0 && this.timerChangeScene < 1) {
+				if (this.turnoNum != null) {
+					this.turnoNum.destroy();
 				}
 				this.turnoNum = this.add.image(960, 960, '3').setScale(0.65, 0.65);
 			}
-			if(this.timerChangeScene >= 1 && this.timerChangeScene < 2)
-			{
+			if (this.timerChangeScene >= 1 && this.timerChangeScene < 2) {
 				this.turnoNum.destroy();
 				this.turnoNum = this.add.image(960, 960, '2').setScale(0.65, 0.65);
 			}
-			if(this.timerChangeScene >= 2 && this.timerChangeScene <= 3)
-			{
+			if (this.timerChangeScene >= 2 && this.timerChangeScene <= 3) {
 				this.turnoNum.destroy();
 				this.turnoNum = this.add.image(960, 960, '1').setScale(0.65, 0.65);
 			}

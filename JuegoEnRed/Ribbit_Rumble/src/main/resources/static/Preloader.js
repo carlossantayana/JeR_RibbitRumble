@@ -106,20 +106,20 @@ export default class Preloader extends Phaser.Scene {
         this.load.audio('aguilaSound', 'Aguila.mp3');
         this.load.audio('chapoteoSound', 'Chapoteo.mp3');
         this.load.audio('jumpSound', 'Jump.mp3');
-            //Rana Flecha
+        //Rana Flecha
         this.load.audio('flechaAttackSound', 'FlechaAttack.mp3');
         this.load.audio('flechaCrouchAttackSound', 'FlechaCrouchAttack.mp3');
         this.load.audio('flechaAttackBlockedSound', 'FlechaAttackBlocked.mp3');
         this.load.audio('flechaCrouchAttackBlockedSound', 'FlechaCrouchAttackBlocked.mp3');
-            //Rana Lluvia
+        //Rana Lluvia
         this.load.audio('lluviaAttackSound', 'LluviaAttack.mp3');
         this.load.audio('lluviaCrouchAttackSound', 'LluviaCrouchAttack.mp3');
         this.load.audio('lluviaAttackBlockedSound', 'LluviaAttackBlocked.mp3');
         this.load.audio('lluviaCrouchAttackBlockedSound', 'LluviaCrouchAttackBlocked.mp3');
-            //Rana Toro
+        //Rana Toro
         this.load.audio('toroAttackSound', 'ToroAttack.mp3');
         this.load.audio('toroAttackBlockedSound', 'ToroAttackBlocked.mp3');
-            //Rana Trepadora
+        //Rana Trepadora
         this.load.audio('trepadoraAttackSound', 'TrepadoraAttack.mp3');
         this.load.audio('trepadoraAttackBlockedSound', 'TrepadoraAttackBlocked.mp3');
 
@@ -127,7 +127,7 @@ export default class Preloader extends Phaser.Scene {
         this.load.audio('ambienteSelvaSound', 'AmbienteSelva.mp3');
         this.load.audio('vientoSound', 'Viento.mp3');
         this.load.audio('rioSound', 'Rio.mp3');
-        this.load.audio('ribbitsSound', 'RibbitsAmbiente.mp3');     
+        this.load.audio('ribbitsSound', 'RibbitsAmbiente.mp3');
 
         //ASSETS TEXTOS//
         this.load.setPath('assets/TextInterface');

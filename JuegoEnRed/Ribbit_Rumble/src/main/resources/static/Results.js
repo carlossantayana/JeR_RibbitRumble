@@ -178,27 +178,27 @@ export default class Results extends Phaser.Scene {
             this.add.text(100, 40, "Gana el Jugador 1", { fontSize: '90px' });
             this.add.text(100, 140, "Jugador 1 : 2 rondas ganadas", { fontSize: '50px' });
             if (this.parameters.winerLoses === 1) {
-                this.add.text(100, 210,"Jugador 2 : "+ 1 + " ronda ganada", { fontSize: '50px' });
+                this.add.text(100, 210, "Jugador 2 : " + 1 + " ronda ganada", { fontSize: '50px' });
             }
             else {
-                this.add.text(100, 210,"Jugador 2 : "+ 0 + " rondas ganadas", { fontSize: '50px' });
+                this.add.text(100, 210, "Jugador 2 : " + 0 + " rondas ganadas", { fontSize: '50px' });
             }
         }
         else {
             this.add.text(100, 40, "Gana el Jugador 2", { fontSize: '90px' });
             this.add.text(100, 140, "Jugador 2 : 2 rondas ganadas", { fontSize: '50px' });
             if (this.parameters.winerLoses === 1) {
-                this.add.text(100, 210,"Jugador 1 : "+ 1 + " ronda ganada", { fontSize: '50px' });
+                this.add.text(100, 210, "Jugador 1 : " + 1 + " ronda ganada", { fontSize: '50px' });
             }
             else {
-                this.add.text(100, 210,"Jugador 1 : "+ 0 + " rondas ganadas", { fontSize: '50px' });
+                this.add.text(100, 210, "Jugador 1 : " + 0 + " rondas ganadas", { fontSize: '50px' });
             }
         }
 
         /////////////////////////////////////////////// Parte de API REST ///////////////////////////////////////////////
 
         //Si el jugador que inicio sesion (jugador 1) gana
-        if(this.parameters.winnerID == logedUser.player){
+        if (this.parameters.winnerID == logedUser.player) {
             //Aumentamos su numero de partidas ganadas
             logedUser.wins += 1;
             //Aumentamos su numero de rondas ganadas
@@ -209,14 +209,14 @@ export default class Results extends Phaser.Scene {
             //Llamamos al metodo que actualiza dicho usuario en el servidor
             updateUserData(logedUser)
 
-            this.add.text(100, 280,"Estadisticas de: " + logedUser.username, { fontSize: '45px' });
-            this.add.text(100, 340,"Partidas ganadas en total: " + logedUser.wins, { fontSize: '45px' });
-            this.add.text(100, 400,"Partidas perdidas en total: " + logedUser.loses, { fontSize: '45px' });
-            this.add.text(100, 460,"Rondas ganadas en total: " + logedUser.roundWins, { fontSize: '45px' });
-            this.add.text(100, 510,"Rondas perdidas en total: " + logedUser.roundLoses, { fontSize: '45px' });
+            this.add.text(100, 280, "Estadisticas de: " + logedUser.username, { fontSize: '45px' });
+            this.add.text(100, 340, "Partidas ganadas en total: " + logedUser.wins, { fontSize: '45px' });
+            this.add.text(100, 400, "Partidas perdidas en total: " + logedUser.loses, { fontSize: '45px' });
+            this.add.text(100, 460, "Rondas ganadas en total: " + logedUser.roundWins, { fontSize: '45px' });
+            this.add.text(100, 510, "Rondas perdidas en total: " + logedUser.roundLoses, { fontSize: '45px' });
 
             //Si el jugador ha perdido
-        } else{
+        } else {
             //Aumentamos su numero de partidas perdidas
             logedUser.loses += 1;
             //Aumentamos su numero de rondas perdidas
@@ -225,11 +225,11 @@ export default class Results extends Phaser.Scene {
             //Llamamos al metodo que actualiza dicho usuario en el servidor
             updateUserData(logedUser)
 
-           this.add.text(100, 270,"Estadisticas de: " + logedUser.username, { fontSize: '40px' });
-            this.add.text(100, 330,"Partidas ganadas en total: " + logedUser.wins, { fontSize: '40px' });
-            this.add.text(100, 390,"Partidas perdidas en total: " + logedUser.loses, { fontSize: '40px' });
-            this.add.text(100, 450,"Rondas ganadas en total: " + logedUser.roundWins, { fontSize: '40px' });
-            this.add.text(100, 500,"Rondas perdidas en total: " + logedUser.roundLoses, { fontSize: '40px' });
+            this.add.text(100, 270, "Estadisticas de: " + logedUser.username, { fontSize: '40px' });
+            this.add.text(100, 330, "Partidas ganadas en total: " + logedUser.wins, { fontSize: '40px' });
+            this.add.text(100, 390, "Partidas perdidas en total: " + logedUser.loses, { fontSize: '40px' });
+            this.add.text(100, 450, "Rondas ganadas en total: " + logedUser.roundWins, { fontSize: '40px' });
+            this.add.text(100, 500, "Rondas perdidas en total: " + logedUser.roundLoses, { fontSize: '40px' });
         }
 
         //this.add.text(100, 210,"Jugador 1 : "+ this.parameters.winerLoses + " rondas ganadas", { fontSize: '50px' });
@@ -261,7 +261,7 @@ export default class Results extends Phaser.Scene {
         this.changeTrackMenu();
         this.scene.resume("MainMenu");
         this.scene.stop();
-        
+
     }
 
     rematchButtonOver(button) {

@@ -61,7 +61,7 @@ export default class Game extends Phaser.Scene {
         this.parameters.mapID = data.mapID;
         this.parameters.p1WonRounds = 0;
         this.parameters.p2WonRounds = 0;
-        
+
     }
 
     create() {
@@ -71,22 +71,22 @@ export default class Game extends Phaser.Scene {
 
         switch (this.parameters.mapID) {
             case 0:
-				console.log("Creando suelo desierto")
+                console.log("Creando suelo desierto")
                 this.ground.create(960, 1075, '').setScale(1920, 4).refreshBody();
                 this.add.image(960, 540, 'desiertoFondo');
                 break;
             case 1:
-				console.log("Creando suelo nenufar")
+                console.log("Creando suelo nenufar")
                 this.ground.create(960, 1080, '').setScale(1920, 4).refreshBody();
                 this.add.image(960, 540, 'nenufarFondo');
                 break;
             case 2:
-				console.log("Creando suelo jungla")
+                console.log("Creando suelo jungla")
                 this.ground.create(960, 1030, '').setScale(1920, 6).refreshBody();
                 this.add.image(960, 540, 'junglaFondo');
                 break;
             default:
-				console.log("No se ha podido crear el fondo y el suelo")
+                console.log("No se ha podido crear el fondo y el suelo")
         }
 
         var p1Texture;
@@ -306,7 +306,7 @@ export default class Game extends Phaser.Scene {
         this.numeroUno = this.add.image(900, 80, this.cifra1.toString()).setScale(0.65, 0.65);
         this.numeroDos = this.add.image(1020, 80, this.cifra2.toString()).setScale(0.65, 0.65);
 
-    
+
     }
 
     update(timer, delta) {
@@ -345,7 +345,7 @@ export default class Game extends Phaser.Scene {
             this.player1.attacking = true;
             this.player1.justAttack = true;
             this.player1.playBasicAttackAnim();
-            
+
         } else if (this.player1.crouching && Phaser.Input.Keyboard.JustDown(this.keyF) && !this.player1.blocking && !this.player1.jumping && !this.player1.attacking && !this.player1.receivingDamage) {
             this.player1.setVelocityX(0);
             this.player1.attacking = true;
@@ -566,11 +566,10 @@ export default class Game extends Phaser.Scene {
         }
 
         //Si la rana escogida es la toro, lluvia o trepadora, el puntero debe estar más arriba
-        if (this.parameters.p2CharacterID == 0 || this.parameters.p2CharacterID == 3 ) {
+        if (this.parameters.p2CharacterID == 0 || this.parameters.p2CharacterID == 3) {
             this.punteroP2.x = this.player2.x;
             this.punteroP2.y = this.player2.y - 200;
-        } else if( this.parameters.p1CharacterID == 1) 
-        {
+        } else if (this.parameters.p1CharacterID == 1) {
             this.punteroP2.x = this.player2.x;
             this.punteroP2.y = this.player2.y - 225;
         }
@@ -611,7 +610,7 @@ export default class Game extends Phaser.Scene {
     }
 
     roundEnd(looserId) {
-        console.log("loser: "+ looserId);
+        console.log("loser: " + looserId);
         switch (looserId) {
             case 2://Victoria P1
                 this.parameters.p1WonRounds += 1;
@@ -630,7 +629,7 @@ export default class Game extends Phaser.Scene {
             this.changeTrackResults();
             //Cargar escena de resultados con P1 como ganador
             console.log(this.parameters.winnerId);
-            console.log("L "+this.parameters.loses);
+            console.log("L " + this.parameters.loses);
             this.scene.start("Results", this.parameters);
             this.scene.stop();
         }
@@ -640,7 +639,7 @@ export default class Game extends Phaser.Scene {
             this.changeTrackResults();
             //Cargar escena de resultados con P2 como ganador
             console.log(this.parameters.winnerId);
-            console.log("L "+this.parameters.loses);
+            console.log("L " + this.parameters.loses);
             this.scene.start("Results", this.parameters);
             this.scene.stop();
         }

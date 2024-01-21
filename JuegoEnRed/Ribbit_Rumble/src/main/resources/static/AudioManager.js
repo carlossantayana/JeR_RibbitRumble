@@ -42,7 +42,7 @@ export default class AudioManager extends Phaser.Scene {
         this.track = -1;
         this.mapTrack = 0;
         this.soundTimer = 0;
-        this.ranNum= Math.random() * (26 - 10) + 10;
+        this.ranNum = Math.random() * (26 - 10) + 10;
     }
 
     create() {
@@ -203,14 +203,14 @@ export default class AudioManager extends Phaser.Scene {
         this.events.on('changeTrackResults', () => {
             this.track = 4;
         });
-        
+
         this.events.on('changeTrackMenu', () => {
             this.track = -1;
         });
-        
+
         //Eventos para generar SFX
-        this.events.on('selectSound', (soundNumber)=>{
-            switch(soundNumber){
+        this.events.on('selectSound', (soundNumber) => {
+            switch (soundNumber) {
                 case 0:
                     this.jumpSound.play();
                     break;
@@ -255,7 +255,7 @@ export default class AudioManager extends Phaser.Scene {
             }
         });
     }
-    update(time,delta) {
+    update(time, delta) {
         //En funcion de la variable track se cambia la musica y se para la que sonaba antes
 
         //MUSICA
@@ -290,18 +290,18 @@ export default class AudioManager extends Phaser.Scene {
         }
         if (this.mapTrack > 0) {
 
-            this.soundTimer+=delta/1000;
-            
-            if(this.mapTrack == 1 && this.soundTimer > this.ranNum){
+            this.soundTimer += delta / 1000;
+
+            if (this.mapTrack == 1 && this.soundTimer > this.ranNum) {
                 this.sonidoAguila.play();
-                this.soundTimer=0;
-                this.ranNum= Math.random() * (26 - 10) + 10;
-                
+                this.soundTimer = 0;
+                this.ranNum = Math.random() * (26 - 10) + 10;
+
             }
-            if(this.mapTrack ==2 && this.soundTimer > this.ranNum){
+            if (this.mapTrack == 2 && this.soundTimer > this.ranNum) {
                 this.sonidoChapoteo.play();
-                this.soundTimer=0;
-                this.ranNum= Math.random() * (26 - 10) + 10;
+                this.soundTimer = 0;
+                this.ranNum = Math.random() * (26 - 10) + 10;
             }
         }
 
