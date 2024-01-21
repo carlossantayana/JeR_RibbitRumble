@@ -2,10 +2,10 @@ package com.jerRibbitRumble.Ribbit_Rumble;
 
 import java.io.Serializable;
 
-public class Usuario implements Serializable{
+public class Usuario implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private long id;
 	private String username;
 	private String password;
@@ -15,8 +15,7 @@ public class Usuario implements Serializable{
 	private int roundWins;
 	private int roundLoses;
 
-	public Usuario() 
-	{
+	public Usuario() {
 		isActive = true;
 	}
 
@@ -43,7 +42,7 @@ public class Usuario implements Serializable{
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
+
 	public boolean isActive() {
 		return isActive;
 	}
@@ -83,6 +82,5 @@ public class Usuario implements Serializable{
 	public void setRoundLoses(int roundLoses) {
 		this.roundLoses = roundLoses;
 	}
-	
-	
+
 }

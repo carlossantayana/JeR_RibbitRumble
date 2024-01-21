@@ -54,23 +54,23 @@ export default class AccountScene extends Phaser.Scene {
         this.add.image(940, 534.5, 'menuPrincipal').setScale(0.5);
 
         //Boton de crear cuenta
-        const createButton = this.add.image(940, 600, 'botonCrear').setScale(0.5).setInteractive();
+        const createButton = this.add.image(940, 700, 'botonCrear').setScale(0.5).setInteractive();
 
         //Boton de iniciar sesion
-        const settingsButton = this.add.image(940, 700, 'botonIniciar').setScale(0.5).setInteractive();
+        const loginButton = this.add.image(940, 600, 'botonIniciar').setScale(0.5).setInteractive();
 
 
         //creamos EventListeners "pointerdown" (cuando se hace click con el ratón) que ejecuten la función que queremos
         createButton.on('pointerdown', () => this.showCreateBox());
-        settingsButton.on('pointerdown', () => this.showLoginBox());
+        loginButton.on('pointerdown', () => this.showLoginBox());
 
         //Animacion de poner el raton encima
         this.buttonOver(createButton);
-        this.buttonOver(settingsButton);
+        this.buttonOver(loginButton);
 
         //Animacion de sacar el raton
         this.buttonOut(createButton);
-        this.buttonOut(settingsButton);
+        this.buttonOut(loginButton);
 
 
     }

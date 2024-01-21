@@ -67,7 +67,7 @@ export default class GameNet extends Phaser.Scene {
 		this.parameters.mapID = data.mapID;
 		this.parameters.winnerId = null;
 		this.parameters.loses = null;
-		this.firstStarted=false;
+		this.firstStarted = false;
 	}
 
 	create() {
@@ -450,24 +450,24 @@ export default class GameNet extends Phaser.Scene {
 
 	update(timer, delta) {
 		if (otherLogOut) {
-			
+
 			alert("El otro jugador ha abandonado la sesión de juego, reiniciando el juego")
 			connection.close();
 			location.reload();
 		}
 		if (logedUser.player == 1) {
-			
+
 			if (!this.firstStarted) {
 				this.timerUpdates = {
 					type: "restartRound"
 				}
-				Cifra1=6;
-				Cifra1=0;
-				this.cifra1=6;
-				this.cifra1=0;
+				Cifra1 = 6;
+				Cifra2 = 0;
+				this.cifra1 = 6;
+				this.cifra2 = 0;
 				connection.send(JSON.stringify(this.timerUpdates));
-				
-				console.log("start");
+
+				console.log("Starting game");
 				this.firstStarted = true;
 
 				this.timerUpdates = {
@@ -477,6 +477,25 @@ export default class GameNet extends Phaser.Scene {
 			}
 		}
 
+		if (otherUpAttack) {
+			this.otherPlayerAttackUp();
+			otherUpAttack = false;
+		}
+
+		if (otherDownAttack) {
+			this.otherPlayerAttackDown();
+			otherDownAttack = false;
+		}
+
+		if (playerUpAttack) {
+			this.playerAttackUp();
+			playerUpAttack = false;
+		}
+
+		if (playerDownAttack) {
+			this.playerAttackDown();
+			playerDownAttack = false;
+		}
 
 		this.player.checkInmuneStatus();
 		this.otherPlayer.checkInmuneStatus();
@@ -866,7 +885,7 @@ export default class GameNet extends Phaser.Scene {
 	}
 
 	roundEnd(loserId) {
-		
+
 		Cifra1 = 6;
 		Cifra2 = 0;
 		this.firstStarted
@@ -883,7 +902,7 @@ export default class GameNet extends Phaser.Scene {
 		}
 
 		if (this.player1WonRounds === 2) {
-			console.log("stop");
+			console.log("Finishing game");
 			this.timerUpdates = {
 				type: "stopRound"
 			}
@@ -904,12 +923,12 @@ export default class GameNet extends Phaser.Scene {
 			this.inputUpdates.walkLeft = false;
 			this.inputUpdates.walkRight = false;
 
-			
+
 			this.scene.start("ResultsNet", this.parameters);
 			this.scene.stop();
 		}
 		else if (this.player2WonRounds === 2) {
-			console.log("stop");
+			console.log("Finishing game");
 			this.timerUpdates = {
 				type: "stopRound"
 			}
@@ -935,13 +954,13 @@ export default class GameNet extends Phaser.Scene {
 			this.scene.stop();
 		}
 		else {
-		
-			console.log("restart");
+
+			console.log("Restarting round");
 			this.timerUpdates = {
 				type: "restartRound"
 			}
 			connection.send(JSON.stringify(this.timerUpdates));
-		
+
 
 			//Recargar la escena de juego con los parametros necesarios
 			this.cifra1 = 6;
@@ -976,6 +995,11 @@ export default class GameNet extends Phaser.Scene {
 	playerAttackUp() //Comprobación de los estados de cada jugador comprobando los parametros "attacking" y "blocking"
 	{
 		if (this.player.attacking && !this.otherPlayer.blocking && this.player.justAttack && !this.otherPlayer.receivingDamage && !this.player.crouching) {
+			var attackSynchronizer = {
+				type: "syncAttack",
+				data: "upAttack"
+			}
+			connection.send(JSON.stringify(attackSynchronizer));
 			console.log("The player made an UpAttack");
 			this.otherPlayer.takeDamage(10);
 			switch (this.parameters.player1CharacterID) {
@@ -1004,6 +1028,11 @@ export default class GameNet extends Phaser.Scene {
 		}
 
 		if (this.player.attacking && this.otherPlayer.blocking && this.player.justAttack && !this.otherPlayer.receivingDamage && !this.player.crouching) {
+			var attackSynchronizer = {
+				type: "syncAttack",
+				data: "upAttack"
+			}
+			connection.send(JSON.stringify(attackSynchronizer));
 			console.log("The player made an UpAttack");
 			this.otherPlayer.takeDamage(5);
 			switch (this.parameters.player1CharacterID) {
@@ -1033,6 +1062,11 @@ export default class GameNet extends Phaser.Scene {
 
 	otherPlayerAttackUp() {
 		if (this.otherPlayer.attacking && !this.player.blocking && this.otherPlayer.justAttack && !this.player.receivingDamage && !this.otherPlayer.crouching) {
+			var attackSynchronizer = {
+				type: "syncAttack2",
+				data: "upAttack"
+			}
+			connection.send(JSON.stringify(attackSynchronizer));
 			console.log("The other player made an UpAttack");
 			this.player.takeDamage(10);
 			switch (this.parameters.player2CharacterID) {
@@ -1061,6 +1095,11 @@ export default class GameNet extends Phaser.Scene {
 		}
 
 		if (this.otherPlayer.attacking && this.player.blocking && this.otherPlayer.justAttack && !this.player.receivingDamage && !this.otherPlayer.crouching) {
+			var attackSynchronizer = {
+				type: "syncAttack2",
+				data: "upAttack"
+			}
+			connection.send(JSON.stringify(attackSynchronizer));
 			console.log("The other player made an UpAttack");
 			this.player.takeDamage(5);
 			switch (this.parameters.player2CharacterID) {
@@ -1091,6 +1130,11 @@ export default class GameNet extends Phaser.Scene {
 	playerAttackDown() //Comprobación de los estados de cada jugador comprobando los parametros "attacking" y "blocking"
 	{
 		if (this.player.attacking && !this.otherPlayer.blocking && this.player.justAttack && !this.otherPlayer.receivingDamage && this.player.crouching) {
+			var attackSynchronizer = {
+				type: "syncAttack",
+				data: "downAttack"
+			}
+			connection.send(JSON.stringify(attackSynchronizer));
 			console.log("The player made a DownAttack");
 			this.otherPlayer.takeDamage(10);
 			switch (this.parameters.player1CharacterID) {
@@ -1118,6 +1162,11 @@ export default class GameNet extends Phaser.Scene {
 		}
 
 		if (this.player.attacking && this.otherPlayer.blocking && this.player.justAttack && !this.otherPlayer.receivingDamage && this.player.crouching) {
+			var attackSynchronizer = {
+				type: "syncAttack",
+				data: "downAttack"
+			}
+			connection.send(JSON.stringify(attackSynchronizer));
 			console.log("The player made a DownAttack");
 			this.otherPlayer.takeDamage(5);
 			switch (this.parameters.player1CharacterID) {
@@ -1147,6 +1196,11 @@ export default class GameNet extends Phaser.Scene {
 
 	otherPlayerAttackDown() {
 		if (this.otherPlayer.attacking && !this.player.blocking && this.otherPlayer.justAttack && !this.player.receivingDamage && this.otherPlayer.crouching) {
+			var attackSynchronizer = {
+				type: "syncAttack2",
+				data: "downAttack"
+			}
+			connection.send(JSON.stringify(attackSynchronizer));
 			console.log("The other player made a DownAttack");
 			this.player.takeDamage(10);
 			switch (this.parameters.player2CharacterID) {
@@ -1174,6 +1228,11 @@ export default class GameNet extends Phaser.Scene {
 		}
 
 		if (this.otherPlayer.attacking && this.player.blocking && this.otherPlayer.justAttack && !this.player.receivingDamage && this.otherPlayer.crouching) {
+			var attackSynchronizer = {
+				type: "syncAttack2",
+				data: "downAttack"
+			}
+			connection.send(JSON.stringify(attackSynchronizer));
 			console.log("The other player made a DownAttack");
 			this.player.takeDamage(5);
 			switch (this.parameters.player2CharacterID) {
@@ -1249,8 +1308,8 @@ export default class GameNet extends Phaser.Scene {
 		this.scene.get('AudioManager').events.emit('changeTrackResults')
 	}
 	changeTrackMenu() {
-        this.scene.get('AudioManager').events.emit('changeTrackMenu');
-    }
+		this.scene.get('AudioManager').events.emit('changeTrackMenu');
+	}
 	selectSound(soundNum) {
 		this.scene.get('AudioManager').events.emit('selectSound', soundNum)
 	}

@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class ChatController {
 	private Map<Long, Mensaje> chatMessages = new ConcurrentHashMap<>();
-	
+
 	private String fileName = "ChatMessagesFile.txt";
 
 	@PostMapping(value = "/")
@@ -44,7 +44,7 @@ public class ChatController {
 
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<Mensaje> getMensaje(@PathVariable long id) {
-		Mensaje message= chatMessages.get(id);
+		Mensaje message = chatMessages.get(id);
 
 		if (message != null) {
 			return new ResponseEntity<>(message, HttpStatus.OK);
@@ -81,37 +81,38 @@ public class ChatController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
-	
+
 	@PreDestroy
 	public void escribirFichero() {
-	    try {
-	        Path filePath = Paths.get(fileName);
-	        Path absolutePath = filePath.toAbsolutePath();
+		try {
+			Path filePath = Paths.get(fileName);
+			Path absolutePath = filePath.toAbsolutePath();
 
-	        try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(absolutePath.toString()))) {
-	            outputStream.writeObject(chatMessages);
-	            System.out.println("HashMap guardado en el archivo '" + absolutePath + "' correctamente.");
-	        }
-	    } catch (IOException e) {
-	        e.printStackTrace();
-	    }
+			try (ObjectOutputStream outputStream = new ObjectOutputStream(
+					new FileOutputStream(absolutePath.toString()))) {
+				outputStream.writeObject(chatMessages);
+				System.out.println("HashMap guardado en el archivo '" + absolutePath + "' correctamente.");
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
-	
+
 	@PostConstruct
 	public void leerFichero() {
 		try {
-	        Path filePath = Paths.get(fileName);
-	        Path absolutePath = filePath.toAbsolutePath();
+			Path filePath = Paths.get(fileName);
+			Path absolutePath = filePath.toAbsolutePath();
 
-	        try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(absolutePath.toString()))) {
-	            chatMessages = (Map<Long, Mensaje>) inputStream.readObject();
-	            System.out.println("Map leído desde el archivo '" + absolutePath + "':");
-	            for (Long key : chatMessages.keySet()) {
-	                System.out.println("ID: " + key + ", Mensaje: " + chatMessages.get(key));
-	            }
-	        }
-	    } catch (IOException | ClassNotFoundException e) {
-	        e.printStackTrace();
-	    }
+			try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(absolutePath.toString()))) {
+				chatMessages = (Map<Long, Mensaje>) inputStream.readObject();
+				System.out.println("Map leído desde el archivo '" + absolutePath + "':");
+				for (Long key : chatMessages.keySet()) {
+					System.out.println("ID: " + key + ", Mensaje: " + chatMessages.get(key));
+				}
+			}
+		} catch (IOException | ClassNotFoundException e) {
+			e.printStackTrace();
+		}
 	}
 }

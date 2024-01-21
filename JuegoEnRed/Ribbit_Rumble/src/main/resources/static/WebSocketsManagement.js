@@ -23,6 +23,11 @@ var otherLowAttack = false;
 var Cifra1 = 6;
 var Cifra2 = 0;
 
+var otherUpAttack = false;
+var otherDownAttack = false;
+var playerUpAttack = false;
+var playerDownAttack = false;
+
 function CreateWebSocket() {
 	connection = new WebSocket('ws://' + serverIP + '/ribbits');
 
@@ -67,13 +72,27 @@ function CreateWebSocket() {
 				otherLowAttack = jsonmsg.lowAttack;
 				break;
 			case "time":
-				console.log("d1 " + jsonmsg.data1)
-				console.log("d2 " + jsonmsg.data2)
 				Cifra1 = parseInt(jsonmsg.data1);
 				Cifra2 = parseInt(jsonmsg.data2);
 				break;
 			case "logout":
 				otherLogOut = jsonmsg.data;
+				break;
+			case "syncAttack":
+				if ((jsonmsg.data) === "upAttack") {
+					otherUpAttack = true;
+				}
+				if ((jsonmsg.data) === "downAttack") {
+					otherDownAttack = true;
+				}
+				break;
+			case "syncAttack2":
+				if ((jsonmsg.data) === "upAttack") {
+					playerUpAttack = true;
+				}
+				if ((jsonmsg.data) === "downAttack") {
+					playerDownAttack = true;
+				}
 				break;
 		}
 	}
@@ -91,6 +110,10 @@ function CreateWebSocket() {
 		otherAttack = false;
 		otherLowAttack = false;
 		otherLogOut = false;
+		otherUpAttack = false;
+		otherDownAttack = false;
+		playerUpAttack = false;
+		playerDownAttack = false;
 
 		console.log("WS connection closed")
 	}

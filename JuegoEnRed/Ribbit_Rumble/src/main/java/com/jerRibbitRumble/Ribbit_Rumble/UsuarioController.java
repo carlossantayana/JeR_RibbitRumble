@@ -39,15 +39,15 @@ public class UsuarioController {
 	@ResponseStatus(HttpStatus.CREATED)
 	public Usuario createUsuario(@RequestBody Usuario user) {
 		long id;
-		
-		if(idFree.size() == 0) {
+
+		if (idFree.size() == 0) {
 			id = users.size();
 		}
-			
-		else{
+
+		else {
 			id = idFree.get(0);
 			idFree.remove(0);
-			
+
 		}
 
 		user.setId(id);
@@ -96,50 +96,49 @@ public class UsuarioController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
-	
+
 	@PreDestroy
 	public void escribirFichero() {
-		 try {
-		        Path filePath = Paths.get(fileName);
-		        Path absolutePath = filePath.toAbsolutePath();
+		try {
+			Path filePath = Paths.get(fileName);
+			Path absolutePath = filePath.toAbsolutePath();
 
-		        try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(absolutePath.toString()))) {
-		            outputStream.writeObject(users);
-		            System.out.println("HashMap guardado en el archivo '" + absolutePath + "' correctamente.");
-		        }
-		    } catch (IOException e) {
-		        e.printStackTrace();
-		    }
-	}
-	
-	@PreDestroy
-	public void usersInactive() 
-	{
-		for (Map.Entry<Long, Usuario> user : users.entrySet()) {
-		    
-		    Usuario usuario = user.getValue();
-		    
-		    usuario.setActive(false);
-		    
+			try (ObjectOutputStream outputStream = new ObjectOutputStream(
+					new FileOutputStream(absolutePath.toString()))) {
+				outputStream.writeObject(users);
+				System.out.println("HashMap guardado en el archivo '" + absolutePath + "' correctamente.");
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
-	
+
+	@PreDestroy
+	public void usersInactive() {
+		for (Map.Entry<Long, Usuario> user : users.entrySet()) {
+
+			Usuario usuario = user.getValue();
+
+			usuario.setActive(false);
+
+		}
+	}
+
 	@PostConstruct
 	public void leerFichero() {
 		try {
-	        Path filePath = Paths.get(fileName);
-	        Path absolutePath = filePath.toAbsolutePath();
+			Path filePath = Paths.get(fileName);
+			Path absolutePath = filePath.toAbsolutePath();
 
-	        try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(absolutePath.toString()))) {
-	            users = (Map<Long, Usuario>) inputStream.readObject();
-	            System.out.println("Map leído desde el archivo '" + absolutePath + "':");
-	            for (Long key : users.keySet()) {
-	                System.out.println("ID: " + key + ", Usuario: " + users.get(key));
-	            }
-	        }
-	    } catch (IOException | ClassNotFoundException e) {
-	        e.printStackTrace();
-	    }
+			try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(absolutePath.toString()))) {
+				users = (Map<Long, Usuario>) inputStream.readObject();
+				System.out.println("Map leído desde el archivo '" + absolutePath + "':");
+				for (Long key : users.keySet()) {
+					System.out.println("ID: " + key + ", Usuario: " + users.get(key));
+				}
+			}
+		} catch (IOException | ClassNotFoundException e) {
+			e.printStackTrace();
+		}
 	}
 }
-

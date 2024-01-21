@@ -9,18 +9,18 @@ import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
 
 @SpringBootApplication
 @EnableWebSocket
-public class RibbitRumbleApplication implements WebSocketConfigurer{
+public class RibbitRumbleApplication implements WebSocketConfigurer {
 
 	@Override
 	public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-			registry.addHandler(Handler(), "/ribbits").setAllowedOrigins("*");
+		registry.addHandler(Handler(), "/ribbits").setAllowedOrigins("*");
 	}
-	
+
 	@Bean
 	public WebSocketHandler Handler() {
-	return new WebSocketHandler();
+		return new WebSocketHandler();
 	}
-		
+
 	public static void main(String[] args) {
 		SpringApplication.run(RibbitRumbleApplication.class, args);
 	}
