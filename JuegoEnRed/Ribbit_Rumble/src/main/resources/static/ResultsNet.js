@@ -20,8 +20,8 @@ export default class ResultsNet extends Phaser.Scene {
         this.parameters.winnerID = data.winnerId;
         this.parameters.winnerLoses = data.loses;
 
-        console.log(data.winnerId);
-        console.log(this.parameters.winnerID);
+        console.log("Ha ganado el jugador: " + this.parameters.winnerID);
+        console.log("Gano perdiendo " + this.parameters.winnerLoses + " rondas");
 
         this.timer = 0;
     }
@@ -101,7 +101,6 @@ export default class ResultsNet extends Phaser.Scene {
         this.corona = this.add.image(400, 700, "corona").setScale(0.2);
         this.foco = this.add.image(1410, 300, "foco").setScale(0.65, 1.1);
         if (this.parameters.winnerID === 1) {
-            console.log(this.p1Sprite);
             this.p1Sprite.setPosition(400, 800);
             switch (this.parameters.p1CharacterID) {
                 case 0:
@@ -179,7 +178,6 @@ export default class ResultsNet extends Phaser.Scene {
             }
             this.p1Sprite.flipX = true;
         }
-        console.log(this.parameters.winnerID);
         if (this.parameters.winnerID === 1) {
             this.add.text(100, 40, "Gana el Jugador 1", { fontSize: '90px' });
             this.add.text(100, 140, "Jugador 1 : 2 rondas ganadas", { fontSize: '50px' });
@@ -231,7 +229,7 @@ export default class ResultsNet extends Phaser.Scene {
             //Llamamos al metodo que actualiza dicho usuario en el servidor
             updateUserData(logedUser)
 
-           this.add.text(100, 270,"Estadisticas de: " + logedUser.username, { fontSize: '40px' });
+            this.add.text(100, 270,"Estadisticas de: " + logedUser.username, { fontSize: '40px' });
             this.add.text(100, 330,"Partidas ganadas en total: " + logedUser.wins, { fontSize: '40px' });
             this.add.text(100, 390,"Partidas perdidas en total: " + logedUser.loses, { fontSize: '40px' });
             this.add.text(100, 450,"Rondas ganadas en total: " + logedUser.roundWins, { fontSize: '40px' });

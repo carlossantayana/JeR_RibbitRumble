@@ -104,12 +104,10 @@ export default class MapSelectionMenuNet extends Phaser.Scene {
 				if (a == 0) {
 					this.finalSelection = this.player1Selection;
 					this.p1 = true;
-					console.log('Player 1');
 				}
 				else {
 					this.finalSelection = this.player2Selection;
 					this.p1 = false;
-					console.log('Player 2');
 				}
 				if (this.finalSelection == 3) {
 					a = Math.floor(Math.random() * 3);
@@ -120,7 +118,7 @@ export default class MapSelectionMenuNet extends Phaser.Scene {
 					data: this.finalSelection,
 					isPlayer1: this.p1
 				};
-				console.log("Enviando el mapa final al servidor: " + finalMapSelectionToSend)
+				console.log("Enviando el mapa final al servidor: " + this.finalSelection)
 				connection.send(JSON.stringify(finalMapSelectionToSend));
 			}
 		}
@@ -131,7 +129,6 @@ export default class MapSelectionMenuNet extends Phaser.Scene {
 					console.log("Player 1 entró con num de mapa: " + finalMapSelection );
 					this.finalSelection = finalMapSelection;
 					this.p1 = isPlayer1Selection;
-					console.log(this.finalSelection);
 					finalMapSelection = null
 					this.gameStarting++;
 				}

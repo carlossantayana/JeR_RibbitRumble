@@ -11,15 +11,12 @@ var otherMap = null;
 var finalMapSelection = null;
 var isPlayer1Selection = null;
 
-//Booleanos para el movimiento, sustituyen la comprobacion de la entrada, luego actualizan el valor de las variables this.player locales
-var otherWalkLeft = false;	//Vale true si mantiene pulsado
-var otherWalkRight = false;	//Vale true si mantiene pulsado
-
-var otherJump = false;	//dudoso
+//Booleanos para el movimiento y ataque, sustituyen la comprobacion de la entrada, luego actualizan el valor de las variables this.player locales
+var otherWalkLeft = false;
+var otherWalkRight = false;
+var otherJump = false;
 var otherCrouching = false
-//Bloquear, mantener pulsado
 var otherBlocking = false;
-//Atacar, solo pulsar
 var otherAttack = false;
 var otherLowAttack = false;
 
@@ -31,7 +28,6 @@ function CreateWebSocket(){
 
 	connection.onopen = function () {
 		console.log("WS connection established");
-		//connection.send(JSON.stringify(logedUser));
 	}
 
 	connection.onerror = function(e) {
@@ -53,16 +49,13 @@ function CreateWebSocket(){
 				break;
 			case "characterSelection":
 				otherCharacter=parseInt(jsonmsg.data);
-				console.log(otherCharacter);
 				break;
 			case "mapSelection":
 				otherMap=parseInt(jsonmsg.data);
-				console.log(otherMap);
 				break;
 			case "finalMapSelection":
 				finalMapSelection = parseInt(jsonmsg.data);
 				isPlayer1Selection = jsonmsg.isPlayer1;
-				console.log(finalMapSelection);
 				break;
 			case "inputUpdate":
 				otherWalkLeft = jsonmsg.walkLeft;	
@@ -99,6 +92,6 @@ function CreateWebSocket(){
 		otherLowAttack = false;
 		otherLogOut = false;
 
-		console.log("Conexion cerrada")
+		console.log("WS connection closed")
 	}
 }

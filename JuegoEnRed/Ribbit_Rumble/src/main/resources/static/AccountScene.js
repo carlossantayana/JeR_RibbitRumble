@@ -123,7 +123,7 @@ export default class AccountScene extends Phaser.Scene {
 			
 			break;
 			
-			case 3: //Usuario ya logeado
+			case 3: //Usuario ya logueado
 			
 			if(this.warning != null || this.warning != undefined){
 				this.warning.destroy()
@@ -344,7 +344,7 @@ function loginUser(username, password){
                      updateUserStatusEnter(logedUser);
                      } 
                      else {
-						 console.log("Usuario ya logeado")}
+						 console.log("Usuario ya logueado")}
 						 code = 3
                  } 
 					 //Texto de que la clave o el usuario es incorrecto

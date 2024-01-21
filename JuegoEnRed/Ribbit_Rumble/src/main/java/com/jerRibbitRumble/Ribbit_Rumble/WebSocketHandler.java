@@ -28,8 +28,8 @@ public class WebSocketHandler extends TextWebSocketHandler{
 
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-		//System.out.println("New session: " + session.getId());
-		//System.out.println("Numero total de sesiones abiertas: " + sessions.size());
+		System.out.println("New session: " + session.getId());
+		System.out.println("Numero total de sesiones abiertas: " + sessions.size());
 		
 		
 		if(sessions.size() <= 1) {
@@ -41,19 +41,20 @@ public class WebSocketHandler extends TextWebSocketHandler{
 			session.sendMessage(new TextMessage(node.toString()));
 			
 		} else {
-			//System.out.println("Numero maximo de sesiones abiertas, cerrando WebSocket");
+			System.out.println("Numero maximo de sesiones abiertas, cerrando WebSocket");
 			session.close();
 		}
 	}
 	
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
-		//System.out.println("Session closed: " + session.getId());
+		System.out.println("Session closed: " + session.getId());
 		for (Map.Entry<String, WebSocketSession> entry : sessions.entrySet()) 
 		{
             if(entry.getKey()!= session.getId()) {
-            	//System.out.println(entry.getValue());
-            	otherLogOut(entry.getValue());
+				if(entry.getValue().isOpen()){
+            		otherLogOut(entry.getValue());
+				}
             }
 		}
 		sessions.remove(session.getId());
@@ -76,7 +77,6 @@ public class WebSocketHandler extends TextWebSocketHandler{
 				for (Map.Entry<String, WebSocketSession> entry : sessions.entrySet()) 
 				{
 		            if(entry.getKey()!= session.getId()) {
-		            	//System.out.println(entry.getValue());
 		            	selectCharacter(entry.getValue(), node);
 		            }
 				}
@@ -85,7 +85,6 @@ public class WebSocketHandler extends TextWebSocketHandler{
 				for (Map.Entry<String, WebSocketSession> entry : sessions.entrySet()) 
 				{
 		            if(entry.getKey()!= session.getId()) {
-		            	//System.out.println(entry.getValue());
 		            	selectMap(entry.getValue(), node);
 		            }
 				}
@@ -94,7 +93,6 @@ public class WebSocketHandler extends TextWebSocketHandler{
 				for (Map.Entry<String, WebSocketSession> entry : sessions.entrySet()) 
 				{
 		            if(entry.getKey()!= session.getId()) {
-		            	//System.out.println(entry.getValue());
 		            	sendFinalMapSelection(entry.getValue(), node);
 		            }
 				}
@@ -104,7 +102,6 @@ public class WebSocketHandler extends TextWebSocketHandler{
 				for (Map.Entry<String, WebSocketSession> entry : sessions.entrySet()) 
 				{
 		            if(entry.getKey()!= session.getId()) {
-		            	//System.out.println(entry.getValue());
 		            	updateInputs(entry.getValue(), node);
 		            }
 				}
@@ -156,7 +153,6 @@ public class WebSocketHandler extends TextWebSocketHandler{
 			System.out.println("Updated countdown");
 			for (Map.Entry<String, WebSocketSession> entry : sessions.entrySet()) 
 			{
-	            //System.out.println(entry.getValue());
 				sendTime(node);
 			}
 	    } catch (InterruptedException e) {

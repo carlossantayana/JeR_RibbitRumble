@@ -187,7 +187,6 @@ export default class PlayerSelectionMenuNet extends Phaser.Scene {
 					type: "characterSelection",
 					data: -1
 				};
-				console.log(this.selected1);
 				switch (frogName) {
 					case 'BullFrog':
 						characterSelection.data = 0;

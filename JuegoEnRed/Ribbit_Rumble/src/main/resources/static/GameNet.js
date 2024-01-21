@@ -450,7 +450,7 @@ export default class GameNet extends Phaser.Scene {
 	update(timer, delta) {
 		if (otherLogOut) {
 			
-			alert("El otro jugador ha abandonado la sesión de juego, volviendo al menu principal")
+			alert("El otro jugador ha abandonado la sesión de juego, reiniciando el juego")
 			connection.close();
 			location.reload();
 		}
@@ -871,7 +871,7 @@ export default class GameNet extends Phaser.Scene {
 		
 		Cifra1 = 6;
 		Cifra2 = 0;
-		console.log("loser: " + loserId);
+		console.log("Ronda perdida por el jugador: " + loserId);
 		switch (loserId) {
 			case 2://Victoria Player 1
 				this.player1WonRounds += 1;
@@ -887,9 +887,8 @@ export default class GameNet extends Phaser.Scene {
 			this.parameters.winnerId = 1;
 			this.parameters.loses = this.player2WonRounds;
 			this.changeTrackResults();
-			//Cargar escena de resultados con Player como ganador
-			console.log(this.parameters.winnerId);
-			console.log("L " + this.parameters.loses);
+
+			//Cargar escena de resultados con jugador 1 como ganador
 
 			this.player1WonRounds = 0;
 			this.player2WonRounds = 0;
@@ -910,9 +909,8 @@ export default class GameNet extends Phaser.Scene {
 			this.parameters.winnerId = 2;
 			this.parameters.loses = this.player1WonRounds;
 			this.changeTrackResults();
-			//Cargar escena de resultados con OtherPlayer como ganador
-			console.log(this.parameters.winnerId);
-			console.log("L " + this.parameters.loses);
+
+			//Cargar escena de resultados con jugador 2 como ganador
 
 			this.player1WonRounds = 0;
 			this.player2WonRounds = 0;
@@ -971,7 +969,7 @@ export default class GameNet extends Phaser.Scene {
 	playerAttackUp() //Comprobación de los estados de cada jugador comprobando los parametros "attacking" y "blocking"
 	{
 		if (this.player.attacking && !this.otherPlayer.blocking && this.player.justAttack && !this.otherPlayer.receivingDamage && !this.player.crouching) {
-			console.log("Ataque Alto");
+			console.log("The player made an UpAttack");
 			this.otherPlayer.takeDamage(10);
 			switch (this.parameters.player1CharacterID) {
 				case 0:
@@ -995,11 +993,11 @@ export default class GameNet extends Phaser.Scene {
 			}
 
 			this.player.justAttack = false;
-			console.log('player 2 received 10 damage after an UpAttack!');
+			console.log('The other player received 10 damage after an UpAttack!');
 		}
 
 		if (this.player.attacking && this.otherPlayer.blocking && this.player.justAttack && !this.otherPlayer.receivingDamage && !this.player.crouching) {
-			console.log("Ataque Alto");
+			console.log("The player made an UpAttack");
 			this.otherPlayer.takeDamage(5);
 			switch (this.parameters.player1CharacterID) {
 				case 0:
@@ -1022,12 +1020,13 @@ export default class GameNet extends Phaser.Scene {
 				this.setValueBar1Player2(this.otherPlayer.hp / this.otherPlayer.maxhp);
 			}
 			this.player.justAttack = false;
-			console.log('player 2 received 5 damage after an UpAttack!');
+			console.log('The other player received 5 damage after an UpAttack!');
 		}
 	}
 
 	otherPlayerAttackUp() {
 		if (this.otherPlayer.attacking && !this.player.blocking && this.otherPlayer.justAttack && !this.player.receivingDamage && !this.otherPlayer.crouching) {
+			console.log("The other player made an UpAttack");
 			this.player.takeDamage(10);
 			switch (this.parameters.player2CharacterID) {
 				case 0:
@@ -1051,10 +1050,11 @@ export default class GameNet extends Phaser.Scene {
 			}
 
 			this.otherPlayer.justAttack = false;
-			console.log('player 1 received 10 damage after an UpAttack!');
+			console.log('The player received 10 damage after an UpAttack!');
 		}
 
 		if (this.otherPlayer.attacking && this.player.blocking && this.otherPlayer.justAttack && !this.player.receivingDamage && !this.otherPlayer.crouching) {
+			console.log("The other player made an UpAttack");
 			this.player.takeDamage(5);
 			switch (this.parameters.player2CharacterID) {
 				case 0:
@@ -1077,14 +1077,14 @@ export default class GameNet extends Phaser.Scene {
 				this.setValueBar2Player2(this.player.hp / this.player.maxhp);
 			}
 			this.otherPlayer.justAttack = false;
-			console.log('player 1 received 5 damage after an UpAttack!');
+			console.log('The player received 5 damage after an UpAttack!');
 		}
 	}
 
 	playerAttackDown() //Comprobación de los estados de cada jugador comprobando los parametros "attacking" y "blocking"
 	{
 		if (this.player.attacking && !this.otherPlayer.blocking && this.player.justAttack && !this.otherPlayer.receivingDamage && this.player.crouching) {
-			console.log("Ataque Bajo");
+			console.log("The player made a DownAttack");
 			this.otherPlayer.takeDamage(10);
 			switch (this.parameters.player1CharacterID) {
 				case 0:
@@ -1107,11 +1107,11 @@ export default class GameNet extends Phaser.Scene {
 				this.setValueBar1Player2(this.otherPlayer.hp / this.otherPlayer.maxhp);
 			}
 			this.player.justAttack = false;
-			console.log('player 2 received 10 damage after a DownAttack!');
+			console.log('The other player received 10 damage after a DownAttack!');
 		}
 
 		if (this.player.attacking && this.otherPlayer.blocking && this.player.justAttack && !this.otherPlayer.receivingDamage && this.player.crouching) {
-			console.log("Ataque Bajo");
+			console.log("The player made a DownAttack");
 			this.otherPlayer.takeDamage(5);
 			switch (this.parameters.player1CharacterID) {
 				case 0:
@@ -1134,12 +1134,13 @@ export default class GameNet extends Phaser.Scene {
 				this.setValueBar1Player2(this.otherPlayer.hp / this.otherPlayer.maxhp);
 			}
 			this.player.justAttack = false;
-			console.log('player 2 received 5 damage after a DownAttack!');
+			console.log('The other player received 5 damage after a DownAttack!');
 		}
 	}
 
 	otherPlayerAttackDown() {
 		if (this.otherPlayer.attacking && !this.player.blocking && this.otherPlayer.justAttack && !this.player.receivingDamage && this.otherPlayer.crouching) {
+			console.log("The other player made a DownAttack");
 			this.player.takeDamage(10);
 			switch (this.parameters.player2CharacterID) {
 				case 0:
@@ -1162,10 +1163,11 @@ export default class GameNet extends Phaser.Scene {
 				this.setValueBar2Player2(this.player.hp / this.player.maxhp);
 			}
 			this.otherPlayer.justAttack = false;
-			console.log('player 1 received 10 damage after a DownAttack!');
+			console.log('The player received 10 damage after a DownAttack!');
 		}
 
 		if (this.otherPlayer.attacking && this.player.blocking && this.otherPlayer.justAttack && !this.player.receivingDamage && this.otherPlayer.crouching) {
+			console.log("The other player made a DownAttack");
 			this.player.takeDamage(5);
 			switch (this.parameters.player2CharacterID) {
 				case 0:
@@ -1188,7 +1190,7 @@ export default class GameNet extends Phaser.Scene {
 				this.setValueBar2Player2(this.player.hp / this.player.maxhp);
 			}
 			this.otherPlayer.justAttack = false;
-			console.log('player 1 received 5 damage after a DownAttack!');
+			console.log('The player received 5 damage after a DownAttack!');
 		}
 	}
 
